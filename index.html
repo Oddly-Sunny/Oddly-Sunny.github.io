@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>oddly sunny</title>
+<title>Oddly Sunny</title>
+<meta name="description" content="Oddly Sunny is an independent studio providing marketing, product strategy, commercialization, and growth advisory to technology companies — and building a portfolio of software of its own.">
+<meta property="og:title" content="oddly sunny — independent studio">
+<meta property="og:description" content="Marketing, product strategy, commercialization, and growth advisory for technology companies — and a portfolio of software we build and operate ourselves.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oddlysunny.com/">
+<meta name="theme-color" content="#091A12">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5VRS4WZ09"></script>
 <script>
@@ -340,7 +346,7 @@
   /* ---- Pillars ---- */
   .pillars {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1px;
     background: rgba(64,145,108,0.1);
     border-radius: 20px;
@@ -369,6 +375,7 @@
   .pillar:nth-child(1) .pillar-dot { background: #40916C; }
   .pillar:nth-child(2) .pillar-dot { background: #6AB58E; }
   .pillar:nth-child(3) .pillar-dot { background: #F6C547; }
+  .pillar:nth-child(4) .pillar-dot { background: #2D6A4F; }
 
   .pillar h3 {
     font-family: 'Newsreader', serif;
@@ -377,6 +384,8 @@
     color: #EDF5F0;
     margin-bottom: 12px;
     line-height: 1.3;
+    overflow-wrap: break-word;
+    hyphens: auto;
     transition: color 0.9s ease;
   }
 
@@ -517,7 +526,7 @@
 
   <div class="hero-text-wrap" id="heroText">
     <h1 class="headline" id="headline">at the edges of <em>what's familiar</em></h1>
-    <p class="sub" id="subText">technology that moves just ahead of expectation.<br>software shaped by curiosity, built where convention runs out.</p>
+    <p class="sub" id="subText">we partner with technology companies on marketing, product strategy, commercialization, and growth —<br>and build a portfolio of software of our own.</p>
     <div class="sub-name" id="subName"><span class="sub-pulse"></span>oddly <span id="subNameSpan">sunny</span></div>
   </div>
 
@@ -529,6 +538,59 @@
   <div class="spacer"></div>
 
   <div id="zonePurple"></div>
+
+  <div class="highlight-block" data-highlight>
+    <p class="highlight-text">
+      <span class="word">we</span>
+      <span class="word">work</span>
+      <span class="word">two</span>
+      <span class="word">ways.</span>
+      <span class="word">beside</span>
+      <span class="word">the</span>
+      <span class="word">companies</span>
+      <span class="word">we</span>
+      <span class="word accent">advise,</span>
+      <span class="word">and</span>
+      <span class="word">inside</span>
+      <span class="word">the</span>
+      <span class="word">products</span>
+      <span class="word">we</span>
+      <span class="word accent">own.</span>
+    </p>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="divider" id="divider1"></div>
+  <div class="spacer"></div>
+
+  <div id="zoneEmber"></div>
+
+  <div class="pillars" id="pillars">
+    <div class="pillar">
+      <div class="pillar-dot" id="dot1"></div>
+      <h3 class="ph">marketing</h3>
+      <p class="pp">the discipline we know best — brand, positioning, and messaging that earn attention, and the demand that turns it into customers.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-dot" id="dot2"></div>
+      <h3 class="ph">product strategy</h3>
+      <p class="pp">we find the sharpest version of what you're building — the gap worth owning, the scope worth cutting, the bet worth making.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-dot" id="dot3"></div>
+      <h3 class="ph">commercialization</h3>
+      <p class="pp">pricing, packaging, and the model that turn a working product into a working business, with a clear path to market.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-dot" id="dot4"></div>
+      <h3 class="ph">growth</h3>
+      <p class="pp">the loops that compound after launch — acquisition, retention, and the channels that return more than they cost.</p>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+  <div class="divider" id="divider2"></div>
+  <div class="spacer"></div>
 
   <div class="highlight-block" data-highlight>
     <p class="highlight-text">
@@ -553,38 +615,12 @@
     </p>
   </div>
 
-  <div class="spacer"></div>
-  <div class="divider" id="divider1"></div>
-  <div class="spacer"></div>
-
-  <div id="zoneEmber"></div>
-
-  <div class="pillars" id="pillars">
-    <div class="pillar">
-      <div class="pillar-dot" id="dot1"></div>
-      <h3 class="ph">look closer</h3>
-      <p class="pp">every product starts as a gap someone else ignored. we spend time in those gaps until they reveal what's missing.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-dot" id="dot2"></div>
-      <h3 class="ph">get it right</h3>
-      <p class="pp">considered software. interfaces that feel inevitable. the kind of detail you only notice when it's absent.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-dot" id="dot3"></div>
-      <h3 class="ph">move first</h3>
-      <p class="pp">the distance between idea and product should be short and deliberate. we build forward, not in circles.</p>
-    </div>
-  </div>
-
-  <div class="spacer"></div>
-  <div class="divider" id="divider2"></div>
   <div class="spacer-sm"></div>
 
   <div class="status-block" id="statusBlock">
     <div class="status">
       <div class="status-dot"></div>
-      <span class="status-text" id="statusText">building something oddly new</span>
+      <span class="status-text" id="statusText">deliver something oddly good</span>
     </div>
     <a href="mailto:hello@oddlysunny.com" class="cta">
       get in touch
@@ -601,7 +637,7 @@
     <div class="cell oddly c3" id="fc3"></div>
     <div class="cell c4" id="fc4"></div>
   </div>
-  <span class="footer-text" id="footerText">oddly sunny</span>
+  <span class="footer-text" id="footerText">oddly sunny llc</span>
 </footer>
 
 <script>
@@ -718,6 +754,7 @@
     document.querySelectorAll('.pillar').forEach(p => p.style.backgroundColor = s.card);
     document.getElementById('dot1').style.backgroundColor = s.primary;
     document.getElementById('dot2').style.backgroundColor = s.light;
+    document.getElementById('dot4').style.backgroundColor = s.deep;
     document.querySelectorAll('.ph').forEach(el => el.style.color = s.text);
     document.querySelectorAll('.pp').forEach(el => el.style.color = s.muted);
 
