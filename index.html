@@ -471,10 +471,18 @@
   footer {
     padding: 40px 48px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 80px;
+  }
+
+  .footer-top {
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: 80px;
   }
 
   .footer-mark {
@@ -639,13 +647,15 @@
 </div>
 
 <footer>
-  <div class="footer-mark">
-    <div class="cell c1" id="fc1"></div>
-    <div class="cell c2" id="fc2"></div>
-    <div class="cell oddly c3" id="fc3"></div>
-    <div class="cell c4" id="fc4"></div>
+  <div class="footer-top">
+    <div class="footer-mark">
+      <div class="cell c1" id="fc1"></div>
+      <div class="cell c2" id="fc2"></div>
+      <div class="cell oddly c3" id="fc3"></div>
+      <div class="cell c4" id="fc4"></div>
+    </div>
+    <span class="footer-text" id="footerText">oddly sunny llc</span>
   </div>
-  <span class="footer-text" id="footerText">oddly sunny llc</span>
   <span class="footer-links">
     <a href="/privacy/" class="footer-cookie-link">Privacy</a>
     <a href="/cookie-settings/" class="footer-cookie-link">Cookie settings</a>
@@ -823,7 +833,7 @@
   /* opt-out: accent primary + outline secondary */
   #cookieBanner.cc-optout .cc-primary{background:#eef3ef;color:#0d2119;border-color:#eef3ef;}
   #cookieBanner.cc-optout .cc-secondary{background:transparent;color:#eef3ef;border-color:rgba(238,243,239,.5);}
-  .footer-links{display:inline-flex;gap:16px;margin-top:8px;}
+  .footer-links{display:inline-flex;gap:16px;}
   .footer-cookie-link{display:inline-block;font-size:11px;letter-spacing:.04em;
     color:inherit;opacity:.5;text-decoration:none;}
   .footer-cookie-link:hover{opacity:.85;text-decoration:underline;}
