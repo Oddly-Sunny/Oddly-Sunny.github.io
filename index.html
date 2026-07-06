@@ -10,11 +10,19 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://oddlysunny.com/">
 <meta name="theme-color" content="#091A12">
-<!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) with Consent Mode v2. Analytics storage defaults to
+     "denied" so no _ga cookies are set until the consent controller (near the
+     end of the page) decides, based on region and Global Privacy Control. -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5VRS4WZ09"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    analytics_storage: 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied'
+  });
   gtag('js', new Date());
   gtag('config', 'G-Q5VRS4WZ09');
 </script>
@@ -638,6 +646,7 @@
     <div class="cell c4" id="fc4"></div>
   </div>
   <span class="footer-text" id="footerText">oddly sunny llc</span>
+  <a href="#" id="cookieSettingsLink" class="footer-cookie-link">Cookie settings</a>
 </footer>
 
 <script>
@@ -791,6 +800,93 @@
   currentScheme = '';
   applyScheme('green');
   updateHighlights();
+</script>
+
+<!-- ===== Cookie consent ===== -->
+<style>
+  #cookieBanner{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;margin:0 auto;max-width:600px;
+    background:#0d2119;color:#eef3ef;border:1px solid rgba(238,243,239,.16);border-radius:12px;
+    padding:16px 18px;box-shadow:0 24px 50px -28px rgba(0,0,0,.7);
+    display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-family:'Sora',system-ui,sans-serif;}
+  #cookieBanner[hidden]{display:none;}
+  #cookieMsg{margin:0;flex:1 1 260px;font-size:13.5px;line-height:1.5;opacity:.9;}
+  #cookieBanner .cc-btns{display:flex;gap:8px;flex-wrap:wrap;}
+  #cookieBanner button{font:inherit;font-size:13px;font-weight:500;padding:8px 16px;border-radius:999px;
+    cursor:pointer;border:1px solid transparent;transition:opacity .15s;}
+  #cookieBanner button:hover{opacity:.85;}
+  /* opt-in: both buttons equal prominence */
+  #cookieBanner.cc-optin .cc-primary,#cookieBanner.cc-optin .cc-secondary{
+    background:#eef3ef;color:#0d2119;border-color:#eef3ef;}
+  /* opt-out: accent primary + outline secondary */
+  #cookieBanner.cc-optout .cc-primary{background:#eef3ef;color:#0d2119;border-color:#eef3ef;}
+  #cookieBanner.cc-optout .cc-secondary{background:transparent;color:#eef3ef;border-color:rgba(238,243,239,.5);}
+  .footer-cookie-link{display:inline-block;margin-top:8px;font-size:11px;letter-spacing:.04em;
+    color:inherit;opacity:.5;text-decoration:none;}
+  .footer-cookie-link:hover{opacity:.85;text-decoration:underline;}
+</style>
+<div id="cookieBanner" role="dialog" aria-label="Cookie choices" hidden>
+  <p id="cookieMsg"></p>
+  <div class="cc-btns">
+    <button type="button" class="cc-secondary" id="cookieDecline"></button>
+    <button type="button" class="cc-primary" id="cookieAccept"></button>
+  </div>
+</div>
+<script>
+  (function(){
+    var KEY = 'oddly-sunny:consent';
+    // Opt-in countries: EU/EEA + UK + Switzerland. Everyone else is default-on
+    // with an easy opt-out (and we always honor Global Privacy Control).
+    var GDPR = {AT:1,BE:1,BG:1,HR:1,CY:1,CZ:1,DK:1,EE:1,FI:1,FR:1,DE:1,GR:1,HU:1,IE:1,IT:1,LV:1,
+      LT:1,LU:1,MT:1,NL:1,PL:1,PT:1,RO:1,SK:1,SI:1,ES:1,SE:1,IS:1,LI:1,NO:1,GB:1,CH:1};
+    var banner = document.getElementById('cookieBanner');
+    var msg = document.getElementById('cookieMsg');
+    var acceptBtn = document.getElementById('cookieAccept');
+    var declineBtn = document.getElementById('cookieDecline');
+    var settingsLink = document.getElementById('cookieSettingsLink');
+    var regionMode = 'optin';
+
+    function read(){ try{ var v=localStorage.getItem(KEY); return (v==='granted'||v==='denied')?v:null; }catch(e){ return null; } }
+    function apply(v){
+      try{ localStorage.setItem(KEY, v); }catch(e){}
+      if(typeof window.gtag==='function'){
+        window.gtag('consent','update',{analytics_storage:v,ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+      }
+    }
+    function hasGpc(){ try{ return navigator.globalPrivacyControl===true; }catch(e){ return false; } }
+    function show(mode){
+      var optIn = mode==='optin';
+      banner.className = optIn ? 'cc-optin' : 'cc-optout';
+      msg.textContent = optIn
+        ? 'We would like to use a little analytics to see how the site is used. We will not set any cookies until you agree.'
+        : 'We use a little analytics to see how the site is used. Nothing personal, and you can opt out any time.';
+      declineBtn.textContent = optIn ? 'Decline' : 'Opt out';
+      acceptBtn.textContent = optIn ? 'Accept' : 'Got it';
+      banner.hidden = false;
+    }
+    function choose(v){ apply(v); banner.hidden = true; }
+    acceptBtn.addEventListener('click', function(){ choose('granted'); });
+    declineBtn.addEventListener('click', function(){ choose('denied'); });
+    if(settingsLink){ settingsLink.addEventListener('click', function(e){ e.preventDefault(); show(regionMode); }); }
+
+    var existing = read();
+    var gpc = hasGpc();
+    if(existing){ apply(existing); }
+    else if(gpc){ apply('denied'); } // GPC is a legal opt-out signal: honor it, no prompt
+
+    // Resolve region same-origin via Cloudflare (no third-party request).
+    fetch('/cdn-cgi/trace').then(function(r){ return r.text(); }).then(function(t){
+      var m = /(?:^|\n)loc=([A-Z]{2})/.exec(t);
+      var cc = m ? m[1] : '';
+      var optIn = !cc || !!GDPR[cc]; // unknown country -> opt-in (safer)
+      regionMode = optIn ? 'optin' : 'optout';
+      if(existing || gpc) return;      // choice already made, no prompt
+      if(optIn){ show('optin'); }       // EU/EEA/UK/CH/unknown: denied until agree
+      else { apply('granted'); show('optout'); } // elsewhere: default-on, easy opt-out
+    }).catch(function(){
+      regionMode = 'optin';
+      if(!existing && !gpc) show('optin'); // can't resolve region -> opt-in (safer)
+    });
+  })();
 </script>
 
 </body>
