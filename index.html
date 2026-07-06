@@ -646,7 +646,10 @@
     <div class="cell c4" id="fc4"></div>
   </div>
   <span class="footer-text" id="footerText">oddly sunny llc</span>
-  <a href="#" id="cookieSettingsLink" class="footer-cookie-link">Cookie settings</a>
+  <span class="footer-links">
+    <a href="/privacy/" class="footer-cookie-link">Privacy</a>
+    <a href="/cookie-settings/" class="footer-cookie-link">Cookie settings</a>
+  </span>
 </footer>
 
 <script>
@@ -820,9 +823,11 @@
   /* opt-out: accent primary + outline secondary */
   #cookieBanner.cc-optout .cc-primary{background:#eef3ef;color:#0d2119;border-color:#eef3ef;}
   #cookieBanner.cc-optout .cc-secondary{background:transparent;color:#eef3ef;border-color:rgba(238,243,239,.5);}
-  .footer-cookie-link{display:inline-block;margin-top:8px;font-size:11px;letter-spacing:.04em;
+  .footer-links{display:inline-flex;gap:16px;margin-top:8px;}
+  .footer-cookie-link{display:inline-block;font-size:11px;letter-spacing:.04em;
     color:inherit;opacity:.5;text-decoration:none;}
   .footer-cookie-link:hover{opacity:.85;text-decoration:underline;}
+  #cookieBanner .cc-learn{color:inherit;opacity:.75;font-size:12px;text-decoration:underline;white-space:nowrap;}
 </style>
 <div id="cookieBanner" role="dialog" aria-label="Cookie choices" hidden>
   <p id="cookieMsg"></p>
@@ -842,7 +847,6 @@
     var msg = document.getElementById('cookieMsg');
     var acceptBtn = document.getElementById('cookieAccept');
     var declineBtn = document.getElementById('cookieDecline');
-    var settingsLink = document.getElementById('cookieSettingsLink');
     var regionMode = 'optin';
 
     function read(){ try{ var v=localStorage.getItem(KEY); return (v==='granted'||v==='denied')?v:null; }catch(e){ return null; } }
@@ -856,9 +860,10 @@
     function show(mode){
       var optIn = mode==='optin';
       banner.className = optIn ? 'cc-optin' : 'cc-optout';
-      msg.textContent = optIn
+      var text = optIn
         ? 'We would like to use a little analytics to see how the site is used. We will not set any cookies until you agree.'
         : 'We use a little analytics to see how the site is used. Nothing personal, and you can opt out any time.';
+      msg.innerHTML = text + ' <a href="/privacy/" class="cc-learn">Learn more</a>';
       declineBtn.textContent = optIn ? 'Decline' : 'Opt out';
       acceptBtn.textContent = optIn ? 'Accept' : 'Got it';
       banner.hidden = false;
@@ -866,7 +871,6 @@
     function choose(v){ apply(v); banner.hidden = true; }
     acceptBtn.addEventListener('click', function(){ choose('granted'); });
     declineBtn.addEventListener('click', function(){ choose('denied'); });
-    if(settingsLink){ settingsLink.addEventListener('click', function(e){ e.preventDefault(); show(regionMode); }); }
 
     var existing = read();
     var gpc = hasGpc();

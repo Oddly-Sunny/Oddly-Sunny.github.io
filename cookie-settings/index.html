@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Settings · Oddly Sunny</title>
+<meta name="robots" content="noindex,follow">
+<!-- Google tag with Consent Mode v2 (analytics denied by default), so a change
+     here takes effect immediately and persists for the rest of the site. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5VRS4WZ09"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+  gtag('js', new Date());
+  gtag('config','G-Q5VRS4WZ09');
+</script>
+<style>
+  :root{ --bg:#faf8f3; --ink:#14201b; --ink-2:#4b5a52; --line:#e4e0d6; --accent:#c2603f; --card:#fffdf8; }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0c130f; --ink:#eef3ef; --ink-2:#9db0a6; --line:#26332c; --accent:#e0805f; --card:#111a15; }
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:'Sora',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; line-height:1.6; }
+  .wrap{ max-width:640px; margin:0 auto; padding:56px 22px 80px; }
+  a{ color:var(--accent); }
+  h1{ font-family:'Newsreader',Georgia,serif; font-weight:400; font-size:clamp(28px,5vw,42px); margin:6px 0 8px; }
+  .eyebrow{ text-transform:uppercase; letter-spacing:.14em; font-size:12px; color:var(--ink-2); }
+  .lede{ color:var(--ink-2); margin:0 0 24px; }
+  .row{ display:flex; align-items:flex-start; justify-content:space-between; gap:18px; padding:16px 18px; border:1px solid var(--line); border-radius:10px; margin-bottom:12px; background:var(--card); }
+  .row p{ margin:0; }
+  .row .t{ font-weight:600; }
+  .row .d{ color:var(--ink-2); font-size:13.5px; margin-top:4px; }
+  .always{ color:var(--ink-2); font-size:12px; white-space:nowrap; margin-top:3px; }
+  .sw{ flex-shrink:0; margin-top:2px; width:46px; height:28px; border-radius:999px; border:none; cursor:pointer; background:var(--line); position:relative; transition:background .15s; }
+  .sw[aria-checked="true"]{ background:var(--accent); }
+  .sw span{ position:absolute; top:3px; left:3px; width:22px; height:22px; border-radius:50%; background:#fff; transition:left .15s; box-shadow:0 1px 3px rgba(0,0,0,.3); }
+  .sw[aria-checked="true"] span{ left:21px; }
+  .save{ margin-top:18px; display:flex; align-items:center; gap:14px; }
+  button.save-btn{ font:inherit; font-weight:600; font-size:14px; padding:9px 20px; border-radius:999px; border:none; cursor:pointer; background:var(--accent); color:#fff; }
+  .saved{ color:var(--ink-2); font-size:13px; }
+  .back{ display:inline-block; margin-top:28px; font-size:14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Oddly Sunny</div>
+  <h1>Cookie settings</h1>
+  <p class="lede">Choose whether we use analytics cookies on your visits. You can change this any time, and we also honor the Global Privacy Control browser signal as an opt-out. More detail in our <a href="/privacy/">Privacy &amp; Cookie Policy</a>.</p>
+
+  <div class="row">
+    <div>
+      <p class="t">Strictly necessary</p>
+      <p class="d">Needed for the site to work and to remember your consent choice. Always on.</p>
+    </div>
+    <span class="always">Always on</span>
+  </div>
+
+  <div class="row">
+    <div>
+      <p class="t">Analytics</p>
+      <p class="d">Anonymous Google Analytics so we can see how the site is used. Nothing personal.</p>
+    </div>
+    <button type="button" class="sw" id="sw" role="switch" aria-checked="false" aria-label="Toggle analytics cookies"><span></span></button>
+  </div>
+
+  <div class="save">
+    <button type="button" class="save-btn" id="saveBtn">Save choice</button>
+    <span class="saved" id="savedMsg" hidden>Saved.</span>
+  </div>
+
+  <a class="back" href="/">&larr; Back to oddlysunny.com</a>
+</div>
+<script>
+  (function(){
+    var KEY='oddly-sunny:consent';
+    var sw=document.getElementById('sw'), saveBtn=document.getElementById('saveBtn'), savedMsg=document.getElementById('savedMsg');
+    function read(){ try{ var v=localStorage.getItem(KEY); return (v==='granted'||v==='denied')?v:null; }catch(e){ return null; } }
+    function setSwitch(on){ sw.setAttribute('aria-checked', on?'true':'false'); }
+    setSwitch(read()==='granted');
+    sw.addEventListener('click', function(){ setSwitch(sw.getAttribute('aria-checked')!=='true'); savedMsg.hidden=true; });
+    saveBtn.addEventListener('click', function(){
+      var on = sw.getAttribute('aria-checked')==='true';
+      var v = on?'granted':'denied';
+      try{ localStorage.setItem(KEY, v); }catch(e){}
+      if(typeof window.gtag==='function'){
+        window.gtag('consent','update',{analytics_storage:v,ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+      }
+      savedMsg.hidden=false;
+    });
+  })();
+</script>
+</body>
+</html>
