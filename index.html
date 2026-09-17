@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oddly Sunny</title>
-<meta name="description" content="Oddly Sunny is an independent studio providing marketing, product strategy, commercialization, and growth advisory to technology companies — and building a portfolio of software of its own.">
+<meta name="description" content="Oddly Sunny is an independent studio that builds and operates self-study apps and websites that help people prepare for standardized tests.">
 <meta property="og:title" content="oddly sunny — independent studio">
-<meta property="og:description" content="Marketing, product strategy, commercialization, and growth advisory for technology companies — and a portfolio of software we build and operate ourselves.">
+<meta property="og:description" content="Oddly Sunny is an independent studio that builds and operates self-study apps and websites that help people prepare for standardized tests.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://oddlysunny.com/">
 <meta name="theme-color" content="#091A12">
@@ -354,7 +354,7 @@
   /* ---- Pillars ---- */
   .pillars {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1px;
     background: rgba(64,145,108,0.1);
     border-radius: 20px;
@@ -383,7 +383,6 @@
   .pillar:nth-child(1) .pillar-dot { background: #40916C; }
   .pillar:nth-child(2) .pillar-dot { background: #6AB58E; }
   .pillar:nth-child(3) .pillar-dot { background: #F6C547; }
-  .pillar:nth-child(4) .pillar-dot { background: #2D6A4F; }
 
   .pillar h3 {
     font-family: 'Newsreader', serif;
@@ -542,7 +541,7 @@
 
   <div class="hero-text-wrap" id="heroText">
     <h1 class="headline" id="headline">at the edges of <em>what's familiar</em></h1>
-    <p class="sub" id="subText">we partner with technology companies on marketing, product strategy, commercialization, and growth —<br>and build a portfolio of software of our own.</p>
+    <p class="sub" id="subText">we build and run a small portfolio of learning apps and websites — practice tools that help people pass the tests that stand between them and a licence, a credential, or a new country.</p>
     <div class="sub-name" id="subName"><span class="sub-pulse"></span>oddly <span id="subNameSpan">sunny</span></div>
   </div>
 
@@ -559,19 +558,18 @@
     <p class="highlight-text">
       <span class="word">we</span>
       <span class="word">work</span>
-      <span class="word">two</span>
-      <span class="word">ways.</span>
-      <span class="word">beside</span>
-      <span class="word">the</span>
-      <span class="word">companies</span>
+      <span class="word">one</span>
+      <span class="word">way.</span>
       <span class="word">we</span>
-      <span class="word accent">advise,</span>
-      <span class="word">and</span>
-      <span class="word">inside</span>
+      <span class="word">build</span>
       <span class="word">the</span>
       <span class="word">products</span>
+      <span class="word accent">ourselves,</span>
+      <span class="word">and</span>
       <span class="word">we</span>
-      <span class="word accent">own.</span>
+      <span class="word">run</span>
+      <span class="word">them</span>
+      <span class="word accent">ourselves.</span>
     </p>
   </div>
 
@@ -584,23 +582,18 @@
   <div class="pillars" id="pillars">
     <div class="pillar">
       <div class="pillar-dot" id="dot1"></div>
-      <h3 class="ph">marketing</h3>
-      <p class="pp">the discipline we know best — brand, positioning, and messaging that earn attention, and the demand that turns it into customers.</p>
+      <h3 class="ph">what we build</h3>
+      <p class="pp">self-study practice tools for standardized tests — driving knowledge tests, citizenship tests, and professional licensing exams. apps for phone and web, sold directly to the people who use them.</p>
     </div>
     <div class="pillar">
       <div class="pillar-dot" id="dot2"></div>
-      <h3 class="ph">product strategy</h3>
-      <p class="pp">we find the sharpest version of what you're building — the gap worth owning, the scope worth cutting, the bet worth making.</p>
+      <h3 class="ph">how we build</h3>
+      <p class="pp">small, fast, and hands-on. we use ai tools heavily in research, content, and code, and we check the content ourselves against the official sources it comes from.</p>
     </div>
     <div class="pillar">
       <div class="pillar-dot" id="dot3"></div>
-      <h3 class="ph">commercialization</h3>
-      <p class="pp">pricing, packaging, and the model that turn a working product into a working business, with a clear path to market.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-dot" id="dot4"></div>
-      <h3 class="ph">growth</h3>
-      <p class="pp">the loops that compound after launch — acquisition, retention, and the channels that return more than they cost.</p>
+      <h3 class="ph">why</h3>
+      <p class="pp">these tests decide real things for real people. we think the practice should be accurate, affordable, and not annoying.</p>
     </div>
   </div>
 
@@ -639,7 +632,7 @@
       <span class="status-text" id="statusText">deliver something oddly good</span>
     </div>
     <a href="mailto:hello@oddlysunny.com" class="cta">
-      get in touch
+      say hello
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
     </a>
   </div>
@@ -776,7 +769,6 @@
     document.querySelectorAll('.pillar').forEach(p => p.style.backgroundColor = s.card);
     document.getElementById('dot1').style.backgroundColor = s.primary;
     document.getElementById('dot2').style.backgroundColor = s.light;
-    document.getElementById('dot4').style.backgroundColor = s.deep;
     document.querySelectorAll('.ph').forEach(el => el.style.color = s.text);
     document.querySelectorAll('.pp').forEach(el => el.style.color = s.muted);
 
