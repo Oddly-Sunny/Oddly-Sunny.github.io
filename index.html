@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oddly Sunny</title>
-<meta name="description" content="Oddly Sunny is an independent studio that builds and operates self-study apps and websites that help people prepare for standardized tests.">
+<meta name="description" content="Oddly Sunny is an independent studio that designs, builds, and operates its own learning software.">
 <meta property="og:title" content="oddly sunny — independent studio">
-<meta property="og:description" content="Oddly Sunny is an independent studio that builds and operates self-study apps and websites that help people prepare for standardized tests.">
+<meta property="og:description" content="Oddly Sunny is an independent studio that designs, builds, and operates its own learning software.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://oddlysunny.com/">
 <meta name="theme-color" content="#091A12">
@@ -541,7 +541,7 @@
 
   <div class="hero-text-wrap" id="heroText">
     <h1 class="headline" id="headline">at the edges of <em>what's familiar</em></h1>
-    <p class="sub" id="subText">we build and run a small portfolio of learning apps and websites — practice tools that help people pass the tests that stand between them and a licence, a credential, or a new country.</p>
+    <p class="sub" id="subText">an independent studio. we design, build, and run our own learning software, starting with preparation for standardized tests. no clients, no services.</p>
     <div class="sub-name" id="subName"><span class="sub-pulse"></span>oddly <span id="subNameSpan">sunny</span></div>
   </div>
 
@@ -550,55 +550,6 @@
 
 <div class="content">
 
-  <div class="spacer"></div>
-
-  <div id="zonePurple"></div>
-
-  <div class="highlight-block" data-highlight>
-    <p class="highlight-text">
-      <span class="word">we</span>
-      <span class="word">work</span>
-      <span class="word">one</span>
-      <span class="word">way.</span>
-      <span class="word">we</span>
-      <span class="word">build</span>
-      <span class="word">the</span>
-      <span class="word">products</span>
-      <span class="word accent">ourselves,</span>
-      <span class="word">and</span>
-      <span class="word">we</span>
-      <span class="word">run</span>
-      <span class="word">them</span>
-      <span class="word accent">ourselves.</span>
-    </p>
-  </div>
-
-  <div class="spacer"></div>
-  <div class="divider" id="divider1"></div>
-  <div class="spacer"></div>
-
-  <div id="zoneEmber"></div>
-
-  <div class="pillars" id="pillars">
-    <div class="pillar">
-      <div class="pillar-dot" id="dot1"></div>
-      <h3 class="ph">what we build</h3>
-      <p class="pp">self-study practice tools for standardized tests — driving knowledge tests, citizenship tests, and professional licensing exams. apps for phone and web, sold directly to the people who use them.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-dot" id="dot2"></div>
-      <h3 class="ph">how we build</h3>
-      <p class="pp">small, fast, and hands-on. we use ai tools heavily in research, content, and code, and we check the content ourselves against the official sources it comes from.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-dot" id="dot3"></div>
-      <h3 class="ph">why</h3>
-      <p class="pp">these tests decide real things for real people. we think the practice should be accurate, affordable, and not annoying.</p>
-    </div>
-  </div>
-
-  <div class="spacer"></div>
-  <div class="divider" id="divider2"></div>
   <div class="spacer"></div>
 
   <div class="highlight-block" data-highlight>
@@ -681,14 +632,14 @@
   const ro = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.2 });
-  document.querySelectorAll('#pillars, #statusBlock').forEach(el => ro.observe(el));
+  document.querySelectorAll('#statusBlock').forEach(el => ro.observe(el));
 
   // ==============================
   // Highlight words on scroll
   // ==============================
   const hlBlocks = document.querySelectorAll('[data-highlight]');
+  const LIT = '#EDF5F0', DIM = '#2E5E45';
   function updateHighlights() {
-    const s = schemes[currentScheme];
     hlBlocks.forEach(block => {
       const words = block.querySelectorAll('.word');
       const rect = block.getBoundingClientRect();
@@ -700,110 +651,13 @@
         const lit = progress >= threshold;
         word.classList.toggle('lit', lit);
         if (!word.classList.contains('accent')) {
-          word.style.color = lit ? s.text : s.dim;
+          word.style.color = lit ? LIT : DIM;
         }
       });
     });
   }
 
-  // ==============================
-  // Color schemes
-  // ==============================
-  const schemes = {
-    green: {
-      primary: '#40916C', light: '#6AB58E', deep: '#2D6A4F',
-      bg: '#091A12', card: '#0F2119',
-      text: '#EDF5F0', muted: '#6A9A82', dim: '#2E5E45',
-      border: 'rgba(64,145,108,0.1)', glow: '64,145,108',
-    },
-    purple: {
-      primary: '#7C3AED', light: '#9F6EF7', deep: '#6D28D9',
-      bg: '#0D0815', card: '#130E1F',
-      text: '#F0ECF7', muted: '#6B5A8A', dim: '#3D2D5C',
-      border: 'rgba(124,58,237,0.1)', glow: '124,58,237',
-    },
-    ember: {
-      primary: '#C75B39', light: '#E09272', deep: '#8B3A25',
-      bg: '#140A06', card: '#1E110A',
-      text: '#F5EDE8', muted: '#9A7566', dim: '#5C3426',
-      border: 'rgba(199,91,57,0.1)', glow: '199,91,57',
-    }
-  };
-
-  let currentScheme = 'green';
-
-  function applyScheme(name) {
-    if (name === currentScheme) return;
-    currentScheme = name;
-    const s = schemes[name];
-
-    document.getElementById('bgLayer').style.backgroundColor = s.bg;
-
-    // Hero mark (only non-gold cells)
-    document.querySelector('#heroMark .c1').style.backgroundColor = s.primary;
-    document.querySelector('#heroMark .c2').style.backgroundColor = s.light;
-    document.querySelector('#heroMark .c4').style.backgroundColor = s.deep;
-
-    // Hero text
-    document.getElementById('headline').style.color = s.text;
-    document.getElementById('subText').style.color = s.muted;
-    document.getElementById('subName').style.color = s.dim;
-    document.getElementById('subNameSpan').style.color = s.light;
-
-    // Scroll line
-    document.getElementById('scrollLine').style.background =
-      `linear-gradient(to bottom, rgba(${s.glow},0.3), transparent)`;
-
-    // Glows
-    document.getElementById('glow1').style.background =
-      `radial-gradient(ellipse, rgba(${s.glow},0.12) 0%, transparent 65%)`;
-    document.getElementById('glow3').style.background =
-      `radial-gradient(ellipse, rgba(${s.glow},0.08) 0%, transparent 60%)`;
-
-    // Dividers
-    document.getElementById('divider1').style.background = s.border;
-    document.getElementById('divider2').style.background = s.border;
-
-    // Pillars
-    document.getElementById('pillars').style.backgroundColor = s.border;
-    document.querySelectorAll('.pillar').forEach(p => p.style.backgroundColor = s.card);
-    document.getElementById('dot1').style.backgroundColor = s.primary;
-    document.getElementById('dot2').style.backgroundColor = s.light;
-    document.querySelectorAll('.ph').forEach(el => el.style.color = s.text);
-    document.querySelectorAll('.pp').forEach(el => el.style.color = s.muted);
-
-    // Status
-    document.getElementById('statusText').style.color = s.dim;
-
-    // Footer
-    document.getElementById('fc1').style.backgroundColor = s.primary;
-    document.getElementById('fc2').style.backgroundColor = s.light;
-    document.getElementById('fc4').style.backgroundColor = s.deep;
-    document.getElementById('footerText').style.color = s.dim;
-  }
-
-  // Scroll-driven scheme switching
-  function checkScheme() {
-    const triggerOffset = window.innerHeight * 0.45;
-    const purpleTop = document.getElementById('zonePurple').getBoundingClientRect().top;
-    const emberTop = document.getElementById('zoneEmber').getBoundingClientRect().top;
-
-    if (emberTop < triggerOffset) {
-      applyScheme('ember');
-    } else if (purpleTop < triggerOffset) {
-      applyScheme('purple');
-    } else {
-      applyScheme('green');
-    }
-
-    updateHighlights();
-  }
-
-  window.addEventListener('scroll', checkScheme, { passive: true });
-
-  // Initial
-  currentScheme = '';
-  applyScheme('green');
+  window.addEventListener('scroll', updateHighlights, { passive: true });
   updateHighlights();
 </script>
 
