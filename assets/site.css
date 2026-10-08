@@ -329,7 +329,7 @@ h2.h2 i{font-size:1.06em;letter-spacing:-.01em}
 @media(max-width:960px){
   .brow,.brow.rev{grid-template-columns:1fr}
   .stack{grid-template-rows:none}
-  .stack .pt,.brow>.pt{aspect-ratio:3/2}
+  .stack .pt,.brow>.pt{aspect-ratio:4/5}
   .pt.all{padding:30px 26px}
 }
 @media(hover:none){.pt .cap{transform:none}.pt .more{opacity:1}}
@@ -580,7 +580,7 @@ h2.h2{font-size:clamp(26px,3vw,40px);line-height:1.12}
 .s-more .h2{margin:12px 0 34px}
 .more-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .more-grid .pt{aspect-ratio:3/2}
-@media(max-width:900px){.more-grid{grid-template-columns:1fr}}
+@media(max-width:900px){.more-grid{grid-template-columns:1fr}.more-grid .pt{aspect-ratio:4/5}}
 /* sidebar buttons: one size, one shape */
 .s-side .btn,.s-side .store,.s-side .web-only{box-sizing:border-box;width:100%;height:46px;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 18px;border-radius:99px;font-family:var(--sans);font-size:13px;font-weight:500;line-height:1}
 .s-side .store{background:transparent;border:1px solid color-mix(in srgb,var(--text) 35%,transparent);color:var(--text);flex:none}
