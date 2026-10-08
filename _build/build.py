@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Builds the oddlysunny.com static pages. Run from repo root: python3 _build/build.py
 Writes index.html, work/index.html and work/<slug>/index.html. Edit copy here, not in the output."""
-import os, html, json
+import os, sys, html, json
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from stories import STORIES
 MAIL = "hello@oddlysunny.com"
 
 APPLE = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.800 2.300-1.600 2.800-.4 7 1.200 9.300.8 1.100 1.700 2.400 2.900 2.300 1.200 0 1.600-.7 3-.7s1.800.7 3 .7c1.300 0 2.100-1.100 2.800-2.200.9-1.300 1.300-2.500 1.300-2.600-.1 0-2.500-1-2.500-3.900zM14.200 5.800c.6-.8 1.100-1.800.9-2.800-.9 0-2 .6-2.700 1.400-.6.700-1.100 1.800-.9 2.700 1 .1 2-.5 2.700-1.300z"/></svg>'
@@ -33,7 +35,7 @@ PRODUCTS = [
          ("Study guides and tools","A growing library of study guides, a test code lookup, and a pass-rate index built from real FAA data."),
          ("Practice modes that fit your week","Quick sets, topic drills, full simulator runs. Ten minutes or two hours, you pick."),
          ("Built for the checkride path","Written for the student pilot, the CFI refreshing, and the airline hopeful alike.")],
-  apps=[], appnote="Web today. The mobile app is in the works.",
+  apps=[("Aviator IQ",[("ios","https://apps.apple.com/us/app/aviator-iq-faa-test-prep/id6813969252")])], appnote="",
   img="aviator-iq.jpg", alt="Aviator IQ on a laptop in a sunlit living room"),
 
  dict(slug="citizen-pass", name="Citizen Pass", url="https://citizen-pass.com", host="citizen-pass.com",
@@ -64,23 +66,23 @@ PRODUCTS = [
 
  dict(slug="dmv-iq", name="DMV IQ", url="https://dmv-iq.com", host="dmv-iq.com",
   cat=["driving","apps"], catlabel="Driving", accent="#6AB58E", tint="#141B18",
-  tag="Free DMV practice tests for every state.",
+  tag="DMV practice tests for every state.",
   short="Permit test practice for all 50 states and DC, with road-sign visuals and honest explanations.",
   title=("DMV ","IQ"),
-  lede="Free DMV practice tests for every state. Real exam-style questions, road-sign visuals and explanations that make the rules stick.",
+  lede="DMV practice tests for every state. Real exam-style questions, road-sign visuals and explanations that make the rules stick.",
   what="Driving permit tests",
   over=[
    "Every state writes its own driving rules, and every state's test is a little different. DMV IQ is built around that, not in spite of it.",
    "You get <strong>7,500+ practice questions across all 50 states and DC</strong>, with the details that actually differ from state to state checked against each state's own material.",
    "Expect friendly visuals, road-sign drills, road test guides, and a readiness score that tells you when to stop studying and go get your permit.",
   ],
-  facts=[("51","jurisdictions: 50 states and DC"),("7,500+","practice questions"),("Free","to start, no signup")],
+  facts=[("51","jurisdictions: 50 states and DC"),("7,500+","practice questions"),("Official","state handbooks")],
   feats=[("Your state, your rules","Questions and facts tuned to the state you're actually testing in."),
          ("Road signs, made easy","Visual drills so shapes, colors and meanings click fast."),
          ("Road test guides","Step-by-step guides for the behind-the-wheel test, for every state."),
          ("Readiness score","See how ready you are as a percentage, and what to review next."),
          ("Personalized study","Weak spots first, so your time goes where it matters."),
-         ("Apps and web","iOS, Android and a fast, free website. Start on one, pick up on another.")],
+         ("Apps and web","iOS, Android and a fast website. Start on one, pick up on another.")],
   apps=[("DMV IQ",[("ios","https://apps.apple.com/us/app/dmv-iq-driving-practice-test/id6759559149"),("android","https://play.google.com/store/apps/details?id=com.oddlysunny.dmv_iq")])],
   appnote="",
   img="dmv-iq.jpg", alt="DMV IQ practice question on a tablet in an armchair"),
@@ -90,14 +92,14 @@ PRODUCTS = [
   tag="Canadian driving test practice, in English and French.",
   short="G1, SAAQ, ICBC, Class 7 and every province. Real exam-style questions in English and French.",
   title=("Drive IQ ","Canada"),
-  lede="Free Canadian driving test practice for G1, SAAQ, ICBC, Class 7 and every province. Start free, no signup, in English or French.",
+  lede="Canadian driving test practice for G1, SAAQ, ICBC, Class 7 and every province, in English or French.",
   what="Canadian driving tests",
   over=[
    "Canada doesn't have one driving test. It has a whole stack of them, each with its own handbook, its own rules and its own quirks.",
    "Drive IQ Canada is built <strong>province by province</strong>, so a question about speed zones in Quebec is checked against Quebec's own handbook and not someone else's. And yes, it's <strong>fully bilingual, English and French</strong>.",
    "Cars, motorcycles and commercial classes are all in there, with a Driving Index that ranks things honestly. If a province doesn't have enough data, we leave it unranked rather than fake it.",
   ],
-  facts=[("13","provinces and territories"),("2","languages: English and French"),("Free","to start, no signup")],
+  facts=[("13","provinces and territories"),("2","languages: English and French"),("Official","each province's handbook")],
   feats=[("Every province, its own handbook","Answers verified against that province's official material."),
          ("Truly bilingual","Written for Quebec, not just translated for it."),
          ("Cars, motorcycles, commercial","Passenger, motorcycle and Class 1 prep in one place."),
@@ -135,14 +137,14 @@ PRODUCTS = [
   tag="Ham and commercial radio practice tests.",
   short="Technician, General, Extra and FCC commercial exams with the official pools and a worked answer for each question.",
   title=("Airwaves ","IQ"),
-  lede="Practice for the Technician, General, Extra, GROL, radar and GMDSS exams with the official question pools. Every answer explained. Free to start.",
+  lede="Practice for the Technician, General, Extra, GROL, radar and GMDSS exams with the official question pools. Every answer explained.",
   what="FCC radio exams",
   over=[
    "Radio exams are a delight if you love electronics and a headache if you just want a licence. Airwaves IQ is for both people.",
-   "It covers <strong>10 live FCC exams</strong>: amateur (Technician, General, Extra) and commercial. You practice with the <strong>current official question pools</strong>, and every answer comes with a worked explanation and the regulation it comes from.",
+   "It covers <strong>9 FCC exams</strong>: amateur (Technician, General, Extra) and commercial. You practice with the <strong>current official question pools</strong>, and every answer comes with a worked explanation and the regulation it comes from.",
    "Math gets walked through step by step, schematics show up where the real test shows them, and a readiness score tells you when to go find a volunteer exam session.",
   ],
-  facts=[("10","FCC exams, ham and commercial"),("Official","current NCVEC and FCC pools"),("Free","to start, no card needed")],
+  facts=[("9","FCC exams, ham and commercial"),("Official","current NCVEC and FCC pools"),("Pools","current FCC and NCVEC")],
   feats=[("The official pools","Practice with the same question pools the exam draws from."),
          ("Worked math","Derivations, step by step, so formulas stop feeling like magic."),
          ("Regulatory citations","Rules come with the section they live in, so you learn where to look."),
@@ -153,24 +155,23 @@ PRODUCTS = [
   img="airwaves-iq.jpg", alt="Airwaves IQ on a laptop sitting on a green velvet pouf"),
 
  dict(slug="mariner-iq", name="Mariner IQ", url="https://mariner-iq.com", host="mariner-iq.com",
-  cat=["careers","maritime"], catlabel="Maritime", accent="#F6C547", tint="#0B1E3A",
+  cat=["careers","maritime"], catlabel="Maritime", accent="#D4A63C", tint="#0B1E3A",
   tag="Pass your Coast Guard captain's license exam.",
-  short="Six-pack to 100-ton master, plus mariner credentials, with plain-English answers. Pay once. No subscription.",
+  short="Six-pack to 100-ton master, plus mariner credentials, with plain-English answers.",
   title=("Mariner ","IQ"),
-  lede="Practice with questions from the Coast Guard's own sample exams, with a plain-English explanation on every answer. Pay once, no subscription.",
+  lede="Practice with questions from the Coast Guard's own sample exams, with a plain-English explanation on every answer.",
   what="Coast Guard exams",
   over=[
    "Getting a captain's licence is a serious goal, and the prep options mostly feel like a flea market. Mariner IQ is the clean, calm alternative.",
    "It's built from the <strong>Coast Guard's own sample exams</strong>, covering six-pack, 100-ton master, able seaman and other credentials, with a plain-English explanation on every single answer.",
-   "And because we like people, it's <strong>pay once, no subscription</strong>. There's even a night mode that turns the screen bridge-red for the wheelhouse.",
+   "There's even a night mode that turns the screen bridge-red for the wheelhouse.",
   ],
-  facts=[("USCG","own sample exams"),("Once","pay once, no subscription"),("Bridge","red night mode built in")],
+  facts=[("USCG","own sample exams"),("Bridge","red night mode built in")],
   feats=[("Straight from the source","Questions drawn from the Coast Guard's own sample exams."),
          ("Plain-English answers","Maritime jargon, translated, on every answer."),
          ("Many credentials","Six-pack, master, able seaman and more, in one place."),
          ("Route and rules practice","Charts, rules of the road and navigation, practiced the way you'll be tested."),
-         ("Bridge night mode","A red-light theme that keeps your night vision intact."),
-         ("Pay once","One price. No renewals, no surprises.")],
+         ("Bridge night mode","A red-light theme that keeps your night vision intact.")],
   apps=[], appnote="Web only for now. Open it on your phone or laptop.",
   img="mariner-iq.jpg", alt="Mariner IQ on a phone on a deep blue velvet sofa"),
 ]
@@ -178,11 +179,11 @@ BY = {p["slug"]: p for p in PRODUCTS}
 FEATURED_ORDER = ["aviator-iq","citizen-pass","dmv-iq","drive-iq-canada","insurance-pass","airwaves-iq","mariner-iq"]
 
 CAPS = [
- ("check","Grounded in official sources","AI drafts every question from official public material only, and each one carries a verbatim quote from its source."),
+ ("check","Grounded in official sources","Every question is drafted from official public material and carries a verbatim quote from its source. If we can't source it, we don't ship it."),
  ("book","Built for real exam conditions","Blueprints, question counts, timing, pass marks and figures are modeled on the official exam, so practice feels like test day."),
- ("globe","Blind verification","Independent AI reviewers answer every question without seeing the key. If they disagree with it, it never ships."),
- ("spark","Bias-proofed answers","We measure answer position and answer length patterns, so nobody passes by spotting the pattern instead of knowing the material."),
- ("chart","Adaptive readiness","A model-driven score tracks coverage, accuracy, recall and speed, and points students at their weak spots first."),
+ ("globe","Checked independently","A second, independent AI review answers every question blind. If it disagrees with the key, the question goes back, not out."),
+ ("spark","Official answers stand","We never overrule an official answer key. If one looks outdated or disputed, we flag it instead of guessing."),
+ ("chart","Honest about limits","Our scores show how prepared you are, not a guarantee. We tell you where you stand, even when it isn't flattering."),
  ("phone","Always current","Source monitors watch for new editions and rule changes, so the practice updates when the exam does."),
 ]
 ICONS = {
@@ -202,14 +203,36 @@ STEPS = [
 ]
 SCHEME = {"aviator-iq":"ember","citizen-pass":"purple","dmv-iq":"green","drive-iq-canada":"ember","insurance-pass":"ember","airwaves-iq":"green","mariner-iq":"purple"}
 
+def platforms(p):
+    kinds = {k for _, links in p["apps"] for k, _ in links}
+    out = (["iOS"] if "ios" in kinds else []) + (["Android"] if "android" in kinds else []) + ["Web"]
+    return ", ".join(out)
+
 def esc(s): return html.escape(s, quote=True)
 def icon(k): return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">{ICONS[k]}</svg>'
 
 def mark(cls=""):
     return f'<div class="mark {cls}"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div>'
 
-def head_html(title, desc, path, og_img=None):
-    og = f'<meta property="og:image" content="https://oddlysunny.com/assets/img/{og_img}">' if og_img else ''
+SITE = "https://oddlysunny.com"
+SEO_TITLE = {
+ "aviator-iq": "Aviator IQ: FAA Knowledge Test Prep | Oddly Sunny",
+ "citizen-pass": "Citizen Pass: Citizenship Test Practice | Oddly Sunny",
+ "dmv-iq": "DMV IQ: State DMV Practice Tests | Oddly Sunny",
+ "drive-iq-canada": "Drive IQ Canada: Driving Test Practice | Oddly Sunny",
+ "insurance-pass": "Insurance Pass: License Exam Prep | Oddly Sunny",
+ "airwaves-iq": "Airwaves IQ: Ham and FCC Radio Tests | Oddly Sunny",
+ "mariner-iq": "Mariner IQ: Coast Guard License Prep | Oddly Sunny",
+}
+def trim(t, n=155):
+    if len(t) <= n: return t
+    cut = t[:n].rsplit(" ", 1)[0].rstrip(",;:")
+    return cut + "..."
+
+def head_html(title, desc, path, og_img, ld=None):
+    desc = trim(desc)
+    img = f"{SITE}/assets/og/{og_img}"
+    ld_tag = "".join(f'<script type="application/ld+json">{json.dumps(o, ensure_ascii=False)}</script>\n' for o in (ld or []))
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -217,31 +240,58 @@ def head_html(title, desc, path, og_img=None):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="{SITE}{path}">
+<meta property="og:site_name" content="Oddly Sunny">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="website">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://oddlysunny.com{path}">
-{og}
+<meta property="og:url" content="{SITE}{path}">
+<meta property="og:image" content="{img}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{esc(title)}">
+<meta name="twitter:description" content="{esc(desc)}">
+<meta name="twitter:image" content="{img}">
 <meta name="theme-color" content="#091A12">
-<link rel="canonical" href="https://oddlysunny.com{path}">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+{ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=24">
+<link rel="stylesheet" href="/assets/site.css?v=61">
 </head>
 """
+
+def live_mark():
+    """Header logo as inline SVG so the gold cell can morph and the green cells can wink. Animated by assets/site.js."""
+    return ('<svg class="live-mark" viewBox="0 0 100 100" aria-hidden="true">'
+            '<rect class="c c1" x="2" y="2" width="46" height="46" rx="12"/>'
+            '<rect class="c c2" x="52" y="2" width="46" height="46" rx="12"/>'
+            '<rect class="c c4" x="52" y="52" width="46" height="46" rx="12"/>'
+            '<g transform="translate(25 75)"><g class="gold">'
+            '<g class="sh on" data-s="diamond"><rect x="-17" y="-17" width="34" height="34" rx="8" transform="rotate(45)"/></g>'
+            '<g class="sh" data-s="triangle"><path class="f" d="M0 -20 L21 15 L-21 15 Z"/></g>'
+            '<g class="sh" data-s="arrow"><path class="st" d="M0 19 V-17 M-15 -3 L0 -19 L15 -3"/></g>'
+            '<g class="sh" data-s="circle"><circle r="19"/></g>'
+            '<g class="sh" data-s="check"><path class="st" d="M-18 2 L-6 14 L18 -14"/></g>'
+            '<g class="sh" data-s="plus"><path class="st" d="M0 -19 V19 M-19 0 H19"/></g>'
+            '<g class="sh" data-s="heart"><path class="f" d="M0 20 C-26 2 -22 -19 -9 -18 C-3 -17.5 0 -13 0 -10 C0 -13 3 -17.5 9 -18 C22 -19 26 2 0 20 Z"/></g>'
+            '</g></g></svg>')
 
 def header():
     items = "".join(f'<a href="/work/{p["slug"]}/">{p["name"]}<span>{esc(p["catlabel"])}</span></a>' for p in [BY[s] for s in FEATURED_ORDER])
     return f"""<body>
 <header class="hdr" data-scheme="green">
   <div class="wrap">
-    <a href="/" class="brand" aria-label="oddly sunny home">{mark("sm")}<span>oddly <b>sunny</b></span></a>
+    <a href="/" class="brand" aria-label="oddly sunny home">{live_mark()}<span>oddly <b>sunny</b></span></a>
     <nav class="nav" aria-label="Main">
       <div class="dd"><button type="button" aria-haspopup="true">Our portfolio <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m2 3.500 3 3 3-3"/></svg></button>
         <div class="dd-menu">{items}</div></div>
       <a href="/#expertise">Our method</a>
-      <a class="btn" href="mailto:{MAIL}">Say hello</a>
+      <a class="btn" href="/contact/">Say hello</a>
     </nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
   </div>
@@ -255,7 +305,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=8"></script>
+<script src="/assets/site.js?v=25"></script>
 </body>
 </html>
 """
@@ -266,7 +316,7 @@ def store_btn(kind, url):
     return f'<a class="store" href="{url}" target="_blank" rel="noopener">{PLAY}<span><small>Get it on</small><strong>Google Play</strong></span></a>'
 
 def item(p, wide=False):
-    plat = "iOS, Android, Web" if p["apps"] else "Web"
+    plat = platforms(p)
     return f"""<a class="item {'w2' if wide else ''} reveal" data-cat="{' '.join(p['cat'])}" href="/work/{p['slug']}/">
   <div class="img"><img src="/assets/img/{p['img']}" alt="{esc(p['alt'])}" loading="lazy"></div>
   <h3>{p['name']}</h3><p>{esc(p['catlabel'])}, {plat}</p>
@@ -286,32 +336,38 @@ def closing(scheme="ember"):
 </div></section>
 """
 
+def hero_floats():
+    people = ["cp-smile","study-library","cp-dog","cp-denim","cp-hoodie"]
+    ppos = {"cp-hoodie":"18%","cp-smile":"40%"}
+    banners = ["aviator-iq","citizen-pass","dmv-iq","driveiqcanada","insurance-pass","airwaves-iq","mariner-iq"]
+    pools = {"p": [{"src": f"/assets/img/wall/{n}.jpg", "pos": ppos.get(n, "50%")} for n in people],
+             "l": [{"src": f"/assets/img/wall/b-{n}.jpg", "pos": "50%"} for n in banners]}
+    kinds = {1: "p", 2: "l", 3: "l", 4: "p", 5: "l", 6: "l"}
+    wall = "".join(f'<div class="float f{i}" data-pool="{kinds[i]}"><img src="" alt=""></div>' for i in range(1, 7))
+    return json.dumps(pools), wall
+
 def home():
     F = [BY[s] for s in FEATURED_ORDER]
-    import json
-    pos = {"cp-hoodie":"18%","cp-blonde":"82%","mariner-woman":"42%","cp-smile":"40%"}
-    order = ["cp-smile","study-library","cp-dog","study-desk","cp-denim","study-woman","cp-hoodie","cp-glasses","mariner-woman","cp-blonde","airwaves-man"]
-    imgs = json.dumps([{"n": n, "p": pos.get(n, "50%")} for n in order])
-    wall = "".join(f'<div class="float f{i}"><img src="" alt=""></div>' for i in range(1, 9))
+    imgs, wall = hero_floats()
     feats = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in CAPS)
     steps = "".join(f'<div class="step reveal"><div><h3>{t}</h3><p>{d}</p></div><b>0{i+1}</b></div>' for i, (t, d) in enumerate(STEPS))
     words = '<span class="word">everything</span> <span class="word">worth</span> <span class="word">building</span> <br> <span class="word accent">was</span> <span class="word accent">once</span> <span class="word accent">an</span> <span class="word odd">odd</span> <span class="word accent">idea</span> <span class="word accent">in</span> <span class="word accent">good</span> <span class="word accent">light.</span>'
     def pt(slug):
         p = BY[slug]
-        plat = "iOS, Android, Web" if p["apps"] else "Web"
+        plat = platforms(p)
         return f'''<a class="pt" href="/work/{slug}/"><img class="pimg" src="/assets/img/{p["img"]}" alt="{esc(p["alt"])}" loading="lazy">
   <div class="cap"><div class="hd"><div><h3>{p["name"]}</h3><span>{p["host"]}</span></div></div>
   <div class="more"><p>{esc(p["short"])}</p><div class="chips"><span>{esc(p["catlabel"])}</span><span>{plat}</span></div><span class="go">Explore {ARROW}</span></div></div></a>'''
     bento = (f'<div class="brow">{pt("aviator-iq")}<div class="stack">{pt("citizen-pass")}{pt("dmv-iq")}</div></div>'
              f'<div class="brow rev"><div class="stack">{pt("drive-iq-canada")}{pt("insurance-pass")}</div>{pt("airwaves-iq")}</div>'
-             f'<div class="brow">{pt("mariner-iq")}<a class="pt all" href="/#expertise"><div><span class="eyebrow">The Oddly Sunny Method</span><h3>One method, <i>every brand</i></h3><span class="go">See our method {ARROW}</span></div></a></div>')
+             f'<div class="brow">{pt("mariner-iq")}<a class="pt brand" href="/#expertise"><div class="brandbg" aria-hidden="true"><div class="mark xl"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div></div><div class="cap"><div class="hd"><div><h3>The Oddly Sunny Method</h3><span>How every brand is built</span></div></div><div class="more"><p>One proprietary, AI-powered method behind every brand: official sources, independent verification, real exam conditions.</p><span class="go">See our method {ARROW}</span></div></div></a></div>')
     body = f"""
 <section class="hero" data-scheme="green" data-imgs='{imgs}'>
   {wall}
   <div class="wrap"><div class="copy">
     <div class="mark hero-mark" id="heroMark"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div>
-    <h1>Modern education for<br>the tests <i>that never got one.</i></h1>
-    <p class="lede">Driver's licences. Citizenship. Pilot, radio, maritime and insurance exams. Oddly Sunny brings modern, AI-powered education to the high-stakes tests that still run on dusty PDFs and guesswork, built from official sources and engineered to match the real exam.</p>
+    <h1>Modernizing how<br><i>the world learns.</i></h1>
+    <p class="lede">Oddly Sunny builds AI-powered learning that brings education up to date: personal, trustworthy, and designed for how people actually learn today.</p>
     <div class="cta-row"><a class="btn" href="#work">See our work {ARROW}</a></div>
   </div></div>
 </section>
@@ -319,12 +375,12 @@ def home():
 <section class="sec" data-scheme="cream"><div class="wrap split">
   <div class="reveal">
     <div class="eyebrow rule">Who we are</div>
-    <h2 class="h2">We built the AI <i>that builds the prep</i></h2>
+    <h2 class="h2">We're oddly obsessed with <i>getting it right</i></h2>
     <p class="sub">Most test prep is written once and left to age. Ours is generated, verified and refreshed by a proprietary AI method we built in-house.</p>
     <p class="body">Oddly Sunny is the company behind a family of learning brands. Each one starts from official sources and runs through the same method: questions grounded in source text, independently verified, and modeled on real exam conditions. One method, many exams.</p>
     <div class="cta-row"><a class="btn" href="#work">Explore our work {ARROW}</a></div>
   </div>
-  <div class="pic reveal"><img src="/assets/img/who-we-are.jpg" alt="A learner studying at a laptop in warm evening light" loading="lazy"></div>
+  <div class="pic reveal"><img src="/assets/img/brand-gold-foil-wide.jpg" alt="Oddly Sunny gold foil logo on navy paper in the sun" loading="lazy"></div>
 </div></section>
 
 <section class="sec" id="work" data-scheme="purple"><div class="wrap center">
@@ -335,92 +391,176 @@ def home():
 
 <section id="expertise" data-scheme="tan"><div class="exp">
   <div class="l">
-    <div class="eyebrow rule">The Oddly Sunny Method</div>
-    <h2 class="h2">Engineered to match <i>the real exam</i></h2>
-    <p class="sub">Our proprietary, AI-powered method turns official exam sources into practice that mirrors test day and teaches what students actually need to know.</p>
+    <div class="eyebrow rule">The Oddly Sunny Method and responsible AI</div>
+    <h2 class="h2">A better way to build <i>learning</i></h2>
+    <p class="sub">Our proprietary AI method turns official sources into modern learning. AI helps us build it, and the sources always have the last word.</p>
     <div class="feats">{feats}</div>
   </div>
-  <div class="r"><img src="/assets/img/dmv-iq.jpg" alt="DMV IQ practice question on a tablet" loading="lazy"></div>
+  <div class="r"><canvas class="mesh" aria-hidden="true"></canvas></div>
+</div></section>
+
+<section class="sec" id="personal" data-scheme="ember"><div class="wrap split">
+  <div>
+    <div class="eyebrow rule reveal">Personal by design</div>
+    <h2 class="h2 reveal">Learning that <i>feels personal</i></h2>
+    <p class="sub reveal">AI doesn't just write the practice. It adapts to the person using it.</p>
+    <div class="feats one">
+      <div class="feat reveal"><div class="ic">{icon("book")}</div><h3>Adaptive learning paths</h3><p>The next question depends on what you know and what you don't. Study at your own pace, with weak spots surfaced first and the right resources one tap away.</p></div>
+      <div class="feat reveal"><div class="ic">{icon("chart")}</div><h3>Readiness insights</h3><p>See where you stand, which topics are most likely to trip you up, and when you're ready to book the test. No guessing, no false confidence.</p></div>
+      <div class="feat reveal"><div class="ic">{icon("spark")}</div><h3>Learning that feels like play</h3><p>Games, challenges and quick rounds turn practice into something you want to come back to, instead of something you put off.</p></div>
+    </div>
+  </div>
+  <div class="pic tall reveal"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/personal-loop.jpg" aria-label="A learner using her phone outdoors in soft sunlight"><source src="/assets/img/personal-loop.webm" type="video/webm"><source src="/assets/img/personal-loop.mp4" type="video/mp4"></video></div>
 </div></section>
 
 """
-    return head_html("oddly sunny | Modern, AI-powered education for the tests that matter",
-        "Oddly Sunny builds and operates AI-powered learning brands for licences, citizenship and careers: Aviator IQ, Citizen Pass, DMV IQ, Drive IQ Canada, Insurance Pass, Airwaves IQ and Mariner IQ.",
-        "/", "aviator-iq.jpg") + header().replace('class="hdr"', 'class="hdr brand-hidden away" data-away') + body + footer()
+    org = {"@context": "https://schema.org", "@type": "Organization", "name": "Oddly Sunny", "legalName": "Oddly Sunny LLC", "url": SITE + "/", "logo": SITE + "/apple-touch-icon.png",
+           "description": "Oddly Sunny builds and operates AI-powered learning brands that modernize education."}
+    site = {"@context": "https://schema.org", "@type": "WebSite", "name": "Oddly Sunny", "url": SITE + "/"}
+    return head_html("Oddly Sunny | Modernizing Education with AI-Powered Learning",
+        "Oddly Sunny modernizes education with AI-powered learning brands built from official sources: Aviator IQ, Citizen Pass, DMV IQ, Drive IQ Canada and more.",
+        "/", "home.jpg", [org, site]) + header().replace('class="hdr"', 'class="hdr brand-hidden away" data-away') + body + footer()
 
-FLOAT_ORDER = ["cp-smile","study-library","cp-dog","study-desk","cp-denim","study-woman","cp-hoodie","cp-glasses","mariner-woman","cp-blonde","airwaves-man"]
-FLOAT_POS = {"cp-hoodie":"18%","cp-blonde":"82%","cp-smile":"40%","mariner-woman":"42%"}
+FLOAT_ORDER = ["cp-smile","study-library","cp-dog","study-desk","cp-denim","study-woman","cp-hoodie","cp-blonde","airwaves-man"]
+FLOAT_POS = {"cp-hoodie":"18%","cp-blonde":"82%","cp-smile":"40%"}
 def floats(offset=0):
     order = FLOAT_ORDER[offset:] + FLOAT_ORDER[:offset]
     imgs = json.dumps([{"n": n, "p": FLOAT_POS.get(n, "50%")} for n in order])
     wall = "".join(f'<div class="float f{i}"><img src="" alt=""></div>' for i in range(1, 9))
     return imgs, wall
 
+RELATED = {
+ "aviator-iq": ["airwaves-iq", "mariner-iq", "dmv-iq"],
+ "citizen-pass": ["dmv-iq", "drive-iq-canada", "insurance-pass"],
+ "dmv-iq": ["drive-iq-canada", "citizen-pass", "aviator-iq"],
+ "drive-iq-canada": ["dmv-iq", "citizen-pass", "mariner-iq"],
+ "insurance-pass": ["airwaves-iq", "mariner-iq", "aviator-iq"],
+ "airwaves-iq": ["aviator-iq", "mariner-iq", "insurance-pass"],
+ "mariner-iq": ["aviator-iq", "airwaves-iq", "insurance-pass"],
+}
+
+def pt_tile(slug):
+    p = BY[slug]
+    return f'''<a class="pt" href="/work/{slug}/"><img class="pimg" src="/assets/img/{p["img"]}" alt="{esc(p["alt"])}" loading="lazy">
+  <div class="cap"><div class="hd"><div><h3>{p["name"]}</h3><span>{p["host"]}</span></div></div>
+  <div class="more"><p>{esc(p["short"])}</p><div class="chips"><span>{esc(p["catlabel"])}</span><span>{platforms(p)}</span></div><span class="go">Read the story {ARROW}</span></div></div></a>'''
+
+STAGE_BG = {
+ "aviator-iq": ("#E7D9BF", "#B98E5A"),
+ "citizen-pass": ("#3A4C78", "#1A2640"),
+ "dmv-iq": ("#6E9482", "#2F4E41"),
+ "drive-iq-canada": ("#B8404A", "#5C1A22"),
+ "insurance-pass": ("#E3A883", "#A55F3E"),
+ "airwaves-iq": ("#3F8C7E", "#16443C"),
+ "mariner-iq": ("#3F74B3", "#14305A"),
+}
+
+def stage(p):
+    """Static browser window built from a real screenshot of the product's Pro screens (desktop only)."""
+    from PIL import Image
+    slug = p["slug"]
+    dw, dh = Image.open(os.path.join(ROOT, f"assets/img/shots/{slug}-d.jpg")).size
+    c1, c2 = STAGE_BG[slug]
+    dpct = round(100 * (1 - (11 / 16) / (dh / dw)), 1)
+    return f"""<div class="stage" role="img" aria-label="A screen from {p['name']}" style="--dd:-{dpct}%;--c1:{c1};--c2:{c2};--bgimg:url(/assets/img/bg/{slug}.jpg)">
+  <div class="win"><div class="bar"><i></i><i></i><i></i><span>{p['host']}</span></div>
+    <div class="vp"><img src="/assets/img/shots/{slug}-d.jpg" alt="" width="{dw}" height="{dh}"></div></div>
+</div>"""
+
 def product(p):
     i = FEATURED_ORDER.index(p["slug"])
-    prev = BY[FEATURED_ORDER[(i-1) % len(FEATURED_ORDER)]]
     nxt = BY[FEATURED_ORDER[(i+1) % len(FEATURED_ORDER)]]
-    sc = SCHEME[p["slug"]]
-    a, b = p["title"]
-    over = "".join(f"<p>{t}</p>" for t in p["over"])
-    nums = "".join(f'<div class="num reveal"><p>{esc(l)}</p><b class="{"sm" if len(n) > 6 else ""}">{n}</b></div>' for n, l in p["facts"])
-    feats = "".join(f'<div class="feat reveal"><div class="ic">{icon(ICON_ORDER[k % 6])}</div><h3>{esc(t)}</h3><p>{esc(d)}</p></div>' for k, (t, d) in enumerate(p["feats"]))
+    st = STORIES[p["slug"]]
+    nst = STORIES[nxt["slug"]]
+    body_html = ""
+    for kind, text in st["body"]:
+        if kind == "p": body_html += f"<p>{esc(text)}</p>\n"
+        elif kind == "h": body_html += f"<h2>{esc(text)}</h2>\n"
+        else: body_html += f'<blockquote class="pull">{esc(text)}</blockquote>\n'
     rows = ""
     for label, links in p["apps"]:
         rows += f'<div class="get-row"><small>{esc(label)}</small>{"".join(store_btn(k, u) for k, u in links)}</div>'
-    if not p["apps"]:
-        rows = f'<div class="get-row"><span class="web-only">{esc(p["appnote"])}</span></div>'
+    # unavailable apps are simply left out: no "coming soon" or "web only" notes
     web = f'<a class="btn" href="{p["url"]}" target="_blank" rel="noopener">Visit {p["host"]} {ARROW}</a>'
-    get_title = "Get the app, <i>or go straight to the web</i>" if p["apps"] else "Jump in <i>on the web</i>"
-    get_desc = f"{p['name']} is live right now. Start practicing in your browser or grab it on your phone." if p["apps"] else f"{p['name']} is live right now. No download needed: open it, pick your exam and start practicing."
-    fimgs, fwall = floats(i % len(FLOAT_ORDER))
     body = f"""
-<section class="hero phero" data-scheme="{sc}" data-imgs='{fimgs}'>
-  {fwall}
-  <div class="wrap"><div class="copy">
-    <div class="mark hero-mark" id="heroMark"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div>
-    <div class="crumb"><a href="/">oddly sunny</a><span>/</span><a href="/#work">Our portfolio</a></div>
-    <h1>{a}<i>{b}</i></h1>
-    <p class="lede">{esc(p['lede'])}</p>
-    <div class="cta-row">{web}<a class="btn ghost" href="#get">{'Get the apps' if p['apps'] else 'How to get it'}</a></div>
-    <div class="p-meta">
-      <div><small>Exams</small><span>{esc(p['what'])}</span></div>
-      <div><small>Platforms</small><span>{"iOS, Android and web" if p["apps"] else "Web"}</span></div>
-      <div><small>Status</small><span>Live</span></div>
+<section class="story" data-scheme="paper">
+  <article>
+    <header class="s-head">
+      <div class="s-label">{p['name']}</div>
+      <h1 class="s-title">{esc(st['headline'])}</h1>
+      <p class="s-dek">{esc(st['dek'])}</p>
+      <div class="s-by">By Oddly Sunny</div>
+    </header>
+    <figure class="s-fig"><div class="s-frame">{stage(p)}</div><figcaption>A look inside {p['name']}.</figcaption></figure>
+    <div class="s-layout">
+      <aside class="s-side" id="get" aria-label="Where to find {p['name']}">
+        <div class="s-side-title">Find {p['name']}</div>
+        <a class="btn" href="{p["url"]}" target="_blank" rel="noopener">Visit {p["host"]} {ARROW}</a>
+        <div class="get-links">{rows}</div>
+      </aside>
+      <div class="s-col">
+        <div class="s-body">
+{body_html}        </div>
+      </div>
     </div>
-  </div></div>
+  </article>
 </section>
-<section class="shot" data-scheme="{sc}"><div class="wrap"><img src="/assets/img/{p['img']}" alt="{esc(p['alt'])}"></div></section>
-
-<section class="sec" data-scheme="cream"><div class="wrap o-split">
-  <div class="reveal"><div class="eyebrow rule">About {p['name']}</div><h2 class="h2">{esc(p['tag'])}</h2></div>
-  <div class="prose reveal">{over}</div>
+<section class="s-more" data-scheme="paper"><div class="wrap">
+  <div class="eyebrow">Keep exploring</div>
+  <h2 class="h2">More from Oddly Sunny</h2>
+  <div class="more-grid">{"".join(pt_tile(x) for x in RELATED[p["slug"]])}</div>
 </div></section>
-
-<section class="sec" data-scheme="{sc}"><div class="wrap">
-  <div class="center reveal"><div class="eyebrow">At a glance</div><h2 class="h2">{p['name']}, <i>in short</i></h2></div>
-  <div class="nums">{nums}</div>
-</div></section>
-
-<section class="sec" data-scheme="tan"><div class="wrap">
-  <div class="reveal"><div class="eyebrow rule">What's inside</div><h2 class="h2">The good <i>stuff</i></h2></div>
-  <div class="fgrid">{feats}</div>
-</div></section>
-
-<section class="sec" id="get" data-scheme="cream"><div class="wrap get">
-  <div class="reveal"><div class="eyebrow rule">Get {p['name']}</div><h2 class="h2">{get_title}</h2><p class="body">{esc(get_desc)}</p><div class="cta-row">{web}</div></div>
-  <div class="get-links reveal">{rows}</div>
-</div></section>
-
-<section data-scheme="{sc}" style="padding:50px 0 90px"><div class="wrap"><div class="pn">
-  <a href="/work/{prev['slug']}/"><small>Previous</small><strong>{prev['name']}</strong></a>
-  <a href="/work/{nxt['slug']}/"><small>Next</small><strong>{nxt['name']}</strong></a>
-</div></div></section>
 """
-    return head_html(f"{p['name']} | oddly sunny", f"{p['name']}: {p['lede']}", f"/work/{p['slug']}/", p["img"]) + header().replace('class="hdr"', 'class="hdr brand-hidden away" data-away') + body + footer(sc)
+    app = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": p["name"], "applicationCategory": "EducationalApplication", "operatingSystem": platforms(p),
+           "url": p["url"], "description": p["lede"], "publisher": {"@type": "Organization", "name": "Oddly Sunny", "url": SITE + "/"}}
+    crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Oddly Sunny", "item": SITE + "/"},
+        {"@type": "ListItem", "position": 2, "name": p["name"], "item": f"{SITE}/work/{p['slug']}/"}]}
+    return head_html(SEO_TITLE[p["slug"]], f"{p['name']}: {p['lede']}", f"/work/{p['slug']}/", p["slug"] + ".jpg", [app, crumbs]) + header() + body + footer("paper")
+
+
+CONTACT_ENDPOINT = "https://oddlysunny-contact-496288753459.us-central1.run.app"  # set to a form service URL (for example a Formspree endpoint) to send messages without the visitor's email app
+
+def contact_page():
+    body = f"""
+<section class="story contact" data-scheme="paper">
+  <div class="c-wrap">
+    <div class="s-label">Contact</div>
+    <h1 class="s-title">Get in touch.</h1>
+    <p class="s-dek">Questions about one of our brands, something that looks out of date, or just want to say hello? We read every message.</p>
+    <div class="c-grid">
+      <form class="c-form" id="contactForm" novalidate data-endpoint="{CONTACT_ENDPOINT}" data-mail="{MAIL}">
+        <label>Name<input name="name" type="text" autocomplete="name" required></label>
+        <label>Email<input name="email" type="email" autocomplete="email" required></label>
+        <label>Message<textarea name="message" rows="7" required></textarea></label>
+        <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn" type="submit">Send message {ARROW}</button>
+        <p class="c-note" id="contactNote" role="status"></p>
+      </form>
+      <aside class="c-side">
+        <div class="s-side-title">Why people write to us</div>
+        <ul>
+          <li>Partnerships, licensing and conversations about our portfolio</li>
+          <li>Press, research and speaking requests</li>
+          <li>A question or answer that looks wrong or out of date</li>
+          <li>Feedback and ideas for our learning brands</li>
+          <li>Help with a specific brand: tell us which one and we will point you the right way</li>
+        </ul>
+        <div class="s-side-title" style="margin-top:28px">Prefer email?</div>
+        <p>Write to us at <a href="mailto:{MAIL}">{MAIL}</a>. We usually reply within a day or two.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+"""
+    return head_html("Contact | Oddly Sunny", "Get in touch with Oddly Sunny about our learning brands, a question that looks out of date, or anything else. We read every message.", "/contact/", "home.jpg") + header() + body + footer("paper")
 
 if __name__ == "__main__":
     write("index.html", home())
+    write("contact/index.html", contact_page())
     for p in PRODUCTS:
         write(f"work/{p['slug']}/index.html", product(p))
-    print("built", 1 + len(PRODUCTS), "pages")
+    urls = ["/", "/contact/"] + [f"/work/{p['slug']}/" for p in PRODUCTS] + ["/privacy/"]
+    write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{u}</loc></url>\n" for u in urls) + "</urlset>\n")
+    write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+    print("built", 2 + len(PRODUCTS), "pages")

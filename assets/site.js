@@ -125,35 +125,225 @@
   }).catch(function () { if (!existing && !gpc) show('optin'); });
 })();
 
-/* hero: floating photos fade and blur in and out */
+/* hero: floating photos. One slot changes at a time, slowly, and nothing repeats on screen. */
 (function () {
   var hero = document.querySelector('.hero[data-imgs]');
   if (!hero) return;
-  var list = []; try { list = JSON.parse(hero.getAttribute('data-imgs')); } catch (e) {}
+  var pools = {}; try { pools = JSON.parse(hero.getAttribute('data-imgs')); } catch (e) {}
   var slots = Array.prototype.slice.call(hero.querySelectorAll('.float'));
-  if (!list.length || !slots.length) return;
-  var idx = 0, still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function take() { return list[idx++ % list.length]; }
+  if (!slots.length) return;
+  var ptr = { p: 0, l: 0 }, shown = {};
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function pick(slot) {
+    var k = slot.getAttribute('data-pool'), list = pools[k] || [];
+    for (var n = 0; n < list.length; n++) {
+      var it = list[ptr[k]++ % list.length];
+      if (!shown[it.src]) return it;
+    }
+    return list[0];
+  }
   function load(slot, done) {
-    var it = take(), img = slot.querySelector('img'), pre = new Image();
-    pre.onload = function () { img.src = pre.src; img.style.objectPosition = it.p + ' 50%'; done(); };
-    pre.src = '/assets/img/wall/' + it.n + '.jpg';
+    var it = pick(slot); if (!it) return;
+    var img = slot.querySelector('img'), pre = new Image();
+    pre.onload = function () {
+      var old = slot.getAttribute('data-src'); if (old) delete shown[old];
+      shown[it.src] = 1; slot.setAttribute('data-src', it.src);
+      img.src = it.src; img.style.objectPosition = it.pos + ' 50%'; done();
+    };
+    pre.src = it.src;
   }
-  function cycle(slot) {
-    slot.classList.remove('in');
-    setTimeout(function () {
-      load(slot, function () {
-        requestAnimationFrame(function () { slot.classList.add('in'); });
-        if (!still) setTimeout(function () { cycle(slot); }, 3800 + Math.random() * 2200);
-      });
-    }, 1100);
-  }
+  function show(slot) { requestAnimationFrame(function () { slot.classList.add('in'); }); }
   slots.forEach(function (slot, i) {
-    setTimeout(function () {
-      load(slot, function () {
-        slot.classList.add('in');
-        if (!still) setTimeout(function () { cycle(slot); }, 3600 + i * 700 + Math.random() * 2000);
-      });
-    }, 500 + i * 450);
+    setTimeout(function () { load(slot, function () { show(slot); }); }, 700 + i * 700);
   });
+  if (still) return;
+  var last = -1;
+  setInterval(function () {
+    var i; do { i = Math.floor(Math.random() * slots.length); } while (i === last && slots.length > 1);
+    last = i; var slot = slots[i];
+    slot.classList.remove('in');
+    setTimeout(function () { load(slot, function () { show(slot); }); }, 1200);
+  }, 6500);
+})();
+
+/* method panel: a dotted, warped coordinate mesh (Joukowski map) that drifts slowly; dots flow along the lines.
+   Ported from the Airwaves IQ hero. Hover joins nearby dots into faint traces. */
+(function () {
+  var canvas = document.querySelector('canvas.mesh');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d'); if (!ctx) return;
+  var DOT = 'rgba(24,18,8,', SPACING = 5.2;
+  var v = { k: 1, rot: 0.75, cx: 0.5, cy: 0.6, scale: 0.5, rings: 26, rays: 40, rmax: 6.2, mirror: false };
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W = 0, H = 0, dpr = 1, raf = 0, visible = true, last = 0;
+  var hov = { x: 0, y: 0, tx: 0, ty: 0, a: 0, ta: 0 };
+
+  function resize() {
+    var r = canvas.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    draw(performance.now());
+  }
+
+  function draw(now) {
+    var t = now / 1000;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    hov.x += (hov.tx - hov.x) * 0.07; hov.y += (hov.ty - hov.y) * 0.07; hov.a += (hov.ta - hov.a) * 0.06;
+    var k = v.k + (reduced ? 0 : 0.17 * Math.sin(t * 0.38) + 0.07 * Math.sin(t * 0.21 + 1.3));
+    var spin = reduced ? 0 : t * 0.045;
+    var f = reduced ? 0 : (((t * 2.2) % 1) + 1) % 1;
+    var S = Math.max(W / 9, H / 2.6) * v.scale, cx = W * v.cx, cy = H * v.cy, flip = v.mirror ? -1 : 1;
+    var cosR = Math.cos(v.rot), sinR = Math.sin(v.rot);
+    ctx.clearRect(0, 0, W, H);
+    var TR = Math.max(120, Math.min(W, H) * 0.42), px = 0, py = 0, pw = 0, has = false;
+    function put(re, im, a) {
+      var x = cx + flip * S * (re * cosR - im * sinR), y = cy - S * (re * sinR + im * cosR);
+      var inside = !(x < -2 || x > W + 2 || y < -2 || y > H + 2), w = 0;
+      if (hov.a > 0.01) { var d = Math.hypot(x - hov.x, y - hov.y); if (d < TR) w = Math.pow(1 - d / TR, 1.5) * hov.a; }
+      if (inside) { ctx.fillStyle = DOT + a.toFixed(2) + ')'; ctx.fillRect(x - 0.6, y - 0.6, 1.2, 1.2); }
+      if (has && (w > 0.02 || pw > 0.02)) {
+        ctx.strokeStyle = DOT + (0.34 * Math.max(w, pw)).toFixed(3) + ')'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(x, y); ctx.stroke();
+      }
+      px = x; py = y; pw = w; has = true;
+    }
+    var step = SPACING / S, g = Math.pow(v.rmax, 1 / v.rings), i, guard;
+    for (i = 0; i <= v.rings; i++) {
+      var r = Math.pow(g, i), a = 0.72 - 0.22 * (i / v.rings), sx = r + k / r, sy = r - k / r, th = 0, first = true;
+      has = false;
+      for (guard = 0; th < Math.PI * 2 && guard < 4000; guard++) {
+        var sp = Math.max(Math.hypot(sx * Math.sin(th), sy * Math.cos(th)), 0.02), d = step / sp;
+        if (first) { th += f * d; first = false; }
+        put(sx * Math.cos(th), sy * Math.sin(th), a); th += d;
+      }
+    }
+    for (var j = 0; j < v.rays; j++) {
+      var th2 = (j / v.rays) * Math.PI * 2 + spin, c = Math.cos(th2), s = Math.sin(th2), rr = 1.0, first2 = true;
+      has = false;
+      for (guard = 0; rr < v.rmax && guard < 4000; guard++) {
+        var sp2 = Math.max(Math.hypot((1 - k / (rr * rr)) * c, (1 + k / (rr * rr)) * s), 0.05), d2 = Math.min(step / sp2, 0.25);
+        if (first2) { rr += f * d2; first2 = false; }
+        put((rr + k / rr) * c, (rr - k / rr) * s, 0.66 - 0.2 * (rr / v.rmax)); rr += d2;
+      }
+    }
+  }
+  function loop(now) {
+    raf = requestAnimationFrame(loop);
+    if (!visible || now - last < (hov.a > 0.01 || hov.ta > 0 ? 16 : 33)) return;
+    last = now; draw(now);
+  }
+  if (!reduced && window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+    canvas.addEventListener('pointermove', function (e) {
+      var r = canvas.getBoundingClientRect(); hov.tx = e.clientX - r.left; hov.ty = e.clientY - r.top;
+      if (hov.ta === 0 && hov.a < 0.01) { hov.x = hov.tx; hov.y = hov.ty; } hov.ta = 1;
+    });
+    canvas.addEventListener('pointerleave', function () { hov.ta = 0; });
+  }
+  resize();
+  if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(canvas);
+  if (!reduced) raf = requestAnimationFrame(loop);
+})();
+
+/* header logo "life": random short routines (wink, blink, glance, gold cell morphs) every few seconds */
+(function () {
+  var svg = document.querySelector('.hdr .live-mark');
+  if (!svg || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var c1 = svg.querySelector('.c1'), c2 = svg.querySelector('.c2'), c4 = svg.querySelector('.c4');
+  var shapes = {}; Array.prototype.forEach.call(svg.querySelectorAll('.sh'), function (g) { shapes[g.getAttribute('data-s')] = g; });
+  var cur = 'diamond', busy = false;
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function shape(n) { if (n === cur) return; shapes[cur].classList.remove('on'); shapes[n].classList.add('on'); cur = n; }
+  function lids(cells, v) { cells.forEach(function (c) { c.style.transform = v ? 'scaleY(' + v + ')' : ''; }); }
+  function shift(cells, x, y) { cells.forEach(function (c) { c.style.transform = (x || y) ? 'translate(' + x + 'px,' + y + 'px)' : ''; }); }
+  var routines = [
+    async function () { lids([c2], 0.1); await sleep(170); lids([c2]); },                       // wink
+    async function () { lids([c1], 0.1); await sleep(170); lids([c1]); },                       // wink, other side
+    async function () { lids([c1, c2], 0.1); await sleep(110); lids([c1, c2]); await sleep(130); lids([c1, c2], 0.1); await sleep(110); lids([c1, c2]); }, // double blink
+    async function () { shift([c1, c2], -5, 0); await sleep(550); shift([c1, c2], 5, -2); await sleep(550); shift([c1, c2]); },  // look around
+    async function () { shape('triangle'); await sleep(1500); shape('diamond'); },
+    async function () { shape('arrow'); await sleep(650); shape('circle'); await sleep(650); shape('check'); await sleep(900); shape('diamond'); },
+    async function () { shape('heart'); shift([c1, c2], 0, -3); await sleep(1500); shift([c1, c2]); shape('diamond'); },
+    async function () { shape('plus'); await sleep(1300); shape('diamond'); },
+    async function () { shape('check'); shift([c1, c2], 0, -3); await sleep(1300); shift([c1, c2]); shape('diamond'); }
+  ];
+  var last = -1;
+  async function tick() {
+    if (!busy && !document.hidden) {
+      busy = true;
+      var i; do { i = Math.floor(Math.random() * routines.length); } while (i === last);
+      last = i;
+      try { await routines[i](); } catch (e) {}
+      busy = false;
+    }
+    setTimeout(tick, 3200 + Math.random() * 3800);
+  }
+  setTimeout(tick, 2200);
+})();
+
+/* looping videos: respect reduced motion, and only play while on screen */
+(function () {
+  var vids = Array.prototype.slice.call(document.querySelectorAll('.pic video'));
+  if (!vids.length) return;
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  vids.forEach(function (v) { if (still) { v.removeAttribute('autoplay'); v.pause(); } });
+  if (still || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function () {}); } else e.target.pause(); });
+  }, { threshold: 0.2 });
+  vids.forEach(function (v) { io.observe(v); });
+})();
+
+/* product story pages: the hero image grows as it scrolls into view, and drifts inside its frame (parallax) */
+(function () {
+  var fig = document.querySelector('.s-fig');
+  if (!fig || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var frame = fig.querySelector('.s-frame'), ticking = false;
+  function ease(t) { return t * t * (3 - 2 * t); }
+  function update() {
+    ticking = false;
+    var r = fig.getBoundingClientRect(), vh = window.innerHeight;
+    var grow = Math.max(0, Math.min(1, (vh - r.top) / (vh * 0.85)));          // 0 as it enters, 1 once well inside
+    var pass = Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));      // 0 to 1 across the whole traversal
+    var shrink = Math.max(0, Math.min(1, (vh * 0.15 - r.bottom + r.height * 0.25) / (vh * 0.5))); // eases back a little as it leaves the top
+    var sc = 0.84 + 0.16 * ease(grow) - 0.05 * ease(shrink);
+    frame.style.transform = 'scale(' + sc.toFixed(4) + ')';
+    frame.style.borderRadius = (28 - 14 * ease(grow)) + 'px';
+    frame.style.setProperty('--sp', pass.toFixed(3));
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+
+/* contact form: posts to the configured endpoint, otherwise opens a pre-filled email */
+(function () {
+  var f = document.getElementById('contactForm'); if (!f) return;
+  var note = document.getElementById('contactNote');
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = new FormData(f), name = (d.get('name') || '').trim(), email = (d.get('email') || '').trim(), msg = (d.get('message') || '').trim();
+    if (d.get('website')) return;
+    if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !msg) { note.className = 'c-note err'; note.textContent = 'Please add your name, a valid email and a message.'; return; }
+    var ep = f.getAttribute('data-endpoint');
+    if (ep) {
+      fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ name: name, email: email, message: msg }) })
+        .then(function (r) { if (!r.ok) throw 0; f.reset(); note.className = 'c-note'; note.textContent = 'Thank you. We will be in touch soon.'; })
+        .catch(function () { note.className = 'c-note err'; note.textContent = 'Something went wrong. Please email us directly.'; });
+    } else {
+      location.href = 'mailto:' + f.getAttribute('data-mail') + '?subject=' + encodeURIComponent('Message from ' + name) + '&body=' + encodeURIComponent(msg + '\n\n' + name + '\n' + email);
+      note.className = 'c-note'; note.textContent = 'Your email app should open with the message ready to send.';
+    }
+  });
+})();
+
+/* product stage: play the screen scroll once when at least half of it is on screen */
+(function () {
+  var st = document.querySelector('.stage'); if (!st || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (es) {
+    if (es[0].isIntersecting) { st.classList.add('play'); io.disconnect(); }
+  }, { threshold: 0.55 });
+  io.observe(st);
 })();

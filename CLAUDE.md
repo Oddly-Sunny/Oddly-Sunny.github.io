@@ -9,3 +9,6 @@ Static site on GitHub Pages (push `main` to deploy). Edtech-studio redesign (Oct
 - Rules: always "we", never "I"; no personal info (no names, home address); no em-dashes; brand mark 4 cells with yellow cell nudging.
 - Do not touch `privacy/`, `cookie-settings/`, `*-terms/`, `dmv-iq-privacy/`.
 - Store links come from the memory file portfolio-store-urls; Aviator IQ, Insurance Pass, Airwaves IQ, Mariner IQ have no apps yet (add to `apps` in build.py when they ship).
+- Preview note: plain `python3 -m http.server` does not support HTTP Range requests, so the looping video in the personal section will not load; use a range-capable server (or just test on GitHub Pages).
+- Product page story copy lives in `_build/stories.py` (one entry per product: headline, dek, caption, body of paragraphs / subheads / pull quotes). Product pages use the light "paper" scheme and a scroll-scaling hero image (see end of `assets/site.js`).
+- Contact form posts to the Cloud Run service `oddlysunny-contact` (project dmv-iq, us-central1; source in `_contact-service/`, key in Secret Manager `oddlysunny-resend-key`). Redeploy: `cd _contact-service && gcloud run deploy oddlysunny-contact --project dmv-iq --region us-central1 --source .` (set CLOUDSDK_PYTHON=/opt/homebrew/bin/python3.12).
