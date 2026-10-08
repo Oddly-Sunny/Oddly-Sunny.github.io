@@ -144,6 +144,7 @@
   }
   function load(slot, done) {
     var it = pick(slot); if (!it) return;
+    shown[it.src] = 1;
     var img = slot.querySelector('img'), pre = new Image();
     pre.onload = function () {
       var old = slot.getAttribute('data-src'); if (old) delete shown[old];
@@ -153,8 +154,12 @@
     pre.src = it.src;
   }
   function show(slot) { requestAnimationFrame(function () { slot.classList.add('in'); }); }
+  /* fetch every first photo at once, reveal them in pairs as soon as they are ready */
   slots.forEach(function (slot, i) {
-    setTimeout(function () { load(slot, function () { show(slot); }); }, 700 + i * 700);
+    var at = 120 + Math.floor(i / 2) * 300, t0 = Date.now();
+    load(slot, function () {
+      setTimeout(function () { show(slot); }, Math.max(0, at - (Date.now() - t0)));
+    });
   });
   if (still) return;
   var last = -1;
