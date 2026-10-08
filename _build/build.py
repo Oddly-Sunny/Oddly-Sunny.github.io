@@ -355,7 +355,7 @@ def home():
     def pt(slug):
         p = BY[slug]
         plat = platforms(p)
-        return f'''<a class="pt" href="/work/{slug}/"><img class="pimg" src="/assets/img/{p["img"]}" alt="{esc(p["alt"])}" loading="lazy">
+        return f'''<a class="pt" href="/work/{slug}/"><img class="pimg" src="/assets/img/{p["img"]}?v=2" alt="{esc(p["alt"])}" loading="lazy">
   <div class="cap"><div class="hd"><div><h3>{p["name"]}</h3><span>{p["host"]}</span></div></div>
   <div class="more"><p>{esc(p["short"])}</p><div class="chips"><span>{esc(p["catlabel"])}</span><span>{plat}</span></div><span class="go">Explore {ARROW}</span></div></div></a>'''
     bento = (f'<div class="brow">{pt("aviator-iq")}<div class="stack">{pt("citizen-pass")}{pt("dmv-iq")}</div></div>'
@@ -442,7 +442,7 @@ RELATED = {
 
 def pt_tile(slug):
     p = BY[slug]
-    return f'''<a class="pt" href="/work/{slug}/"><img class="pimg" src="/assets/img/{p["img"]}" alt="{esc(p["alt"])}" loading="lazy">
+    return f'''<a class="pt" href="/work/{slug}/"><img class="pimg" src="/assets/img/{p["img"]}?v=2" alt="{esc(p["alt"])}" loading="lazy">
   <div class="cap"><div class="hd"><div><h3>{p["name"]}</h3><span>{p["host"]}</span></div></div>
   <div class="more"><p>{esc(p["short"])}</p><div class="chips"><span>{esc(p["catlabel"])}</span><span>{platforms(p)}</span></div><span class="go">Read the story {ARROW}</span></div></div></a>'''
 
