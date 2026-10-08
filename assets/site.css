@@ -694,3 +694,20 @@ h2.h2{font-size:clamp(26px,3vw,40px);line-height:1.12}
   100%{transform:translateY(0)}
 }
 @media(prefers-reduced-motion:reduce){.stage.play .vp img{animation:none}}
+
+/* phones: hero photos stay clear of the headline; product image runs edge to edge */
+@media(max-width:700px){
+  .hero{display:flex;min-height:100svh;padding:150px 0 150px}
+  .f1{left:20px;right:auto;top:84px;width:22vw;aspect-ratio:3/4}
+  .f4{right:20px;left:auto;top:84px;width:22vw;aspect-ratio:3/4}
+  .f5{right:20px;left:auto;bottom:48px;width:30vw;aspect-ratio:3/2}
+  .f6{left:20px;right:auto;bottom:48px;width:30vw;aspect-ratio:3/2}
+  .s-fig{width:100%;margin:32px 0 0}
+  .s-frame{transform:none;border-radius:0;aspect-ratio:1/1;max-height:none}
+  .stage .win{left:3cqw;top:auto;bottom:-14cqw;width:94cqw;transform:none}
+  .stage .vp{aspect-ratio:4/5}
+  .stage .bar{height:6cqw;gap:1.2cqw;padding:0 2.4cqw}
+  .stage .bar i{width:1.8cqw;height:1.8cqw}
+  .stage .bar span{font-size:2.6cqw;padding:.6cqw 4cqw}
+  .s-fig figcaption{padding:0 24px}
+}
