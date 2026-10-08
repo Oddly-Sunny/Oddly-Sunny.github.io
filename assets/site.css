@@ -715,6 +715,6 @@ h2.h2{font-size:clamp(26px,3vw,40px);line-height:1.12}
 /* hero scroll cue */
 .scroll-cue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:3;width:28px;height:34px;display:grid;place-items:center;color:rgba(237,245,240,.75);transition:color .3s}
 .scroll-cue:hover,.scroll-cue:focus-visible{color:var(--gold)}
-.scroll-cue svg{width:11px;height:28px;animation:cue-bob 1.8s cubic-bezier(.45,0,.55,1) infinite}
-@keyframes cue-bob{0%,100%{transform:translateY(-4px);opacity:.5}50%{transform:translateY(5px);opacity:1}}
+.scroll-cue svg{width:11px;height:28px;animation:cue-bob 3.2s ease-in-out infinite}
+@keyframes cue-bob{0%,100%{transform:translateY(-1px);opacity:.55}50%{transform:translateY(2px);opacity:.85}}
 @media(prefers-reduced-motion:reduce){.scroll-cue svg{animation:none}}
