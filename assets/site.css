@@ -402,7 +402,7 @@ h2.h2 i{font-size:1.06em;letter-spacing:-.01em}
 
 .hero .copy{max-width:1040px}
 .hero h1{font-size:clamp(34px,4.9vw,72px)}
-@media(max-width:700px){.hero h1 br{display:none}}
+@media(max-width:700px){.hero h1{text-wrap:balance}}
 
 /* ===== brand tightening: distinctive display face, smaller type, one spacing rhythm ===== */
 :root{--display:'Bricolage Grotesque','Sora',system-ui,sans-serif;--max:1120px}
