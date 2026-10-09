@@ -17,7 +17,7 @@ STORIES = {
   ("p","You can study the way your week allows: a quick set on a lunch break, a drill on one weak topic, or a full simulator run when you want to find out how exam day would go."),
   ("h","More than a question bank"),
   ("p","Around the practice sits a growing library of study guides, a tool for looking up the codes on your test results, and an index of pass rates built from real FAA data. It is written for the student pilot working toward a first certificate, the instructor refreshing a lesson, and the airline hopeful with a long road ahead."),
-  ("p","Aviator IQ is on the web, and it is now in the App Store for iPhone and iPad, so a quick drill can happen anywhere you have a few minutes."),
+  ("p","Aviator IQ is on the web, and it is now in the App Store for iPhone and iPad and on Google Play for Android, so a quick drill can happen anywhere you have a few minutes."),
   ('h','Who it is for'),
   ('p','Aviator IQ is for anyone with an FAA knowledge test ahead of them: student pilots working toward a first certificate, instrument and commercial candidates, aspiring flight and ground instructors, aircraft mechanics, and remote pilots getting ready for the Part 107 drone exam.'),
   ('h','What is inside'),

@@ -35,7 +35,7 @@ PRODUCTS = [
          ("Study guides and tools","A growing library of study guides, a test code lookup, and a pass-rate index built from real FAA data."),
          ("Practice modes that fit your week","Quick sets, topic drills, full simulator runs. Ten minutes or two hours, you pick."),
          ("Built for the checkride path","Written for the student pilot, the CFI refreshing, and the airline hopeful alike.")],
-  apps=[("Aviator IQ",[("ios","https://apps.apple.com/us/app/aviator-iq-faa-test-prep/id6813969252")])], appnote="",
+  apps=[("Aviator IQ",[("ios","https://apps.apple.com/us/app/aviator-iq-faa-test-prep/id6813969252"),("android","https://play.google.com/store/apps/details?id=com.oddlysunny.aviator_iq")])], appnote="",
   img="aviator-iq.jpg", alt="Aviator IQ on a laptop in a sunlit living room"),
 
  dict(slug="citizen-pass", name="Citizen Pass", url="https://citizen-pass.com", host="citizen-pass.com",
