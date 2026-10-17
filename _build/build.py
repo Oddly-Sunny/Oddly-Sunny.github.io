@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=77">
+<link rel="stylesheet" href="/assets/site.css?v=79">
 </head>
 """
 
@@ -469,6 +469,23 @@ def stage(p):
     <div class="vp"><img src="/assets/img/shots/{slug}-d.jpg" alt="" width="{dw}" height="{dh}"></div></div>
 </div>"""
 
+GAMES = [
+ ("sprint","Sign Sprint","Sort road signs by type before the timer runs out."),
+ ("fact","Fact Check","Swipe statements from the state's material true or false."),
+ ("flash","Flash Cards","Scratch to reveal the answer, then say honestly if you knew it."),
+ ("match","Sign Match","Flip cards to pair road signs from memory."),
+ ("numbers","By the Numbers","Spin to the exact distance, fine or time limit from your state's questions."),
+]
+
+def games_block():
+    """Gamification showcase on a product page: the real Challenges screen plus each game's animated intro art."""
+    tiles = "".join(f'''<figure class="gm-tile reveal"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/games/{k}.jpg" aria-hidden="true"><source src="/assets/img/games/{k}.webm" type="video/webm"><source src="/assets/img/games/{k}.mp4" type="video/mp4"></video><figcaption><b>{esc(t)}</b><span>{esc(d)}</span></figcaption></figure>''' for k, t, d in GAMES)
+    return f'''<div class="gm">
+  <figure class="gm-phone reveal"><img src="/assets/img/games/challenges.jpg" alt="The Challenges screen in the DMV IQ app: Exam Simulator, Quick Quiz, Practice Test and daily games" width="520" height="1129" loading="lazy"></figure>
+  <div class="gm-grid">{tiles}</div>
+</div>
+'''
+
 def product(p):
     i = FEATURED_ORDER.index(p["slug"])
     nxt = BY[FEATURED_ORDER[(i+1) % len(FEATURED_ORDER)]]
@@ -478,6 +495,7 @@ def product(p):
     for kind, text in st["body"]:
         if kind == "p": body_html += f"<p>{esc(text)}</p>\n"
         elif kind == "h": body_html += f"<h2>{esc(text)}</h2>\n"
+        elif kind == "games": body_html += games_block()
         else: body_html += f'<blockquote class="pull">{esc(text)}</blockquote>\n'
     rows = ""
     for label, links in p["apps"]:
