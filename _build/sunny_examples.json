@@ -1,52 +1,194 @@
 [
  {
-  "brand": "DMV IQ",
-  "status": "Live",
-  "context": "New Jersey car test, after a missed practice question about passing an ice cream truck",
-  "q": "I picked A. Why is that wrong?",
-  "a": "Option A is wrong because it skips the stop. New Jersey requires you to stop first, then drive past the truck at no more than 15 mph. Slowing to 25 mph and passing with your horn does not meet the rule.\n\nThe New Jersey Driver Manual says that when an ice cream truck is flashing red lights and posting a stop signal arm, you must \"Stop, and then drive past the truck at a speed of no more than 15 mph\" (New Jersey Driver Manual, p. 80). It also says to yield to anyone crossing the road to or from the truck and to watch out for children.\n\nRemember this: stop first, then 15 mph or less.",
-  "cites": [
-   "New Jersey Driver Manual, p. 80"
+  "key": "driving",
+  "label": "Driving",
+  "hue": "#C2456A",
+  "cases": [
+   {
+    "label": "Missed a question",
+    "q": "I picked A. Why is that wrong?",
+    "a": "Option A is wrong because it skips the stop. New Jersey requires you to stop first, then drive past the truck at no more than 15 mph. Slowing to 25 mph and passing with your horn does not meet the rule.\n\nThe New Jersey Driver Manual says that when an ice cream truck is flashing red lights and posting a stop signal arm, you must \"Stop, and then drive past the truck at a speed of no more than 15 mph\" (New Jersey Driver Manual, p. 80). It also says to yield to anyone crossing the road to or from the truck and to watch out for children.\n\nRemember this: stop first, then 15 mph or less.",
+    "cites": [
+     {
+      "title": "New Jersey Driver Manual",
+      "locator": "p. 80"
+     }
+    ],
+    "choices": [
+     "Quiz me on right of way",
+     "Explain the stop rule again",
+     "Show the handbook page"
+    ],
+    "ctx": "Car permit test, right after a missed question"
+   },
+   {
+    "label": "Commercial license",
+    "q": "What's on my Texas HazMat endorsement test?",
+    "a": "Hi Marcus, I'm Sunny, your AI study coach. The Texas HazMat endorsement requires a written test on how to recognize, handle, and transport hazardous materials. The handbook says you must study Section 9 for it (Texas Commercial Motor Vehicle Driver Handbook (DL-7C), p. 17; p. 71).\n\n**What the test covers, from Section 9:**\n- **Placards:** signs on the outside of a vehicle that show the hazard class. A placarded vehicle needs at least four identical placards, on the front, rear, and both sides (p. 115).\n- **ID numbers:** four-digit codes that first responders use to identify materials, with \"NA\" or \"UN\" before them (p. 115).\n- **Bulk packages:** a single container over 119 gallons must be placarded, even if it only holds residue (p. 121).\n- **Loading and parking:** which products can be loaded together, and parking distances for certain divisions (p. 71; p. 131).\n- **Emergencies:** safe havens, the fire extinguisher placarded vehicles must carry, and the Emergency Response Guide (p. 131).\n- **Security:** a TSA background check is required before the endorsement is issued (p. 14).\n\nThe handbook doesn't give a question count or time limit for the HazMat test. Our question bank has 16 CDL HazMat questions.",
+    "cites": [
+     {
+      "title": "Texas Commercial Motor Vehicle Driver Handbook (DL-7C)",
+      "locator": "p. 17"
+     },
+     {
+      "title": "Texas Commercial Motor Vehicle Driver Handbook (DL-7C)",
+      "locator": "p. 71"
+     },
+     {
+      "title": "Texas Commercial Motor Vehicle Driver Handbook (DL-7C)",
+      "locator": "p. 115"
+     }
+    ],
+    "choices": [
+     "Quiz me on HazMat (16)",
+     "Teach me placards",
+     "Show the handbook page"
+    ],
+    "ctx": "CDL HazMat endorsement"
+   },
+   {
+    "label": "Any language",
+    "q": "¿Cuántas preguntas tiene mi examen de Nueva Jersey y cuántas necesito para aprobar?",
+    "a": "Tu examen de Nueva Jersey tiene **50 preguntas** y necesitas **al menos 40 correctas** para aprobar, que es el 80 %. Eso significa que puedes fallar hasta 10.\n\nOtros datos oficiales:\n- Tiempo límite: no publicado por la agencia.\n- Se hace en computadora, en un centro de licencias de la MVC. Necesitas cita (telegov.njportal.com), aunque algunos centros aceptan personas sin cita.\n- El resultado aparece al terminar.\n- Si repruebas, debes esperar **7 días** para volver a intentar el examen de conocimientos.\n\nTu examen está programado para el **jueves 29 de octubre**.",
+    "cites": [
+     {
+      "title": "New Jersey Motor Vehicle Commission",
+      "locator": ""
+     }
+    ],
+    "choices": [
+     "Hacer un cuestionario de 10 preguntas",
+     "Ver los temas del examen",
+     "Ver mi progreso"
+    ],
+    "ctx": "Car permit test, in the learner's own language"
+   }
   ]
  },
  {
-  "brand": "DMV IQ",
-  "status": "Live",
-  "context": "New Jersey car test, in the learner's own language",
-  "q": "¿Cuántas preguntas tiene mi examen de Nueva Jersey y cuántas necesito para aprobar?",
-  "a": "Tu examen de Nueva Jersey tiene **50 preguntas** y necesitas **al menos 40 correctas** para aprobar, que es el 80 %. Eso significa que puedes fallar hasta 10.\n\nOtros datos oficiales:\n- Tiempo límite: no publicado por la agencia.\n- Se hace en computadora, en un centro de licencias de la MVC. Necesitas cita (telegov.njportal.com), aunque algunos centros aceptan personas sin cita.\n- El resultado aparece al terminar.\n- Si repruebas, debes esperar **7 días** para volver a intentar el examen de conocimientos.\n\nTu examen está programado para el **jueves 29 de octubre**.",
-  "cites": [
-   "New Jersey Motor Vehicle Commission"
+  "key": "aviation",
+  "label": "Aviation",
+  "hue": "#5B5BD6",
+  "cases": [
+   {
+    "label": "Regulations",
+    "q": "How much fuel do I need for a VFR flight at night in an airplane?",
+    "a": "You need enough fuel to fly to your first point of intended landing, then **at least 45 minutes more** at normal cruising speed for a night VFR flight in an airplane. Daytime is 30 minutes. Wind and forecast weather also count. (14 CFR § 91.151(a)(1) and (2))\n\nFor a rotorcraft, the figure is 20 minutes after reaching the first landing point (14 CFR § 91.151(b)).\n\nWant a quick quiz on fuel and reserve rules?",
+    "cites": [
+     {
+      "title": "Federal regulation",
+      "locator": "14 CFR § 91.151"
+     }
+    ],
+    "choices": [
+     "Yes, quiz me",
+     "Explain the rule more",
+     "Show the regulation page"
+    ],
+    "ctx": "Private pilot"
+   },
+   {
+    "label": "Pilot currency",
+    "q": "When is my flight review due, and what does it include?",
+    "a": "A flight review isn't described as \"due\" on a set schedule in the rule. Instead, under 14 CFR § 61.56(c), you can't act as pilot in command unless, since the beginning of the 24th calendar month before the month you fly, you've completed a flight review in an aircraft you're rated for, with an authorized instructor.\n\n**What it includes (14 CFR § 61.56):**\n- At least 1 hour of flight training and 1 hour of ground training.\n- A review of the current general operating and flight rules of part 91.\n- A review of the maneuvers and procedures the instructor decides are needed to show you can safely exercise your pilot certificate privileges.\n\nI don't have your last flight review date saved, so I can't tell you your exact cutoff. If you tell me when your last one was, I can work out when the 24-month window ends.",
+    "cites": [
+     {
+      "title": "Federal regulation",
+      "locator": "14 CFR § 61.56"
+     }
+    ],
+    "choices": [
+     "I'll tell you my last review date",
+     "Show the flight review rule"
+    ],
+    "ctx": "Private pilot"
+   }
   ]
  },
  {
-  "brand": "Aviator IQ",
-  "status": "Preview",
-  "context": "Private pilot, answered from the Federal Aviation Regulations",
-  "q": "How much fuel do I need for a VFR flight at night in an airplane?",
-  "a": "For a VFR flight in an airplane at night, you must have enough fuel to fly to your first point of intended landing and then fly for at least **45 minutes** at normal cruising speed. Wind and forecast weather count toward that fuel. (14 CFR § 91.151)\n\nFor comparison, the daytime requirement is at least 30 minutes after reaching the first landing point. Rotorcraft have a different rule, 20 minutes. (14 CFR § 91.151)",
-  "cites": [
-   "14 CFR § 91.151"
+  "key": "radio",
+  "label": "Radio",
+  "hue": "#C98A1E",
+  "cases": [
+   {
+    "label": "Operating rules",
+    "q": "How often do I have to give my call sign?",
+    "a": "You must give your call sign at the end of each communication, and at least every 10 minutes during a communication (47 CFR § 97.119(a)). The rule covers each amateur station, except space stations and telecommand stations.\n\nFor voice (phone) transmissions, the call sign must be given in English (47 CFR § 97.119(b)(2)).\n\nWant a 5-question quiz on station identification?",
+    "cites": [
+     {
+      "title": "Federal regulation",
+      "locator": "47 CFR § 97.119"
+     }
+    ],
+    "choices": [
+     "Yes, quiz me",
+     "Explain the rule again",
+     "Show the FCC rules page"
+    ],
+    "ctx": "Amateur radio license"
+   },
+   {
+    "label": "Power limits",
+    "q": "What's the most power a Technician can use on 10 meters?",
+    "a": "For a Technician on 10 meters, the most power is **200 W PEP** on the 28.0-28.5 MHz segment, when the control operator is a Technician Class operator (47 CFR § 97.313(c)(2)).\n\nThe general limit for all stations is 1.5 kW PEP (47 CFR § 97.313(b)), but the Technician 200 W limit applies to that 28.0-28.5 MHz segment. The rules I searched don't say what Technician power applies above 28.5 MHz, so check the full text on that point.",
+    "cites": [
+     {
+      "title": "Federal regulation",
+      "locator": "47 CFR § 97.313"
+     }
+    ],
+    "choices": [
+     "Show me the power rules page",
+     "Quiz me on power limits",
+     "Explain the 1.5 kW limit"
+    ],
+    "ctx": "Amateur radio, Technician"
+   }
   ]
  },
  {
-  "brand": "Airwaves IQ",
-  "status": "Preview",
-  "context": "Amateur radio, answered from the FCC rules (47 CFR Part 97)",
-  "q": "How often do I have to give my call sign?",
-  "a": "You must transmit your assigned call sign **at the end of each communication**, and **at least every 10 minutes during a communication** (47 CFR § 97.119). The call sign must be sent in English if you use voice (phone), and you may use a phonetic alphabet to help others copy it.",
-  "cites": [
-   "47 CFR § 97.119"
-  ]
- },
- {
-  "brand": "Mariner IQ",
-  "status": "Preview",
-  "context": "Coast Guard exam, answered from the Inland Navigation Rules",
-  "q": "What lights does a power-driven vessel underway show at night?",
-  "a": "A power-driven vessel underway shows these lights at night (33 CFR § 83.23, Rule 23):\n\n- **A masthead light forward.**\n- **A second masthead light**, abaft of and higher than the forward one. A vessel under 50 meters in length does not have to show this light, but may.\n- **Sidelights.**\n- **A sternlight.**\n\nA power-driven vessel under 12 meters in length may show an all-round white light and sidelights instead of the lights above.\n\nWould you like a short quiz on these lights?",
-  "cites": [
-   "33 CFR § 83.23, Rule 23"
+  "key": "maritime",
+  "label": "Maritime",
+  "hue": "#1F7A8C",
+  "cases": [
+   {
+    "label": "Navigation lights",
+    "q": "What lights does a power-driven vessel underway show at night?",
+    "a": "A power-driven vessel underway shows these lights (33 CFR § 83.23 (Power-driven vessels underway (Rule 23))):\n\n- **A masthead light forward.**\n- **A second masthead light**, abaft of and higher than the forward one. A vessel under 50 meters in length does not have to show this light, but may.\n- **Sidelights.**\n- **A sternlight.**\n\nTwo exceptions from the same rule:\n- A power-driven vessel under 12 meters may show an all-round white light and sidelights instead.\n- On the Great Lakes, an all-round white light may replace the second masthead light and sternlight.\n\nWant a quick 5-question quiz on navigation lights?",
+    "cites": [
+     {
+      "title": "Federal regulation",
+      "locator": "33 CFR § 83.23"
+     }
+    ],
+    "choices": [
+     "Yes, quiz me on lights",
+     "Explain the visibility ranges",
+     "Show the rule in the handbook"
+    ],
+    "ctx": "Coast Guard credential"
+   },
+   {
+    "label": "Sound signals",
+    "q": "What sound signal does a power-driven vessel make in fog?",
+    "a": "A power-driven vessel making way through the water in restricted visibility, such as fog, sounds **one prolonged blast at intervals of not more than 2 minutes** (33 CFR § 83.35 (Sound signals in restricted visibility (Rule 35))).\n\nA prolonged blast lasts from 4 to 6 seconds (33 CFR § 83.32 (Definitions (Rule 32))).\n\n**If the vessel is underway but stopped and making no way through the water**, it sounds **two prolonged blasts in succession, about 2 seconds apart, at intervals of not more than 2 minutes** (33 CFR § 83.35 (Sound signals in restricted visibility (Rule 35))).",
+    "cites": [
+     {
+      "title": "Federal regulation",
+      "locator": "33 CFR § 83.35"
+     },
+     {
+      "title": "Federal regulation",
+      "locator": "33 CFR § 83.32"
+     }
+    ],
+    "choices": [
+     "Quiz me on fog signals",
+     "Explain the sailing vessel signal",
+     "Show the handbook page"
+    ],
+    "ctx": "Coast Guard credential"
+   }
   ]
  }
 ]

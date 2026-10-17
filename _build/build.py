@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=75">
+<link rel="stylesheet" href="/assets/site.css?v=77">
 </head>
 """
 
@@ -605,16 +605,27 @@ SUNNY_RESPONSIBLE = [
 ]
 
 def sunny_page():
-    cards = ""
-    for e in SUNNY_EXAMPLES:
-        tag = "" if e["status"] == "Live" else '<span class="sn-tag preview">Preview</span>'
-        cites = "".join(f'<span class="sn-cite">{esc(c)}</span>' for c in e["cites"])
-        cards += f"""<article class="sn-ex reveal">
-  <div class="sn-ex-top"><strong>{esc(e["brand"])}</strong>{tag}</div>
-  <p class="sn-ctx">{esc(e["context"])}</p>
-  <div class="sn-q">{esc(e["q"])}</div>
-  <div class="sn-a">{sunny_mascot(30, "sm")}<div class="sn-a-body">{md_lite(e["a"])}<div class="sn-cites">{cites}</div></div></div>
-</article>"""
+    BOOK = icon("book")
+    tabs, panels = "", ""
+    for i, ind in enumerate(SUNNY_EXAMPLES):
+        on = " on" if i == 0 else ""
+        tabs += f'<button type="button" class="sd-tab{on}" role="tab" aria-selected="{"true" if i == 0 else "false"}" data-ind="{ind["key"]}" style="--hue:{ind["hue"]}"><i></i>{esc(ind["label"])}</button>'
+        cases = "".join(f'<button type="button" class="sd-case{" on" if j == 0 else ""}" data-case="{j}">{esc(c["label"])}</button>' for j, c in enumerate(ind["cases"]))
+        convs = ""
+        for j, c in enumerate(ind["cases"]):
+            cites = "".join(f'<span class="sd-src">{BOOK}<span><b>{esc(x["locator"] or x["title"])}</b>{("<small>" + esc(x["title"]) + "</small>") if x["locator"] else ""}</span></span>' for x in c["cites"])
+            chips = "".join(f'<span class="sd-chip">{esc(o)}</span>' for o in c["choices"])
+            convs += f"""<div class="sd-conv{" on" if j == 0 else ""}" data-case="{j}">
+  <div class="sd-ctx">{esc(c["ctx"])}</div>
+  <div class="sd-q">{esc(c["q"])}</div>
+  <div class="sd-typing" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="sd-a">{md_lite(c["a"])}{('<div class="sd-srcs">' + cites + '</div>') if cites else ""}{('<div class="sd-chips">' + chips + '</div>') if chips else ""}</div>
+</div>"""
+        panels += f'<div class="sd-panel{on}" role="tabpanel" data-ind="{ind["key"]}" style="--hue:{ind["hue"]}"><div class="sd-cases">{cases}</div><div class="sd-win"><div class="sd-head">{sunny_mascot(34, "sm tint")}<div><b>Sunny</b><small>{esc(ind["label"])} coach</small></div></div><div class="sd-body">{convs}</div></div></div>'
+    demo = f'''<div class="sd" data-sd>
+      <div class="sd-tabs" role="tablist" aria-label="Industries">{tabs}</div>
+      {panels}
+    </div>'''
     how = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in SUNNY_HOW)
     resp = "".join(f'<div class="sn-r reveal"><h3>{esc(t)}</h3><p>{esc(d)}</p></div>' for t, d in SUNNY_RESPONSIBLE)
     body = f"""
@@ -622,15 +633,16 @@ def sunny_page():
   <header class="s-head sn-head">
     <div class="sn-hero-mascot">{sunny_mascot(120)}</div>
     <div class="s-label">Sunny</div>
-    <h1 class="s-title">An AI study coach that shows its sources.</h1>
-    <p class="s-dek">Sunny is our proprietary, conversational AI coach for test prep. It gets to know each learner, adapts as they study, and answers from the official material behind each exam, citing the exact page or rule.</p>
+    <h1 class="s-title">Purpose-built AI that makes studying a breeze.</h1>
+    <p class="s-dek">Sunny is our proprietary, conversational AI coach, built for education from the ground up. It gets to know each learner, adapts to how they study, and answers from the official source behind every exam, so preparing feels less like cramming and more like having a great tutor on call.</p>
   </header>
 
   <div class="sn-wrap">
-    <h2 class="sn-h2">Real answers, with their sources</h2>
-    <p class="sn-sub">Every answer below is real, unedited output from Sunny, with the source it came from.</p>
-    <div class="sn-grid">{cards}</div>
-    <p class="sn-foot">Preview: Sunny running on that brand's official rules ahead of release.</p>
+    <div class="sd-intro">
+      <h2 class="sn-h2">One coach, every kind of exam</h2>
+      <p class="sn-sub">Pick an industry and a use case. Every answer is real, unedited output from Sunny, with the official source it came from and the next steps it offers.</p>
+    </div>
+    {demo}
   </div>
 
   <div class="sn-wrap">
@@ -645,6 +657,33 @@ def sunny_page():
     <div class="sn-resp">{resp}</div>
   </div>
 </section>
+<script>
+(function(){{
+  var root=document.querySelector('[data-sd]'); if(!root) return;
+  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function play(conv){{
+    if(!conv) return; conv.classList.remove('typed','asked');
+    void conv.offsetWidth;
+    conv.classList.add('asked');
+    setTimeout(function(){{conv.classList.add('typed');}}, still?0:900);
+  }}
+  function show(panel, j){{
+    panel.querySelectorAll('.sd-case').forEach(function(b){{b.classList.toggle('on', b.dataset.case==j);}});
+    panel.querySelectorAll('.sd-conv').forEach(function(c){{var on=c.dataset.case==j; c.classList.toggle('on',on); if(on){{panel.querySelector('.sd-body').scrollTop=0; play(c);}}}});
+  }}
+  root.querySelectorAll('.sd-tab').forEach(function(t){{
+    t.addEventListener('click',function(){{
+      root.querySelectorAll('.sd-tab').forEach(function(x){{var on=x===t; x.classList.toggle('on',on); x.setAttribute('aria-selected',on);}});
+      root.querySelectorAll('.sd-panel').forEach(function(p){{var on=p.dataset.ind===t.dataset.ind; p.classList.toggle('on',on); if(on) show(p,'0');}});
+    }});
+  }});
+  root.querySelectorAll('.sd-panel').forEach(function(p){{
+    p.querySelectorAll('.sd-case').forEach(function(b){{b.addEventListener('click',function(){{show(p,b.dataset.case);}});}});
+  }});
+  var io=new IntersectionObserver(function(es){{es.forEach(function(e){{if(e.isIntersecting){{play(root.querySelector('.sd-panel.on .sd-conv.on'));io.disconnect();}}}});}},{{threshold:.3}});
+  io.observe(root);
+}})();
+</script>
 """
     return head_html("Sunny, our AI study coach | Oddly Sunny",
         "Sunny is Oddly Sunny's proprietary, conversational AI study coach. It learns each student, adapts as they study, and answers from official sources with the exact page or rule.",
