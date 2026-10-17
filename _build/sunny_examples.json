@@ -1,0 +1,52 @@
+[
+ {
+  "brand": "DMV IQ",
+  "status": "Live",
+  "context": "New Jersey car test, after a missed practice question about passing an ice cream truck",
+  "q": "I picked A. Why is that wrong?",
+  "a": "Option A is wrong because it skips the stop. New Jersey requires you to stop first, then drive past the truck at no more than 15 mph. Slowing to 25 mph and passing with your horn does not meet the rule.\n\nThe New Jersey Driver Manual says that when an ice cream truck is flashing red lights and posting a stop signal arm, you must \"Stop, and then drive past the truck at a speed of no more than 15 mph\" (New Jersey Driver Manual, p. 80). It also says to yield to anyone crossing the road to or from the truck and to watch out for children.\n\nRemember this: stop first, then 15 mph or less.",
+  "cites": [
+   "New Jersey Driver Manual, p. 80"
+  ]
+ },
+ {
+  "brand": "DMV IQ",
+  "status": "Live",
+  "context": "New Jersey car test, asked in Spanish",
+  "q": "¿Cuántas preguntas tiene mi examen de Nueva Jersey y cuántas necesito para aprobar?",
+  "a": "Tu examen de Nueva Jersey tiene **50 preguntas** y necesitas **al menos 40 correctas** para aprobar, que es el 80 %. Eso significa que puedes fallar hasta 10.\n\nOtros datos oficiales:\n- Tiempo límite: no publicado por la agencia.\n- Se hace en computadora, en un centro de licencias de la MVC. Necesitas cita (telegov.njportal.com), aunque algunos centros aceptan personas sin cita.\n- El resultado aparece al terminar.\n- Si repruebas, debes esperar **7 días** para volver a intentar el examen de conocimientos.\n\nTu examen está programado para el **jueves 29 de octubre**.",
+  "cites": [
+   "New Jersey Motor Vehicle Commission"
+  ]
+ },
+ {
+  "brand": "Aviator IQ",
+  "status": "Preview",
+  "context": "Private pilot, answered from the Federal Aviation Regulations",
+  "q": "How much fuel do I need for a VFR flight at night in an airplane?",
+  "a": "For a VFR flight in an airplane at night, you must have enough fuel to fly to your first point of intended landing and then fly for at least **45 minutes** at normal cruising speed. Wind and forecast weather count toward that fuel. (14 CFR § 91.151)\n\nFor comparison, the daytime requirement is at least 30 minutes after reaching the first landing point. Rotorcraft have a different rule, 20 minutes. (14 CFR § 91.151)",
+  "cites": [
+   "14 CFR § 91.151"
+  ]
+ },
+ {
+  "brand": "Airwaves IQ",
+  "status": "Preview",
+  "context": "Amateur radio, answered from the FCC rules (47 CFR Part 97)",
+  "q": "How often do I have to give my call sign?",
+  "a": "You must transmit your assigned call sign **at the end of each communication**, and **at least every 10 minutes during a communication** (47 CFR § 97.119). The call sign must be sent in English if you use voice (phone), and you may use a phonetic alphabet to help others copy it.",
+  "cites": [
+   "47 CFR § 97.119"
+  ]
+ },
+ {
+  "brand": "Mariner IQ",
+  "status": "Preview",
+  "context": "Coast Guard exam, answered from the Inland Navigation Rules",
+  "q": "What lights does a power-driven vessel underway show at night?",
+  "a": "A power-driven vessel underway shows these lights at night (33 CFR § 83.23, Rule 23):\n\n- **A masthead light forward.**\n- **A second masthead light**, abaft of and higher than the forward one. A vessel under 50 meters in length does not have to show this light, but may.\n- **Sidelights.**\n- **A sternlight.**\n\nA power-driven vessel under 12 meters in length may show an all-round white light and sidelights instead of the lights above.\n\nWould you like a short quiz on these lights?",
+  "cites": [
+   "33 CFR § 83.23, Rule 23"
+  ]
+ }
+]

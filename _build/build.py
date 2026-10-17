@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Builds the oddlysunny.com static pages. Run from repo root: python3 _build/build.py
 Writes index.html, work/index.html and work/<slug>/index.html. Edit copy here, not in the output."""
-import os, sys, html, json
+import os, re, sys, html, json
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=73">
+<link rel="stylesheet" href="/assets/site.css?v=74">
 </head>
 """
 
@@ -396,6 +396,7 @@ def home():
     <h2 class="h2">A better way to build <i>learning</i></h2>
     <p class="sub">Our proprietary AI method turns official sources into modern learning. AI helps us build it, and the sources always have the last word.</p>
     <div class="feats">{feats}</div>
+    <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Meet Sunny, our AI study coach</h3><p>Our proprietary coach answers from the official source and cites the page or rule. Live on DMV IQ, coming to more of our brands.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
   </div>
   <div class="r"><canvas class="mesh" aria-hidden="true"></canvas></div>
 </div></section>
@@ -556,6 +557,105 @@ def contact_page():
 """
     return head_html("Contact | Oddly Sunny", "Get in touch with Oddly Sunny about our learning brands, a question that looks out of date, or anything else. We read every message.", "/contact/", "home.jpg") + header() + body + footer("paper")
 
+
+SUNNY_EXAMPLES = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sunny_examples.json"), encoding="utf-8"))
+
+def sunny_mascot(size, cls=""):
+    """Sunny's face is drawn over the plain cloud image, the same way as on dmv-iq.com."""
+    return (f'<span class="sn-mascot {cls}" style="width:{size}px;height:{size}px" aria-hidden="true"><span class="cm-body">'
+            f'<img src="/assets/img/sunny/sunny-256.webp" alt="" width="{size}" height="{size}" draggable="false">'
+            '<span class="cm-face"><span class="cm-blush cm-l"></span><span class="cm-blush cm-r"></span><span class="cm-eyes">'
+            '<span class="cm-socket cm-l"></span><span class="cm-socket cm-r"></span><span class="cm-eye cm-l"></span><span class="cm-eye cm-r"></span>'
+            '</span></span></span></span>')
+
+def md_lite(t):
+    """Sunny's replies use bold and short lists only."""
+    out, lst = [], []
+    def flush():
+        if lst:
+            out.append("<ul>" + "".join(f"<li>{x}</li>" for x in lst) + "</ul>"); lst.clear()
+    for line in t.split("\n"):
+        line = line.strip()
+        if not line:
+            flush(); continue
+        h = esc(line)
+        h = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", h)
+        if line.startswith(("- ", "• ")):
+            lst.append(h[2:])
+        else:
+            flush(); out.append(f"<p>{h}</p>")
+    flush()
+    return "".join(out)
+
+SUNNY_HOW = [
+ ("book","Built on the official source","Each brand connects Sunny to the official material behind its exam: state driver handbooks, FAA and FCC regulations, Coast Guard navigation rules. Sunny searches that text before it answers."),
+ ("check","Shows where it came from","Answers name the page or rule they come from. In DMV IQ, tapping a citation opens the state handbook at that page."),
+ ("globe","Checked before you see it","Every number in an answer has to appear in the source Sunny looked up. An answer that fails the check is repaired before it reaches the learner."),
+ ("chart","Knows the learner's test","Sunny works from the learner's own setup and progress: their state or certificate, test date and the questions they keep missing. Scores and readiness come from our scoring, never from a guess."),
+ ("spark","One engine, many exams","The core is built once and knows nothing about any single exam. Each brand plugs in its sources, exam rules and question bank, so a new exam gets the same coach without starting over."),
+ ("phone","Web, iOS and Android, in three languages","The same coach runs on the website and in the apps, and answers in English, Spanish or Chinese, keeping every number, limit and fee exactly as the source states it."),
+]
+
+SUNNY_RESPONSIBLE = [
+ "Always presented as AI, with a reminder that the official source has the final word.",
+ "When the source does not cover something, Sunny says so instead of filling the gap.",
+ "When a question's explanation and the source disagree, Sunny goes with the source and says so.",
+ "Every answer can be rated or reported. Our team reviews feedback by anonymous ID, never by name or email.",
+ "Safety comes first. A learner who sounds in distress is pointed to real help, and Sunny never helps with anything unsafe or with cheating on a test.",
+]
+
+def sunny_page():
+    cards = ""
+    for e in SUNNY_EXAMPLES:
+        tag = "Live" if e["status"] == "Live" else "Preview"
+        cites = "".join(f'<span class="sn-cite">{esc(c)}</span>' for c in e["cites"])
+        cards += f"""<article class="sn-ex reveal">
+  <div class="sn-ex-top"><strong>{esc(e["brand"])}</strong><span class="sn-tag {tag.lower()}">{tag}</span></div>
+  <p class="sn-ctx">{esc(e["context"])}</p>
+  <div class="sn-q">{esc(e["q"])}</div>
+  <div class="sn-a">{sunny_mascot(30, "sm")}<div class="sn-a-body">{md_lite(e["a"])}<div class="sn-cites">{cites}</div></div></div>
+</article>"""
+    how = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in SUNNY_HOW)
+    resp = "".join(f"<li>{esc(x)}</li>" for x in SUNNY_RESPONSIBLE)
+    body = f"""
+<section class="story sn" data-scheme="paper">
+  <header class="s-head sn-head">
+    <div class="sn-hero-mascot">{sunny_mascot(120)}</div>
+    <div class="s-label">Sunny</div>
+    <h1 class="s-title">An AI study coach that shows its sources.</h1>
+    <p class="s-dek">Sunny is our proprietary AI coach for test prep. It answers from the official material behind each exam, cites the exact page or rule, and says so when the source is silent.</p>
+  </header>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">Real answers, with their sources</h2>
+    <p class="sn-sub">Every answer below is real, unedited output from Sunny. The DMV IQ answers come from the live product. The Aviator IQ, Airwaves IQ and Mariner IQ answers come from previews of Sunny running on each brand's official rules, ahead of launch.</p>
+    <div class="sn-grid">{cards}</div>
+  </div>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">How it works</h2>
+    <p class="sn-sub">Sunny is our own setup, designed for test prep and education from the ground up. It does not answer from general knowledge. It answers from the sources each exam is built on.</p>
+    <div class="feats sn-feats">{how}</div>
+  </div>
+
+  <div class="sn-wrap sn-split">
+    <div>
+      <h2 class="sn-h2">Responsible by design</h2>
+      <ul class="sn-list">{resp}</ul>
+    </div>
+    <aside class="sn-where">
+      <div class="s-side-title">Where Sunny works today</div>
+      <p><strong>DMV IQ</strong>, on the web, iOS and Android, for car, motorcycle and CDL tests in all 50 states and DC.</p>
+      <a class="btn" href="https://dmv-iq.com/sunny/" target="_blank" rel="noopener">Try Sunny on DMV IQ {ARROW}</a>
+      <p class="sn-next">Coming to more of our learning brands.</p>
+    </aside>
+  </div>
+</section>
+"""
+    return head_html("Sunny, our AI study coach | Oddly Sunny",
+        "Sunny is Oddly Sunny's proprietary AI study coach for test prep. It answers from official sources, cites the exact page or rule, and says so when the source is silent.",
+        "/sunny/", "home.jpg") + header() + body + footer("paper")
+
 def not_found_page():
     """GitHub Pages serves /404.html for any missing path, so every link and asset here is absolute."""
     tiles = "".join(f'<a href="/work/{p["slug"]}/">{p["name"]}<span>{esc(p["catlabel"])}</span></a>' for p in [BY[s] for s in FEATURED_ORDER])
@@ -580,10 +680,11 @@ def not_found_page():
 if __name__ == "__main__":
     write("index.html", home())
     write("404.html", not_found_page())
+    write("sunny/index.html", sunny_page())
     write("contact/index.html", contact_page())
     for p in PRODUCTS:
         write(f"work/{p['slug']}/index.html", product(p))
-    urls = ["/", "/contact/"] + [f"/work/{p['slug']}/" for p in PRODUCTS] + ["/privacy/"]
+    urls = ["/", "/sunny/", "/contact/"] + [f"/work/{p['slug']}/" for p in PRODUCTS] + ["/privacy/"]
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{u}</loc></url>\n" for u in urls) + "</urlset>\n")
     write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
     print("built", 2 + len(PRODUCTS), "pages")
