@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=72">
+<link rel="stylesheet" href="/assets/site.css?v=73">
 </head>
 """
 
@@ -556,8 +556,30 @@ def contact_page():
 """
     return head_html("Contact | Oddly Sunny", "Get in touch with Oddly Sunny about our learning brands, a question that looks out of date, or anything else. We read every message.", "/contact/", "home.jpg") + header() + body + footer("paper")
 
+def not_found_page():
+    """GitHub Pages serves /404.html for any missing path, so every link and asset here is absolute."""
+    tiles = "".join(f'<a href="/work/{p["slug"]}/">{p["name"]}<span>{esc(p["catlabel"])}</span></a>' for p in [BY[s] for s in FEATURED_ORDER])
+    body = f"""
+<section class="story contact nf" data-scheme="paper">
+  <div class="c-wrap">
+    <div class="s-label">404</div>
+    <h1 class="s-title">This page took a wrong turn.</h1>
+    <p class="s-dek">The page you were looking for isn't here. It may have moved, or the link may be out of date.</p>
+    <div class="nf-actions">
+      <a class="btn" href="/">Back to home {ARROW_R}</a>
+      <a class="nf-link" href="/contact/">Tell us about a broken link</a>
+    </div>
+    <div class="nf-list"><div class="s-side-title">Or visit one of our learning brands</div><div class="nf-grid">{tiles}</div></div>
+  </div>
+</section>
+"""
+    head = head_html("Page not found | Oddly Sunny", "The page you were looking for isn't here. Head back to Oddly Sunny or visit one of our learning brands.", "/404.html", "home.jpg")
+    head = head.replace('<meta charset="UTF-8">', '<meta charset="UTF-8">\n<meta name="robots" content="noindex">', 1)
+    return head + header() + body + footer("paper")
+
 if __name__ == "__main__":
     write("index.html", home())
+    write("404.html", not_found_page())
     write("contact/index.html", contact_page())
     for p in PRODUCTS:
         write(f"work/{p['slug']}/index.html", product(p))
