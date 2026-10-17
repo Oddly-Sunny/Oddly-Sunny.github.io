@@ -57,7 +57,7 @@ STORIES = {
   ("h","Studying where it counts"),
   ("p","Not all study time is equal. DMV IQ shows how ready you are as a simple percentage, then points you at the questions you are most likely to miss, so the hours you have go where they matter. Personalized study puts your weak spots first."),
   ("h","A coach next to every question"),
-  ("p","DMV IQ now includes Sunny, an AI study coach. Sunny explains why an answer is right, takes follow-up questions, and points to the page of your state's handbook it is drawing from, so you can check it yourself. It works on the website and in the apps, in English, Spanish and Chinese."),
+  ("p","DMV IQ now includes Sunny, an AI study coach. Sunny explains why an answer is right, takes follow-up questions, and points to the page of your state's handbook it is drawing from, so you can check it yourself. It works on the website and in the apps, fully localized."),
   ('h','Who it is for'),
   ('p',"DMV IQ is for first-time drivers and teenagers working toward a learner's permit, new arrivals to the United States who need a state licence, adults returning to the road, and professionals preparing for a commercial driver's licence."),
   ('h','What is inside'),

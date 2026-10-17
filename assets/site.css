@@ -792,3 +792,9 @@ h2.h2{font-size:clamp(26px,3vw,40px);line-height:1.12}
 .sn-link .go{display:inline-flex;gap:8px;align-items:center;margin-left:auto;white-space:nowrap;font-size:13px}
 .sn-link .go svg{width:14px;height:14px}
 @media(max-width:600px){.sn-link{flex-wrap:wrap}.sn-link .go{margin-left:0}}
+.sn-foot{margin-top:4px;font-size:12px;color:var(--muted)}
+.sn-resp{margin-top:30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 40px}
+.sn-r{position:relative;padding:20px 0 20px 26px;border-top:1px solid var(--border)}
+.sn-r::before{content:"";position:absolute;left:2px;top:29px;width:8px;height:8px;border-radius:2px;background:var(--gold);transform:rotate(45deg)}
+.sn-r h3{font-family:var(--sans);font-weight:500;font-size:16px;margin-bottom:6px}
+.sn-r p{font-size:14px;line-height:1.65;color:var(--muted)}

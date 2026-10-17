@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=74">
+<link rel="stylesheet" href="/assets/site.css?v=75">
 </head>
 """
 
@@ -394,9 +394,9 @@ def home():
   <div class="l">
     <div class="eyebrow rule">The Oddly Sunny Method and responsible AI</div>
     <h2 class="h2">A better way to build <i>learning</i></h2>
-    <p class="sub">Our proprietary AI method turns official sources into modern learning. AI helps us build it, and the sources always have the last word.</p>
+    <p class="sub">We are AI-native. Our proprietary method turns official sources into modern learning, and the sources always have the last word.</p>
     <div class="feats">{feats}</div>
-    <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Meet Sunny, our AI study coach</h3><p>Our proprietary coach answers from the official source and cites the page or rule. Live on DMV IQ, coming to more of our brands.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
+    <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Meet Sunny, our AI study coach</h3><p>A conversational AI built for education. Sunny gets to know each learner, adapts as they study, and answers from the official source with the page or rule to prove it.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
   </div>
   <div class="r"><canvas class="mesh" aria-hidden="true"></canvas></div>
 </div></section>
@@ -588,72 +588,66 @@ def md_lite(t):
     return "".join(out)
 
 SUNNY_HOW = [
- ("book","Built on the official source","Each brand connects Sunny to the official material behind its exam: state driver handbooks, FAA and FCC regulations, Coast Guard navigation rules. Sunny searches that text before it answers."),
- ("check","Shows where it came from","Answers name the page or rule they come from. In DMV IQ, tapping a citation opens the state handbook at that page."),
- ("globe","Checked before you see it","Every number in an answer has to appear in the source Sunny looked up. An answer that fails the check is repaired before it reaches the learner."),
- ("chart","Knows the learner's test","Sunny works from the learner's own setup and progress: their state or certificate, test date and the questions they keep missing. Scores and readiness come from our scoring, never from a guess."),
- ("spark","One engine, many exams","The core is built once and knows nothing about any single exam. Each brand plugs in its sources, exam rules and question bank, so a new exam gets the same coach without starting over."),
- ("phone","Web, iOS and Android, in three languages","The same coach runs on the website and in the apps, and answers in English, Spanish or Chinese, keeping every number, limit and fee exactly as the source states it."),
+ ("phone","Conversational by design","Learners talk to Sunny the way they would talk to a tutor: in their own words, in the middle of a question or the night before the test. Sunny turns each message into the next useful step: an explanation, a lesson, a quiz or a plan."),
+ ("book","Keeps the context","Sunny holds the thread of every conversation and sees the question on the learner's screen, so a follow-up like \"why not B?\" or \"give me another one\" just works, without repeating anything."),
+ ("chart","Learns the learner","Every answer a learner gives updates what Sunny knows about them: their test, their date, the topics they have mastered and the ones they keep missing. Each session starts from that picture, never from zero."),
+ ("spark","Adapts as they study","Sunny paces the plan to the test date, quizzes on weak spots and moves on once a topic is solid. Readiness comes from our own scoring model, so the guidance is measured, not guessed."),
+ ("check","Grounded in the official source","Each brand connects Sunny to the official material behind its exam, from state handbooks to federal regulations. Every answer comes from that text, with the page or rule to prove it."),
+ ("globe","One engine, every exam, localized","A single domain-neutral engine powers every brand. Each one plugs in its own sources, exam rules and question bank, and Sunny meets learners in their own language."),
 ]
 
 SUNNY_RESPONSIBLE = [
- "Always presented as AI, with a reminder that the official source has the final word.",
- "When the source does not cover something, Sunny says so instead of filling the gap.",
- "When a question's explanation and the source disagree, Sunny goes with the source and says so.",
- "Every answer can be rated or reported. Our team reviews feedback by anonymous ID, never by name or email.",
- "Safety comes first. A learner who sounds in distress is pointed to real help, and Sunny never helps with anything unsafe or with cheating on a test.",
+ ("Grounded answers, no guesswork","Sunny answers from the official text it retrieves for each question, not from general knowledge, which removes the usual source of AI hallucinations."),
+ ("Every fact verified","Each number in an answer, from a speed limit to a fee, is checked against the source before the learner sees it. An answer that fails the check is corrected automatically."),
+ ("Honest about what it doesn't know","When the official source is silent, Sunny says so and points to where to check. A missing fact is always better than an invented one."),
+ ("Authority stays with the source","Sunny cites the page or rule behind each answer. Where our own explanation and the official source ever disagree, the source wins and Sunny says so."),
+ ("Empathic, not just accurate","Sunny is warm, calm and patient. It notices when a learner is anxious and keeps the next step small and doable, because confidence is part of passing."),
 ]
 
 def sunny_page():
     cards = ""
     for e in SUNNY_EXAMPLES:
-        tag = "Live" if e["status"] == "Live" else "Preview"
+        tag = "" if e["status"] == "Live" else '<span class="sn-tag preview">Preview</span>'
         cites = "".join(f'<span class="sn-cite">{esc(c)}</span>' for c in e["cites"])
         cards += f"""<article class="sn-ex reveal">
-  <div class="sn-ex-top"><strong>{esc(e["brand"])}</strong><span class="sn-tag {tag.lower()}">{tag}</span></div>
+  <div class="sn-ex-top"><strong>{esc(e["brand"])}</strong>{tag}</div>
   <p class="sn-ctx">{esc(e["context"])}</p>
   <div class="sn-q">{esc(e["q"])}</div>
   <div class="sn-a">{sunny_mascot(30, "sm")}<div class="sn-a-body">{md_lite(e["a"])}<div class="sn-cites">{cites}</div></div></div>
 </article>"""
     how = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in SUNNY_HOW)
-    resp = "".join(f"<li>{esc(x)}</li>" for x in SUNNY_RESPONSIBLE)
+    resp = "".join(f'<div class="sn-r reveal"><h3>{esc(t)}</h3><p>{esc(d)}</p></div>' for t, d in SUNNY_RESPONSIBLE)
     body = f"""
 <section class="story sn" data-scheme="paper">
   <header class="s-head sn-head">
     <div class="sn-hero-mascot">{sunny_mascot(120)}</div>
     <div class="s-label">Sunny</div>
     <h1 class="s-title">An AI study coach that shows its sources.</h1>
-    <p class="s-dek">Sunny is our proprietary AI coach for test prep. It answers from the official material behind each exam, cites the exact page or rule, and says so when the source is silent.</p>
+    <p class="s-dek">Sunny is our proprietary, conversational AI coach for test prep. It gets to know each learner, adapts as they study, and answers from the official material behind each exam, citing the exact page or rule.</p>
   </header>
 
   <div class="sn-wrap">
     <h2 class="sn-h2">Real answers, with their sources</h2>
-    <p class="sn-sub">Every answer below is real, unedited output from Sunny. The DMV IQ answers come from the live product. The Aviator IQ, Airwaves IQ and Mariner IQ answers come from previews of Sunny running on each brand's official rules, ahead of launch.</p>
+    <p class="sn-sub">Every answer below is real, unedited output from Sunny, with the source it came from.</p>
     <div class="sn-grid">{cards}</div>
+    <p class="sn-foot">Preview: Sunny running on that brand's official rules ahead of release.</p>
   </div>
 
   <div class="sn-wrap">
     <h2 class="sn-h2">How it works</h2>
-    <p class="sn-sub">Sunny is our own setup, designed for test prep and education from the ground up. It does not answer from general knowledge. It answers from the sources each exam is built on.</p>
+    <p class="sn-sub">Sunny is a conversational AI built for education from the ground up. It does more than answer questions: it gets to know each learner and coaches them all the way to test day.</p>
     <div class="feats sn-feats">{how}</div>
   </div>
 
-  <div class="sn-wrap sn-split">
-    <div>
-      <h2 class="sn-h2">Responsible by design</h2>
-      <ul class="sn-list">{resp}</ul>
-    </div>
-    <aside class="sn-where">
-      <div class="s-side-title">Where Sunny works today</div>
-      <p><strong>DMV IQ</strong>, on the web, iOS and Android, for car, motorcycle and CDL tests in all 50 states and DC.</p>
-      <a class="btn" href="https://dmv-iq.com/sunny/" target="_blank" rel="noopener">Try Sunny on DMV IQ {ARROW}</a>
-      <p class="sn-next">Coming to more of our learning brands.</p>
-    </aside>
+  <div class="sn-wrap">
+    <h2 class="sn-h2">Responsible AI, by design</h2>
+    <p class="sn-sub">Accuracy, authority and empathy are built into how Sunny works, not added afterward. These are the methods we use to keep it valid and trustworthy.</p>
+    <div class="sn-resp">{resp}</div>
   </div>
 </section>
 """
     return head_html("Sunny, our AI study coach | Oddly Sunny",
-        "Sunny is Oddly Sunny's proprietary AI study coach for test prep. It answers from official sources, cites the exact page or rule, and says so when the source is silent.",
+        "Sunny is Oddly Sunny's proprietary, conversational AI study coach. It learns each student, adapts as they study, and answers from official sources with the exact page or rule.",
         "/sunny/", "home.jpg") + header() + body + footer("paper")
 
 def not_found_page():

@@ -12,7 +12,7 @@
  {
   "brand": "DMV IQ",
   "status": "Live",
-  "context": "New Jersey car test, asked in Spanish",
+  "context": "New Jersey car test, in the learner's own language",
   "q": "¿Cuántas preguntas tiene mi examen de Nueva Jersey y cuántas necesito para aprobar?",
   "a": "Tu examen de Nueva Jersey tiene **50 preguntas** y necesitas **al menos 40 correctas** para aprobar, que es el 80 %. Eso significa que puedes fallar hasta 10.\n\nOtros datos oficiales:\n- Tiempo límite: no publicado por la agencia.\n- Se hace en computadora, en un centro de licencias de la MVC. Necesitas cita (telegov.njportal.com), aunque algunos centros aceptan personas sin cita.\n- El resultado aparece al terminar.\n- Si repruebas, debes esperar **7 días** para volver a intentar el examen de conocimientos.\n\nTu examen está programado para el **jueves 29 de octubre**.",
   "cites": [
