@@ -24,3 +24,8 @@
 ## 2026-10-18 Homepage "Why it's different" comparison (committed, NOT pushed)
 - New `#different` section (paper scheme) between "Who we are" and the portfolio: Oddly Sunny vs "the old way", headline "Learning is stuck in the past. We built what comes next.", 6 rows from `COMPARE` in build.py, `.vs` CSS block at end of site.css (`?v=81`). Intro sub trimmed so it doesn't repeat the table. No unsourced "X years" claim. Checked desktop + 390px.
 - Next step: owner approval on localhost, then `git push` (ships this and the Sunny copy together).
+
+## 2026-10-18 Homepage redesign of comparison + "AI that studies with you" (committed, NOT pushed)
+- `#different` restyled to match the site: cream scheme continuing "Who we are", ruled eyebrow, serif-italic row labels, old way muted, Oddly Sunny column as a dark green panel (`.vs-table`); stacks into cards with inline labels under 760px.
+- New `#ai-tools` section under it: 3 callouts (Ask Sunny with page cite, Quiz generator, Study plan) = photo + HTML UI mock + gold button, `ai_cards()` in build.py, `.ai-*` CSS, crops in `assets/img/ai/` (ask.jpg is the library photo MIRRORED). CSS `?v=87`. Checked desktop + 390px.
+- Next step: owner approval on localhost, then `git push`.

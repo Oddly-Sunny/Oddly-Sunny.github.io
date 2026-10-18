@@ -192,6 +192,8 @@ ICONS = {
  "globe":'<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.500 2.700 3.800 5.700 3.800 9S14.500 18.300 12 21c-2.500-2.700-3.800-5.700-3.800-9S9.500 5.700 12 3z"/>',
  "phone":'<rect x="7" y="2.500" width="10" height="19" rx="2.500"/><path d="M11 18.500h2"/>',
  "chart":'<path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/>',
+ "route":'<circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7.500a3.500 3.500 0 0 0 0-7h-7a3.500 3.500 0 0 1 0-7H16"/>',
+ "chat":'<path d="M20 12.500a7.500 7.500 0 0 1-11 6.600L4 20.500l1.400-4.600A7.500 7.500 0 1 1 20 12.500z"/><path d="M9 12h.01M12.500 12h.01M16 12h.01"/>',
  "spark":'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.500 2.500M15.500 15.500 18 18M18 6l-2.500 2.500M8.500 15.500 6 18"/>',
 }
 ICON_ORDER = ["book","check","globe","phone","chart","spark"]
@@ -261,7 +263,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=81">
+<link rel="stylesheet" href="/assets/site.css?v=87">
 </head>
 """
 
@@ -384,16 +386,27 @@ def home():
   <div class="pic reveal"><img src="/assets/img/brand-gold-foil-wide.jpg" alt="Oddly Sunny gold foil logo on navy paper in the sun" loading="lazy"></div>
 </div></section>
 
-<section class="sec" id="different" data-scheme="paper"><div class="wrap">
-  <div class="center reveal">
-    <div class="eyebrow">Why it's different</div>
-    <h2 class="h2">Learning is stuck in the past. <i>We built what comes next.</i></h2>
-    <p class="sub vs-sub">Same thick handbooks, same static quizzes, same guesswork. It's time it caught up.</p>
+<section class="sec vs-sec" id="different" data-scheme="cream"><div class="wrap">
+  <div class="vs-head">
+    <div class="reveal">
+      <div class="eyebrow rule">Why it's different</div>
+      <h2 class="h2">Learning is stuck in the past. <i>We built what comes next.</i></h2>
+    </div>
+    <p class="sub reveal">Same thick handbooks, same static quizzes, same guesswork. It's time it caught up.</p>
   </div>
-  <div class="vs reveal" role="table" aria-label="Oddly Sunny compared with the old way">
-    <div class="vs-row vs-headrow" role="row"><span role="columnheader"></span><span class="vs-us" role="columnheader">Oddly Sunny</span><span class="vs-them" role="columnheader">The old way</span></div>
-    {compare_rows()}
+  <div class="vs-table">{compare_rows()}</div>
+</div></section>
+
+<section class="sec ai-sec" id="ai-tools" data-scheme="cream"><div class="wrap">
+  <div class="vs-head">
+    <div class="reveal">
+      <div class="eyebrow rule">Meet Sunny</div>
+      <h2 class="h2">AI that studies <i>with you</i> <span class="ai-spark">{SPARK}</span></h2>
+    </div>
+    <p class="sub reveal">Sunny, our AI study coach, sits next to every question. It answers from the official source, builds practice around you and keeps you on pace for test day.</p>
   </div>
+  <div class="ai-grid">{ai_cards()}</div>
+  <a class="ai-more reveal" href="/sunny/">See Sunny in action {ARROW_R}</a>
 </div></section>
 
 <section class="sec" id="work" data-scheme="purple"><div class="wrap center">
@@ -618,18 +631,47 @@ def md_lite(t):
     return "".join(out)
 
 COMPARE = [
- ("Personalized to you","Learns what you know and adapts as you go, so every learner gets their own path","The same fixed path for everyone"),
- ("What comes next","Your weak spots surface first, and the next step is tailored to you","Work through it in order and hope it sticks"),
- ("Progress reports","Progress by topic, showing what you've mastered, what's left and when you're ready","A single score, and a hope"),
- ("When you're stuck","Ask Sunny, who answers from the official source and shows where","A static explanation, or a chatbot that may guess"),
- ("Where it comes from","Built from official sources, traceable to the page and updated when the rules change","Written once, with unclear sources, rarely updated"),
- ("Where you are","Built for your state, province or country","One generic version for everyone"),
+ ("spark","Personalized to you","Learns what you know and adapts as you go, so every learner gets their own path","The same fixed path for everyone"),
+ ("route","What comes next","Your weak spots surface first, and the next step is tailored to you","Work through it in order and hope it sticks"),
+ ("chart","Progress reports","Progress by topic, showing what you've mastered, what's left and when you're ready","A single score, and a hope"),
+ ("chat","When you're stuck","Ask Sunny, who answers from the official source and shows where","A static explanation, or a chatbot that may guess"),
+ ("book","Where it comes from","Built from official sources, traceable to the page and updated when the rules change","Written once, with unclear sources, rarely updated"),
+ ("globe","Where you are","Built for your state, province or country","One generic version for everyone"),
 ]
 
+SPARK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 2.500c.5 4.300 2.700 6.500 7 7-4.300.5-6.500 2.700-7 7-.5-4.300-2.700-6.500-7-7 4.300-.5 6.500-2.700 7-7zm8 10c.3 2.300 1.300 3.300 3.500 3.500-2.200.3-3.200 1.300-3.500 3.500-.3-2.200-1.300-3.200-3.500-3.500 2.200-.2 3.200-1.200 3.500-3.500z"/></svg>'
+
+def ai_cards():
+    btn = lambda t: f'<span class="ai-btn">{SPARK}{t}</span>'
+    tick = '<i class="ai-tick"></i>'
+    mocks = [
+     ("ask", "Ask Sunny", f'''<div class="ai-mock"><b class="ai-mt">Ask Sunny</b>
+        <div class="ai-q">Why is B wrong?</div>
+        <div class="ai-a">You must stop first, then pass at no more than 15 mph.</div>
+        <span class="ai-cite">{icon("book")}p. 80 · Driver Manual</span></div>''', "Answers you can check",
+      "Ask anything, in your own words. Sunny answers only from the official manual, shows the page it used and checks every number before you see it."),
+     ("quiz", "Generate quiz", f'''<div class="ai-mock"><b class="ai-mt">Quiz generator</b>
+        <div class="ai-sel">Right of way<span>▾</span></div>
+        <div class="ai-list"><small>Your weak spots</small><span>{tick}Intersections</span><span>{tick}Pedestrians</span><span>{tick}Emergency vehicles</span></div></div>''', "Quizzes on demand",
+      "Turn any topic into a fresh quiz in seconds, or let Sunny pick the ones you keep missing. Every question comes from the official source."),
+     ("plan", "Build my plan", f'''<div class="ai-mock"><b class="ai-mt">Study plan</b>
+        <div class="ai-row"><small>Test date</small><span>Nov 14</span></div>
+        <div class="ai-row"><small>Time per day</small><span>20 min</span></div>
+        <div class="ai-bar"><i style="width:62%"></i></div><small class="ai-note">62% ready · on track</small></div>''', "A plan paced to test day",
+      "Tell Sunny when your test is. It builds a plan around the date, adjusts as you improve and tells you honestly when you're ready."),
+    ]
+    return "".join(f'''<article class="ai-card reveal" style="--d:{i * 110}ms">
+      <div class="ai-vis"><img src="/assets/img/ai/{img}.jpg" alt="" loading="lazy" width="900" height="720">{mock}{btn(b)}</div>
+      <h3>{esc(t)}</h3><p>{esc(d)}</p>
+    </article>''' for i, (img, b, mock, t, d) in enumerate(mocks))
+
 def compare_rows():
-    yes = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.500 8.200 2.300 2.300 4.700-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-    no = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m5.500 5.500 5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
-    return "".join(f'<div class="vs-row" role="row"><span class="vs-k" role="rowheader">{esc(k)}</span><span class="vs-us" role="cell"><i class="vs-ic">{yes}</i>{esc(u)}</span><span class="vs-them" role="cell"><i class="vs-ic">{no}</i>{esc(t)}</span></div>' for k, u, t in COMPARE)
+    head = '<div class="vs-row vs-hd" aria-hidden="true"><span></span><span class="vs-old">The old way</span><span class="vs-new"><b class="vs-brand">With Oddly Sunny</b></span></div>'
+    return head + "".join(f'''<div class="vs-row reveal" style="--d:{i * 60}ms">
+      <h3 class="vs-k"><span class="vs-icon">{icon(ic)}</span>{esc(k)}</h3>
+      <p class="vs-old"><span class="sr-only vs-ml">The old way </span>{esc(t)}</p>
+      <p class="vs-new"><span class="sr-only vs-ml">With Oddly Sunny </span>{esc(u)}</p>
+    </div>''' for i, (ic, k, u, t) in enumerate(COMPARE))
 
 SUNNY_HOW = [
  ("phone","Conversational by design","Learners talk to Sunny the way they would talk to a tutor: in their own words, in the middle of a question or the night before the test. Sunny turns each message into the next useful step: an explanation, a lesson, a quiz or a plan."),
