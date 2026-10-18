@@ -35,3 +35,10 @@
 - "Personal by design" icons are hidden games (`data-play`): +1 lesson / Ready N% / +10 XP combo, confetti cells, achievement toast after all three.
 - Study-plan photo now `ai/plan.jpg` = cp-dog MIRRORED. Method-section Sunny card shortened. CSS ?v=89, JS ?v=28.
 - Next step: owner approval on localhost, then `git push`.
+
+## 2026-10-18 later rounds (all committed, NOT pushed)
+- Header: "Stories" menu (4 headline teasers from stories.py + icon row + All stories), Sunny nav link, "How we build", frosted header that tucks on scroll down. App icons in `assets/img/apps/` (from each app's iOS AppIcon 1024).
+- Play section = playable games: Sign Match (real MUTCD signs copied from dmviq-website/public/signs to `assets/img/signs/`), scratch Flash Cards, Tinder-style Fact Check deck; hearts, progress, streak, XP, stars, best score (localStorage).
+- /sunny: comparison in homepage table style (`compare_rows(SUNNY_VS, ...)`); demo replies embed quiz / course path / readiness cards (`SUNNY_WIDGET_CASES`, `sunny_widget()`); intro no longer claims "real, unedited" for every case.
+- Method section rewritten to four checks. Motion toned down (no button glow, shine or loops).
+- Next step: owner review on localhost, then `git push`.

@@ -176,12 +176,6 @@ PRODUCTS = [
   img="mariner-iq.jpg", alt="Mariner IQ on a phone on a deep blue velvet sofa"),
 ]
 BY = {p["slug"]: p for p in PRODUCTS}
-MENU_LINE = {"dmv-iq": "Permit tests for every state", "drive-iq-canada": "Every province, in English and French",
-             "citizen-pass": "US, UK, Canada and Australia", "aviator-iq": "13 FAA knowledge exams",
-             "mariner-iq": "Coast Guard captain's licence exams", "insurance-pass": "Producer and adjuster licences",
-             "airwaves-iq": "Ham radio and FCC licence exams"}
-MENU_GROUPS = [("Driving", ["dmv-iq", "drive-iq-canada"]), ("Citizenship", ["citizen-pass"]),
-               ("Aviation and maritime", ["aviator-iq", "mariner-iq"]), ("Careers and licences", ["insurance-pass", "airwaves-iq"])]
 FEATURED_ORDER = ["aviator-iq","citizen-pass","dmv-iq","drive-iq-canada","insurance-pass","airwaves-iq","mariner-iq"]
 
 CAPS = [
@@ -267,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=101">
+<link rel="stylesheet" href="/assets/site.css?v=102">
 </head>
 """
 
@@ -288,18 +282,18 @@ def live_mark():
             '</g></g></svg>')
 
 def header():
-    def item(slug):
+    feat = ["dmv-iq", "citizen-pass", "aviator-iq", "insurance-pass"]
+    def story(slug):
         p = BY[slug]
-        line = MENU_LINE[slug]
-        return f'<a href="/work/{slug}/"><img src="/assets/img/apps/{slug}.png" alt="" loading="lazy" width="40" height="40"><span class="dd-t"><b>{p["name"]}</b><small>{esc(line)}</small></span></a>'
-    items = "".join(f'<div class="dd-g"><p class="dd-h">{esc(g)}</p>{"".join(item(x) for x in slugs)}</div>' for g, slugs in MENU_GROUPS)
-    items += f'<a class="dd-sunny" href="/sunny/">{sunny_mascot(36, "sm")}<span class="dd-t"><b>Meet Sunny</b><small>The AI study coach inside every brand.</small></span>{ARROW_R}</a>'
+        return f'<a class="dd-story" href="/work/{slug}/"><q>{esc(STORIES[slug]["headline"])}</q><span class="dd-by"><img src="/assets/img/apps/{slug}.png" alt="" loading="lazy" width="22" height="22">{p["name"]}</span></a>'
+    more = "".join(f'<a href="/work/{x}/"><img src="/assets/img/apps/{x}.png" alt="" loading="lazy" width="22" height="22">{BY[x]["name"]}</a>' for x in FEATURED_ORDER if x not in feat)
+    items = f'<div class="dd-stories">{"".join(story(x) for x in feat)}</div><div class="dd-more">{more}<a class="dd-all" href="/#work">All stories {ARROW_R}</a></div>'
     return f"""<body>
 <header class="hdr" data-scheme="green">
   <div class="wrap">
     <a href="/" class="brand" aria-label="oddly sunny home">{live_mark()}<span>oddly <b>sunny</b></span></a>
     <nav class="nav" aria-label="Main">
-      <div class="dd"><button type="button" aria-haspopup="true">Our portfolio <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m2 3.500 3 3 3-3"/></svg></button>
+      <div class="dd"><button type="button" aria-haspopup="true">Stories <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m2 3.500 3 3 3-3"/></svg></button>
         <div class="dd-menu">{items}</div></div>
       <a class="nav-sunny" href="/sunny/">{sunny_mascot(22, "sm")}Sunny</a>
       <a href="/#expertise">How we build</a>
