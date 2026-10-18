@@ -896,7 +896,6 @@ h2.h2{font-size:clamp(26px,3vw,40px);line-height:1.12}
 .vs-hd .vs-old{color:var(--muted)}
 .vs-hd .vs-new::before{display:none}
 .vs-brand{font-weight:500;color:var(--gold)}
-.vs-row:not(.vs-hd):hover .vs-new{background:rgba(237,245,240,.04)}
 .vs-row:last-child .vs-new{padding-bottom:34px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media(max-width:960px){.vs-head{grid-template-columns:1fr;gap:0}.vs-head .sub{margin-top:4px}.vs-sec .wrap{padding-top:64px}}
@@ -989,9 +988,7 @@ h2.h2{font-size:clamp(26px,3vw,40px);line-height:1.12}
 .vs-new::before{transform:rotate(45deg) scale(0);transition:transform .5s cubic-bezier(.34,1.56,.64,1) calc(var(--d,0s) + .55s)}
 .vs-row.visible .vs-new::before{transform:rotate(45deg) scale(1)}
 .vs-icon{transition:background-color .3s,color .3s,transform .45s cubic-bezier(.34,1.56,.64,1)}
-.vs-row:not(.vs-hd):hover .vs-icon{transform:translateY(-1px)}
 .vs-k{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
-.vs-row:not(.vs-hd):hover .vs-k{transform:translateX(4px)}
 /* AI callouts: the little screens act out what they do */
 @keyframes aiTwinkle{0%,100%{transform:scale(1) rotate(0)}45%{transform:scale(1.18) rotate(18deg)}55%{transform:scale(.92) rotate(10deg)}}
 .ai-q,.ai-a,.ai-cite,.ai-list span,.ai-row{opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s cubic-bezier(.2,.7,.2,1)}
@@ -1330,4 +1327,23 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
   .nav>a.nav-mail{display:block;width:100%;text-align:center;margin-top:12px;padding:6px 0;font-size:13px;opacity:.6;border:0}
   .nav>a:not(.btn){border-radius:0}
   .hdr .dd-menu .dd-list span{color:var(--text)!important}
+}
+/* comparison: hover only with a real pointer on the desktop table */
+@media(hover:hover) and (min-width:761px){
+  .vs-row:not(.vs-hd):hover .vs-new{background:rgba(237,245,240,.04)}
+  .vs-row:not(.vs-hd):hover .vs-icon{transform:translateY(-1px)}
+  .vs-row:not(.vs-hd):hover .vs-k{transform:translateX(4px)}
+}
+/* comparison on phones: one tidy card per row, the Oddly Sunny answer as an inset green panel */
+@media(max-width:760px){
+  .vs-table{display:grid;gap:12px}
+  .vs-row{margin:0;padding:16px 16px 14px;border-radius:16px;background:var(--card);box-shadow:0 1px 0 rgba(11,31,22,.04),0 10px 24px -18px rgba(11,31,22,.25);overflow:visible}
+  .vs-k{padding:0!important;gap:10px;font-size:20px!important}
+  .vs-icon{width:30px;height:30px}
+  .vs-icon svg{width:15px;height:15px}
+  .vs-old{padding:12px 0 12px!important}
+  .vs-new{margin:0;padding:12px 14px!important;border-radius:12px;background:#0F2E22!important}
+  .vs-row:last-child .vs-new{padding-bottom:12px!important}
+  .vs-ml{margin-bottom:5px}
+  .vs-row .vs-k,.vs-row .vs-icon,.vs-row .vs-new::before{transform:none!important}
 }
