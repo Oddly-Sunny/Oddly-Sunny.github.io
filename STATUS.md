@@ -20,3 +20,7 @@
 - Homepage Sunny card, /sunny/ (new H1, "The antidote to AI hallucinations" section with chatbot vs Sunny comparison, responsible AI intro, meta description) and DMV IQ story ("A coach that won't make up the rules" + pull quote). CSS `?v=80` (`.sn-vs` block at end of site.css).
 - Claims match the engine (`~/Projects/sunny`: facts only from retrieved manual text, page cites, numbers checked and repaired). No competitor named; no "zero hallucinations" claim.
 - Next step: owner review, then `git push` to deploy.
+
+## 2026-10-18 Homepage "Why it's different" comparison (committed, NOT pushed)
+- New `#different` section (paper scheme) between "Who we are" and the portfolio: Oddly Sunny vs typical test prep, 6 rows from `COMPARE` in build.py, `.vs` CSS block at end of site.css (`?v=81`). Intro sub trimmed so it doesn't repeat the table. No unsourced "X years" claim. Checked desktop + 390px.
+- Next step: owner approval on localhost, then `git push` (ships this and the Sunny copy together).

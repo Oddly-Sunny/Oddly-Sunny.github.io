@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=80">
+<link rel="stylesheet" href="/assets/site.css?v=81">
 </head>
 """
 
@@ -377,11 +377,23 @@ def home():
   <div class="reveal">
     <div class="eyebrow rule">Who we are</div>
     <h2 class="h2">We're oddly obsessed with <i>getting it right</i></h2>
-    <p class="sub">Most test prep is written once and left to age. Ours is generated, verified and refreshed by a proprietary AI method we built in-house.</p>
+    <p class="sub">We build test prep with a proprietary AI method we developed in-house, so every question is generated, verified and kept fresh.</p>
     <p class="body">Oddly Sunny is the company behind a family of learning brands. Each one starts from official sources and runs through the same method: questions grounded in source text, independently verified, and modeled on real exam conditions. One method, many exams.</p>
     <div class="cta-row"><a class="btn" href="#work">Explore our work {ARROW}</a></div>
   </div>
   <div class="pic reveal"><img src="/assets/img/brand-gold-foil-wide.jpg" alt="Oddly Sunny gold foil logo on navy paper in the sun" loading="lazy"></div>
+</div></section>
+
+<section class="sec" id="different" data-scheme="paper"><div class="wrap">
+  <div class="center reveal">
+    <div class="eyebrow">Why it's different</div>
+    <h2 class="h2">Test prep hasn't really changed. <i>We're changing it.</i></h2>
+    <p class="sub vs-sub">Same thick handbooks, same static quizzes, same guesswork. It's time studying caught up.</p>
+  </div>
+  <div class="vs reveal" role="table" aria-label="Oddly Sunny compared with typical test prep">
+    <div class="vs-row vs-headrow" role="row"><span role="columnheader"></span><span class="vs-us" role="columnheader">Oddly Sunny</span><span class="vs-them" role="columnheader">Typical test prep</span></div>
+    {compare_rows()}
+  </div>
 </div></section>
 
 <section class="sec" id="work" data-scheme="purple"><div class="wrap center">
@@ -604,6 +616,20 @@ def md_lite(t):
             flush(); out.append(f"<p>{h}</p>")
     flush()
     return "".join(out)
+
+COMPARE = [
+ ("Where questions come from","Drafted from official sources, each one traceable to its page or rule","Written once, with the source left unclear"),
+ ("Keeping current","Source monitors catch new editions and rule changes","Updated rarely, if ever"),
+ ("When you're stuck","Ask Sunny, who answers from the official manual and cites the page","A static explanation, or a chatbot that may guess"),
+ ("What to study next","Adaptive: weak spots first, paced to your test date","The same fixed list for everyone"),
+ ("Knowing you're ready","A readiness score built from what you've actually mastered","A practice score, and a hope"),
+ ("Local rules","Built state by state and province by province","One generic quiz with the flag swapped"),
+]
+
+def compare_rows():
+    yes = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.500 8.200 2.300 2.300 4.700-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    no = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m5.500 5.500 5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+    return "".join(f'<div class="vs-row" role="row"><span class="vs-k" role="rowheader">{esc(k)}</span><span class="vs-us" role="cell"><i class="vs-ic">{yes}</i>{esc(u)}</span><span class="vs-them" role="cell"><i class="vs-ic">{no}</i>{esc(t)}</span></div>' for k, u, t in COMPARE)
 
 SUNNY_HOW = [
  ("phone","Conversational by design","Learners talk to Sunny the way they would talk to a tutor: in their own words, in the middle of a question or the night before the test. Sunny turns each message into the next useful step: an explanation, a lesson, a quiz or a plan."),
