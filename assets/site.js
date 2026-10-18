@@ -5,7 +5,12 @@
 
   // header: solid on scroll, mobile menu
   var hdr = $('.hdr');
-  function onScroll() { if (!hdr) return; hdr.classList.toggle('scrolled', window.scrollY > 12); if (hdr.hasAttribute('data-away')) hdr.classList.toggle('away', window.scrollY < 90); }
+  var lastY = window.scrollY;
+  function onScroll() {
+    if (!hdr) return; var y = window.scrollY;
+    if (!document.body.classList.contains('menu-open')) hdr.classList.toggle('tuck', y > 320 && y > lastY + 4 ? true : (y < lastY - 4 || y <= 320) ? false : hdr.classList.contains('tuck'));
+    lastY = y;
+    hdr.classList.toggle('scrolled', y > 12); if (hdr.hasAttribute('data-away')) hdr.classList.toggle('away', y < 90); }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
   var burger = $('.burger');
   if (burger) burger.addEventListener('click', function () {
@@ -78,14 +83,101 @@
     });
   }
 
-  // buttons and cards: a soft glow that follows the pointer
-  $$('.btn,.vs-row,.ai-vis,.feat').forEach(function (el) {
-    el.addEventListener('pointermove', function (e) {
-      var r = el.getBoundingClientRect();
-      el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-      el.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    });
-  });
+  // playable mini games on the homepage
+  var pg = $('[data-pg]'), pgData = $('#pg-data');
+  if (pg && pgData) (function () {
+    var D = JSON.parse(pgData.textContent), stage = $('.pg-stage', pg), tabs = $$('.pg-tabs button', pg);
+    var lives = $$('.pg-lives i', pg), timer = $('.pg-timer i', pg), xpEl = $('.pg-xp b', pg);
+    var COLORS = ['#40916C', '#6AB58E', '#2D6A4F', '#D4A63C'];
+    var game, items, idx, score, strikes, xp = 0, tm, locked;
+    var SIGNS = {
+      stop: '<polygon points="34,4 66,4 96,34 96,66 66,96 34,96 4,66 4,34" fill="#C8102E" stroke="#fff" stroke-width="3"/><text x="50" y="59" text-anchor="middle" font-size="22" font-weight="700" fill="#fff" font-family="Arial,sans-serif">STOP</text>',
+      yield: '<polygon points="4,8 96,8 50,94" fill="#C8102E"/><polygon points="20,17 80,17 50,73" fill="#fff"/><text x="50" y="36" text-anchor="middle" font-size="12" font-weight="700" fill="#C8102E" font-family="Arial,sans-serif">YIELD</text>',
+      warning: '<polygon points="50,3 97,50 50,97 3,50" fill="#F2C230" stroke="#111" stroke-width="3"/><path d="M42 70V48c0-8 4-12 12-12h6" fill="none" stroke="#111" stroke-width="6"/><path d="m58 28 10 8-10 8z" fill="#111"/>',
+      school: '<polygon points="50,4 94,40 94,96 6,96 6,40" fill="#C4D600" stroke="#111" stroke-width="3"/><circle cx="38" cy="50" r="6" fill="#111"/><circle cx="62" cy="54" r="5" fill="#111"/><path d="M38 58v20M32 66h12M38 78l-6 12M38 78l6 12M62 61v17M62 78l-5 10M62 78l5 10" stroke="#111" stroke-width="4" stroke-linecap="round"/>',
+      rr: '<circle cx="50" cy="50" r="46" fill="#F2C230" stroke="#111" stroke-width="3"/><path d="M22 22 78 78M78 22 22 78" stroke="#111" stroke-width="6"/><text x="30" y="58" font-size="16" font-weight="700" fill="#111" font-family="Arial,sans-serif">R</text><text x="60" y="58" font-size="16" font-weight="700" fill="#111" font-family="Arial,sans-serif">R</text>',
+      work: '<polygon points="50,3 97,50 50,97 3,50" fill="#F28C28" stroke="#111" stroke-width="3"/><circle cx="54" cy="32" r="6" fill="#111"/><path d="M50 40 40 60h12l-6 16M50 40l8 14 10 4M30 76h40" stroke="#111" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+      guide: '<rect x="4" y="18" width="92" height="64" rx="8" fill="#00703C" stroke="#fff" stroke-width="3"/><path d="M30 60V40h22M44 32l10 8-10 8" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="60" y="66" font-size="12" font-weight="700" fill="#fff" font-family="Arial,sans-serif">EXIT</text>',
+      speed: '<rect x="18" y="4" width="64" height="92" rx="6" fill="#fff" stroke="#111" stroke-width="3"/><text x="50" y="28" text-anchor="middle" font-size="11" font-weight="700" fill="#111" font-family="Arial,sans-serif">SPEED</text><text x="50" y="42" text-anchor="middle" font-size="11" font-weight="700" fill="#111" font-family="Arial,sans-serif">LIMIT</text><text x="50" y="78" text-anchor="middle" font-size="30" font-weight="700" fill="#111" font-family="Arial,sans-serif">35</text>'
+    };
+    function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+    function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+    function confetti(el) {
+      for (var i = 0; i < 12; i++) {
+        var c = document.createElement('i'), a = Math.random() * Math.PI * 2, d = 40 + Math.random() * 50;
+        c.className = 'pc';
+        c.style.cssText = '--x:' + Math.cos(a) * d + 'px;--y:' + Math.sin(a) * d + 'px;--r:' + (Math.random() * 360 - 180) + 'deg;--c:' + COLORS[i % 4];
+        el.appendChild(c); setTimeout(function (n) { return function () { n.remove(); }; }(c), 900);
+      }
+    }
+    function addXp(n) {
+      xp += n; xpEl.textContent = xp; xpEl.parentNode.classList.remove('bump'); void xpEl.offsetWidth; xpEl.parentNode.classList.add('bump');
+    }
+    function hud() {
+      lives.forEach(function (l, i) { l.classList.toggle('lost', i < strikes); });
+      pg.classList.toggle('timed', game === 'sprint');
+    }
+    function stopTimer() { clearTimeout(tm); timer.style.transition = 'none'; timer.style.transform = 'scaleX(1)'; }
+    function startTimer() {
+      stopTimer(); if (game !== 'sprint') return;
+      void timer.offsetWidth; timer.style.transition = 'transform 6s linear'; timer.style.transform = 'scaleX(0)';
+      tm = setTimeout(function () { answer(null); }, 6000);
+    }
+    function start(g) {
+      game = g; idx = 0; score = 0; strikes = 0; locked = false;
+      items = shuffle(D[g]).slice(0, g === 'mix' ? 5 : 6);
+      tabs.forEach(function (t) { var on = t.getAttribute('data-game') === g; t.classList.toggle('on', on); t.setAttribute('aria-selected', on); });
+      hud(); show();
+    }
+    function show() {
+      locked = false;
+      var it = items[idx], h = '<div class="pg-card">';
+      h += '<div class="pg-count">' + (idx + 1) + ' / ' + items.length + '</div>';
+      if (game === 'sprint') {
+        h += '<div class="pg-sign"><svg viewBox="0 0 100 100" aria-label="A road sign">' + SIGNS[it.sign] + '</svg></div><p class="pg-q">What does this sign mean?</p><div class="pg-opts">';
+        shuffle(it.o).forEach(function (o) { h += '<button type="button" data-v="' + esc(o) + '">' + esc(o) + '</button>'; });
+      } else if (game === 'fact') {
+        h += '<p class="pg-q big">' + esc(it.q) + '</p><div class="pg-opts two"><button type="button" data-v="true">True</button><button type="button" data-v="false">False</button>';
+      } else {
+        h += '<span class="pg-tag">' + esc(it.tag) + '</span><p class="pg-q big">' + esc(it.q) + '</p><div class="pg-opts">';
+        shuffle(it.o).forEach(function (o) { h += '<button type="button" data-v="' + esc(o) + '">' + esc(o) + '</button>'; });
+      }
+      h += '</div><p class="pg-why"></p></div>';
+      stage.innerHTML = h;
+      $$('.pg-opts button', stage).forEach(function (b) { b.addEventListener('click', function () { answer(b); }); });
+      startTimer();
+    }
+    function answer(b) {
+      if (locked) return; locked = true; stopTimer();
+      var it = items[idx], right = game === 'fact' ? String(it.a) : it.a, card = $('.pg-card', stage);
+      var ok = b && b.getAttribute('data-v') === right;
+      $$('.pg-opts button', stage).forEach(function (x) { x.disabled = true; if (x.getAttribute('data-v') === right) x.classList.add('right'); });
+      if (ok) { score++; addXp(10); confetti(b); }
+      else {
+        strikes++; if (b) b.classList.add('wrong');
+        card.classList.add('shake');
+        var why = $('.pg-why', stage); why.textContent = it.why || (b ? '' : 'Out of time.');
+      }
+      hud();
+      setTimeout(function () {
+        idx++;
+        if (strikes >= 3 || idx >= items.length) end(); else show();
+      }, ok ? 750 : 1500);
+    }
+    function end() {
+      var msg = score === items.length ? 'Perfect round.' : score >= items.length - 1 ? 'So close. One more?' : strikes >= 3 ? 'Out of strikes. Again?' : 'Nice start. Go again?';
+      stage.innerHTML = '<div class="pg-card pg-end"><span class="pg-score"><b>' + score + '</b>/' + items.length + '</span><p class="pg-q big">' + msg + '</p><div class="pg-opts two"><button type="button" class="pg-again">Play again</button><button type="button" class="pg-next">Next game</button></div></div>';
+      if (score === items.length) confetti($('.pg-score', stage));
+      $('.pg-again', stage).addEventListener('click', function () { start(game); });
+      $('.pg-next', stage).addEventListener('click', function () { var g = ['sprint', 'fact', 'mix']; start(g[(g.indexOf(game) + 1) % 3]); });
+    }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { start(t.getAttribute('data-game')); }); });
+    // the timer only starts once the game is on screen
+    var started = false;
+    new IntersectionObserver(function (es) { if (es[0].isIntersecting && !started) { started = true; start('sprint'); } }, { threshold: 0.5 }).observe(pg);
+    stage.innerHTML = '<div class="pg-card"><p class="pg-q big">Ready?</p></div>';
+  })();
+
 
   // lit words on scroll
   var hls = $$('[data-highlight]');

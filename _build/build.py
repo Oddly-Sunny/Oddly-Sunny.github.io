@@ -176,6 +176,12 @@ PRODUCTS = [
   img="mariner-iq.jpg", alt="Mariner IQ on a phone on a deep blue velvet sofa"),
 ]
 BY = {p["slug"]: p for p in PRODUCTS}
+MENU_LINE = {"dmv-iq": "Permit tests for every state", "drive-iq-canada": "Every province, in English and French",
+             "citizen-pass": "US, UK, Canada and Australia", "aviator-iq": "13 FAA knowledge exams",
+             "mariner-iq": "Coast Guard captain's licence exams", "insurance-pass": "Producer and adjuster licences",
+             "airwaves-iq": "Ham radio and FCC licence exams"}
+MENU_GROUPS = [("Driving", ["dmv-iq", "drive-iq-canada"]), ("Citizenship", ["citizen-pass"]),
+               ("Aviation and maritime", ["aviator-iq", "mariner-iq"]), ("Careers and licences", ["insurance-pass", "airwaves-iq"])]
 FEATURED_ORDER = ["aviator-iq","citizen-pass","dmv-iq","drive-iq-canada","insurance-pass","airwaves-iq","mariner-iq"]
 
 CAPS = [
@@ -261,7 +267,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=91">
+<link rel="stylesheet" href="/assets/site.css?v=93">
 </head>
 """
 
@@ -282,7 +288,13 @@ def live_mark():
             '</g></g></svg>')
 
 def header():
-    items = "".join(f'<a href="/work/{p["slug"]}/">{p["name"]}<span>{esc(p["catlabel"])}</span></a>' for p in [BY[s] for s in FEATURED_ORDER])
+    thumb = {"drive-iq-canada": "driveiqcanada"}
+    def item(slug):
+        p = BY[slug]
+        line = MENU_LINE[slug]
+        return f'<a href="/work/{slug}/"><img src="/assets/img/wall/b-{thumb.get(slug, slug)}.jpg" alt="" loading="lazy" width="64" height="44"><span class="dd-t"><b>{p["name"]}</b><small>{esc(line)}</small></span></a>'
+    items = "".join(f'<div class="dd-g"><p class="dd-h">{esc(g)}</p>{"".join(item(x) for x in slugs)}</div>' for g, slugs in MENU_GROUPS)
+    items += f'<a class="dd-sunny" href="/sunny/">{sunny_mascot(36, "sm")}<span class="dd-t"><b>Meet Sunny</b><small>The AI study coach inside every brand.</small></span>{ARROW_R}</a>'
     return f"""<body>
 <header class="hdr" data-scheme="green">
   <div class="wrap">
@@ -290,7 +302,8 @@ def header():
     <nav class="nav" aria-label="Main">
       <div class="dd"><button type="button" aria-haspopup="true">Our portfolio <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m2 3.500 3 3 3-3"/></svg></button>
         <div class="dd-menu">{items}</div></div>
-      <a href="/#expertise">Our method</a>
+      <a class="nav-sunny" href="/sunny/">{sunny_mascot(22, "sm")}Sunny</a>
+      <a href="/#expertise">How we build</a>
       <a class="btn" href="/contact/">Say hello</a>
     </nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
@@ -305,7 +318,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=30"></script>
+<script src="/assets/site.js?v=32"></script>
 </body>
 </html>
 """
@@ -419,7 +432,7 @@ def home():
     <h2 class="h2">A better way to build <i>learning</i></h2>
     <p class="sub">We are AI-native. Our proprietary method turns official sources into modern learning, and the sources always have the last word.</p>
     <div class="feats">{feats}</div>
-    <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>AI that doesn't make things up</h3><p>Sunny answers only from the official manual, cites the page and checks every number first.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
+    <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Sunny doesn't guess. It looks it up.</h3><p>Every answer comes from the official manual, with the page to prove it.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
   </div>
   <div class="r"><canvas class="mesh" aria-hidden="true"></canvas></div>
 </div></section>
@@ -435,7 +448,19 @@ def home():
       <div class="feat reveal"><button type="button" class="ic play-ic" data-play="ready" aria-label="Exam simulator, tap to play">{icon("chart")}</button><h3>An exam simulator for the big day</h3><p>When you're close, a full mock test mirrors the real one, so the first time you see that format isn't test day.</p></div>
     </div>
   </div>
-  <div class="play-wall">{play_tiles()}<p class="play-note reveal">Games from DMV IQ, built from each state's own questions.</p></div>
+  <div class="pg-wrap reveal">
+    <div class="pg" data-pg>
+      <div class="pg-tabs" role="tablist" aria-label="Games">
+        <button type="button" role="tab" class="on" data-game="sprint">Sign Sprint</button>
+        <button type="button" role="tab" data-game="fact">Fact Check</button>
+        <button type="button" role="tab" data-game="mix">Daily Mix</button>
+      </div>
+      <div class="pg-hud"><span class="pg-lives" aria-label="Strikes left"><i></i><i></i><i></i></span><span class="pg-timer"><i></i></span><span class="pg-xp"><b>0</b> XP</span></div>
+      <div class="pg-stage" aria-live="polite"></div>
+    </div>
+    <p class="play-note">A sample round. In our apps, every question comes from the official material for your own exam.</p>
+  </div>
+  <script type="application/json" id="pg-data">{PLAY_JSON}</script>
 </div></section>
 
 """
@@ -500,10 +525,7 @@ GAMES = [
  ("numbers","By the Numbers","Spin to the exact distance, fine or time limit from your state's questions."),
 ]
 
-def play_tiles():
-    picks = ["sprint", "fact", "numbers", "match"]
-    names = dict((k, t) for k, t, _ in GAMES)
-    return "".join(f'''<figure class="play-tile reveal"><video autoplay muted loop playsinline preload="none" poster="/assets/img/games/{k}.jpg" aria-hidden="true"><source src="/assets/img/games/{k}.webm" type="video/webm"><source src="/assets/img/games/{k}.mp4" type="video/mp4"></video><figcaption>{esc(names[k])}</figcaption></figure>''' for k in picks)
+PLAY_JSON = '{"sprint": [{"sign": "stop", "a": "Stop completely", "o": ["Slow down and yield", "Stop completely", "No entry"]}, {"sign": "yield", "a": "Yield to traffic", "o": ["Yield to traffic", "Stop completely", "One way"]}, {"sign": "warning", "a": "Warning: hazard ahead", "o": ["Warning: hazard ahead", "Rule you must obey", "Directions"]}, {"sign": "school", "a": "School zone or crossing", "o": ["Hospital nearby", "School zone or crossing", "Rest area"]}, {"sign": "rr", "a": "Railroad crossing ahead", "o": ["Railroad crossing ahead", "Road closed", "Roundabout ahead"]}, {"sign": "work", "a": "Work zone ahead", "o": ["Detour route", "Work zone ahead", "Scenic area"]}, {"sign": "guide", "a": "Directions and guide information", "o": ["Warning: hazard ahead", "Directions and guide information", "Rule you must obey"]}, {"sign": "speed", "a": "A rule you must obey", "o": ["A suggestion", "A rule you must obey", "Work zone ahead"]}], "fact": [{"q": "A red octagon always means stop.", "a": true}, {"q": "Green signs warn you about hazards ahead.", "a": false, "why": "Green signs give directions. Yellow ones warn."}, {"q": "An upside-down triangle means yield.", "a": true}, {"q": "Orange signs mark work zones.", "a": true}, {"q": "A round yellow sign means a roundabout is ahead.", "a": false, "why": "A round yellow sign means a railroad crossing is ahead."}, {"q": "A five-sided sign marks a school zone or crossing.", "a": true}], "mix": [{"tag": "Driving", "q": "A flashing red traffic light means…", "a": "Stop, then go when it\'s safe", "o": ["Slow down and keep going", "Stop, then go when it\'s safe", "The light is broken"]}, {"tag": "Citizenship", "q": "How many U.S. Senators are there?", "a": "100", "o": ["50", "100", "435"]}, {"tag": "Aviation", "q": "Which wingtip carries the red position light?", "a": "Left", "o": ["Left", "Right", "Tail"]}, {"tag": "Boating", "q": "Facing forward on a boat, port is…", "a": "Left", "o": ["Left", "Right", "The back"]}, {"tag": "Ham radio", "q": "On the air, “CQ” means…", "a": "Calling any station", "o": ["Signing off", "Calling any station", "Emergency"]}]}'
 
 def games_block():
     """Gamification showcase on a product page: the real Challenges screen plus each game's animated intro art."""
@@ -723,7 +745,7 @@ def sunny_page():
   <header class="s-head sn-head">
     <div class="sn-hero-mascot">{sunny_mascot(120)}</div>
     <div class="s-label">Sunny</div>
-    <h1 class="s-title">The AI study coach that doesn't make things up.</h1>
+    <h1 class="s-title">The AI study coach that looks it up, instead of making it up.</h1>
     <p class="s-dek">Sunny is our proprietary, conversational AI coach, built for education from the ground up. It answers only from the official manual behind each exam, shows the page it used and checks the facts before it speaks, so learners get the warmth of a great tutor without the guesswork of a chatbot.</p>
   </header>
 
