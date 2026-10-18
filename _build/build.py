@@ -267,7 +267,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=93">
+<link rel="stylesheet" href="/assets/site.css?v=96">
 </head>
 """
 
@@ -318,7 +318,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=32"></script>
+<script src="/assets/site.js?v=34"></script>
 </body>
 </html>
 """
@@ -451,11 +451,16 @@ def home():
   <div class="pg-wrap reveal">
     <div class="pg" data-pg>
       <div class="pg-tabs" role="tablist" aria-label="Games">
-        <button type="button" role="tab" class="on" data-game="sprint">Sign Sprint</button>
+        <button type="button" role="tab" class="on" data-game="match">Sign Match</button>
+        <button type="button" role="tab" data-game="flash">Flash Cards</button>
         <button type="button" role="tab" data-game="fact">Fact Check</button>
-        <button type="button" role="tab" data-game="mix">Daily Mix</button>
       </div>
-      <div class="pg-hud"><span class="pg-lives" aria-label="Strikes left"><i></i><i></i><i></i></span><span class="pg-timer"><i></i></span><span class="pg-xp"><b>0</b> XP</span></div>
+      <div class="pg-hud">
+        <span class="pg-hearts" aria-label="Hearts left">{HEART}{HEART}{HEART}</span>
+        <span class="pg-prog"><i></i></span>
+        <span class="pg-streak" aria-live="polite"></span>
+        <span class="pg-xp"><b>0</b> XP</span>
+      </div>
       <div class="pg-stage" aria-live="polite"></div>
     </div>
     <p class="play-note">A sample round. In our apps, every question comes from the official material for your own exam.</p>
@@ -525,7 +530,9 @@ GAMES = [
  ("numbers","By the Numbers","Spin to the exact distance, fine or time limit from your state's questions."),
 ]
 
-PLAY_JSON = '{"sprint": [{"sign": "stop", "a": "Stop completely", "o": ["Slow down and yield", "Stop completely", "No entry"]}, {"sign": "yield", "a": "Yield to traffic", "o": ["Yield to traffic", "Stop completely", "One way"]}, {"sign": "warning", "a": "Warning: hazard ahead", "o": ["Warning: hazard ahead", "Rule you must obey", "Directions"]}, {"sign": "school", "a": "School zone or crossing", "o": ["Hospital nearby", "School zone or crossing", "Rest area"]}, {"sign": "rr", "a": "Railroad crossing ahead", "o": ["Railroad crossing ahead", "Road closed", "Roundabout ahead"]}, {"sign": "work", "a": "Work zone ahead", "o": ["Detour route", "Work zone ahead", "Scenic area"]}, {"sign": "guide", "a": "Directions and guide information", "o": ["Warning: hazard ahead", "Directions and guide information", "Rule you must obey"]}, {"sign": "speed", "a": "A rule you must obey", "o": ["A suggestion", "A rule you must obey", "Work zone ahead"]}], "fact": [{"q": "A red octagon always means stop.", "a": true}, {"q": "Green signs warn you about hazards ahead.", "a": false, "why": "Green signs give directions. Yellow ones warn."}, {"q": "An upside-down triangle means yield.", "a": true}, {"q": "Orange signs mark work zones.", "a": true}, {"q": "A round yellow sign means a roundabout is ahead.", "a": false, "why": "A round yellow sign means a railroad crossing is ahead."}, {"q": "A five-sided sign marks a school zone or crossing.", "a": true}], "mix": [{"tag": "Driving", "q": "A flashing red traffic light means…", "a": "Stop, then go when it\'s safe", "o": ["Slow down and keep going", "Stop, then go when it\'s safe", "The light is broken"]}, {"tag": "Citizenship", "q": "How many U.S. Senators are there?", "a": "100", "o": ["50", "100", "435"]}, {"tag": "Aviation", "q": "Which wingtip carries the red position light?", "a": "Left", "o": ["Left", "Right", "Tail"]}, {"tag": "Boating", "q": "Facing forward on a boat, port is…", "a": "Left", "o": ["Left", "Right", "The back"]}, {"tag": "Ham radio", "q": "On the air, “CQ” means…", "a": "Calling any station", "o": ["Signing off", "Calling any station", "Emergency"]}]}'
+PLAY_JSON = '{"fact": [{"q": "A red octagon always means stop.", "a": true}, {"q": "Green signs warn you about hazards ahead.", "a": false, "why": "Green signs give directions. Yellow ones warn."}, {"q": "An upside-down triangle means yield.", "a": true}, {"q": "Orange signs mark work zones.", "a": true}, {"q": "A round yellow sign means a roundabout is ahead.", "a": false, "why": "A round yellow sign means a railroad crossing is ahead."}, {"q": "A five-sided sign marks a school zone or crossing.", "a": true}], "flash": [{"tag": "Driving", "q": "A flashing red traffic light means…", "a": "Stop, then go when it\'s safe"}, {"tag": "Citizenship", "q": "How many U.S. Senators are there?", "a": "100"}, {"tag": "Aviation", "q": "Which wingtip carries the red position light?", "a": "Left"}, {"tag": "Boating", "q": "Facing forward on a boat, port is…", "a": "Left"}, {"tag": "Ham radio", "q": "On the air, “CQ” means…", "a": "Calling any station"}, {"tag": "Driving", "q": "A solid yellow line on your side of the road means…", "a": "No passing from your side"}], "match": [["R1-1", "Stop"], ["R1-2", "Yield"], ["W10-1", "Railroad crossing ahead"], ["S1-1", "School crossing"], ["R5-1", "Do not enter"], ["W20-1", "Road work ahead"]]}'
+
+HEART = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.500-4.600-9.600-9.300C.900 8.300 3 4.500 6.700 4.500c2.200 0 3.700 1.300 5.300 3.200 1.600-1.900 3.100-3.200 5.300-3.200 3.700 0 5.800 3.800 4.300 7.200C19.500 16.400 12 21 12 21z"/></svg>'
 
 def games_block():
     """Gamification showcase on a product page: the real Challenges screen plus each game's animated intro art."""

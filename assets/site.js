@@ -83,25 +83,16 @@
     });
   }
 
-  // playable mini games on the homepage
+  // playable mini games on the homepage: memory match, scratch cards, swipe true/false
   var pg = $('[data-pg]'), pgData = $('#pg-data');
   if (pg && pgData) (function () {
     var D = JSON.parse(pgData.textContent), stage = $('.pg-stage', pg), tabs = $$('.pg-tabs button', pg);
-    var lives = $$('.pg-lives i', pg), timer = $('.pg-timer i', pg), xpEl = $('.pg-xp b', pg);
+    var hearts = $$('.pg-hearts svg', pg), prog = $('.pg-prog i', pg), streakEl = $('.pg-streak', pg), xpEl = $('.pg-xp b', pg);
     var COLORS = ['#40916C', '#6AB58E', '#2D6A4F', '#D4A63C'];
-    var game, items, idx, score, strikes, xp = 0, tm, locked;
-    var SIGNS = {
-      stop: '<polygon points="34,4 66,4 96,34 96,66 66,96 34,96 4,66 4,34" fill="#C8102E" stroke="#fff" stroke-width="3"/><text x="50" y="59" text-anchor="middle" font-size="22" font-weight="700" fill="#fff" font-family="Arial,sans-serif">STOP</text>',
-      yield: '<polygon points="4,8 96,8 50,94" fill="#C8102E"/><polygon points="20,17 80,17 50,73" fill="#fff"/><text x="50" y="36" text-anchor="middle" font-size="12" font-weight="700" fill="#C8102E" font-family="Arial,sans-serif">YIELD</text>',
-      warning: '<polygon points="50,3 97,50 50,97 3,50" fill="#F2C230" stroke="#111" stroke-width="3"/><path d="M42 70V48c0-8 4-12 12-12h6" fill="none" stroke="#111" stroke-width="6"/><path d="m58 28 10 8-10 8z" fill="#111"/>',
-      school: '<polygon points="50,4 94,40 94,96 6,96 6,40" fill="#C4D600" stroke="#111" stroke-width="3"/><circle cx="38" cy="50" r="6" fill="#111"/><circle cx="62" cy="54" r="5" fill="#111"/><path d="M38 58v20M32 66h12M38 78l-6 12M38 78l6 12M62 61v17M62 78l-5 10M62 78l5 10" stroke="#111" stroke-width="4" stroke-linecap="round"/>',
-      rr: '<circle cx="50" cy="50" r="46" fill="#F2C230" stroke="#111" stroke-width="3"/><path d="M22 22 78 78M78 22 22 78" stroke="#111" stroke-width="6"/><text x="30" y="58" font-size="16" font-weight="700" fill="#111" font-family="Arial,sans-serif">R</text><text x="60" y="58" font-size="16" font-weight="700" fill="#111" font-family="Arial,sans-serif">R</text>',
-      work: '<polygon points="50,3 97,50 50,97 3,50" fill="#F28C28" stroke="#111" stroke-width="3"/><circle cx="54" cy="32" r="6" fill="#111"/><path d="M50 40 40 60h12l-6 16M50 40l8 14 10 4M30 76h40" stroke="#111" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
-      guide: '<rect x="4" y="18" width="92" height="64" rx="8" fill="#00703C" stroke="#fff" stroke-width="3"/><path d="M30 60V40h22M44 32l10 8-10 8" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="60" y="66" font-size="12" font-weight="700" fill="#fff" font-family="Arial,sans-serif">EXIT</text>',
-      speed: '<rect x="18" y="4" width="64" height="92" rx="6" fill="#fff" stroke="#111" stroke-width="3"/><text x="50" y="28" text-anchor="middle" font-size="11" font-weight="700" fill="#111" font-family="Arial,sans-serif">SPEED</text><text x="50" y="42" text-anchor="middle" font-size="11" font-weight="700" fill="#111" font-family="Arial,sans-serif">LIMIT</text><text x="50" y="78" text-anchor="middle" font-size="30" font-weight="700" fill="#111" font-family="Arial,sans-serif">35</text>'
-    };
+    var game, total, done, lives, streak, xp = 0, gained, busy;
     function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
     function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+    function best(g, v) { try { var k = 'os-pg-' + g, b = +localStorage.getItem(k) || 0; if (v != null && v > b) { localStorage.setItem(k, v); return v; } return b; } catch (e) { return 0; } }
     function confetti(el) {
       for (var i = 0; i < 12; i++) {
         var c = document.createElement('i'), a = Math.random() * Math.PI * 2, d = 40 + Math.random() * 50;
@@ -110,72 +101,143 @@
         el.appendChild(c); setTimeout(function (n) { return function () { n.remove(); }; }(c), 900);
       }
     }
-    function addXp(n) {
-      xp += n; xpEl.textContent = xp; xpEl.parentNode.classList.remove('bump'); void xpEl.offsetWidth; xpEl.parentNode.classList.add('bump');
-    }
+    function float(el, txt) { var f = document.createElement('span'); f.className = 'pf'; f.textContent = txt; el.appendChild(f); setTimeout(function () { f.remove(); }, 1000); }
     function hud() {
-      lives.forEach(function (l, i) { l.classList.toggle('lost', i < strikes); });
-      pg.classList.toggle('timed', game === 'sprint');
+      hearts.forEach(function (h, i) { h.classList.toggle('lost', i >= lives); });
+      prog.style.transform = 'scaleX(' + (total ? done / total : 0) + ')';
+      streakEl.textContent = streak >= 2 ? 'Streak ' + streak : '';
+      streakEl.classList.toggle('on', streak >= 2);
     }
-    function stopTimer() { clearTimeout(tm); timer.style.transition = 'none'; timer.style.transform = 'scaleX(1)'; }
-    function startTimer() {
-      stopTimer(); if (game !== 'sprint') return;
-      void timer.offsetWidth; timer.style.transition = 'transform 6s linear'; timer.style.transform = 'scaleX(0)';
-      tm = setTimeout(function () { answer(null); }, 6000);
+    function win(el, n) {
+      streak++; var pts = n + (streak >= 3 ? 5 : 0); xp += pts; gained += pts; xpEl.textContent = xp;
+      xpEl.parentNode.classList.remove('bump'); void xpEl.offsetWidth; xpEl.parentNode.classList.add('bump');
+      if (el) { confetti(el); float(el, '+' + pts); }
+      hud();
+    }
+    function miss(el) {
+      streak = 0; lives--; var h = hearts[lives]; if (h) { h.classList.remove('pop'); void h.getBoundingClientRect(); h.classList.add('pop'); }
+      if (el) { el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+      hud();
     }
     function start(g) {
-      game = g; idx = 0; score = 0; strikes = 0; locked = false;
-      items = shuffle(D[g]).slice(0, g === 'mix' ? 5 : 6);
+      game = g; done = 0; lives = 3; streak = 0; gained = 0; busy = false;
       tabs.forEach(function (t) { var on = t.getAttribute('data-game') === g; t.classList.toggle('on', on); t.setAttribute('aria-selected', on); });
-      hud(); show();
-    }
-    function show() {
-      locked = false;
-      var it = items[idx], h = '<div class="pg-card">';
-      h += '<div class="pg-count">' + (idx + 1) + ' / ' + items.length + '</div>';
-      if (game === 'sprint') {
-        h += '<div class="pg-sign"><svg viewBox="0 0 100 100" aria-label="A road sign">' + SIGNS[it.sign] + '</svg></div><p class="pg-q">What does this sign mean?</p><div class="pg-opts">';
-        shuffle(it.o).forEach(function (o) { h += '<button type="button" data-v="' + esc(o) + '">' + esc(o) + '</button>'; });
-      } else if (game === 'fact') {
-        h += '<p class="pg-q big">' + esc(it.q) + '</p><div class="pg-opts two"><button type="button" data-v="true">True</button><button type="button" data-v="false">False</button>';
-      } else {
-        h += '<span class="pg-tag">' + esc(it.tag) + '</span><p class="pg-q big">' + esc(it.q) + '</p><div class="pg-opts">';
-        shuffle(it.o).forEach(function (o) { h += '<button type="button" data-v="' + esc(o) + '">' + esc(o) + '</button>'; });
-      }
-      h += '</div><p class="pg-why"></p></div>';
-      stage.innerHTML = h;
-      $$('.pg-opts button', stage).forEach(function (b) { b.addEventListener('click', function () { answer(b); }); });
-      startTimer();
-    }
-    function answer(b) {
-      if (locked) return; locked = true; stopTimer();
-      var it = items[idx], right = game === 'fact' ? String(it.a) : it.a, card = $('.pg-card', stage);
-      var ok = b && b.getAttribute('data-v') === right;
-      $$('.pg-opts button', stage).forEach(function (x) { x.disabled = true; if (x.getAttribute('data-v') === right) x.classList.add('right'); });
-      if (ok) { score++; addXp(10); confetti(b); }
-      else {
-        strikes++; if (b) b.classList.add('wrong');
-        card.classList.add('shake');
-        var why = $('.pg-why', stage); why.textContent = it.why || (b ? '' : 'Out of time.');
-      }
+      ({ match: match, flash: flash, fact: fact })[g]();
       hud();
-      setTimeout(function () {
-        idx++;
-        if (strikes >= 3 || idx >= items.length) end(); else show();
-      }, ok ? 750 : 1500);
     }
-    function end() {
-      var msg = score === items.length ? 'Perfect round.' : score >= items.length - 1 ? 'So close. One more?' : strikes >= 3 ? 'Out of strikes. Again?' : 'Nice start. Go again?';
-      stage.innerHTML = '<div class="pg-card pg-end"><span class="pg-score"><b>' + score + '</b>/' + items.length + '</span><p class="pg-q big">' + msg + '</p><div class="pg-opts two"><button type="button" class="pg-again">Play again</button><button type="button" class="pg-next">Next game</button></div></div>';
-      if (score === items.length) confetti($('.pg-score', stage));
+    function end(score) {
+      var stars = lives === 3 ? 3 : lives === 2 ? 2 : 1; if (score === 0) stars = 0;
+      var b = best(game, score), st = '';
+      for (var i = 0; i < 3; i++) st += '<i class="' + (i < stars ? 'on' : '') + '" style="--i:' + i + '"></i>';
+      stage.innerHTML = '<div class="pg-card pg-end"><div class="pg-stars">' + st + '</div><span class="pg-score"><b>' + score + '</b>/' + total + '</span>' +
+        '<p class="pg-meta">+' + gained + ' XP this round · Best ' + b + '/' + total + '</p>' +
+        '<div class="pg-opts two"><button type="button" class="pg-again">Play again</button><button type="button" class="pg-next">Next game</button></div></div>';
+      if (stars === 3) confetti($('.pg-stars', stage));
       $('.pg-again', stage).addEventListener('click', function () { start(game); });
-      $('.pg-next', stage).addEventListener('click', function () { var g = ['sprint', 'fact', 'mix']; start(g[(g.indexOf(game) + 1) % 3]); });
+      $('.pg-next', stage).addEventListener('click', function () { var g = ['match', 'flash', 'fact']; start(g[(g.indexOf(game) + 1) % 3]); });
     }
+    function out() { return lives <= 0; }
+
+    // 1. Sign Match: flip cards, find the pairs
+    function match() {
+      var names = {}; D.match.forEach(function (m) { names[m[0]] = m[1]; });
+      var keys = D.match.map(function (m) { return m[0]; }), deck = shuffle(keys.concat(keys)), seen = {}, open = [], pairs = 0;
+      total = keys.length;
+      var h = '<div class="pg-card pg-mem"><p class="pg-hint">Find the matching signs</p><div class="pg-grid">';
+      deck.forEach(function (k, i) { h += '<button type="button" class="pg-flip" data-k="' + k + '" data-i="' + i + '" aria-label="Hidden card"><span class="pg-back"></span><span class="pg-front"><img src="/assets/img/signs/' + k + '.svg" alt="" draggable="false"></span></button>'; });
+      stage.innerHTML = h + '</div></div>';
+      $$('.pg-flip', stage).forEach(function (c) {
+        c.addEventListener('click', function () {
+          if (busy || c.classList.contains('up') || out()) return;
+          c.classList.add('up'); c.setAttribute('aria-label', names[c.getAttribute('data-k')]); open.push(c);
+          if (open.length < 2) return;
+          busy = true; var a = open[0], b = open[1]; open = [];
+          if (a.getAttribute('data-k') === b.getAttribute('data-k')) {
+            setTimeout(function () { a.classList.add('got'); b.classList.add('got'); pairs++; done = pairs; win(b, 10); busy = false; if (pairs === total) setTimeout(function () { end(pairs); }, 700); }, 350);
+          } else {
+            var mistake = seen[a.getAttribute('data-i')] && seen[b.getAttribute('data-i')];
+            mistake = mistake || (seen[b.getAttribute('data-k') + '@'] && !seen[b.getAttribute('data-i')] && false);
+            setTimeout(function () {
+              if (seen[a.getAttribute('data-i')] || seen[b.getAttribute('data-i')]) miss($('.pg-mem', stage)); else { streak = 0; hud(); }
+              seen[a.getAttribute('data-i')] = seen[b.getAttribute('data-i')] = 1;
+              a.classList.remove('up'); b.classList.remove('up'); a.setAttribute('aria-label', 'Hidden card'); b.setAttribute('aria-label', 'Hidden card');
+              busy = false; if (out()) setTimeout(function () { end(pairs); }, 500);
+            }, 800);
+          }
+        });
+      });
+    }
+
+    // 2. Flash Cards: scratch to reveal, then say honestly if you knew it
+    function flash() {
+      var cards = shuffle(D.flash).slice(0, 5), i = 0, knew = 0; total = cards.length;
+      function show() {
+        var c = cards[i];
+        stage.innerHTML = '<div class="pg-card"><span class="pg-tag">' + esc(c.tag) + '</span><p class="pg-q big">' + esc(c.q) + '</p>' +
+          '<div class="pg-scratch"><span class="pg-ans">' + esc(c.a) + '</span><canvas aria-hidden="true"></canvas><span class="pg-scr-hint">Scratch to reveal</span></div>' +
+          '<div class="pg-opts two pg-self" hidden><button type="button" data-v="0">Didn’t know</button><button type="button" data-v="1">Knew it</button></div>' +
+          '<button type="button" class="pg-reveal">Reveal</button></div>';
+        var box = $('.pg-scratch', stage), cv = $('canvas', box), ctx = cv.getContext('2d'), r = box.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+        cv.width = r.width * dpr; cv.height = r.height * dpr; ctx.scale(dpr, dpr);
+        var g = ctx.createLinearGradient(0, 0, r.width, r.height); g.addColorStop(0, '#E9C46A'); g.addColorStop(.5, '#D4A63C'); g.addColorStop(1, '#B98A2B');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, r.width, r.height);
+        ctx.fillStyle = 'rgba(255,255,255,.18)'; for (var s = 0; s < 70; s++) ctx.fillRect(Math.random() * r.width, Math.random() * r.height, 2, 2);
+        ctx.globalCompositeOperation = 'destination-out';
+        var down = false, n = 0, revealed = false;
+        function reveal() {
+          if (revealed) return; revealed = true; box.classList.add('clear'); $('.pg-self', stage).hidden = false; $('.pg-reveal', stage).hidden = true;
+        }
+        function scratch(e) {
+          if (!down) return; var b = cv.getBoundingClientRect();
+          ctx.beginPath(); ctx.arc(e.clientX - b.left, e.clientY - b.top, 18, 0, Math.PI * 2); ctx.fill();
+          box.classList.add('started');
+          if (++n % 8 === 0) {
+            var px = ctx.getImageData(0, 0, cv.width, cv.height).data, clear = 0;
+            for (var k = 3; k < px.length; k += 64) if (px[k] === 0) clear++;
+            if (clear / (px.length / 64) > 0.45) reveal();
+          }
+        }
+        cv.addEventListener('pointerdown', function (e) { down = true; cv.setPointerCapture(e.pointerId); scratch(e); });
+        cv.addEventListener('pointermove', scratch);
+        cv.addEventListener('pointerup', function () { down = false; });
+        $('.pg-reveal', stage).addEventListener('click', reveal);
+        $$('.pg-self button', stage).forEach(function (b) {
+          b.addEventListener('click', function () {
+            if (b.getAttribute('data-v') === '1') { knew++; win(b, 10); } else { streak = 0; hud(); }
+            done = ++i; hud();
+            setTimeout(function () { i < cards.length ? show() : end(knew); }, 650);
+          });
+        });
+      }
+      show();
+    }
+
+    // 3. Fact Check: swipe right for true, left for false
+    function fact() {
+      var cards = shuffle(D.fact), i = 0, right = 0; total = cards.length;
+      function show() {
+        var c = cards[i];
+        stage.innerHTML = '<div class="pg-swipe-wrap"><div class="pg-under"></div><div class="pg-card pg-swipe"><span class="pg-stamp t">True</span><span class="pg-stamp f">False</span><p class="pg-q big">' + esc(c.q) + '</p><p class="pg-hint">Swipe right if true, left if false</p></div></div>' +
+          '<div class="pg-opts two pg-sw-btns"><button type="button" data-v="false">← False</button><button type="button" data-v="true">True →</button></div><p class="pg-why"></p>';
+        var card = $('.pg-swipe', stage), x0 = null, dx = 0, gone = false;
+        function set(x) { card.style.transform = 'translateX(' + x + 'px) rotate(' + x / 16 + 'deg)'; card.style.setProperty('--t', Math.max(0, Math.min(1, x / 100))); card.style.setProperty('--f', Math.max(0, Math.min(1, -x / 100))); }
+        function decide(v) {
+          if (gone) return; gone = true;
+          var ok = String(c.a) === v; card.classList.add('fly'); set(v === 'true' ? 520 : -520);
+          if (ok) { right++; win($('.pg-sw-btns', stage), 10); } else { miss($('.pg-swipe-wrap', stage)); $('.pg-why', stage).textContent = c.why || ('That one is ' + (c.a ? 'true.' : 'false.')); }
+          done = ++i; hud();
+          setTimeout(function () { (i < cards.length && !out()) ? show() : end(right); }, ok ? 550 : 1600);
+        }
+        card.addEventListener('pointerdown', function (e) { x0 = e.clientX; card.setPointerCapture(e.pointerId); card.classList.add('drag'); });
+        card.addEventListener('pointermove', function (e) { if (x0 === null) return; dx = e.clientX - x0; set(dx); });
+        card.addEventListener('pointerup', function () { card.classList.remove('drag'); if (Math.abs(dx) > 90) decide(dx > 0 ? 'true' : 'false'); else set(0); x0 = null; dx = 0; });
+        $$('.pg-sw-btns button', stage).forEach(function (b) { b.addEventListener('click', function () { decide(b.getAttribute('data-v')); }); });
+      }
+      show();
+    }
+
     tabs.forEach(function (t) { t.addEventListener('click', function () { start(t.getAttribute('data-game')); }); });
-    // the timer only starts once the game is on screen
-    var started = false;
-    new IntersectionObserver(function (es) { if (es[0].isIntersecting && !started) { started = true; start('sprint'); } }, { threshold: 0.5 }).observe(pg);
-    stage.innerHTML = '<div class="pg-card"><p class="pg-q big">Ready?</p></div>';
+    start('match');
   })();
 
 
