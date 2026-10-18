@@ -26,7 +26,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=97">
+<link rel="stylesheet" href="/assets/site.css?v=100">
 </head>
 <body>
 <header class="hdr" data-scheme="green">
@@ -54,50 +54,73 @@
   <div class="sn-wrap">
     <h2 class="sn-h2">The antidote to AI hallucinations</h2>
     <p class="sn-sub">General-purpose chatbots learn from a blend of the whole internet. Ask one about a driving rule and it may sound certain while quoting the wrong speed limit, inventing a fee or mixing up California's right-of-way rule with New York's. On a test, a confident wrong answer is worse than no answer. Sunny was designed around that problem from day one.</p>
-    <div class="sn-vs">
-      <div class="sn-vs-card"><div class="sn-vs-tag">A general chatbot</div><ul>
-        <li>Answers from memory of everything it has read, accurate or not</li>
-        <li>Can blend one state's rule with another's</li>
-        <li>States numbers confidently, with nothing to check them against</li>
-        <li>Fills gaps with something that sounds right</li>
-      </ul></div>
-      <div class="sn-vs-card us"><div class="sn-vs-tag"><span class="sn-mascot sm" style="width:26px;height:26px" aria-hidden="true"><span class="cm-body"><img src="/assets/img/sunny/sunny-256.webp" alt="" width="26" height="26" draggable="false"><span class="cm-face"><span class="cm-blush cm-l"></span><span class="cm-blush cm-r"></span><span class="cm-eyes"><span class="cm-socket cm-l"></span><span class="cm-socket cm-r"></span><span class="cm-eye cm-l"></span><span class="cm-eye cm-r"></span></span></span></span></span>Sunny</div><ul>
-        <li>Looks up the answer in a closed library of official manuals for that exam</li>
-        <li>Reads only your state's handbook, not anyone else's</li>
-        <li>Checks every number against the source before the reply is shown</li>
-        <li>Cites the page, and says so when the manual is silent</li>
-      </ul></div>
-    </div>
+    <div class="vs-table sn-vt"><div class="vs-row vs-hd" aria-hidden="true"><span></span><span class="vs-old">A general chatbot</span><span class="vs-new"><b class="vs-brand">Sunny</b></span></div><div class="vs-row reveal" style="--d:0ms">
+      <h3 class="vs-k"><span class="vs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/></svg></span>Where answers come from</h3>
+      <p class="vs-old"><span class="sr-only vs-ml">A general chatbot </span>Its memory of everything it has read, accurate or not</p>
+      <p class="vs-new"><span class="sr-only vs-ml">Sunny </span>A closed library of the official manuals for that exam</p>
+    </div><div class="vs-row reveal" style="--d:60ms">
+      <h3 class="vs-k"><span class="vs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.500 2.700 3.800 5.700 3.800 9S14.500 18.300 12 21c-2.500-2.700-3.800-5.700-3.800-9S9.500 5.700 12 3z"/></svg></span>Whose rules</h3>
+      <p class="vs-old"><span class="sr-only vs-ml">A general chatbot </span>Can blend one state&#x27;s rule with another&#x27;s</p>
+      <p class="vs-new"><span class="sr-only vs-ml">Sunny </span>Only your state&#x27;s handbook, never another state&#x27;s</p>
+    </div><div class="vs-row reveal" style="--d:120ms">
+      <h3 class="vs-k"><span class="vs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg></span>Numbers</h3>
+      <p class="vs-old"><span class="sr-only vs-ml">A general chatbot </span>Stated with confidence, with nothing to check them against</p>
+      <p class="vs-new"><span class="sr-only vs-ml">Sunny </span>Every number checked against the source before you see it</p>
+    </div><div class="vs-row reveal" style="--d:180ms">
+      <h3 class="vs-k"><span class="vs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12.500a7.500 7.500 0 0 1-11 6.600L4 20.500l1.400-4.600A7.500 7.500 0 1 1 20 12.500z"/><path d="M9 12h.01M12.500 12h.01M16 12h.01"/></svg></span>When it doesn&#x27;t know</h3>
+      <p class="vs-old"><span class="sr-only vs-ml">A general chatbot </span>Fills the gap with something that sounds right</p>
+      <p class="vs-new"><span class="sr-only vs-ml">Sunny </span>Cites the page, or says the manual is silent</p>
+    </div></div>
   </div>
 
   <div class="sn-wrap">
     <div class="sd-intro">
       <h2 class="sn-h2">One coach, every kind of exam</h2>
-      <p class="sn-sub">Pick an industry and a use case. Every answer is real, unedited output from Sunny, with the official page it came from and the next steps it offers.</p>
+      <p class="sn-sub">Pick an industry and a use case to see how Sunny answers: from the official source, with the quizzes, study plans and progress cards it puts right in the chat.</p>
     </div>
     <div class="sd" data-sd>
       <div class="sd-tabs" role="tablist" aria-label="Industries"><button type="button" class="sd-tab on" role="tab" aria-selected="true" data-ind="driving" style="--hue:#C2456A"><i></i>Driving</button><button type="button" class="sd-tab" role="tab" aria-selected="false" data-ind="aviation" style="--hue:#5B5BD6"><i></i>Aviation</button><button type="button" class="sd-tab" role="tab" aria-selected="false" data-ind="radio" style="--hue:#C98A1E"><i></i>Radio</button><button type="button" class="sd-tab" role="tab" aria-selected="false" data-ind="maritime" style="--hue:#1F7A8C"><i></i>Maritime</button></div>
-      <div class="sd-panel on" role="tabpanel" data-ind="driving" style="--hue:#C2456A"><div class="sd-cases"><button type="button" class="sd-case on" data-case="0">Missed a question</button><button type="button" class="sd-case" data-case="1">Commercial license</button><button type="button" class="sd-case" data-case="2">Any language</button></div><div class="sd-win"><div class="sd-head"><span class="sn-mascot sm tint" style="width:34px;height:34px" aria-hidden="true"><span class="cm-body"><img src="/assets/img/sunny/sunny-256.webp" alt="" width="34" height="34" draggable="false"><span class="cm-face"><span class="cm-blush cm-l"></span><span class="cm-blush cm-r"></span><span class="cm-eyes"><span class="cm-socket cm-l"></span><span class="cm-socket cm-r"></span><span class="cm-eye cm-l"></span><span class="cm-eye cm-r"></span></span></span></span></span><div><b>Sunny</b><small>Driving coach</small></div></div><div class="sd-body"><div class="sd-conv on" data-case="0">
+      <div class="sd-panel on" role="tabpanel" data-ind="driving" style="--hue:#C2456A"><div class="sd-cases"><button type="button" class="sd-case on" data-case="0">Missed a question</button><button type="button" class="sd-case" data-case="1">Quiz me</button><button type="button" class="sd-case" data-case="2">What&#x27;s next?</button><button type="button" class="sd-case" data-case="3">Am I ready?</button><button type="button" class="sd-case" data-case="4">Commercial license</button><button type="button" class="sd-case" data-case="5">Any language</button></div><div class="sd-win"><div class="sd-head"><span class="sn-mascot sm tint" style="width:34px;height:34px" aria-hidden="true"><span class="cm-body"><img src="/assets/img/sunny/sunny-256.webp" alt="" width="34" height="34" draggable="false"><span class="cm-face"><span class="cm-blush cm-l"></span><span class="cm-blush cm-r"></span><span class="cm-eyes"><span class="cm-socket cm-l"></span><span class="cm-socket cm-r"></span><span class="cm-eye cm-l"></span><span class="cm-eye cm-r"></span></span></span></span></span><div><b>Sunny</b><small>Driving coach</small></div></div><div class="sd-body"><div class="sd-conv on" data-case="0">
   <div class="sd-ctx">Car permit test, right after a missed question</div>
   <div class="sd-q">I picked A. Why is that wrong?</div>
   <div class="sd-typing" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="sd-a"><p>Option A is wrong because it skips the stop. New Jersey requires you to stop first, then drive past the truck at no more than 15 mph. Slowing to 25 mph and passing with your horn does not meet the rule.</p><p>The New Jersey Driver Manual says that when an ice cream truck is flashing red lights and posting a stop signal arm, you must &quot;Stop, and then drive past the truck at a speed of no more than 15 mph&quot; (New Jersey Driver Manual, p. 80). It also says to yield to anyone crossing the road to or from the truck and to watch out for children.</p><p>Remember this: stop first, then 15 mph or less.</p><div class="sd-srcs"><span class="sd-src"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/></svg><span><b>p. 80</b><small>New Jersey Driver Manual</small></span></span></div><div class="sd-chips"><span class="sd-chip">Quiz me on right of way</span><span class="sd-chip">Explain the stop rule again</span><span class="sd-chip">Show the handbook page</span></div></div>
 </div><div class="sd-conv" data-case="1">
+  <div class="sd-ctx">Car permit test, after a lesson on right of way</div>
+  <div class="sd-q">Quiz me on right of way</div>
+  <div class="sd-typing" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="sd-a"><p>Here is a quick round on right of way, starting with the kind of question you missed last time.</p><div class="sw sw-quiz" data-quiz><div class="sw-top"><b>Right of way</b><span class="sw-dots"><i></i><i></i><i></i></span></div><div class="sw-qq on" data-a="1"><p>Two cars reach a four-way stop at the same time. Who goes first?</p><div class="sw-qo"><button type="button">The car on the left</button><button type="button">The car on the right</button><button type="button">The bigger vehicle</button></div></div><div class="sw-qq" data-a="1"><p>An ambulance with its siren on comes up behind you. What do you do?</p><div class="sw-qo"><button type="button">Speed up to clear the lane</button><button type="button">Pull to the right and stop</button><button type="button">Stop where you are</button></div></div><div class="sw-qq" data-a="1"><p>A traffic light is flashing yellow. You should…</p><div class="sw-qo"><button type="button">Stop and wait for green</button><button type="button">Slow down and go with care</button><button type="button">Speed up to get through</button></div></div><div class="sw-done"><span class="sw-score"></span><small>Missed ones go back into your study plan.</small></div></div><div class="sd-chips"><span class="sd-chip">Another round</span><span class="sd-chip">Explain the four-way stop</span><span class="sd-chip">What&#x27;s next?</span></div></div>
+</div><div class="sd-conv" data-case="2">
+  <div class="sd-ctx">Car permit test, a returning learner</div>
+  <div class="sd-q">What should I learn next?</div>
+  <div class="sd-typing" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="sd-a"><p>You&#x27;ve finished <strong>4 of 9</strong> topics in your course. Next up is <strong>Speed limits</strong>. Want the short lesson first, or a quick quiz to see what you already know?</p><div class="sw sw-path"><div class="sw-top"><b>Your course</b><small>Car permit test</small></div><div class="sw-bar"><i style="--w:0.444"></i></div><small class="sw-meta">4 of 9 topics done</small><ol><li class="done" style="--i:0"><i></i><span>Getting your permit</span></li><li class="done" style="--i:1"><i></i><span>Road signs</span></li><li class="done" style="--i:2"><i></i><span>Signals and markings</span></li><li class="done" style="--i:3"><i></i><span>Right of way</span></li><li class="now" style="--i:4"><i></i><span>Speed limits</span><em>You are here</em></li><li class="" style="--i:5"><i></i><span>Sharing the road</span></li><li class="" style="--i:6"><i></i><span>Night and bad weather</span></li><li class="" style="--i:7"><i></i><span>Alcohol and drugs</span></li><li class="" style="--i:8"><i></i><span>Emergencies</span></li></ol></div><div class="sd-chips"><span class="sd-chip">Start the lesson</span><span class="sd-chip">Quiz me first</span><span class="sd-chip">How ready am I?</span></div></div>
+</div><div class="sd-conv" data-case="3">
+  <div class="sd-ctx">Car permit test, a week before the test</div>
+  <div class="sd-q">Am I ready for my test?</div>
+  <div class="sd-typing" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="sd-a"><p>You&#x27;re <strong>72% ready</strong>. Road signs and right of way are strong. Speed limits and the alcohol rules are pulling your score down, so that is where 15 minutes today would help most.</p><div class="sw sw-prog"><div class="sw-ring" style="--r:0.72"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34"/><circle class="v" cx="40" cy="40" r="34"/></svg><span><b>72%</b><small>ready</small></span></div><ul><li class="" style="--i:0"><span>Road signs</span><b>94%</b><i style="--w:0.94"></i></li><li class="" style="--i:1"><span>Right of way</span><b>86%</b><i style="--w:0.86"></i></li><li class="" style="--i:2"><span>Signals and markings</span><b>78%</b><i style="--w:0.78"></i></li><li class="low" style="--i:3"><span>Speed limits</span><b>52%</b><i style="--w:0.52"></i></li><li class="low" style="--i:4"><span>Alcohol and drugs</span><b>48%</b><i style="--w:0.48"></i></li></ul><small class="sw-meta">From your study record. Weakest topic: Alcohol and drugs.</small></div><div class="sd-chips"><span class="sd-chip">Quiz me on speed limits</span><span class="sd-chip">Make me a plan</span><span class="sd-chip">Show my weak spots</span></div></div>
+</div><div class="sd-conv" data-case="4">
   <div class="sd-ctx">CDL HazMat endorsement</div>
   <div class="sd-q">What&#x27;s on my Texas HazMat endorsement test?</div>
   <div class="sd-typing" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="sd-a"><p>Hi Marcus, I&#x27;m Sunny, your AI study coach. The Texas HazMat endorsement requires a written test on how to recognize, handle, and transport hazardous materials. The handbook says you must study Section 9 for it (Texas Commercial Motor Vehicle Driver Handbook (DL-7C), p. 17; p. 71).</p><p><strong>What the test covers, from Section 9:</strong></p><ul><li><strong>Placards:</strong> signs on the outside of a vehicle that show the hazard class. A placarded vehicle needs at least four identical placards, on the front, rear, and both sides (p. 115).</li><li><strong>ID numbers:</strong> four-digit codes that first responders use to identify materials, with &quot;NA&quot; or &quot;UN&quot; before them (p. 115).</li><li><strong>Bulk packages:</strong> a single container over 119 gallons must be placarded, even if it only holds residue (p. 121).</li><li><strong>Loading and parking:</strong> which products can be loaded together, and parking distances for certain divisions (p. 71; p. 131).</li><li><strong>Emergencies:</strong> safe havens, the fire extinguisher placarded vehicles must carry, and the Emergency Response Guide (p. 131).</li><li><strong>Security:</strong> a TSA background check is required before the endorsement is issued (p. 14).</li></ul><p>The handbook doesn&#x27;t give a question count or time limit for the HazMat test. Our question bank has 16 CDL HazMat questions.</p><div class="sd-srcs"><span class="sd-src"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/></svg><span><b>p. 17</b><small>Texas Commercial Motor Vehicle Driver Handbook (DL-7C)</small></span></span><span class="sd-src"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/></svg><span><b>p. 71</b><small>Texas Commercial Motor Vehicle Driver Handbook (DL-7C)</small></span></span><span class="sd-src"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/></svg><span><b>p. 115</b><small>Texas Commercial Motor Vehicle Driver Handbook (DL-7C)</small></span></span></div><div class="sd-chips"><span class="sd-chip">Quiz me on HazMat (16)</span><span class="sd-chip">Teach me placards</span><span class="sd-chip">Show the handbook page</span></div></div>
-</div><div class="sd-conv" data-case="2">
+</div><div class="sd-conv" data-case="5">
   <div class="sd-ctx">Car permit test, in the learner&#x27;s own language</div>
   <div class="sd-q">¿Cuántas preguntas tiene mi examen de Nueva Jersey y cuántas necesito para aprobar?</div>
   <div class="sd-typing" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="sd-a"><p>Tu examen de Nueva Jersey tiene <strong>50 preguntas</strong> y necesitas <strong>al menos 40 correctas</strong> para aprobar, que es el 80 %. Eso significa que puedes fallar hasta 10.</p><p>Otros datos oficiales:</p><ul><li>Tiempo límite: no publicado por la agencia.</li><li>Se hace en computadora, en un centro de licencias de la MVC. Necesitas cita (telegov.njportal.com), aunque algunos centros aceptan personas sin cita.</li><li>El resultado aparece al terminar.</li><li>Si repruebas, debes esperar <strong>7 días</strong> para volver a intentar el examen de conocimientos.</li></ul><p>Tu examen está programado para el <strong>jueves 29 de octubre</strong>.</p><div class="sd-srcs"><span class="sd-src"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/></svg><span><b>New Jersey Motor Vehicle Commission</b></span></span></div><div class="sd-chips"><span class="sd-chip">Hacer un cuestionario de 10 preguntas</span><span class="sd-chip">Ver los temas del examen</span><span class="sd-chip">Ver mi progreso</span></div></div>
-</div></div></div></div><div class="sd-panel" role="tabpanel" data-ind="aviation" style="--hue:#5B5BD6"><div class="sd-cases"><button type="button" class="sd-case on" data-case="0">Regulations</button><button type="button" class="sd-case" data-case="1">Pilot currency</button></div><div class="sd-win"><div class="sd-head"><span class="sn-mascot sm tint" style="width:34px;height:34px" aria-hidden="true"><span class="cm-body"><img src="/assets/img/sunny/sunny-256.webp" alt="" width="34" height="34" draggable="false"><span class="cm-face"><span class="cm-blush cm-l"></span><span class="cm-blush cm-r"></span><span class="cm-eyes"><span class="cm-socket cm-l"></span><span class="cm-socket cm-r"></span><span class="cm-eye cm-l"></span><span class="cm-eye cm-r"></span></span></span></span></span><div><b>Sunny</b><small>Aviation coach</small></div></div><div class="sd-body"><div class="sd-conv on" data-case="0">
+</div></div></div></div><div class="sd-panel" role="tabpanel" data-ind="aviation" style="--hue:#5B5BD6"><div class="sd-cases"><button type="button" class="sd-case on" data-case="0">Regulations</button><button type="button" class="sd-case" data-case="1">Learning path</button><button type="button" class="sd-case" data-case="2">Pilot currency</button></div><div class="sd-win"><div class="sd-head"><span class="sn-mascot sm tint" style="width:34px;height:34px" aria-hidden="true"><span class="cm-body"><img src="/assets/img/sunny/sunny-256.webp" alt="" width="34" height="34" draggable="false"><span class="cm-face"><span class="cm-blush cm-l"></span><span class="cm-blush cm-r"></span><span class="cm-eyes"><span class="cm-socket cm-l"></span><span class="cm-socket cm-r"></span><span class="cm-eye cm-l"></span><span class="cm-eye cm-r"></span></span></span></span></span><div><b>Sunny</b><small>Aviation coach</small></div></div><div class="sd-body"><div class="sd-conv on" data-case="0">
   <div class="sd-ctx">Private pilot</div>
   <div class="sd-q">How much fuel do I need for a VFR flight at night in an airplane?</div>
   <div class="sd-typing" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="sd-a"><p>You need enough fuel to fly to your first point of intended landing, then <strong>at least 45 minutes more</strong> at normal cruising speed for a night VFR flight in an airplane. Daytime is 30 minutes. Wind and forecast weather also count. (14 CFR § 91.151(a)(1) and (2))</p><p>For a rotorcraft, the figure is 20 minutes after reaching the first landing point (14 CFR § 91.151(b)).</p><p>Want a quick quiz on fuel and reserve rules?</p><div class="sd-srcs"><span class="sd-src"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/></svg><span><b>14 CFR § 91.151</b><small>Federal regulation</small></span></span></div><div class="sd-chips"><span class="sd-chip">Yes, quiz me</span><span class="sd-chip">Explain the rule more</span><span class="sd-chip">Show the regulation page</span></div></div>
 </div><div class="sd-conv" data-case="1">
+  <div class="sd-ctx">Private Pilot knowledge test, studying the handbook in order</div>
+  <div class="sd-q">Teach me the handbook from the start. Where am I?</div>
+  <div class="sd-typing" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="sd-a"><p>You&#x27;re on <strong>chapter 5, Aerodynamics of Flight</strong>, with the first four chapters done. Let&#x27;s pick up with the four forces: lift, weight, thrust and drag.</p><div class="sw sw-path"><div class="sw-top"><b>Your course</b><small>Pilot&#x27;s Handbook of Aeronautical Knowledge</small></div><div class="sw-bar"><i style="--w:0.444"></i></div><small class="sw-meta">4 of 9 topics done</small><ol><li class="done" style="--i:0"><i></i><span>Introduction to Flying</span></li><li class="done" style="--i:1"><i></i><span>Aeronautical Decision-Making</span></li><li class="done" style="--i:2"><i></i><span>Aircraft Construction</span></li><li class="done" style="--i:3"><i></i><span>Principles of Flight</span></li><li class="now" style="--i:4"><i></i><span>Aerodynamics of Flight</span><em>You are here</em></li><li class="" style="--i:5"><i></i><span>Flight Controls</span></li><li class="" style="--i:6"><i></i><span>Aircraft Systems</span></li><li class="" style="--i:7"><i></i><span>Flight Instruments</span></li><li class="" style="--i:8"><i></i><span>Flight Manuals and Other Documents</span></li></ol></div><div class="sd-srcs"><span class="sd-src"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/></svg><span><b>Chapter 5</b><small>Pilot&#x27;s Handbook of Aeronautical Knowledge</small></span></span></div><div class="sd-chips"><span class="sd-chip">Start chapter 5</span><span class="sd-chip">Recap chapter 4</span><span class="sd-chip">Quiz me on chapter 4</span></div></div>
+</div><div class="sd-conv" data-case="2">
   <div class="sd-ctx">Private pilot</div>
   <div class="sd-q">When is my flight review due, and what does it include?</div>
   <div class="sd-typing" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -158,6 +181,24 @@
       root.querySelectorAll('.sd-panel').forEach(function(p){var on=p.dataset.ind===t.dataset.ind; p.classList.toggle('on',on); if(on) show(p,'0');});
     });
   });
+  root.querySelectorAll('[data-quiz]').forEach(function(w){
+    var qs=w.querySelectorAll('.sw-qq'), dots=w.querySelectorAll('.sw-dots i'), i=0, score=0;
+    qs.forEach(function(q,qi){
+      q.querySelectorAll('button').forEach(function(b,bi){
+        b.addEventListener('click',function(){
+          if(q.classList.contains('answered')) return; q.classList.add('answered');
+          var ok=bi==q.dataset.a; if(ok) score++;
+          b.classList.add(ok?'right':'wrong'); q.querySelectorAll('button')[q.dataset.a].classList.add('right');
+          dots[qi].classList.add(ok?'right':'wrong');
+          setTimeout(function(){
+            q.classList.remove('on'); i++;
+            if(i<qs.length) qs[i].classList.add('on');
+            else { w.querySelector('.sw-score').textContent=score+' of '+qs.length+' right'+(score===qs.length?'. Perfect.':''); w.classList.add('fin'); }
+          },900);
+        });
+      });
+    });
+  });
   root.querySelectorAll('.sd-panel').forEach(function(p){
     p.querySelectorAll('.sd-case').forEach(function(b){b.addEventListener('click',function(){show(p,b.dataset.case);});});
   });
@@ -171,6 +212,6 @@
     <div class="r"><a href="mailto:hello@oddlysunny.com">hello@oddlysunny.com</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=34"></script>
+<script src="/assets/site.js?v=35"></script>
 </body>
 </html>

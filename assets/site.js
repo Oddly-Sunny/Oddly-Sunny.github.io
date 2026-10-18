@@ -182,14 +182,18 @@
         var g = ctx.createLinearGradient(0, 0, r.width, r.height); g.addColorStop(0, '#E9C46A'); g.addColorStop(.5, '#D4A63C'); g.addColorStop(1, '#B98A2B');
         ctx.fillStyle = g; ctx.fillRect(0, 0, r.width, r.height);
         ctx.fillStyle = 'rgba(255,255,255,.18)'; for (var s = 0; s < 70; s++) ctx.fillRect(Math.random() * r.width, Math.random() * r.height, 2, 2);
+        ctx.fillStyle = 'rgba(74,52,16,.55)'; ctx.font = '600 12px Sora, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('SCRATCH TO REVEAL', r.width / 2, r.height / 2);
         ctx.globalCompositeOperation = 'destination-out';
-        var down = false, n = 0, revealed = false;
+        ctx.strokeStyle = '#000'; ctx.fillStyle = '#000'; ctx.lineWidth = 34; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        var down = false, n = 0, revealed = false, last = null;
         function reveal() {
           if (revealed) return; revealed = true; box.classList.add('clear'); $('.pg-self', stage).hidden = false; $('.pg-reveal', stage).hidden = true;
         }
         function scratch(e) {
-          if (!down) return; var b = cv.getBoundingClientRect();
-          ctx.beginPath(); ctx.arc(e.clientX - b.left, e.clientY - b.top, 18, 0, Math.PI * 2); ctx.fill();
+          if (!down) return; var b = cv.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
+          ctx.beginPath(); if (last) { ctx.moveTo(last[0], last[1]); ctx.lineTo(x, y); ctx.stroke(); } else { ctx.arc(x, y, 17, 0, Math.PI * 2); ctx.fill(); }
+          last = [x, y];
           box.classList.add('started');
           if (++n % 8 === 0) {
             var px = ctx.getImageData(0, 0, cv.width, cv.height).data, clear = 0;
@@ -199,7 +203,8 @@
         }
         cv.addEventListener('pointerdown', function (e) { down = true; cv.setPointerCapture(e.pointerId); scratch(e); });
         cv.addEventListener('pointermove', scratch);
-        cv.addEventListener('pointerup', function () { down = false; });
+        cv.addEventListener('pointerup', function () { down = false; last = null; });
+        cv.addEventListener('pointerleave', function () { last = null; });
         $('.pg-reveal', stage).addEventListener('click', reveal);
         $$('.pg-self button', stage).forEach(function (b) {
           b.addEventListener('click', function () {

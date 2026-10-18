@@ -267,7 +267,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=97">
+<link rel="stylesheet" href="/assets/site.css?v=100">
 </head>
 """
 
@@ -317,7 +317,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=34"></script>
+<script src="/assets/site.js?v=35"></script>
 </body>
 </html>
 """
@@ -634,6 +634,54 @@ def contact_page():
 
 SUNNY_EXAMPLES = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sunny_examples.json"), encoding="utf-8"))
 
+# Cases that show the cards Sunny puts in the chat (quiz, course, progress). Merged after each industry's first transcript.
+SUNNY_WIDGET_CASES = {
+ "driving": [
+  {"label": "Quiz me", "ctx": "Car permit test, after a lesson on right of way", "q": "Quiz me on right of way",
+   "a": "Here is a quick round on right of way, starting with the kind of question you missed last time.",
+   "cites": [], "choices": ["Another round", "Explain the four-way stop", "What's next?"],
+   "ui": {"type": "quiz", "title": "Right of way", "items": [
+     {"q": "Two cars reach a four-way stop at the same time. Who goes first?", "o": ["The car on the left", "The car on the right", "The bigger vehicle"], "a": 1},
+     {"q": "An ambulance with its siren on comes up behind you. What do you do?", "o": ["Speed up to clear the lane", "Pull to the right and stop", "Stop where you are"], "a": 1},
+     {"q": "A traffic light is flashing yellow. You should…", "o": ["Stop and wait for green", "Slow down and go with care", "Speed up to get through"], "a": 1}]}},
+  {"label": "What's next?", "ctx": "Car permit test, a returning learner", "q": "What should I learn next?",
+   "a": "You've finished **4 of 9** topics in your course. Next up is **Speed limits**. Want the short lesson first, or a quick quiz to see what you already know?",
+   "cites": [], "choices": ["Start the lesson", "Quiz me first", "How ready am I?"],
+   "ui": {"type": "path", "title": "Your course", "sub": "Car permit test", "now": 4, "steps": ["Getting your permit", "Road signs", "Signals and markings", "Right of way", "Speed limits", "Sharing the road", "Night and bad weather", "Alcohol and drugs", "Emergencies"]}},
+  {"label": "Am I ready?", "ctx": "Car permit test, a week before the test", "q": "Am I ready for my test?",
+   "a": "You're **72% ready**. Road signs and right of way are strong. Speed limits and the alcohol rules are pulling your score down, so that is where 15 minutes today would help most.",
+   "cites": [], "choices": ["Quiz me on speed limits", "Make me a plan", "Show my weak spots"],
+   "ui": {"type": "progress", "ready": 72, "topics": [["Road signs", 94], ["Right of way", 86], ["Signals and markings", 78], ["Speed limits", 52], ["Alcohol and drugs", 48]]}},
+ ],
+ "aviation": [
+  {"label": "Learning path", "ctx": "Private Pilot knowledge test, studying the handbook in order", "q": "Teach me the handbook from the start. Where am I?",
+   "a": "You're on **chapter 5, Aerodynamics of Flight**, with the first four chapters done. Let's pick up with the four forces: lift, weight, thrust and drag.",
+   "cites": [{"title": "Pilot's Handbook of Aeronautical Knowledge", "locator": "Chapter 5"}], "choices": ["Start chapter 5", "Recap chapter 4", "Quiz me on chapter 4"],
+   "ui": {"type": "path", "title": "Your course", "sub": "Pilot's Handbook of Aeronautical Knowledge", "now": 4, "steps": ["Introduction to Flying", "Aeronautical Decision-Making", "Aircraft Construction", "Principles of Flight", "Aerodynamics of Flight", "Flight Controls", "Aircraft Systems", "Flight Instruments", "Flight Manuals and Other Documents"]}},
+ ],
+}
+for _ind in SUNNY_EXAMPLES:
+    _ind["cases"] = _ind["cases"][:1] + SUNNY_WIDGET_CASES.get(_ind["key"], []) + _ind["cases"][1:]
+
+def sunny_widget(u):
+    """The cards Sunny shows inside a reply: a quiz, a course with the learner's place in it, or a progress read."""
+    if not u:
+        return ""
+    if u["type"] == "quiz":
+        qs = "".join(f'<div class="sw-qq{" on" if i == 0 else ""}" data-a="{it["a"]}"><p>{esc(it["q"])}</p><div class="sw-qo">' + "".join(f'<button type="button">{esc(o)}</button>' for o in it["o"]) + '</div></div>' for i, it in enumerate(u["items"]))
+        dots = "<i></i>" * len(u["items"])
+        return f'<div class="sw sw-quiz" data-quiz><div class="sw-top"><b>{esc(u["title"])}</b><span class="sw-dots">{dots}</span></div>{qs}<div class="sw-done"><span class="sw-score"></span><small>Missed ones go back into your study plan.</small></div></div>'
+    if u["type"] == "path":
+        n, steps = u["now"], u["steps"]
+        li = "".join(f'<li class="{"done" if i < n else "now" if i == n else ""}" style="--i:{i}"><i></i><span>{esc(t)}</span>' + ('<em>You are here</em>' if i == n else "") + '</li>' for i, t in enumerate(steps))
+        return f'<div class="sw sw-path"><div class="sw-top"><b>{esc(u["title"])}</b><small>{esc(u["sub"])}</small></div><div class="sw-bar"><i style="--w:{n / len(steps):.3f}"></i></div><small class="sw-meta">{n} of {len(steps)} topics done</small><ol>{li}</ol></div>'
+    if u["type"] == "progress":
+        r = u["ready"]; low = min(u["topics"], key=lambda t: t[1])[0]
+        bars = "".join(f'<li class="{"low" if v < 60 else ""}" style="--i:{i}"><span>{esc(t)}</span><b>{v}%</b><i style="--w:{v / 100:.2f}"></i></li>' for i, (t, v) in enumerate(u["topics"]))
+        return f'<div class="sw sw-prog"><div class="sw-ring" style="--r:{r / 100:.2f}"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34"/><circle class="v" cx="40" cy="40" r="34"/></svg><span><b>{r}%</b><small>ready</small></span></div><ul>{bars}</ul><small class="sw-meta">From your study record. Weakest topic: {esc(low)}.</small></div>'
+    return ""
+
+
 def sunny_mascot(size, cls=""):
     """Sunny's face is drawn over the plain cloud image, the same way as on dmv-iq.com."""
     return (f'<span class="sn-mascot {cls}" style="width:{size}px;height:{size}px" aria-hidden="true"><span class="cm-body">'
@@ -697,13 +745,21 @@ def ai_cards():
       <h3>{esc(t)}</h3><p>{esc(d)}</p>
     </article>''' for i, (img, b, mock, t, d) in enumerate(mocks))
 
-def compare_rows():
-    head = '<div class="vs-row vs-hd" aria-hidden="true"><span></span><span class="vs-old">The old way</span><span class="vs-new"><b class="vs-brand">With Oddly Sunny</b></span></div>'
+SUNNY_VS = [
+ ("book","Where answers come from","A closed library of the official manuals for that exam","Its memory of everything it has read, accurate or not"),
+ ("globe","Whose rules","Only your state's handbook, never another state's","Can blend one state's rule with another's"),
+ ("chart","Numbers","Every number checked against the source before you see it","Stated with confidence, with nothing to check them against"),
+ ("chat","When it doesn't know","Cites the page, or says the manual is silent","Fills the gap with something that sounds right"),
+]
+
+def compare_rows(rows=None, old="The old way", new="With Oddly Sunny"):
+    rows = rows or COMPARE
+    head = f'<div class="vs-row vs-hd" aria-hidden="true"><span></span><span class="vs-old">{esc(old)}</span><span class="vs-new"><b class="vs-brand">{esc(new)}</b></span></div>'
     return head + "".join(f'''<div class="vs-row reveal" style="--d:{i * 60}ms">
       <h3 class="vs-k"><span class="vs-icon">{icon(ic)}</span>{esc(k)}</h3>
-      <p class="vs-old"><span class="sr-only vs-ml">The old way </span>{esc(t)}</p>
-      <p class="vs-new"><span class="sr-only vs-ml">With Oddly Sunny </span>{esc(u)}</p>
-    </div>''' for i, (ic, k, u, t) in enumerate(COMPARE))
+      <p class="vs-old"><span class="sr-only vs-ml">{esc(old)} </span>{esc(t)}</p>
+      <p class="vs-new"><span class="sr-only vs-ml">{esc(new)} </span>{esc(u)}</p>
+    </div>''' for i, (ic, k, u, t) in enumerate(rows))
 
 SUNNY_HOW = [
  ("phone","Conversational by design","Learners talk to Sunny the way they would talk to a tutor: in their own words, in the middle of a question or the night before the test. Sunny turns each message into the next useful step: an explanation, a lesson, a quiz or a plan."),
@@ -737,7 +793,7 @@ def sunny_page():
   <div class="sd-ctx">{esc(c["ctx"])}</div>
   <div class="sd-q">{esc(c["q"])}</div>
   <div class="sd-typing" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="sd-a">{md_lite(c["a"])}{('<div class="sd-srcs">' + cites + '</div>') if cites else ""}{('<div class="sd-chips">' + chips + '</div>') if chips else ""}</div>
+  <div class="sd-a">{md_lite(c["a"])}{sunny_widget(c.get("ui"))}{('<div class="sd-srcs">' + cites + '</div>') if cites else ""}{('<div class="sd-chips">' + chips + '</div>') if chips else ""}</div>
 </div>"""
         panels += f'<div class="sd-panel{on}" role="tabpanel" data-ind="{ind["key"]}" style="--hue:{ind["hue"]}"><div class="sd-cases">{cases}</div><div class="sd-win"><div class="sd-head">{sunny_mascot(34, "sm tint")}<div><b>Sunny</b><small>{esc(ind["label"])} coach</small></div></div><div class="sd-body">{convs}</div></div></div>'
     demo = f'''<div class="sd" data-sd>
@@ -758,26 +814,13 @@ def sunny_page():
   <div class="sn-wrap">
     <h2 class="sn-h2">The antidote to AI hallucinations</h2>
     <p class="sn-sub">General-purpose chatbots learn from a blend of the whole internet. Ask one about a driving rule and it may sound certain while quoting the wrong speed limit, inventing a fee or mixing up California's right-of-way rule with New York's. On a test, a confident wrong answer is worse than no answer. Sunny was designed around that problem from day one.</p>
-    <div class="sn-vs">
-      <div class="sn-vs-card"><div class="sn-vs-tag">A general chatbot</div><ul>
-        <li>Answers from memory of everything it has read, accurate or not</li>
-        <li>Can blend one state's rule with another's</li>
-        <li>States numbers confidently, with nothing to check them against</li>
-        <li>Fills gaps with something that sounds right</li>
-      </ul></div>
-      <div class="sn-vs-card us"><div class="sn-vs-tag">{sunny_mascot(26, "sm")}Sunny</div><ul>
-        <li>Looks up the answer in a closed library of official manuals for that exam</li>
-        <li>Reads only your state's handbook, not anyone else's</li>
-        <li>Checks every number against the source before the reply is shown</li>
-        <li>Cites the page, and says so when the manual is silent</li>
-      </ul></div>
-    </div>
+    <div class="vs-table sn-vt">{compare_rows(SUNNY_VS, "A general chatbot", "Sunny")}</div>
   </div>
 
   <div class="sn-wrap">
     <div class="sd-intro">
       <h2 class="sn-h2">One coach, every kind of exam</h2>
-      <p class="sn-sub">Pick an industry and a use case. Every answer is real, unedited output from Sunny, with the official page it came from and the next steps it offers.</p>
+      <p class="sn-sub">Pick an industry and a use case to see how Sunny answers: from the official source, with the quizzes, study plans and progress cards it puts right in the chat.</p>
     </div>
     {demo}
   </div>
@@ -812,6 +855,24 @@ def sunny_page():
     t.addEventListener('click',function(){{
       root.querySelectorAll('.sd-tab').forEach(function(x){{var on=x===t; x.classList.toggle('on',on); x.setAttribute('aria-selected',on);}});
       root.querySelectorAll('.sd-panel').forEach(function(p){{var on=p.dataset.ind===t.dataset.ind; p.classList.toggle('on',on); if(on) show(p,'0');}});
+    }});
+  }});
+  root.querySelectorAll('[data-quiz]').forEach(function(w){{
+    var qs=w.querySelectorAll('.sw-qq'), dots=w.querySelectorAll('.sw-dots i'), i=0, score=0;
+    qs.forEach(function(q,qi){{
+      q.querySelectorAll('button').forEach(function(b,bi){{
+        b.addEventListener('click',function(){{
+          if(q.classList.contains('answered')) return; q.classList.add('answered');
+          var ok=bi==q.dataset.a; if(ok) score++;
+          b.classList.add(ok?'right':'wrong'); q.querySelectorAll('button')[q.dataset.a].classList.add('right');
+          dots[qi].classList.add(ok?'right':'wrong');
+          setTimeout(function(){{
+            q.classList.remove('on'); i++;
+            if(i<qs.length) qs[i].classList.add('on');
+            else {{ w.querySelector('.sw-score').textContent=score+' of '+qs.length+' right'+(score===qs.length?'. Perfect.':''); w.classList.add('fin'); }}
+          }},900);
+        }});
+      }});
     }});
   }});
   root.querySelectorAll('.sd-panel').forEach(function(p){{
