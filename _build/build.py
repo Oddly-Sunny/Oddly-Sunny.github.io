@@ -618,12 +618,12 @@ def md_lite(t):
     return "".join(out)
 
 COMPARE = [
- ("Where questions come from","Drafted from official sources, each one traceable to its page or rule","Written once, with the source left unclear"),
- ("Keeping current","Source monitors catch new editions and rule changes","Updated rarely, if ever"),
- ("When you're stuck","Ask Sunny, who answers from the official manual and cites the page","A static explanation, or a chatbot that may guess"),
- ("What to study next","Adaptive: weak spots first, paced to your test date","The same fixed list for everyone"),
- ("Knowing you're ready","A readiness score built from what you've actually mastered","A practice score, and a hope"),
- ("Local rules","Built state by state and province by province","One generic quiz with the flag swapped"),
+ ("Where it comes from","Built from official sources, every fact traceable to its page or rule","Written once, with sources left unclear"),
+ ("Keeping current","We watch the sources and update when the rules change","Updated rarely, if ever"),
+ ("When you're stuck","Ask Sunny, who answers from the official source and shows where","A static explanation, or a chatbot that may guess"),
+ ("What to learn next","Adaptive: weak spots first, paced to your goal","The same fixed path for everyone"),
+ ("Knowing where you stand","A readiness score built from what you've actually mastered","A score, and a hope"),
+ ("Where you are","Built for your state, province or country","One generic version for everyone"),
 ]
 
 def compare_rows():
