@@ -618,11 +618,11 @@ def md_lite(t):
     return "".join(out)
 
 COMPARE = [
- ("Where it comes from","Built from official sources, every fact traceable to its page or rule","Written once, with sources left unclear"),
- ("Keeping current","We watch the sources and update when the rules change","Updated rarely, if ever"),
+ ("Personalized to you","Learns what you know and adapts as you go, so every learner gets their own path","The same fixed path for everyone"),
+ ("What comes next","Your weak spots surface first, and the next step is tailored to you","Work through it in order and hope it sticks"),
+ ("Progress reports","Progress by topic, showing what you've mastered, what's left and when you're ready","A single score, and a hope"),
  ("When you're stuck","Ask Sunny, who answers from the official source and shows where","A static explanation, or a chatbot that may guess"),
- ("What to learn next","Adaptive: weak spots first, paced to your goal","The same fixed path for everyone"),
- ("Knowing where you stand","A readiness score built from what you've actually mastered","A score, and a hope"),
+ ("Where it comes from","Built from official sources, traceable to the page and updated when the rules change","Written once, with unclear sources, rarely updated"),
  ("Where you are","Built for your state, province or country","One generic version for everyone"),
 ]
 
