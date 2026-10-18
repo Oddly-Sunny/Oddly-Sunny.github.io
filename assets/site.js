@@ -235,8 +235,14 @@
     function fact() {
       var cards = shuffle(D.fact), i = 0, right = 0; total = cards.length;
       var h = '<div class="pg-deck" tabindex="0" aria-label="Fact Check cards. Use the left and right arrow keys.">';
-      for (var k = cards.length - 1; k >= 0; k--) h += '<div class="pg-sc" data-k="' + k + '"><span class="pg-stamp t">True</span><span class="pg-stamp f">False</span><p class="pg-q big">' + esc(cards[k].q) + '</p><p class="pg-hint">Swipe right if true, left if false</p></div>';
-      stage.innerHTML = h + '</div><p class="pg-why"></p><div class="pg-round"><button type="button" class="no" data-v="false" aria-label="False"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><button type="button" class="yes" data-v="true" aria-label="True"><svg viewBox="0 0 24 24"><path d="m5 12.500 4.500 4.500L19 7"/></svg></button></div>';
+      var MARK = '<i class="pg-mk"><b></b><b></b><b></b><b></b></i>';
+      for (var k = cards.length - 1; k >= 0; k--) h += '<div class="pg-sc pg-cert" data-k="' + k + '">' +
+        '<span class="pg-wm" aria-hidden="true">Oddly Sunny · Practice card</span><span class="pg-sheen" aria-hidden="true"></span>' +
+        '<div class="pg-ch"><span class="pg-brand">' + MARK + 'Oddly Sunny</span><span class="pg-no">Fact check · No. ' + (k + 1) + ' of ' + cards.length + '</span></div>' +
+        '<div class="pg-field"><small><em>IV</em> Statement</small><p class="pg-stmt">' + esc(cards[k].q) + '</p></div>' +
+        '<div class="pg-cf"><small><em>VII</em> Category <b>Road signs</b></small><span class="pg-seal" aria-hidden="true">' + MARK + '</span></div>' +
+        '<span class="pg-stamp t">True</span><span class="pg-stamp f">False</span></div>';
+      stage.innerHTML = h + '</div><p class="pg-hint pg-sw-hint">Swipe right if true, left if false</p><p class="pg-why"></p><div class="pg-round"><button type="button" class="no" data-v="false" aria-label="False"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><button type="button" class="yes" data-v="true" aria-label="True"><svg viewBox="0 0 24 24"><path d="m5 12.500 4.500 4.500L19 7"/></svg></button></div>';
       var deck = $('.pg-deck', stage), why = $('.pg-why', stage), W = deck.offsetWidth;
       var EASE = 'cubic-bezier(.2,.8,.2,1)', SPRING = 'cubic-bezier(.34,1.4,.5,1)';
       function rest(c, pos) {
