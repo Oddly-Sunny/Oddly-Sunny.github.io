@@ -174,7 +174,7 @@
       function show() {
         var c = cards[i];
         stage.innerHTML = '<div class="pg-card"><span class="pg-tag">' + esc(c.tag) + '</span><p class="pg-q big">' + esc(c.q) + '</p>' +
-          '<div class="pg-scratch"><span class="pg-ans">' + esc(c.a) + '</span><canvas aria-hidden="true"></canvas><span class="pg-scr-hint">Scratch to reveal</span></div>' +
+          '<div class="pg-scratch"><span class="pg-ans">' + esc(c.a) + '</span><canvas aria-hidden="true"></canvas><i class="pg-shine" aria-hidden="true"></i></div>' +
           '<div class="pg-opts two pg-self" hidden><button type="button" data-v="0">Didn’t know</button><button type="button" data-v="1">Knew it</button></div>' +
           '<button type="button" class="pg-reveal">Reveal</button></div>';
         var box = $('.pg-scratch', stage), cv = $('canvas', box), ctx = cv.getContext('2d'), r = box.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
@@ -194,17 +194,24 @@
         ctx.globalCompositeOperation = 'destination-out';
         ctx.strokeStyle = '#000'; ctx.fillStyle = '#000'; ctx.lineWidth = 42; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
         var down = false, n = 0, revealed = false, last = null;
+        function dab(x, y) {
+          var R = 24, rg = ctx.createRadialGradient(x, y, 0, x, y, R);
+          rg.addColorStop(0, 'rgba(0,0,0,1)'); rg.addColorStop(.55, 'rgba(0,0,0,.85)'); rg.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = rg; ctx.fillRect(x - R, y - R, R * 2, R * 2);
+        }
         function reveal() {
           if (revealed) return; revealed = true; box.classList.add('clear'); $('.pg-self', stage).hidden = false; $('.pg-reveal', stage).hidden = true;
         }
         function scratch(e) {
           if (!down) return; var b = cv.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
-          ctx.beginPath(); if (last) { ctx.moveTo(last[0], last[1]); ctx.lineTo(x, y); ctx.stroke(); } else { ctx.arc(x, y, 21, 0, Math.PI * 2); ctx.fill(); }
+          // soft-edged dabs along the stroke, so the foil wears away with a feathered edge
+          var from = last || [x, y], dist = Math.hypot(x - from[0], y - from[1]), steps = Math.max(1, Math.ceil(dist / 5));
+          for (var q = 1; q <= steps; q++) dab(from[0] + (x - from[0]) * q / steps, from[1] + (y - from[1]) * q / steps);
           last = [x, y];
           box.classList.add('started');
           if (++n % 8 === 0) {
             var px = ctx.getImageData(0, 0, cv.width, cv.height).data, clear = 0;
-            for (var k = 3; k < px.length; k += 64) if (px[k] === 0) clear++;
+            for (var k = 3; k < px.length; k += 64) if (px[k] < 60) clear++;
             if (clear / (px.length / 64) > 0.45) reveal();
           }
         }

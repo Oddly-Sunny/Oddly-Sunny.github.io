@@ -1249,3 +1249,9 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
 .pg-sc .pg-stamp{transition:none}
 .pg-scratch{box-shadow:0 10px 24px -14px rgba(0,0,0,.45),inset 0 0 0 1px rgba(31,23,11,.12)}
 .pg-stage{-webkit-user-select:none;user-select:none}
+/* scratch card: a small glint that crosses the gold now and then */
+.pg-shine{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:inherit;transition:opacity .3s}
+.pg-shine::before{content:"";position:absolute;top:-20%;bottom:-20%;left:0;width:22%;background:linear-gradient(100deg,transparent,rgba(255,250,230,.38) 50%,transparent);transform:translateX(-160%) skewX(-18deg);animation:pgGlint 5.5s ease-in-out 1s infinite}
+@keyframes pgGlint{0%{transform:translateX(-160%) skewX(-18deg)}22%,100%{transform:translateX(560%) skewX(-18deg)}}
+.pg-scratch.started .pg-shine,.pg-scratch.clear .pg-shine{opacity:0}
+@media(prefers-reduced-motion:reduce){.pg-shine{display:none}}
