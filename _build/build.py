@@ -387,11 +387,11 @@ def home():
 <section class="sec" id="different" data-scheme="paper"><div class="wrap">
   <div class="center reveal">
     <div class="eyebrow">Why it's different</div>
-    <h2 class="h2">Test prep hasn't really changed. <i>We're changing it.</i></h2>
-    <p class="sub vs-sub">Same thick handbooks, same static quizzes, same guesswork. It's time studying caught up.</p>
+    <h2 class="h2">Learning is stuck in the past. <i>We built what comes next.</i></h2>
+    <p class="sub vs-sub">Same thick handbooks, same static quizzes, same guesswork. It's time it caught up.</p>
   </div>
-  <div class="vs reveal" role="table" aria-label="Oddly Sunny compared with typical test prep">
-    <div class="vs-row vs-headrow" role="row"><span role="columnheader"></span><span class="vs-us" role="columnheader">Oddly Sunny</span><span class="vs-them" role="columnheader">Typical test prep</span></div>
+  <div class="vs reveal" role="table" aria-label="Oddly Sunny compared with the old way">
+    <div class="vs-row vs-headrow" role="row"><span role="columnheader"></span><span class="vs-us" role="columnheader">Oddly Sunny</span><span class="vs-them" role="columnheader">The old way</span></div>
     {compare_rows()}
   </div>
 </div></section>

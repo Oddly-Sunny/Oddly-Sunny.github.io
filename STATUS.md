@@ -22,5 +22,5 @@
 - Next step: owner review, then `git push` to deploy.
 
 ## 2026-10-18 Homepage "Why it's different" comparison (committed, NOT pushed)
-- New `#different` section (paper scheme) between "Who we are" and the portfolio: Oddly Sunny vs typical test prep, 6 rows from `COMPARE` in build.py, `.vs` CSS block at end of site.css (`?v=81`). Intro sub trimmed so it doesn't repeat the table. No unsourced "X years" claim. Checked desktop + 390px.
+- New `#different` section (paper scheme) between "Who we are" and the portfolio: Oddly Sunny vs "the old way", headline "Learning is stuck in the past. We built what comes next.", 6 rows from `COMPARE` in build.py, `.vs` CSS block at end of site.css (`?v=81`). Intro sub trimmed so it doesn't repeat the table. No unsourced "X years" claim. Checked desktop + 390px.
 - Next step: owner approval on localhost, then `git push` (ships this and the Sunny copy together).
