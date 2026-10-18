@@ -1219,3 +1219,20 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
 .sw-prog .sw-meta{grid-column:1/-1;margin-top:4px}
 @media(max-width:600px){.sw-prog{grid-template-columns:1fr}.sw-ring{margin:0 auto}}
 .sd-body{height:540px}@media(max-width:600px){.sd-body{height:480px}}
+/* Fact Check as a swipe deck */
+.pg-deck{position:relative;height:270px}
+.pg-sc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:26px 24px;border-radius:16px;background:#F5EDE8;color:#1F170B;box-shadow:0 18px 40px -24px rgba(0,0,0,.65);cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;transform-origin:50% 120%;will-change:transform}
+.pg-sc.drag{cursor:grabbing}
+.pg-sc::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(90deg,rgba(180,68,58,calc(var(--f,0) * .16)),transparent 60%),linear-gradient(270deg,rgba(45,106,79,calc(var(--t,0) * .18)),transparent 60%)}
+.pg-sc .pg-stamp{top:22px;font-size:16px;padding:5px 14px;border-width:3px}
+.pg-sc .pg-stamp.t{opacity:var(--t,0);transform:rotate(-14deg) scale(calc(.8 + var(--t,0) * .2))}
+.pg-sc .pg-stamp.f{opacity:var(--f,0);transform:rotate(14deg) scale(calc(.8 + var(--f,0) * .2))}
+.pg-deck.shake{animation:pgShake .45s ease}
+.pg-round{display:flex;justify-content:center;gap:22px;margin-top:8px}
+.pg-round button{width:58px;height:58px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;background:#F5EDE8;box-shadow:0 10px 24px -12px rgba(0,0,0,.7);transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+.pg-round button svg{width:24px;height:24px;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.pg-round .no svg{stroke:#B4443A}.pg-round .yes svg{stroke:#2D6A4F}
+.pg-round button:hover{transform:scale(1.08)}
+.pg-round button.hit{animation:pgTap .35s ease}
+@keyframes pgTap{40%{transform:scale(.88)}}
+.pg-why{text-align:center;color:var(--muted)!important;min-height:1.4em;margin:12px 0 2px}
