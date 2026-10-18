@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=103">
+<link rel="stylesheet" href="/assets/site.css?v=104">
 </head>
 """
 
@@ -311,7 +311,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=36"></script>
+<script src="/assets/site.js?v=37"></script>
 </body>
 </html>
 """
@@ -422,8 +422,8 @@ def home():
 <section id="expertise" data-scheme="tan"><div class="exp">
   <div class="l">
     <div class="eyebrow rule">How we build</div>
-    <h2 class="h2">Built fast, <i>checked carefully</i></h2>
-    <p class="sub">AI lets us write at a scale no team could match. These are the checks we use to keep that scale accurate.</p>
+    <h2 class="h2">Fast to write, <i>slow to trust</i></h2>
+    <p class="sub">AI lets us write at a scale no team could match. So we stay skeptical of what it writes, and these four checks are how.</p>
     <div class="feats">{feats}</div>
     <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Sunny doesn't guess. It looks it up.</h3><p>Every answer comes from the official manual, with the page to prove it.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
   </div>

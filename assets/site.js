@@ -220,67 +220,88 @@
     // 3. Fact Check: a swipe deck, right for true, left for false
     function fact() {
       var cards = shuffle(D.fact), i = 0, right = 0; total = cards.length;
-      var h = '<div class="pg-deck">';
+      var h = '<div class="pg-deck" tabindex="0" aria-label="Fact Check cards. Use the left and right arrow keys.">';
       for (var k = cards.length - 1; k >= 0; k--) h += '<div class="pg-sc" data-k="' + k + '"><span class="pg-stamp t">True</span><span class="pg-stamp f">False</span><p class="pg-q big">' + esc(cards[k].q) + '</p><p class="pg-hint">Swipe right if true, left if false</p></div>';
       stage.innerHTML = h + '</div><p class="pg-why"></p><div class="pg-round"><button type="button" class="no" data-v="false" aria-label="False"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><button type="button" class="yes" data-v="true" aria-label="True"><svg viewBox="0 0 24 24"><path d="m5 12.500 4.500 4.500L19 7"/></svg></button></div>';
       var deck = $('.pg-deck', stage), why = $('.pg-why', stage), W = deck.offsetWidth;
+      var EASE = 'cubic-bezier(.2,.8,.2,1)', SPRING = 'cubic-bezier(.34,1.4,.5,1)';
+      function rest(c, pos) {
+        var p = Math.min(pos, 2);
+        c.style.transform = 'translate3d(0,' + p * 12 + 'px,0) scale(' + (1 - p * .05) + ')';
+        c.style.opacity = pos > 2 ? 0 : 1; c.style.zIndex = 10 - pos;
+      }
       function stack() {
         $$('.pg-sc', deck).forEach(function (c) {
-          var pos = +c.getAttribute('data-k') - i;
-          if (pos < 0) return;
-          c.style.zIndex = 10 - pos;
-          if (pos > 0) { c.style.transition = 'transform .45s cubic-bezier(.2,.8,.2,1)'; c.style.transform = 'translateY(' + Math.min(pos, 2) * 12 + 'px) scale(' + (1 - Math.min(pos, 2) * .05) + ')'; c.style.opacity = pos > 2 ? 0 : 1; }
-          else { c.style.transition = 'transform .45s cubic-bezier(.2,.8,.2,1)'; c.style.transform = 'none'; c.style.opacity = 1; bind(c); }
+          var pos = +c.getAttribute('data-k') - i; if (pos < 0) return;
+          c.style.transition = 'transform .55s ' + SPRING + ', opacity .3s ease';
+          rest(c, pos); if (pos === 0) bind(c);
         });
       }
+      function tint(card, p) { card.style.setProperty('--t', Math.max(0, p)); card.style.setProperty('--f', Math.max(0, -p)); }
       function bind(card) {
         if (card._b) return; card._b = 1;
-        var x0, y0, dx = 0, dy = 0, t0, lastX, lastT, vx = 0, drag = false, raf = 0, next;
+        var x0, y0, dx = 0, dy = 0, grabTop = false, samples = [], drag = false, raf = 0, next = null;
         function paint() {
           raf = 0;
-          var rot = dx / W * 18;
-          card.style.transform = 'translate(' + dx + 'px,' + dy * .3 + 'px) rotate(' + rot + 'deg)';
-          var p = Math.max(-1, Math.min(1, dx / (W * .35)));
-          card.style.setProperty('--t', Math.max(0, p)); card.style.setProperty('--f', Math.max(0, -p));
+          var rot = dx / W * 16 * (grabTop ? 1 : -1);
+          card.style.transform = 'translate3d(' + dx + 'px,' + dy * .25 + 'px,0) rotate(' + rot + 'deg)';
+          tint(card, Math.max(-1, Math.min(1, dx / (W * .3))));
           next = next || $('.pg-sc[data-k="' + (i + 1) + '"]', deck);
-          if (next) { var a = Math.min(1, Math.abs(dx) / (W * .4)); next.style.transition = 'none'; next.style.transform = 'translateY(' + 12 * (1 - a) + 'px) scale(' + (.95 + .05 * a) + ')'; }
+          if (next) { var a = Math.min(1, Math.abs(dx) / (W * .45)); next.style.transition = 'none'; next.style.transform = 'translate3d(0,' + 12 * (1 - a) + 'px,0) scale(' + (.95 + .05 * a) + ')'; }
         }
         card.addEventListener('pointerdown', function (e) {
-          if (card._gone) return; drag = true; x0 = e.clientX; y0 = e.clientY; lastX = x0; lastT = t0 = performance.now(); vx = 0;
+          if (card._gone || e.button > 0) return; drag = true; x0 = e.clientX; y0 = e.clientY; dx = dy = 0; samples = [[e.clientX, performance.now()]];
+          var r = card.getBoundingClientRect(); grabTop = e.clientY < r.top + r.height / 2;
           card.setPointerCapture(e.pointerId); card.style.transition = 'none'; card.classList.add('drag');
         });
         card.addEventListener('pointermove', function (e) {
-          if (!drag) return; var now = performance.now();
-          dx = e.clientX - x0; dy = e.clientY - y0; vx = (e.clientX - lastX) / Math.max(1, now - lastT); lastX = e.clientX; lastT = now;
+          if (!drag) return; dx = e.clientX - x0; dy = e.clientY - y0;
+          samples.push([e.clientX, performance.now()]); if (samples.length > 6) samples.shift();
           if (!raf) raf = requestAnimationFrame(paint);
         });
+        function velocity() { var a = samples[0], b = samples[samples.length - 1]; return b && a && b[1] > a[1] ? (b[0] - a[0]) / (b[1] - a[1]) : 0; }
         function release() {
-          if (!drag) return; drag = false; card.classList.remove('drag');
-          if (Math.abs(dx) > W * .3 || Math.abs(vx) > .6) decide(card, (Math.abs(vx) > .6 ? vx : dx) > 0 ? 'true' : 'false', vx);
-          else { card.style.transition = 'transform .5s cubic-bezier(.3,1.5,.5,1)'; card.style.transform = 'none'; card.style.setProperty('--t', 0); card.style.setProperty('--f', 0); if (next) { next.style.transition = 'transform .5s cubic-bezier(.2,.8,.2,1)'; next.style.transform = 'translateY(12px) scale(.95)'; } }
-          dx = dy = 0;
+          if (!drag) return; drag = false; card.classList.remove('drag'); if (raf) { cancelAnimationFrame(raf); raf = 0; paint(); }
+          var v = velocity();
+          if (Math.abs(dx) > W * .28 || (Math.abs(v) > .45 && Math.abs(dx) > 24)) throwCard(card, (Math.abs(v) > .45 ? v : dx) > 0 ? 'true' : 'false', v, dx, dy, grabTop);
+          else {
+            card.style.transition = 'transform .6s ' + SPRING; card.style.transform = 'translate3d(0,0,0)'; tint(card, 0);
+            if (next) { next.style.transition = 'transform .6s ' + EASE; rest(next, 1); }
+          }
         }
         card.addEventListener('pointerup', release); card.addEventListener('pointercancel', release);
-        card._decide = function (v) { decide(card, v, 0); };
+        card._throw = function (v) {
+          // buttons and keys: a short lean, then the throw
+          var dir = v === 'true' ? 1 : -1;
+          card.style.transition = 'transform .16s ease-out'; card.style.transform = 'translate3d(' + dir * 26 + 'px,0,0) rotate(' + dir * 4 + 'deg)'; tint(card, dir * .5);
+          setTimeout(function () { throwCard(card, v, dir * 1.1, dir * 26, 0, true); }, 150);
+        };
       }
-      function decide(card, v, vx) {
+      function throwCard(card, v, vel, dx, dy, grabTop) {
         if (card._gone) return; card._gone = true;
         var c = cards[i], ok = String(c.a) === v, dir = v === 'true' ? 1 : -1;
-        var speed = Math.max(.5, Math.min(1.4, Math.abs(vx || 0)));
-        card.style.transition = 'transform ' + (0.55 / speed).toFixed(2) + 's cubic-bezier(.2,.6,.3,1), opacity .5s';
-        card.style.setProperty(dir > 0 ? '--t' : '--f', 1);
-        card.style.transform = 'translate(' + dir * W * 1.6 + 'px,' + 40 + 'px) rotate(' + dir * 28 + 'deg)';
+        var speed = Math.max(.9, Math.min(2.4, Math.abs(vel || 0)));
+        var dist = W * 1.5, dur = Math.max(.32, Math.min(.6, dist / (speed * 1000) * 1.6));
+        var endY = (dy || 0) * .25 + (dy || 0) * .6, rot = dir * 24 * (grabTop === false ? -1 : 1);
+        card.style.transition = 'transform ' + dur.toFixed(2) + 's cubic-bezier(.25,.6,.35,1), opacity ' + dur.toFixed(2) + 's ease-in';
+        tint(card, dir);
+        card.style.transform = 'translate3d(' + dir * dist + 'px,' + endY + 'px,0) rotate(' + rot + 'deg)';
         card.style.opacity = 0;
         var btn = $('.pg-round .' + (dir > 0 ? 'yes' : 'no'), stage); btn.classList.remove('hit'); void btn.offsetWidth; btn.classList.add('hit');
         if (ok) { right++; why.textContent = ''; win(btn, 10); }
-        else { miss(deck); why.textContent = c.why || ('That one is ' + (c.a ? 'true.' : 'false.')); }
+        else { streak = 0; lives--; var hh = hearts[lives]; if (hh) { hh.classList.remove('pop'); void hh.getBoundingClientRect(); hh.classList.add('pop'); } why.textContent = c.why || ('That one is ' + (c.a ? 'true.' : 'false.')); }
         done = ++i; hud();
-        setTimeout(function () { card.remove(); }, 600);
-        if (i < cards.length && !out()) setTimeout(stack, ok ? 120 : 900);
+        setTimeout(function () { card.remove(); }, dur * 1000 + 50);
+        if (i < cards.length && !out()) setTimeout(stack, 60);
         else setTimeout(function () { end(right); }, ok ? 650 : 1500);
       }
+      function topCard() { return $('.pg-sc[data-k="' + i + '"]', deck); }
       $$('.pg-round button', stage).forEach(function (b) {
-        b.addEventListener('click', function () { var top = $('.pg-sc[data-k="' + i + '"]', deck); if (top && top._decide) top._decide(b.getAttribute('data-v')); });
+        b.addEventListener('click', function () { var t = topCard(); if (t && t._throw && !t._gone) t._throw(b.getAttribute('data-v')); });
+      });
+      deck.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return; e.preventDefault();
+        var t = topCard(); if (t && t._throw && !t._gone) t._throw(e.key === 'ArrowRight' ? 'true' : 'false');
       });
       stack();
     }

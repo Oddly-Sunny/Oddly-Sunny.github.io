@@ -1221,7 +1221,7 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
 .sd-body{height:540px}@media(max-width:600px){.sd-body{height:480px}}
 /* Fact Check as a swipe deck */
 .pg-deck{position:relative;height:270px}
-.pg-sc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:26px 24px;border-radius:16px;background:#F5EDE8;color:#1F170B;box-shadow:0 18px 40px -24px rgba(0,0,0,.65);cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;transform-origin:50% 120%;will-change:transform}
+.pg-sc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:26px 24px;border-radius:16px;background:#F5EDE8;color:#1F170B;box-shadow:0 18px 40px -24px rgba(0,0,0,.65);cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;transform-origin:50% 50%;will-change:transform,opacity;backface-visibility:hidden}
 .pg-sc.drag{cursor:grabbing}
 .pg-sc::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(90deg,rgba(180,68,58,calc(var(--f,0) * .16)),transparent 60%),linear-gradient(270deg,rgba(45,106,79,calc(var(--t,0) * .18)),transparent 60%)}
 .pg-sc .pg-stamp{top:22px;font-size:16px;padding:5px 14px;border-width:3px}
@@ -1243,3 +1243,7 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
 .sd-panel.on{animation:sdFade .3s ease both}
 @keyframes sdFade{from{opacity:0}to{opacity:1}}
 .sd-conv.on{animation:none}
+.pg-tabs button:focus{outline:none}
+.pg-tabs button:focus-visible,.pg-round button:focus-visible,.pg-deck:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.pg-deck:focus{outline:none}
+.pg-sc .pg-stamp{transition:none}
