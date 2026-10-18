@@ -179,12 +179,10 @@ BY = {p["slug"]: p for p in PRODUCTS}
 FEATURED_ORDER = ["aviator-iq","citizen-pass","dmv-iq","drive-iq-canada","insurance-pass","airwaves-iq","mariner-iq"]
 
 CAPS = [
- ("check","Grounded in official sources","Every question is drafted from official public material and carries a verbatim quote from its source. If we can't source it, we don't ship it."),
  ("book","Built for real exam conditions","Blueprints, question counts, timing, pass marks and figures are modeled on the official exam, so practice feels like test day."),
  ("globe","Checked independently","A second, independent AI review answers every question blind. If it disagrees with the key, the question goes back, not out."),
  ("spark","Official answers stand","We never overrule an official answer key. If one looks outdated or disputed, we flag it instead of guessing."),
  ("chart","Honest about limits","Our scores show how prepared you are, not a guarantee. We tell you where you stand, even when it isn't flattering."),
- ("phone","Always current","Source monitors watch for new editions and rule changes, so the practice updates when the exam does."),
 ]
 ICONS = {
  "book":'<path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/>',
@@ -263,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=89">
+<link rel="stylesheet" href="/assets/site.css?v=91">
 </head>
 """
 
@@ -307,7 +305,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=28"></script>
+<script src="/assets/site.js?v=30"></script>
 </body>
 </html>
 """
@@ -426,18 +424,18 @@ def home():
   <div class="r"><canvas class="mesh" aria-hidden="true"></canvas></div>
 </div></section>
 
-<section class="sec" id="personal" data-scheme="ember"><div class="wrap split">
+<section class="sec" id="play" data-scheme="ember"><div class="wrap split play-split">
   <div>
-    <div class="eyebrow rule reveal">Personal by design</div>
-    <h2 class="h2 reveal">Learning that <i>feels personal</i></h2>
-    <p class="sub reveal">AI doesn't just write the practice. It adapts to the person using it.</p>
+    <div class="eyebrow rule reveal">Play by design</div>
+    <h2 class="h2 reveal">Learning that <i>feels like play</i></h2>
+    <p class="sub reveal">Studying sticks when it doesn't feel like studying. So we turn the real questions into games worth coming back to.</p>
     <div class="feats one">
-      <div class="feat reveal"><button type="button" class="ic play-ic" data-play="lesson" aria-label="Adaptive learning paths, tap to play">{icon("book")}</button><h3>Adaptive learning paths</h3><p>The next question depends on what you know and what you don't. Study at your own pace, with weak spots surfaced first and the right resources one tap away.</p></div>
-      <div class="feat reveal"><button type="button" class="ic play-ic" data-play="ready" aria-label="Readiness insights, tap to play">{icon("chart")}</button><h3>Readiness insights</h3><p>See where you stand, which topics are most likely to trip you up, and when you're ready to book the test. No guessing, no false confidence.</p></div>
-      <div class="feat reveal"><button type="button" class="ic play-ic" data-play="xp" aria-label="Learning that feels like play, tap to play">{icon("spark")}</button><h3>Learning that feels like play</h3><p>Games, challenges and quick rounds turn practice into something you want to come back to, instead of something you put off.</p></div>
+      <div class="feat reveal"><button type="button" class="ic play-ic" data-play="xp" aria-label="Quick games, tap to play">{icon("spark")}</button><h3>Quick games, real questions</h3><p>Short rounds built from the official question bank, each with levels, a timer and a few strikes.</p></div>
+      <div class="feat reveal"><button type="button" class="ic play-ic" data-play="daily" aria-label="Daily challenges, tap to play">{icon("book")}</button><h3>Daily challenges</h3><p>Fresh challenges every day give a reason to come back, and a little momentum every time you do.</p></div>
+      <div class="feat reveal"><button type="button" class="ic play-ic" data-play="ready" aria-label="Exam simulator, tap to play">{icon("chart")}</button><h3>An exam simulator for the big day</h3><p>When you're close, a full mock test mirrors the real one, so the first time you see that format isn't test day.</p></div>
     </div>
   </div>
-  <div class="pic tall reveal"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/personal-loop.jpg" aria-label="A learner using her phone outdoors in soft sunlight"><source src="/assets/img/personal-loop.webm" type="video/webm"><source src="/assets/img/personal-loop.mp4" type="video/mp4"></video></div>
+  <div class="play-wall">{play_tiles()}<p class="play-note reveal">Games from DMV IQ, built from each state's own questions.</p></div>
 </div></section>
 
 """
@@ -501,6 +499,11 @@ GAMES = [
  ("match","Sign Match","Flip cards to pair road signs from memory."),
  ("numbers","By the Numbers","Spin to the exact distance, fine or time limit from your state's questions."),
 ]
+
+def play_tiles():
+    picks = ["sprint", "fact", "numbers", "match"]
+    names = dict((k, t) for k, t, _ in GAMES)
+    return "".join(f'''<figure class="play-tile reveal"><video autoplay muted loop playsinline preload="none" poster="/assets/img/games/{k}.jpg" aria-hidden="true"><source src="/assets/img/games/{k}.webm" type="video/webm"><source src="/assets/img/games/{k}.mp4" type="video/mp4"></video><figcaption>{esc(names[k])}</figcaption></figure>''' for k in picks)
 
 def games_block():
     """Gamification showcase on a product page: the real Challenges screen plus each game's animated intro art."""

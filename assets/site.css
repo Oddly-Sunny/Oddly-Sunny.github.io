@@ -517,7 +517,7 @@ h2.h2{font-size:clamp(26px,3vw,40px);line-height:1.12}
 .feats.one{grid-template-columns:1fr;gap:26px}
 .split .pic.tall img{aspect-ratio:4/5;max-height:620px;width:100%}
 #responsible .feats{margin-top:32px}
-#personal .feats{margin-top:32px}
+#play .feats{margin-top:32px}
 
 .split .pic video{display:block;width:100%;aspect-ratio:4/5;max-height:620px;object-fit:cover;background:#0f0a07}
 
@@ -1040,7 +1040,7 @@ h2.h2{font-size:clamp(26px,3vw,40px);line-height:1.12}
 .play-ic{border:0;font:inherit;cursor:pointer;position:relative;overflow:visible;-webkit-tap-highlight-color:transparent}
 .play-ic:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .play-ic svg{transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
-.play-ic[data-play="lesson"]:hover svg{transform:rotate(-14deg) translateY(-1px)}
+.play-ic[data-play="daily"]:hover svg{transform:rotate(-14deg) translateY(-1px)}
 .play-ic[data-play="xp"]:hover svg{transform:rotate(180deg) scale(1.15)}
 .play-ic[data-play="ready"] svg path{transform-box:fill-box;transform-origin:50% 100%}
 .play-ic[data-play="ready"]:hover svg path:nth-child(-n+3){animation:playBar .7s cubic-bezier(.34,1.56,.64,1)}
@@ -1055,7 +1055,17 @@ h2.h2{font-size:clamp(26px,3vw,40px);line-height:1.12}
 @keyframes pfUp{0%{opacity:0;transform:translate(-50%,6px) scale(.8)}20%{opacity:1;transform:translate(-50%,0) scale(1.05)}100%{opacity:0;transform:translate(-50%,-26px) scale(1)}}
 .pc{position:absolute;left:50%;top:50%;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:2px;background:var(--c);pointer-events:none;animation:pcFly .85s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes pcFly{0%{transform:none;opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(.4);opacity:0}}
-.play-toast{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:12px;border:1px solid color-mix(in srgb,var(--gold) 50%,transparent);background:color-mix(in srgb,var(--gold) 12%,transparent);font-size:13.5px;opacity:0;transform:translateY(10px) scale(.97);transition:opacity .5s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}
-.play-toast.in{opacity:1;transform:none}
-.play-toast b{font-weight:500;color:var(--gold);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
-.play-toast span{color:var(--text);font-weight:300}
+h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filter:blur(6px)!important}
+/* play section: looping game clips */
+.play-split{align-items:start}
+.play-wall{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding-top:8px}
+.play-tile{position:relative;margin:0;border-radius:12px;overflow:hidden;background:#f4efe3;transition:opacity .7s ease var(--d,0s),transform .7s ease var(--d,0s),box-shadow .35s}
+.play-tile:nth-child(even){margin-top:36px}
+.play-tile video{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.play-tile figcaption{position:absolute;left:10px;bottom:10px;padding:6px 12px;border-radius:99px;background:rgba(20,10,6,.78);color:#F5EDE8;font-family:var(--serif);font-style:italic;font-size:15px;backdrop-filter:blur(6px);transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.play-tile.visible:hover{transform:translateY(-6px) rotate(-1.2deg);box-shadow:0 26px 50px -24px rgba(0,0,0,.7);transition-delay:0s}
+.play-tile.visible:nth-child(even):hover{transform:translateY(-6px) rotate(1.2deg)}
+.play-tile:hover figcaption{transform:scale(1.06)}
+.play-note{grid-column:1/-1;margin-top:6px;font-size:12.5px;color:var(--muted)}
+@media(max-width:900px){.play-wall{margin-top:12px}}
+@media(max-width:600px){.play-tile:nth-child(even){margin-top:0}}

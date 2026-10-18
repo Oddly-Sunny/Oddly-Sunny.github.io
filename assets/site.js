@@ -43,7 +43,7 @@
   // hidden play: the three icons in "Personal by design" are tiny games
   var plays = $$('[data-play]');
   if (plays.length) {
-    var found = {}, ready = 64, combo = 0, lastXp = 0, unlocked = false;
+    var found = {}, daily = 0, ready = 64, combo = 0, lastXp = 0, unlocked = false;
     var COLORS = ['#40916C', '#6AB58E', '#2D6A4F', '#D4A63C'];
     var burst = function (el, txt) {
       var f = document.createElement('span'); f.className = 'pf'; f.textContent = txt; f.setAttribute('aria-hidden', 'true');
@@ -59,17 +59,20 @@
     plays.forEach(function (b) {
       b.addEventListener('click', function () {
         var k = b.getAttribute('data-play'), txt;
-        if (k === 'lesson') txt = '+1 lesson';
+        if (k === 'daily') { daily++; txt = daily <= 2 ? 'Challenge ' + daily + ' of 2' : 'Day ' + (daily - 1) + ' done'; }
         if (k === 'ready') { ready = Math.min(100, ready + 6); txt = ready >= 100 ? 'Ready to pass!' : 'Ready ' + ready + '%'; }
         if (k === 'xp') { var now = Date.now(); combo = now - lastXp < 900 ? combo + 1 : 1; lastXp = now; txt = combo > 1 ? 'Combo x' + combo : '+10 XP'; }
         burst(b, txt);
         found[k] = 1;
         if (!unlocked && Object.keys(found).length === plays.length) {
           unlocked = true;
-          var t = document.createElement('div'); t.className = 'play-toast'; t.setAttribute('role', 'status');
-          t.innerHTML = '<b>Achievement unlocked</b><span>You found all three. That is how studying should feel.</span>';
-          b.closest('.feats').appendChild(t);
-          requestAnimationFrame(function () { t.classList.add('in'); });
+          // the reward: the heading itself changes its mind
+          var w = $('h2.h2 i', b.closest('section'));
+          if (w) {
+            w.style.transitionDelay = '0s';
+            w.classList.add('swap-out');
+            setTimeout(function () { w.textContent = 'feels like winning'; w.classList.remove('swap-out'); }, 450);
+          }
         }
       });
     });
