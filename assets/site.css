@@ -1283,3 +1283,10 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
 .pg-sw-hint{text-align:center;margin:0 0 4px!important;color:var(--muted)!important}
 @media(max-width:600px){.pg-stmt{font-size:17px}.pg-ch{padding:10px 12px 8px 22px}.pg-field{padding:10px 14px 0 22px}.pg-cf{left:22px;bottom:10px}.pg-seal{width:38px;height:38px}}
 @media(prefers-reduced-motion:reduce){.pg-sheen{display:none}}
+/* Stories menu: always light, whatever the section behind it */
+@media(min-width:961px){
+  .hdr .dd-menu,.hdr[data-scheme] .dd-menu{background:#FBF8F2;color:#121212;border:1px solid rgba(0,0,0,.08);box-shadow:0 24px 50px -24px rgba(0,0,0,.35)}
+  .hdr .dd-menu a:hover{background:rgba(0,0,0,.045)}
+  .hdr .dd-by,.hdr .dd-no{color:#6b6b64;opacity:1}
+  .hdr .dd-more{border-top-color:rgba(0,0,0,.08)}
+}
