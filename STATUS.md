@@ -29,3 +29,9 @@
 - `#different` restyled to match the site: cream scheme continuing "Who we are", ruled eyebrow, serif-italic row labels, old way muted, Oddly Sunny column as a dark green panel (`.vs-table`); stacks into cards with inline labels under 760px.
 - New `#ai-tools` section under it: 3 callouts (Ask Sunny with page cite, Quiz generator, Study plan) = photo + HTML UI mock + gold button, `ai_cards()` in build.py, `.ai-*` CSS, crops in `assets/img/ai/` (ask.jpg is the library photo MIRRORED). CSS `?v=87`. Checked desktop + 390px.
 - Next step: owner approval on localhost, then `git push`.
+
+## 2026-10-18 Micro animations + hidden play (committed, NOT pushed)
+- Site-wide (site.css "micro animations" block + site.js): auto-stagger of sibling reveals, eyebrow rules draw in, italic heading words blur-settle, photos ease out of zoom, button shine follows pointer + press, feat icons pop/lift, nav underline, comparison green panel rises + diamonds pop, AI callout screens act out (typing dots then answer, ticks pop, button shine, sparkle twinkle). Reduced-motion zeroes delays.
+- "Personal by design" icons are hidden games (`data-play`): +1 lesson / Ready N% / +10 XP combo, confetti cells, achievement toast after all three.
+- Study-plan photo now `ai/plan.jpg` = cp-dog MIRRORED. Method-section Sunny card shortened. CSS ?v=89, JS ?v=28.
+- Next step: owner approval on localhost, then `git push`.

@@ -32,7 +32,57 @@
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  $$('.reveal,.frame').forEach(function (el) { io.observe(el); });
+  // stagger siblings that reveal together (cards, features, rows) unless a delay is already set
+  $$('.reveal').forEach(function (el) {
+    if (el.style.getPropertyValue('--d')) return;
+    var sibs = Array.prototype.filter.call(el.parentNode.children, function (c) { return c.classList.contains('reveal'); });
+    if (sibs.length > 1) el.style.setProperty('--d', (sibs.indexOf(el) % 4) * 90 + 'ms');
+  });
+  $$('.reveal,.frame,.vs-table').forEach(function (el) { io.observe(el); });
+
+  // hidden play: the three icons in "Personal by design" are tiny games
+  var plays = $$('[data-play]');
+  if (plays.length) {
+    var found = {}, ready = 64, combo = 0, lastXp = 0, unlocked = false;
+    var COLORS = ['#40916C', '#6AB58E', '#2D6A4F', '#D4A63C'];
+    var burst = function (el, txt) {
+      var f = document.createElement('span'); f.className = 'pf'; f.textContent = txt; f.setAttribute('aria-hidden', 'true');
+      el.appendChild(f); setTimeout(function () { f.remove(); }, 1000);
+      for (var i = 0; i < 9; i++) {
+        var c = document.createElement('i'), a = Math.random() * Math.PI * 2, d = 28 + Math.random() * 30;
+        c.className = 'pc';
+        c.style.cssText = '--x:' + Math.cos(a) * d + 'px;--y:' + Math.sin(a) * d + 'px;--r:' + (Math.random() * 360 - 180) + 'deg;--c:' + COLORS[i % 4];
+        el.appendChild(c); setTimeout(function (n) { return function () { n.remove(); }; }(c), 850);
+      }
+      el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit');
+    };
+    plays.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var k = b.getAttribute('data-play'), txt;
+        if (k === 'lesson') txt = '+1 lesson';
+        if (k === 'ready') { ready = Math.min(100, ready + 6); txt = ready >= 100 ? 'Ready to pass!' : 'Ready ' + ready + '%'; }
+        if (k === 'xp') { var now = Date.now(); combo = now - lastXp < 900 ? combo + 1 : 1; lastXp = now; txt = combo > 1 ? 'Combo x' + combo : '+10 XP'; }
+        burst(b, txt);
+        found[k] = 1;
+        if (!unlocked && Object.keys(found).length === plays.length) {
+          unlocked = true;
+          var t = document.createElement('div'); t.className = 'play-toast'; t.setAttribute('role', 'status');
+          t.innerHTML = '<b>Achievement unlocked</b><span>You found all three. That is how studying should feel.</span>';
+          b.closest('.feats').appendChild(t);
+          requestAnimationFrame(function () { t.classList.add('in'); });
+        }
+      });
+    });
+  }
+
+  // buttons and cards: a soft glow that follows the pointer
+  $$('.btn,.vs-row,.ai-vis,.feat').forEach(function (el) {
+    el.addEventListener('pointermove', function (e) {
+      var r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
 
   // lit words on scroll
   var hls = $$('[data-highlight]');

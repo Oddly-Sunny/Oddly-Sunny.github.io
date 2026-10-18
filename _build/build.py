@@ -263,7 +263,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=87">
+<link rel="stylesheet" href="/assets/site.css?v=89">
 </head>
 """
 
@@ -307,7 +307,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=26"></script>
+<script src="/assets/site.js?v=28"></script>
 </body>
 </html>
 """
@@ -421,7 +421,7 @@ def home():
     <h2 class="h2">A better way to build <i>learning</i></h2>
     <p class="sub">We are AI-native. Our proprietary method turns official sources into modern learning, and the sources always have the last word.</p>
     <div class="feats">{feats}</div>
-    <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Meet Sunny, AI that doesn't make things up</h3><p>General chatbots are known to invent laws, misquote limits and mix up one state's rules with another's. Sunny is our answer: a study coach that reads only the official manual for your exam, cites the page and checks every number before it replies.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
+    <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>AI that doesn't make things up</h3><p>Sunny answers only from the official manual, cites the page and checks every number first.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
   </div>
   <div class="r"><canvas class="mesh" aria-hidden="true"></canvas></div>
 </div></section>
@@ -432,9 +432,9 @@ def home():
     <h2 class="h2 reveal">Learning that <i>feels personal</i></h2>
     <p class="sub reveal">AI doesn't just write the practice. It adapts to the person using it.</p>
     <div class="feats one">
-      <div class="feat reveal"><div class="ic">{icon("book")}</div><h3>Adaptive learning paths</h3><p>The next question depends on what you know and what you don't. Study at your own pace, with weak spots surfaced first and the right resources one tap away.</p></div>
-      <div class="feat reveal"><div class="ic">{icon("chart")}</div><h3>Readiness insights</h3><p>See where you stand, which topics are most likely to trip you up, and when you're ready to book the test. No guessing, no false confidence.</p></div>
-      <div class="feat reveal"><div class="ic">{icon("spark")}</div><h3>Learning that feels like play</h3><p>Games, challenges and quick rounds turn practice into something you want to come back to, instead of something you put off.</p></div>
+      <div class="feat reveal"><button type="button" class="ic play-ic" data-play="lesson" aria-label="Adaptive learning paths, tap to play">{icon("book")}</button><h3>Adaptive learning paths</h3><p>The next question depends on what you know and what you don't. Study at your own pace, with weak spots surfaced first and the right resources one tap away.</p></div>
+      <div class="feat reveal"><button type="button" class="ic play-ic" data-play="ready" aria-label="Readiness insights, tap to play">{icon("chart")}</button><h3>Readiness insights</h3><p>See where you stand, which topics are most likely to trip you up, and when you're ready to book the test. No guessing, no false confidence.</p></div>
+      <div class="feat reveal"><button type="button" class="ic play-ic" data-play="xp" aria-label="Learning that feels like play, tap to play">{icon("spark")}</button><h3>Learning that feels like play</h3><p>Games, challenges and quick rounds turn practice into something you want to come back to, instead of something you put off.</p></div>
     </div>
   </div>
   <div class="pic tall reveal"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/personal-loop.jpg" aria-label="A learner using her phone outdoors in soft sunlight"><source src="/assets/img/personal-loop.webm" type="video/webm"><source src="/assets/img/personal-loop.mp4" type="video/mp4"></video></div>
@@ -647,6 +647,7 @@ def ai_cards():
     mocks = [
      ("ask", "Ask Sunny", f'''<div class="ai-mock"><b class="ai-mt">Ask Sunny</b>
         <div class="ai-q">Why is B wrong?</div>
+        <div class="ai-dots" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="ai-a">You must stop first, then pass at no more than 15 mph.</div>
         <span class="ai-cite">{icon("book")}p. 80 · Driver Manual</span></div>''', "Answers you can check",
       "Ask anything, in your own words. Sunny answers only from the official manual, shows the page it used and checks every number before you see it."),
