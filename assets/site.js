@@ -179,19 +179,18 @@
           '<button type="button" class="pg-reveal">Reveal</button></div>';
         var box = $('.pg-scratch', stage), cv = $('canvas', box), ctx = cv.getContext('2d'), r = box.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
         cv.width = r.width * dpr; cv.height = r.height * dpr; ctx.scale(dpr, dpr);
-        // silver foil: metallic bands, a soft diagonal sheen, fine sparkle and a stamped label
-        var g = ctx.createLinearGradient(0, 0, r.width, r.height * .6);
-        [[0, '#9aa1a8'], [.18, '#e9ecef'], [.34, '#b5bbc2'], [.5, '#f7f8f9'], [.66, '#aeb4bb'], [.82, '#e3e6e9'], [1, '#8f969d']].forEach(function (st) { g.addColorStop(st[0], st[1]); });
+        // brand gold foil: soft bands, a faint sheen, a little grain and a stamped label
+        var g = ctx.createLinearGradient(0, 0, r.width, r.height);
+        [[0, '#C9982F'], [.3, '#DDB65A'], [.55, '#D4A63C'], [.8, '#E2BE66'], [1, '#C5932C']].forEach(function (st) { g.addColorStop(st[0], st[1]); });
         ctx.fillStyle = g; ctx.fillRect(0, 0, r.width, r.height);
         var sh = ctx.createLinearGradient(0, r.height, r.width, 0);
-        sh.addColorStop(0, 'rgba(255,255,255,0)'); sh.addColorStop(.45, 'rgba(255,255,255,0)'); sh.addColorStop(.52, 'rgba(255,255,255,.55)'); sh.addColorStop(.6, 'rgba(255,255,255,0)'); sh.addColorStop(1, 'rgba(255,255,255,0)');
+        sh.addColorStop(.38, 'rgba(255,248,225,0)'); sh.addColorStop(.5, 'rgba(255,248,225,.22)'); sh.addColorStop(.62, 'rgba(255,248,225,0)');
         ctx.fillStyle = sh; ctx.fillRect(0, 0, r.width, r.height);
-        for (var s2 = 0; s2 < 260; s2++) { ctx.fillStyle = Math.random() < .5 ? 'rgba(255,255,255,.55)' : 'rgba(60,66,72,.18)'; ctx.fillRect(Math.random() * r.width, Math.random() * r.height, 1.2, 1.2); }
-        ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 1;
-        for (var d = -r.height; d < r.width; d += 9) { ctx.beginPath(); ctx.moveTo(d, r.height); ctx.lineTo(d + r.height, 0); ctx.stroke(); }
-        ctx.font = '700 15px Sora, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillStyle = 'rgba(255,255,255,.7)'; ctx.fillText('SCRATCH HERE', r.width / 2 + 1, r.height / 2 + 1);
-        ctx.fillStyle = 'rgba(70,76,84,.75)'; ctx.fillText('SCRATCH HERE', r.width / 2, r.height / 2);
+        for (var s2 = 0; s2 < 140; s2++) { ctx.fillStyle = Math.random() < .5 ? 'rgba(255,245,215,.35)' : 'rgba(90,62,12,.12)'; ctx.fillRect(Math.random() * r.width, Math.random() * r.height, 1.2, 1.2); }
+        ctx.font = '600 13px Sora, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        if (ctx.letterSpacing !== undefined) ctx.letterSpacing = '2px';
+        ctx.fillStyle = 'rgba(255,240,205,.5)'; ctx.fillText('SCRATCH HERE', r.width / 2 + .8, r.height / 2 + .8);
+        ctx.fillStyle = 'rgba(74,52,16,.6)'; ctx.fillText('SCRATCH HERE', r.width / 2, r.height / 2);
         ctx.globalCompositeOperation = 'destination-out';
         ctx.strokeStyle = '#000'; ctx.fillStyle = '#000'; ctx.lineWidth = 42; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
         var down = false, n = 0, revealed = false, last = null;
@@ -209,7 +208,7 @@
             if (clear / (px.length / 64) > 0.45) reveal();
           }
         }
-        cv.addEventListener('pointerdown', function (e) { down = true; cv.setPointerCapture(e.pointerId); scratch(e); });
+        cv.addEventListener('pointerdown', function (e) { e.preventDefault(); down = true; cv.setPointerCapture(e.pointerId); scratch(e); });
         cv.addEventListener('pointermove', scratch);
         cv.addEventListener('pointerup', function () { down = false; last = null; });
         cv.addEventListener('pointerleave', function () { last = null; });
