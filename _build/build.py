@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=102">
+<link rel="stylesheet" href="/assets/site.css?v=103">
 </head>
 """
 
@@ -835,15 +835,19 @@ def sunny_page():
 (function(){{
   var root=document.querySelector('[data-sd]'); if(!root) return;
   var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var timer=0;
   function play(conv){{
-    if(!conv) return; conv.classList.remove('typed','asked');
+    if(!conv) return; clearTimeout(timer);
+    conv.classList.remove('typed','asked'); conv.classList.add('pre');
     void conv.offsetWidth;
-    conv.classList.add('asked');
-    setTimeout(function(){{conv.classList.add('typed');}}, still?0:900);
+    requestAnimationFrame(function(){{
+      conv.classList.remove('pre'); conv.classList.add('asked');
+      timer=setTimeout(function(){{conv.classList.add('typed');}}, still?0:900);
+    }});
   }}
   function show(panel, j){{
     panel.querySelectorAll('.sd-case').forEach(function(b){{b.classList.toggle('on', b.dataset.case==j);}});
-    panel.querySelectorAll('.sd-conv').forEach(function(c){{var on=c.dataset.case==j; c.classList.toggle('on',on); if(on){{panel.querySelector('.sd-body').scrollTop=0; play(c);}}}});
+    panel.querySelectorAll('.sd-conv').forEach(function(c){{var on=c.dataset.case==j; if(on){{c.classList.remove('typed','asked'); c.classList.add('pre');}} c.classList.toggle('on',on); if(on){{panel.querySelector('.sd-body').scrollTop=0; play(c);}}}});
   }}
   root.querySelectorAll('.sd-tab').forEach(function(t){{
     t.addEventListener('click',function(){{

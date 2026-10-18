@@ -1236,3 +1236,10 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
 .pg-round button.hit{animation:pgTap .35s ease}
 @keyframes pgTap{40%{transform:scale(.88)}}
 .pg-why{text-align:center;color:var(--muted)!important;min-height:1.4em;margin:12px 0 2px}
+/* Sunny demo: clean start on every switch */
+.sd-conv.pre .sd-q,.sd-conv.pre .sd-a,.sd-conv.pre .sd-ctx{opacity:0!important;transform:translateY(8px)!important;transition:none!important}
+.sd-conv.pre .sd-typing{display:none!important}
+.sd-ctx{transition:opacity .3s ease}
+.sd-panel.on{animation:sdFade .3s ease both}
+@keyframes sdFade{from{opacity:0}to{opacity:1}}
+.sd-conv.on{animation:none}
