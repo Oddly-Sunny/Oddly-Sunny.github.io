@@ -47,3 +47,7 @@
 - Everything above shipped: Sunny anti-hallucination story, Why it's different, AI callouts, playable games, How we build rewrite, /sunny cards, Stories header (light menu, active state, logo nudge, phone menu).
 - Open: GA4 sessions/users not pulled (gcloud OAuth client blocked for the analytics scope; owner paused it). Method subhead uses owner copy with absolute claims ("without gaps", "absolute ... validity"), flagged, owner's call.
 - Next step: look at the live site on a real phone (games: swipe, scratch, memory; phone menu).
+
+## 2026-10-18 phone menu fix, DEPLOYED (e3c6c53)
+- The frosted header (backdrop-filter) trapped the full-screen menu after scrolling; it is now dropped while the menu is open. New layout: logo, Sunny and How we build rows, brand icon grid (`.dd-list`), Say hello and email.
+- Next step: check the menu and games on a real phone.
