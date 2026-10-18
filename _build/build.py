@@ -185,10 +185,10 @@ MENU_GROUPS = [("Driving", ["dmv-iq", "drive-iq-canada"]), ("Citizenship", ["cit
 FEATURED_ORDER = ["aviator-iq","citizen-pass","dmv-iq","drive-iq-canada","insurance-pass","airwaves-iq","mariner-iq"]
 
 CAPS = [
- ("book","Built for real exam conditions","Blueprints, question counts, timing, pass marks and figures are modeled on the official exam, so practice feels like test day."),
- ("globe","Checked independently","A second, independent AI review answers every question blind. If it disagrees with the key, the question goes back, not out."),
- ("spark","Official answers stand","We never overrule an official answer key. If one looks outdated or disputed, we flag it instead of guessing."),
- ("chart","Honest about limits","Our scores show how prepared you are, not a guarantee. We tell you where you stand, even when it isn't flattering."),
+ ("book","Every question has a receipt","Each one carries a word-for-word quote from the official source it came from. No source, no question."),
+ ("check","A second AI takes the test blind","An independent model answers every question without seeing the key. If the two disagree, the question goes back for review."),
+ ("chart","Built to the real blueprint","Question counts, time limits, pass marks and the official figures match the actual exam, so test day feels familiar."),
+ ("spark","No patterns to game","We check every bank for giveaways, like the longest option always being the right one, so the only way to pass is to know it."),
 ]
 ICONS = {
  "book":'<path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/>',
@@ -427,9 +427,9 @@ def home():
 
 <section id="expertise" data-scheme="tan"><div class="exp">
   <div class="l">
-    <div class="eyebrow rule">The Oddly Sunny Method and responsible AI</div>
-    <h2 class="h2">A better way to build <i>learning</i></h2>
-    <p class="sub">We are AI-native. Our proprietary method turns official sources into modern learning, and the sources always have the last word.</p>
+    <div class="eyebrow rule">How we build</div>
+    <h2 class="h2">Every question has to <i>earn its place</i></h2>
+    <p class="sub">AI lets us build at a scale no team could. These four checks make sure that scale never costs accuracy.</p>
     <div class="feats">{feats}</div>
     <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Sunny doesn't guess. It looks it up.</h3><p>Every answer comes from the official manual, with the page to prove it.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
   </div>
