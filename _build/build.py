@@ -267,7 +267,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=96">
+<link rel="stylesheet" href="/assets/site.css?v=97">
 </head>
 """
 
@@ -288,11 +288,10 @@ def live_mark():
             '</g></g></svg>')
 
 def header():
-    thumb = {"drive-iq-canada": "driveiqcanada"}
     def item(slug):
         p = BY[slug]
         line = MENU_LINE[slug]
-        return f'<a href="/work/{slug}/"><img src="/assets/img/wall/b-{thumb.get(slug, slug)}.jpg" alt="" loading="lazy" width="64" height="44"><span class="dd-t"><b>{p["name"]}</b><small>{esc(line)}</small></span></a>'
+        return f'<a href="/work/{slug}/"><img src="/assets/img/apps/{slug}.png" alt="" loading="lazy" width="40" height="40"><span class="dd-t"><b>{p["name"]}</b><small>{esc(line)}</small></span></a>'
     items = "".join(f'<div class="dd-g"><p class="dd-h">{esc(g)}</p>{"".join(item(x) for x in slugs)}</div>' for g, slugs in MENU_GROUPS)
     items += f'<a class="dd-sunny" href="/sunny/">{sunny_mascot(36, "sm")}<span class="dd-t"><b>Meet Sunny</b><small>The AI study coach inside every brand.</small></span>{ARROW_R}</a>'
     return f"""<body>

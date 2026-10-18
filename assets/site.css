@@ -1095,7 +1095,7 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
 .dd-g{display:flex;flex-direction:column}
 .dd-h{margin:4px 10px 4px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
 .dd-menu a{flex-direction:row;align-items:center;gap:12px;padding:8px 10px}
-.dd-menu a img{width:56px;height:40px;flex:none;border-radius:6px;object-fit:cover}
+.dd-menu a img{width:40px;height:40px;flex:none;border-radius:10px;object-fit:cover;box-shadow:0 0 0 1px rgba(0,0,0,.06)}
 .dd-t{display:flex;flex-direction:column;min-width:0}
 .dd-t b{font-weight:500;font-size:14px}
 .dd-menu .dd-t small{font-size:12px;opacity:.65;font-weight:300;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
@@ -1107,7 +1107,7 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
   .dd-menu{width:100%;display:block;padding:0 0 8px}
   .dd-h{margin:12px 0 2px}
   .dd-menu a{padding:6px 0}
-  .dd-menu a img{width:44px;height:32px}
+  .dd-menu a img{width:34px;height:34px;border-radius:8px}
   .dd-menu .dd-sunny{padding:10px;margin-top:10px}
   .hdr.tuck:not(.away){transform:none}
 }
