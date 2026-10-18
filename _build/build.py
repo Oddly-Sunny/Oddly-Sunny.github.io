@@ -422,8 +422,8 @@ def home():
 <section id="expertise" data-scheme="tan"><div class="exp">
   <div class="l">
     <div class="eyebrow rule">How we build</div>
-    <h2 class="h2">Every question has to <i>earn its place</i></h2>
-    <p class="sub">AI lets us build at a scale no team could. These four checks make sure that scale never costs accuracy.</p>
+    <h2 class="h2">Nothing ships <i>unchecked</i></h2>
+    <p class="sub">AI lets us write at a scale no team could match. Every question still has to pass four checks before a learner ever sees it.</p>
     <div class="feats">{feats}</div>
     <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Sunny doesn't guess. It looks it up.</h3><p>Every answer comes from the official manual, with the page to prove it.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
   </div>
