@@ -179,20 +179,28 @@
           '<button type="button" class="pg-reveal">Reveal</button></div>';
         var box = $('.pg-scratch', stage), cv = $('canvas', box), ctx = cv.getContext('2d'), r = box.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
         cv.width = r.width * dpr; cv.height = r.height * dpr; ctx.scale(dpr, dpr);
-        var g = ctx.createLinearGradient(0, 0, r.width, r.height); g.addColorStop(0, '#E9C46A'); g.addColorStop(.5, '#D4A63C'); g.addColorStop(1, '#B98A2B');
+        // silver foil: metallic bands, a soft diagonal sheen, fine sparkle and a stamped label
+        var g = ctx.createLinearGradient(0, 0, r.width, r.height * .6);
+        [[0, '#9aa1a8'], [.18, '#e9ecef'], [.34, '#b5bbc2'], [.5, '#f7f8f9'], [.66, '#aeb4bb'], [.82, '#e3e6e9'], [1, '#8f969d']].forEach(function (st) { g.addColorStop(st[0], st[1]); });
         ctx.fillStyle = g; ctx.fillRect(0, 0, r.width, r.height);
-        ctx.fillStyle = 'rgba(255,255,255,.18)'; for (var s = 0; s < 70; s++) ctx.fillRect(Math.random() * r.width, Math.random() * r.height, 2, 2);
-        ctx.fillStyle = 'rgba(74,52,16,.55)'; ctx.font = '600 12px Sora, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillText('SCRATCH TO REVEAL', r.width / 2, r.height / 2);
+        var sh = ctx.createLinearGradient(0, r.height, r.width, 0);
+        sh.addColorStop(0, 'rgba(255,255,255,0)'); sh.addColorStop(.45, 'rgba(255,255,255,0)'); sh.addColorStop(.52, 'rgba(255,255,255,.55)'); sh.addColorStop(.6, 'rgba(255,255,255,0)'); sh.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = sh; ctx.fillRect(0, 0, r.width, r.height);
+        for (var s2 = 0; s2 < 260; s2++) { ctx.fillStyle = Math.random() < .5 ? 'rgba(255,255,255,.55)' : 'rgba(60,66,72,.18)'; ctx.fillRect(Math.random() * r.width, Math.random() * r.height, 1.2, 1.2); }
+        ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 1;
+        for (var d = -r.height; d < r.width; d += 9) { ctx.beginPath(); ctx.moveTo(d, r.height); ctx.lineTo(d + r.height, 0); ctx.stroke(); }
+        ctx.font = '700 15px Sora, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = 'rgba(255,255,255,.7)'; ctx.fillText('SCRATCH HERE', r.width / 2 + 1, r.height / 2 + 1);
+        ctx.fillStyle = 'rgba(70,76,84,.75)'; ctx.fillText('SCRATCH HERE', r.width / 2, r.height / 2);
         ctx.globalCompositeOperation = 'destination-out';
-        ctx.strokeStyle = '#000'; ctx.fillStyle = '#000'; ctx.lineWidth = 34; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#000'; ctx.fillStyle = '#000'; ctx.lineWidth = 42; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
         var down = false, n = 0, revealed = false, last = null;
         function reveal() {
           if (revealed) return; revealed = true; box.classList.add('clear'); $('.pg-self', stage).hidden = false; $('.pg-reveal', stage).hidden = true;
         }
         function scratch(e) {
           if (!down) return; var b = cv.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
-          ctx.beginPath(); if (last) { ctx.moveTo(last[0], last[1]); ctx.lineTo(x, y); ctx.stroke(); } else { ctx.arc(x, y, 17, 0, Math.PI * 2); ctx.fill(); }
+          ctx.beginPath(); if (last) { ctx.moveTo(last[0], last[1]); ctx.lineTo(x, y); ctx.stroke(); } else { ctx.arc(x, y, 21, 0, Math.PI * 2); ctx.fill(); }
           last = [x, y];
           box.classList.add('started');
           if (++n % 8 === 0) {
