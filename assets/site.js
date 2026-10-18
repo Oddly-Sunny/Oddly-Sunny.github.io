@@ -33,6 +33,13 @@
     }, { threshold: 0.2 }).observe(hm);
   }
 
+  // nav: mark where you are (Sunny page, a story page, or the How we build section on home)
+  var path = location.pathname;
+  $$('.nav a[href="/sunny/"]').forEach(function (a) { if (path.indexOf('/sunny') === 0) a.classList.add('active'); });
+  var ddBtn = $('.nav .dd>button'); if (ddBtn && path.indexOf('/work/') === 0) ddBtn.classList.add('active');
+  var build = $('.nav a[href="/#expertise"]'), exp = $('#expertise');
+  if (build && exp && 'IntersectionObserver' in window) new IntersectionObserver(function (es) { build.classList.toggle('active', es[0].isIntersecting); }, { rootMargin: '-45% 0px -45% 0px' }).observe(exp);
+
   // reveal on scroll
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });

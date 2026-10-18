@@ -42,3 +42,8 @@
 - /sunny: comparison in homepage table style (`compare_rows(SUNNY_VS, ...)`); demo replies embed quiz / course path / readiness cards (`SUNNY_WIDGET_CASES`, `sunny_widget()`); intro no longer claims "real, unedited" for every case.
 - Method section rewritten to four checks. Motion toned down (no button glow, shine or loops).
 - Next step: owner review on localhost, then `git push`.
+
+## 2026-10-18 DEPLOYED (pushed to main)
+- Everything above shipped: Sunny anti-hallucination story, Why it's different, AI callouts, playable games, How we build rewrite, /sunny cards, Stories header (light menu, active state, logo nudge, phone menu).
+- Open: GA4 sessions/users not pulled (gcloud OAuth client blocked for the analytics scope; owner paused it). Method subhead uses owner copy with absolute claims ("without gaps", "absolute ... validity"), flagged, owner's call.
+- Next step: look at the live site on a real phone (games: swipe, scratch, memory; phone menu).

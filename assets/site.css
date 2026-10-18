@@ -1290,3 +1290,28 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
   .hdr .dd-by,.hdr .dd-no{color:#6b6b64;opacity:1}
   .hdr .dd-more{border-top-color:rgba(0,0,0,.08)}
 }
+/* nav: where you are */
+.nav>a.active::after,.nav>.dd>button.active::after{transform:scaleX(1);background:var(--gold)}
+.nav>.dd>button{position:relative}
+.nav>.dd>button::after{content:"";position:absolute;left:13px;right:13px;bottom:4px;height:1px;background:currentColor;transform:scaleX(0);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+/* logo: the gold cell nudges on hover */
+.hdr .brand:hover .live-mark .gold{animation:goldNudge .7s cubic-bezier(.34,1.56,.64,1)}
+.live-mark .gold{transform-box:fill-box;transform-origin:center}
+@keyframes goldNudge{0%{transform:none}30%{transform:translate(-4px,4px) rotate(-14deg) scale(1.08)}60%{transform:translate(1px,-1px) rotate(6deg)}100%{transform:none}}
+/* phone menu: big links first, stories as a swipeable row, Say hello pinned at the bottom */
+@media(max-width:960px){
+  .nav{padding:88px 24px 24px;gap:0}
+  .nav>.nav-sunny{order:1}
+  .nav>a[href="/#expertise"]{order:2}
+  .nav>.dd{order:3;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
+  .nav>a.btn{order:4;margin:auto 0 0;width:100%;justify-content:center;font-size:16px;padding:16px 26px;position:sticky;bottom:0}
+  .nav>a:not(.btn),.nav>.dd>button{font-size:30px;letter-spacing:-.02em;padding:8px 0}
+  .nav>a:not(.btn)::after,.nav>.dd>button::after{left:0;right:auto;width:40px;bottom:2px}
+  .nav>.dd>button{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.6;pointer-events:none;padding:0 0 10px}
+  .nav>.dd>button svg{display:none}
+  .dd-stories{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -24px;padding:0 24px 6px;scrollbar-width:none}
+  .dd-stories::-webkit-scrollbar{display:none}
+  .dd-menu a.dd-story{flex:0 0 78%;scroll-snap-align:start;padding:16px;border-radius:14px;background:var(--card);border:1px solid var(--border);gap:12px}
+  .dd-story q{font-size:17px}
+  .dd-more{margin-top:10px;gap:4px 12px}
+}

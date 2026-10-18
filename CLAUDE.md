@@ -12,3 +12,7 @@ Static site on GitHub Pages (push `main` to deploy). Edtech-studio redesign (Oct
 - Preview note: plain `python3 -m http.server` does not support HTTP Range requests, so the looping video in the personal section will not load; use a range-capable server (or just test on GitHub Pages).
 - Product page story copy lives in `_build/stories.py` (one entry per product: headline, dek, caption, body of paragraphs / subheads / pull quotes). Product pages use the light "paper" scheme and a scroll-scaling hero image (see end of `assets/site.js`).
 - Contact form posts to the Cloud Run service `oddlysunny-contact` (project dmv-iq, us-central1; source in `_contact-service/`, key in Secret Manager `oddlysunny-resend-key`). Redeploy: `cd _contact-service && gcloud run deploy oddlysunny-contact --project dmv-iq --region us-central1 --source .` (set CLOUDSDK_PYTHON=/opt/homebrew/bin/python3.12).
+- Homepage games (Play section) run from `assets/site.js` (search "playable mini games"); their data is `PLAY_JSON` in build.py, sign art in `assets/img/signs/` (real MUTCD SVGs from dmviq-website). Only use facts true in every state.
+- /sunny demo cards: `SUNNY_WIDGET_CASES` + `sunny_widget()` in build.py are written examples of Sunny's real card types (quiz, course, progress); `sunny_examples.json` holds the real transcripts.
+- Header menu is "Stories" (story headlines from stories.py, app icons in `assets/img/apps/`). Keep the dropdown light.
+- Git gotcha: a sync tool once created `.git/refs/heads/main (1)` and broke `git fetch`; move such files out of `.git`.
