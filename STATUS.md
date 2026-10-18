@@ -15,3 +15,8 @@
 - Check wording: Citizen Pass UK shows "Coming 2027" on its own site; our page lists the Life in the UK test (180 questions) without a date. Airwaves IQ is "nine exams" per its live site (older notes said ten).
 - Not verified: the live contact form was not test-submitted from oddlysunny.com; the looping video was not watched playing.
 - Possible: outside US driving statistics for DMV IQ copy (only product-sourced numbers are used now).
+
+## 2026-10-18 Sunny anti-hallucination story (committed, NOT pushed)
+- Homepage Sunny card, /sunny/ (new H1, "The antidote to AI hallucinations" section with chatbot vs Sunny comparison, responsible AI intro, meta description) and DMV IQ story ("A coach that won't make up the rules" + pull quote). CSS `?v=80` (`.sn-vs` block at end of site.css).
+- Claims match the engine (`~/Projects/sunny`: facts only from retrieved manual text, page cites, numbers checked and repaired). No competitor named; no "zero hallucinations" claim.
+- Next step: owner review, then `git push` to deploy.

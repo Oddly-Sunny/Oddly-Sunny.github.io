@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=79">
+<link rel="stylesheet" href="/assets/site.css?v=80">
 </head>
 """
 
@@ -396,7 +396,7 @@ def home():
     <h2 class="h2">A better way to build <i>learning</i></h2>
     <p class="sub">We are AI-native. Our proprietary method turns official sources into modern learning, and the sources always have the last word.</p>
     <div class="feats">{feats}</div>
-    <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Meet Sunny, our AI study coach</h3><p>A conversational AI built for education. Sunny gets to know each learner, adapts as they study, and answers from the official source with the page or rule to prove it.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
+    <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Meet Sunny, AI that doesn't make things up</h3><p>General chatbots are known to invent laws, misquote limits and mix up one state's rules with another's. Sunny is our answer: a study coach that reads only the official manual for your exam, cites the page and checks every number before it replies.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
   </div>
   <div class="r"><canvas class="mesh" aria-hidden="true"></canvas></div>
 </div></section>
@@ -610,13 +610,13 @@ SUNNY_HOW = [
  ("book","Keeps the context","Sunny holds the thread of every conversation and sees the question on the learner's screen, so a follow-up like \"why not B?\" or \"give me another one\" just works, without repeating anything."),
  ("chart","Learns the learner","Every answer a learner gives updates what Sunny knows about them: their test, their date, the topics they have mastered and the ones they keep missing. Each session starts from that picture, never from zero."),
  ("spark","Adapts as they study","Sunny paces the plan to the test date, quizzes on weak spots and moves on once a topic is solid. Readiness comes from our own scoring model, so the guidance is measured, not guessed."),
- ("check","Grounded in the official source","Each brand connects Sunny to the official material behind its exam, from state handbooks to federal regulations. Every answer comes from that text, with the page or rule to prove it."),
+ ("check","Grounded in the official source","Each brand connects Sunny to a closed library of the official material behind its exam, from state handbooks to federal regulations. Every answer comes from that text, with the page or rule to prove it."),
  ("globe","One engine, every exam, localized","A single domain-neutral engine powers every brand. Each one plugs in its own sources, exam rules and question bank, and Sunny meets learners in their own language."),
 ]
 
 SUNNY_RESPONSIBLE = [
  ("Grounded answers, no guesswork","Sunny answers from the official text it retrieves for each question, not from general knowledge, which removes the usual source of AI hallucinations."),
- ("Every fact verified","Each number in an answer, from a speed limit to a fee, is checked against the source before the learner sees it. An answer that fails the check is corrected automatically."),
+ ("Every number checked first","Each number in an answer, from a speed limit to a fee, is checked against the source before the learner sees it. An answer that fails the check is corrected before it is ever shown."),
  ("Honest about what it doesn't know","When the official source is silent, Sunny says so and points to where to check. A missing fact is always better than an invented one."),
  ("Authority stays with the source","Sunny cites the page or rule behind each answer. Where our own explanation and the official source ever disagree, the source wins and Sunny says so."),
  ("Empathic, not just accurate","Sunny is warm, calm and patient. It notices when a learner is anxious and keeps the next step small and doable, because confidence is part of passing."),
@@ -651,14 +651,33 @@ def sunny_page():
   <header class="s-head sn-head">
     <div class="sn-hero-mascot">{sunny_mascot(120)}</div>
     <div class="s-label">Sunny</div>
-    <h1 class="s-title">Purpose-built AI that makes studying a breeze.</h1>
-    <p class="s-dek">Sunny is our proprietary, conversational AI coach, built for education from the ground up. It gets to know each learner, adapts to how they study, and answers from the official source behind every exam, so preparing feels less like cramming and more like having a great tutor on call.</p>
+    <h1 class="s-title">The AI study coach that doesn't make things up.</h1>
+    <p class="s-dek">Sunny is our proprietary, conversational AI coach, built for education from the ground up. It answers only from the official manual behind each exam, shows the page it used and checks the facts before it speaks, so learners get the warmth of a great tutor without the guesswork of a chatbot.</p>
   </header>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">The antidote to AI hallucinations</h2>
+    <p class="sn-sub">General-purpose chatbots learn from a blend of the whole internet. Ask one about a driving rule and it may sound certain while quoting the wrong speed limit, inventing a fee or mixing up California's right-of-way rule with New York's. On a test, a confident wrong answer is worse than no answer. Sunny was designed around that problem from day one.</p>
+    <div class="sn-vs">
+      <div class="sn-vs-card"><div class="sn-vs-tag">A general chatbot</div><ul>
+        <li>Answers from memory of everything it has read, accurate or not</li>
+        <li>Can blend one state's rule with another's</li>
+        <li>States numbers confidently, with nothing to check them against</li>
+        <li>Fills gaps with something that sounds right</li>
+      </ul></div>
+      <div class="sn-vs-card us"><div class="sn-vs-tag">{sunny_mascot(26, "sm")}Sunny</div><ul>
+        <li>Looks up the answer in a closed library of official manuals for that exam</li>
+        <li>Reads only your state's handbook, not anyone else's</li>
+        <li>Checks every number against the source before the reply is shown</li>
+        <li>Cites the page, and says so when the manual is silent</li>
+      </ul></div>
+    </div>
+  </div>
 
   <div class="sn-wrap">
     <div class="sd-intro">
       <h2 class="sn-h2">One coach, every kind of exam</h2>
-      <p class="sn-sub">Pick an industry and a use case. Every answer is real, unedited output from Sunny, with the official source it came from and the next steps it offers.</p>
+      <p class="sn-sub">Pick an industry and a use case. Every answer is real, unedited output from Sunny, with the official page it came from and the next steps it offers.</p>
     </div>
     {demo}
   </div>
@@ -671,7 +690,7 @@ def sunny_page():
 
   <div class="sn-wrap">
     <h2 class="sn-h2">Responsible AI, by design</h2>
-    <p class="sn-sub">Accuracy, authority and empathy are built into how Sunny works, not added afterward. These are the methods we use to keep it valid and trustworthy.</p>
+    <p class="sn-sub">In education, safety means not teaching people the wrong thing. Accuracy, authority and empathy are built into how Sunny works, not added afterward. These are the methods we use to keep it valid and trustworthy.</p>
     <div class="sn-resp">{resp}</div>
   </div>
 </section>
@@ -704,7 +723,7 @@ def sunny_page():
 </script>
 """
     return head_html("Sunny, our AI study coach | Oddly Sunny",
-        "Sunny is Oddly Sunny's proprietary, conversational AI study coach. It learns each student, adapts as they study, and answers from official sources with the exact page or rule.",
+        "Sunny is Oddly Sunny's AI study coach built to avoid hallucinations: it answers only from official manuals, cites the page and checks every number before it replies.",
         "/sunny/", "home.jpg") + header() + body + footer("paper")
 
 def not_found_page():
