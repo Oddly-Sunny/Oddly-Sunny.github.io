@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=111">
+<link rel="stylesheet" href="/assets/site.css?v=114">
 </head>
 """
 
@@ -288,6 +288,8 @@ def header():
         return f'<a class="dd-story" href="/work/{slug}/"><q>{esc(STORIES[slug]["headline"])}</q><span class="dd-by"><img src="/assets/img/apps/{slug}.png" alt="" loading="lazy" width="22" height="22">{p["name"]}</span></a>'
     more = "".join(f'<a href="/work/{x}/"><img src="/assets/img/apps/{x}.png" alt="" loading="lazy" width="22" height="22">{BY[x]["name"]}</a>' for x in FEATURED_ORDER if x not in feat)
     items = f'<div class="dd-stories">{"".join(story(x) for x in feat)}</div><div class="dd-more">{more}<a class="dd-all" href="/#work">All stories {ARROW_R}</a></div>'
+    # phone menu: every brand as a tidy icon grid (desktop uses the story teasers above)
+    items += '<div class="dd-list">' + "".join(f'<a href="/work/{x}/"><img src="/assets/img/apps/{x}.png" alt="" loading="lazy" width="32" height="32"><span>{BY[x]["name"]}</span></a>' for x in FEATURED_ORDER) + '</div>'
     return f"""<body>
 <header class="hdr" data-scheme="green">
   <div class="wrap">
@@ -295,9 +297,10 @@ def header():
     <nav class="nav" aria-label="Main">
       <div class="dd"><button type="button" aria-haspopup="true">Stories <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m2 3.500 3 3 3-3"/></svg></button>
         <div class="dd-menu">{items}</div></div>
-      <a class="nav-sunny" href="/sunny/">{sunny_mascot(22, "sm")}Sunny</a>
-      <a href="/#expertise">How we build</a>
+      <a class="nav-sunny" href="/sunny/">{sunny_mascot(22, "sm")}Sunny<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/#expertise">How we build<span class="nav-go">{ARROW_R}</span></a>
       <a class="btn" href="/contact/">Say hello</a>
+      <a class="nav-mail" href="mailto:{MAIL}">{MAIL}</a>
     </nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
   </div>

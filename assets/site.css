@@ -1298,20 +1298,36 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
 .hdr .brand:hover .live-mark .gold{animation:goldNudge .7s cubic-bezier(.34,1.56,.64,1)}
 .live-mark .gold{transform-box:fill-box;transform-origin:center}
 @keyframes goldNudge{0%{transform:none}30%{transform:translate(-4px,4px) rotate(-14deg) scale(1.08)}60%{transform:translate(1px,-1px) rotate(6deg)}100%{transform:none}}
-/* phone menu: big links first, stories as a swipeable row, Say hello pinned at the bottom */
+/* phone menu */
+.dd-list,.nav-mail,.nav-go{display:none}
 @media(max-width:960px){
-  .nav{padding:88px 24px 24px;gap:0}
+  /* the frosted header and its slide-away would trap the full-screen menu, so drop them while it is open */
+  .menu-open .hdr{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;transform:none!important;opacity:1!important;pointer-events:auto!important}
+  .menu-open .hdr .brand{position:relative;z-index:102;opacity:1!important;transform:none!important}
+  .nav{padding:84px 24px 28px;gap:0;justify-content:flex-start}
   .nav>.nav-sunny{order:1}
   .nav>a[href="/#expertise"]{order:2}
-  .nav>.dd{order:3;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
-  .nav>a.btn{order:4;margin:auto 0 0;width:100%;justify-content:center;font-size:16px;padding:16px 26px;position:sticky;bottom:0}
-  .nav>a:not(.btn),.nav>.dd>button{font-size:30px;letter-spacing:-.02em;padding:8px 0}
-  .nav>a:not(.btn)::after,.nav>.dd>button::after{left:0;right:auto;width:40px;bottom:2px}
-  .nav>.dd>button{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.6;pointer-events:none;padding:0 0 10px}
-  .nav>.dd>button svg{display:none}
-  .dd-stories{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -24px;padding:0 24px 6px;scrollbar-width:none}
-  .dd-stories::-webkit-scrollbar{display:none}
-  .dd-menu a.dd-story{flex:0 0 78%;scroll-snap-align:start;padding:16px;border-radius:14px;background:var(--card);border:1px solid var(--border);gap:12px}
-  .dd-story q{font-size:17px}
-  .dd-more{margin-top:10px;gap:4px 12px}
+  .nav>.dd{order:3}
+  .nav>a.btn{order:4}
+  .nav>.nav-mail{order:5}
+  .nav>a:not(.btn):not(.nav-mail){display:flex;align-items:center;gap:12px;width:100%;font-size:26px;letter-spacing:-.02em;padding:16px 0;border-bottom:1px solid var(--border)}
+  .nav>a:not(.btn):not(.nav-mail)::after{display:none}
+  .nav>a.active{color:var(--text)}
+  .nav>a.active .nav-go{color:var(--gold)}
+  .nav-go{display:block;margin-left:auto;opacity:.45}
+  .nav-go svg{width:18px;height:18px}
+  .nav-sunny .sn-mascot{width:30px!important;height:30px!important;margin:0}
+  .nav>.dd{width:100%;margin-top:26px}
+  .nav>.dd>button{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.55;pointer-events:none;padding:0 0 12px}
+  .nav>.dd>button::after,.nav>.dd>button svg{display:none}
+  .dd-menu{display:block!important;padding:0!important;background:none!important;border:0!important;box-shadow:none!important}
+  .dd-stories,.dd-more{display:none!important}
+  .dd-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .dd-menu .dd-list a{display:flex;flex-direction:row;align-items:center;gap:10px;padding:10px;border-radius:12px;background:color-mix(in srgb,var(--text) 5%,transparent);font-size:14px;font-weight:500;color:var(--text)}
+  .dd-list img{width:32px!important;height:32px!important;border-radius:8px!important}
+  .nav>a.btn{margin:auto 0 0;width:100%;justify-content:center;font-size:16px;padding:16px 26px}
+  .nav>.dd{margin-bottom:28px}
+  .nav>a.nav-mail{display:block;width:100%;text-align:center;margin-top:12px;padding:6px 0;font-size:13px;opacity:.6;border:0}
+  .nav>a:not(.btn){border-radius:0}
+  .hdr .dd-menu .dd-list span{color:var(--text)!important}
 }
