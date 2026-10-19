@@ -446,7 +446,7 @@ def home():
   <div class="mx-grid mx-wide">
     <div class="mx-copy reveal">
       <div class="eyebrow rule">Architecture &amp; ingestion pipeline</div>
-      <h2 class="h2">Automating compliance across <i>high-barrier domains.</i></h2>
+      <h2 class="h2">One engine turns regulation <i>into study products.</i></h2>
       <p class="sub">Our proprietary pipeline turns statutory codes and agency handbooks into question banks where every item traces back to its source page.</p>
     </div>
     <div class="fl-wrap reveal">{flow()}</div>
