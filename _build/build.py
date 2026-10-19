@@ -304,7 +304,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=50"></script>
+<script src="/assets/site.js?v=51"></script>
 </body>
 </html>
 """

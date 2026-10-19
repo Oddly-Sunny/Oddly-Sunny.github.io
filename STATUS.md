@@ -83,3 +83,8 @@
 - All 7 product page screenshots recaptured as Pro members with seeded progress (readiness ~72-74%, categories mixed). Insurance Pass now shows NJ Life & Health, Mariner IQ the 6-Pack OUPV Near Coastal exam page (the old hub pages had no progress UI). Shot URLs `?v=2`. Capture tool + configs in `_shots/`.
 - Contact page intro + "We can help with" list rewritten; homepage SEO title/description match the hero; Sunny heading "An AI agent built for learners."
 - Next step: none; recapture with `_shots/` when a site UI changes.
+
+## 2026-10-19 Hero scroll-away effect (committed, NOT pushed)
+- Homepage hero: as you scroll down, the floating photos shrink, drift outward from the centre, blur and fade; the headline block blurs, fades and lifts. `site.js` "hero: on scroll down" block (standalone `translate`/`scale` so it never fights the `.in` swap transition); off under reduced motion. JS `?v=51`.
+- Checked on desktop Chrome at localhost: effect runs, no console errors. Not checked on a real phone.
+- Next step: owner review on localhost:8765, then `git push` to deploy.

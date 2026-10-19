@@ -475,6 +475,49 @@
   }, 6500);
 })();
 
+/* hero: on scroll down the photos recede outward (shrink, blur, fade) and the headline blurs away.
+   Uses the standalone translate/scale properties so it never fights the .in transform transition. */
+(function () {
+  var hero = document.querySelector('.hero[data-imgs]');
+  if (!hero || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var slots = Array.prototype.slice.call(hero.querySelectorAll('.float'));
+  var copy = hero.querySelector('.copy'), dirs = [], range = 1, ticking = false;
+  function measure() {
+    var h = hero.getBoundingClientRect(), cx = h.left + h.width / 2, cy = h.top + h.height / 2;
+    dirs = slots.map(function (s) {
+      var r = s.getBoundingClientRect(), dx = r.left + r.width / 2 - cx, dy = r.top + r.height / 2 - cy;
+      var len = Math.sqrt(dx * dx + dy * dy) || 1;
+      return [dx / len, dy / len];
+    });
+    range = Math.max(1, hero.offsetHeight * 0.65);
+  }
+  function paint() {
+    ticking = false;
+    var p = Math.min(1, Math.max(0, window.scrollY / range));
+    var e = p * p * (3 - 2 * p);
+    var push = Math.min(window.innerWidth, 1400) * 0.12;
+    slots.forEach(function (s, i) {
+      var d = dirs[i] || [0, 0], img = s.firstElementChild;
+      s.style.translate = p ? (d[0] * push * e).toFixed(1) + 'px ' + (d[1] * push * e - 40 * e).toFixed(1) + 'px' : '';
+      s.style.scale = p ? (1 - 0.32 * e).toFixed(3) : '';
+      if (img) { img.style.opacity = p ? (1 - e).toFixed(3) : ''; img.style.filter = p ? 'blur(' + (14 * e).toFixed(1) + 'px)' : ''; }
+    });
+    if (copy) {
+      copy.style.filter = p ? 'blur(' + (10 * e).toFixed(1) + 'px)' : '';
+      copy.style.opacity = p ? (1 - 0.85 * e).toFixed(3) : '';
+      copy.style.translate = p ? '0 ' + (-50 * e).toFixed(1) + 'px' : '';
+      copy.style.scale = p ? (1 - 0.05 * e).toFixed(3) : '';
+    }
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(paint); } }
+  measure(); paint();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', function () {
+    slots.forEach(function (s) { s.style.translate = ''; s.style.scale = ''; });
+    measure(); paint();
+  });
+})();
+
 /* method panel: a dotted, warped coordinate mesh (Joukowski map) that drifts slowly; dots flow along the lines.
    Ported from the Airwaves IQ hero. Hover joins nearby dots into faint traces. */
 (function () {
