@@ -1686,3 +1686,4 @@ section[data-scheme="white"],section[data-scheme="soft"]{background:var(--bg);co
 
 /* hero pin: the hero holds still while its scroll-away effect plays (height set by site.js) */
 .hero-pin.pinned .hero{position:sticky;top:0}
+.hdr.in-hero{transform:translateY(-100%)!important;opacity:0;pointer-events:none}

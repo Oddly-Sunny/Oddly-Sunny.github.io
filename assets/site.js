@@ -10,7 +10,10 @@
     if (!hdr) return; var y = window.scrollY;
     if (!document.body.classList.contains('menu-open')) hdr.classList.toggle('tuck', y > 320 && y > lastY + 4 ? true : (y < lastY - 4 || y <= 320) ? false : hdr.classList.contains('tuck'));
     lastY = y;
-    hdr.classList.toggle('scrolled', y > 12); if (hdr.hasAttribute('data-away')) hdr.classList.toggle('away', y < 90); }
+    hdr.classList.toggle('scrolled', y > 12); if (hdr.hasAttribute('data-away')) hdr.classList.toggle('away', y < 90);
+    // home: no menu over the green hero; it slides in as the next section arrives
+    if (heroBox) hdr.classList.toggle('in-hero', heroBox.getBoundingClientRect().bottom > hdr.offsetHeight + 1); }
+  var heroBox = $('.hero-pin') || $('.hero[data-imgs]');
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
   var burger = $('.burger');
   if (burger) burger.addEventListener('click', function () {

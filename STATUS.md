@@ -85,6 +85,7 @@
 - Next step: none; recapture with `_shots/` when a site UI changes.
 
 ## 2026-10-19 Hero scroll-away effect (committed, NOT pushed)
+- Top menu is hidden while any of the green hero is on screen (`.hdr.in-hero`), slides in as the next section reaches the top. JS `?v=54`, CSS `?v=166`.
 - Hero now PINS (`.hero-pin` wrapper, sticky `.hero`) for 80% of a viewport while the effect plays, then the page scrolls on; header logo takes over once the hero logo has faded. JS `?v=53`, CSS `?v=165`.
 - Homepage hero: as you scroll down, the floating photos shrink, drift outward from the centre, blur and fade; the headline block blurs, fades and lifts. `site.js` "hero: on scroll down" block (standalone `translate`/`scale` so it never fights the `.in` swap transition); off under reduced motion. JS `?v=51`.
 - Checked on desktop Chrome at localhost: effect runs, no console errors. Not checked on a real phone.
