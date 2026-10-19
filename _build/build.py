@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=136">
+<link rel="stylesheet" href="/assets/site.css?v=137">
 </head>
 """
 
@@ -382,9 +382,9 @@ def schematic():
 def collage():
     return f"""<figure class="hx" aria-label="Learners studying, with a readiness score and a verified Sunny citation">
   <div class="hx-p hx-p1"><img src="/assets/img/wall/cp-hoodie.jpg" alt="A learner studying at a laptop at home" width="1100" height="614"></div>
-  <div class="hx-p hx-p2"><img src="/assets/img/personal-loop.jpg" alt="A learner studying on her phone outdoors" width="640" height="800" loading="lazy"></div>
+  <div class="hx-p hx-p2"><img src="/assets/img/wall/cp-denim.jpg" alt="A learner studying at a laptop by a window" width="1100" height="578"></div>
   <div class="hx-b hx-b1"><span class="hx-mono"><i></i>Readiness 86% &middot; on track</span><small>Calibrated to the official pass mark</small></div>
-  <div class="hx-b hx-b2"><span class="hx-em">{sunny_mascot(30, "follow")}</span><span><b>Sunny AI: Statutory citation verified</b><code>NJ Driver Manual &middot; p. 80 &middot; Zero Hallucination</code></span></div>
+  <div class="hx-b hx-b2"><span class="hx-em">{sunny_mascot(30, "follow")}</span><span><b>Sunny AI: Statutory citation verified</b><code>NJ Driver Manual &middot; p. 80</code></span></div>
 </figure>"""
 
 PROOF = [("7","Regulated Commercial Verticals"),("100%","Grounded to Primary Statutory Sources"),("4-Stage","Automated Verification Pipeline"),("0","Hallucination Tolerance Architecture")]
@@ -440,10 +440,10 @@ def home():
     </div>
     {collage()}
   </div>
-  {proof_bar()}
 </div></section>
 
 <section class="sec mx-sec" id="platform" data-scheme="green"><div class="wrap">
+  {proof_bar()}
   <div class="mx-grid">
     <div class="mx-copy reveal">
       <div class="eyebrow rule">Architecture &amp; ingestion pipeline</div>
