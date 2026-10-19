@@ -517,7 +517,32 @@
       copy.style.scale = p ? (1 - 0.05 * e).toFixed(3) : '';
     }
   }
-  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(paint); } }
+  /* once the hero has emptied on the way down, glide on to the next section instead of leaving a blank green screen */
+  var next = pin ? pin.nextElementSibling : hero.nextElementSibling, lastY = window.scrollY, gliding = false, armed = true;
+  function glide() {
+    if (!next) return;
+    var off = hdr ? hdr.offsetHeight : 0, from = window.scrollY, to = next.getBoundingClientRect().top + from - off + 1;
+    if (to <= from + 2) return;
+    var dur = Math.min(1100, 450 + (to - from) * 0.5), t0 = null;
+    var ease = function (x) { return 1 - Math.pow(1 - x, 3); };
+    gliding = true; armed = false;
+    document.documentElement.style.scrollBehavior = 'auto';
+    requestAnimationFrame(function step(ts) {
+      if (t0 === null) t0 = ts;
+      var k = Math.min(1, (ts - t0) / dur);
+      window.scrollTo(0, from + (to - from) * ease(k));
+      if (k < 1) requestAnimationFrame(step); else { gliding = false; document.documentElement.style.scrollBehavior = ''; }
+    });
+  }
+  function onScroll() {
+    var y = window.scrollY, down = y > lastY; lastY = y;
+    if (!gliding) {
+      var p = (y - top0) / range;
+      if (p < 0.6) armed = true;
+      else if (armed && down && p >= 0.96 && next && next.getBoundingClientRect().top > (hdr ? hdr.offsetHeight : 0) + 4) glide();
+    }
+    if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+  }
   measure(); paint();
   window.addEventListener('scroll', onScroll, { passive: true });
   var rw = window.innerWidth;
