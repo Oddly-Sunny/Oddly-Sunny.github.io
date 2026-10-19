@@ -455,7 +455,7 @@ def home():
   <div class="vs-head">
     <div class="reveal">
       <div class="eyebrow rule">Proprietary AI (Sunny)</div>
-      <h2 class="h2">An AI agent, <i>not a chatbot.</i> <span class="ai-spark">{SPARK}</span></h2>
+      <h2 class="h2">An AI agent <i>built for learners.</i> <span class="ai-spark">{SPARK}</span></h2>
     </div>
     <p class="sub reveal">Sunny uses real tools: it searches the official handbook, pulls practice questions, starts quizzes and checks progress, then answers with the page it used.</p>
   </div>
