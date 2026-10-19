@@ -179,10 +179,10 @@ BY = {p["slug"]: p for p in PRODUCTS}
 FEATURED_ORDER = ["aviator-iq","citizen-pass","dmv-iq","drive-iq-canada","insurance-pass","airwaves-iq","mariner-iq"]
 
 CAPS = [
- ("book","Direct Statutory Grounding","Every module binds deterministically to current official manuals and statutes. Scenarios lacking primary authority citations are automatically rejected at ingestion."),
- ("check","Multi-Model Blind Validation","Independent secondary models solve curriculum content blind without answer keys, systematically flagging and eliminating ambiguous distractor logic."),
- ("chart","Agency Blueprint Calibration","Topic distributions, scoring thresholds, and cognitive pacing are programmatically calibrated to match official state and federal testing rubrics."),
- ("spark","Cognitive Distractor Engineering","Distractor options reflect verified human misconception models rather than superficial formatting giveaways, ensuring scores reflect functional mastery."),
+ ("book","Direct Source Grounding","Every question carries a word-for-word quote from the official manual or regulation it came from. No source, no question."),
+ ("check","Independent Blind Check","A second model answers questions without seeing the key. When it disagrees, the question goes back for review."),
+ ("chart","Official Exam Blueprint","Question counts, time limits and pass marks match the real exam, and topic coverage is checked against the published outline."),
+ ("spark","Giveaway Detection","We test banks for answer patterns, like the right answer sitting in one position or always being the longest, and fix them so scores reflect knowledge."),
 ]
 ICONS = {
  "book":'<path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/>',
@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=137">
+<link rel="stylesheet" href="/assets/site.css?v=140">
 </head>
 """
 
@@ -288,11 +288,10 @@ def header():
     <a href="/" class="brand" aria-label="oddly sunny home">{live_mark()}<span>oddly <b>sunny</b></span></a>
     <span class="beacon" aria-hidden="true">platform live</span>
     <nav class="nav" aria-label="Main">
-      <a href="/#platform">Platform Engine<span class="nav-go">{ARROW_R}</span></a>
-      <a href="/#verticals">Regulatory Verticals<span class="nav-go">{ARROW_R}</span></a>
-      <a href="/#expertise">Verification Pipeline<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/#platform">Architecture<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/#verticals">Verticals<span class="nav-go">{ARROW_R}</span></a>
       <a href="/sunny/">Sunny AI<span class="nav-go">{ARROW_R}</span></a>
-      <a class="btn" href="/contact/">Partner / M&amp;A Inquiries</a>
+      <a class="btn" href="/contact/">Contact</a>
     </nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
   </div>
@@ -373,21 +372,26 @@ def schematic():
     {svg}
     <div class="mesh-cap mesh-cap-l">Source ingestion</div><div class="mesh-cap mesh-cap-r">Commercial verticals</div>
     <ul class="mesh-col mesh-l">{src}</ul>
-    <div class="hub"><div class="hub-in">{SHIELD}<b>Oddly Sunny Engine</b><span class="hub-tag">Multi-Model Blind Audit<br>0% Hallucination</span></div></div>
+    <div class="hub"><div class="hub-in">{SHIELD}<b>Oddly Sunny Engine</b><span class="hub-tag">Source-grounded<br>Cited to the page</span></div></div>
     <ul class="mesh-col mesh-r">{out}</ul>
   </div>
-  <div class="mesh-tel"><i></i>7 live domains &middot; 4-stage audit &middot; page-level citations</div>
+  <div class="mesh-tel"><i></i>7 live products &middot; page-level citations &middot; edition monitoring</div>
 </figure>"""
 
 def collage():
-    return f"""<figure class="hx" aria-label="Learners studying, with a readiness score and a verified Sunny citation">
-  <div class="hx-p hx-p1"><img src="/assets/img/wall/cp-hoodie.jpg" alt="A learner studying at a laptop at home" width="1100" height="614"></div>
-  <div class="hx-p hx-p2"><img src="/assets/img/wall/cp-denim.jpg" alt="A learner studying at a laptop by a window" width="1100" height="578"></div>
-  <div class="hx-b hx-b1"><span class="hx-mono"><i></i>Readiness 86% &middot; on track</span><small>Calibrated to the official pass mark</small></div>
-  <div class="hx-b hx-b2"><span class="hx-em">{sunny_mascot(30, "follow")}</span><span><b>Sunny AI: Statutory citation verified</b><code>NJ Driver Manual &middot; p. 80</code></span></div>
-</figure>"""
+    # two learner photos either side of one glass card (an example learner's readiness + a real Sunny citation)
+    return f"""<div class="hrow" aria-label="Learners studying, with a readiness score and a cited Sunny answer">
+  <figure class="hr-ph hr-l"><img src="/assets/img/wall/cp-denim.jpg" alt="A learner studying at a laptop by a window" width="1100" height="578"></figure>
+  <div class="hr-card">
+    <div class="hr-top">{sunny_mascot(40, "follow")}<span><b>Sunny AI</b><small>Study session</small></span><em>live</em></div>
+    <div class="hr-score"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="27"/><circle class="hr-run" cx="32" cy="32" r="27"/></svg><span><b>86%</b><small>Readiness &middot; on track</small></span></div>
+    <p class="hr-note">Measured against the official pass mark</p>
+    <div class="hr-cite"><span>Source citation verified</span><code>NJ Driver Manual &middot; p. 80</code></div>
+  </div>
+  <figure class="hr-ph hr-r"><img src="/assets/img/wall/cp-hoodie.jpg" alt="A learner studying at a laptop at home" width="1100" height="614"></figure>
+</div>"""
 
-PROOF = [("7","Regulated Commercial Verticals"),("100%","Grounded to Primary Statutory Sources"),("4-Stage","Automated Verification Pipeline"),("0","Hallucination Tolerance Architecture")]
+PROOF = [("7","Live products in regulated exams"),("64","US states, DC, Canadian provinces and territories covered"),("13","FAA knowledge exams on Aviator IQ"),("Weekly","Edition monitoring on official handbooks")]
 def proof_bar():
     return '<div class="proof">' + "".join(f'<div class="proof-i reveal"><b>{esc(n)}</b><span>{esc(t)}</span></div>' for n, t in PROOF) + '</div>'
 
@@ -404,42 +408,52 @@ def verticals():
     return "".join(f'<div class="vt-g reveal"><h3>{g}</h3><div class="vt-row n{len(slugs)}">{"".join(tile(s) for s in slugs)}</div></div>' for g, slugs in VERTICALS)
 
 ENGAGE = [
- ("spark","Micro-Diagnostic Sprints","Rapid active-recall sessions structured to build cognitive speed under timed constraints."),
- ("route","Spaced-Repetition Deficit Scheduling","Automated re-engagement algorithms that cycle difficult regulatory edge cases back into study sessions based on forget-curve modeling."),
- ("chart","Full-Fidelity Exam Simulation","Diagnostic sandbox mirroring official testing center stress parameters, interfaces, and scoring thresholds."),
+ ("spark","Micro-Diagnostic Sprints","Short, timed active-recall rounds built from the official question bank."),
+ ("route","Missed-Question Recycling","Questions a learner misses come back in later sessions until they're answered correctly."),
+ ("chart","Full-Length Exam Simulation","Mock exams that match the official question count, time limit and pass mark."),
 ]
 def engage_ui():
-    mastery = [("Intersections",86),("Pedestrians",72),("Emergency vehicles",41)]
-    queue = [("Emergency vehicles","due now"),("School bus stops","in 1 day"),("Railroad crossings","in 3 days"),("Work zones","in 7 days")]
-    m = "".join(f'<li><span>{t}</span><b>{v}%</b><i style="--w:{v}%"></i></li>' for t, v in mastery)
-    q = "".join(f'<li><span>{t}</span><em>{d}</em></li>' for t, d in queue)
-    return f"""<div class="eg reveal" aria-label="Example learner session">
-  <div class="eg-top"><span class="eg-tag">Sprint 3 of 5 &middot; Right of way</span><span class="eg-clock"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15"/><circle class="eg-run" cx="18" cy="18" r="15"/></svg><b>0:42</b></span></div>
-  <div class="eg-q"><small>Active recall</small><p>Two vehicles reach a four-way stop at the same time. Which one goes first?</p>
-    <div class="eg-in">The vehicle on the right<span class="eg-car"></span></div>
-    <div class="eg-res"><b>Correct</b> &middot; cite: state driver manual, right of way</div></div>
-  <div class="eg-grid">
-    <div class="eg-card"><small>Topic mastery</small><ul class="eg-m">{m}</ul></div>
-    <div class="eg-card"><small>Review queue</small><ul class="eg-qu">{q}</ul></div>
+    # three steps that mirror ENGAGE; California facts are real (46 questions, pass at 38)
+    dots = "".join(f'<i class="{"x" if n in (7, 19, 30, 41) else ""}" style="--n:{n}"></i>' for n in range(46))
+    return f"""<div class="ef reveal" aria-label="A learner's loop: a timed sprint, missed questions coming back, then a full-length mock exam">
+  <div class="ef-step">
+    <div class="ef-k"><b>1</b><span>Micro-diagnostic sprint</span></div>
+    <div class="ef-card ef-sprint">
+      <div class="ef-sq"><small>Right of way &middot; question 4 of 10</small><p>Two vehicles reach a four-way stop at the same time. Which one goes first?</p>
+        <div class="ef-opts"><span>The larger vehicle</span><span class="ok">The vehicle on the right</span><span>The vehicle on the left</span></div></div>
+      <div class="ef-clock"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"/><circle class="run" cx="24" cy="24" r="20"/></svg><b>0:42</b></div>
+    </div>
   </div>
-  <div class="eg-sim"><small>Exam simulation</small><span>California knowledge test &middot; 46 questions &middot; pass at 38</span><b>Ready 82%</b></div>
+  <div class="ef-step">
+    <div class="ef-k"><b>2</b><span>Missed questions come back</span></div>
+    <div class="ef-card ef-loop">
+      <div class="ef-stack"><span style="--r:-6deg;--x:0"><em>missed 3&times;</em>Emergency vehicles</span><span style="--r:2deg;--x:1"><em>missed 2&times;</em>School bus stops</span><span style="--r:7deg;--x:2"><em>missed 1&times;</em>Railroad crossings</span></div>
+      <svg class="ef-arrow" viewBox="0 0 120 60" aria-hidden="true"><path d="M8 44 C 30 4, 90 4, 110 34"/><path d="m100 30 10 5 2-11"/></svg>
+      <p class="ef-cap">Back in the next session until answered correctly</p>
+    </div>
+  </div>
+  <div class="ef-step">
+    <div class="ef-k"><b>3</b><span>Full-length exam simulation</span></div>
+    <div class="ef-card ef-sim">
+      <div class="ef-sim-h"><span>California knowledge test</span><em>Passed</em></div>
+      <div class="ef-dots">{dots}</div>
+      <div class="ef-sim-f"><span><b>42</b> / 46 correct</span><span>Pass mark <b>38</b></span></div>
+    </div>
+  </div>
 </div>"""
-
 
 def home():
     feats = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in CAPS)
     engage = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in ENGAGE)
     body = f"""
 <section class="e-hero" data-scheme="green"><div class="wrap">
-  <div class="e-hero-grid">
-    <div class="e-copy">
-      <div class="pill">Regulatory learning infrastructure</div>
-      <h1>The verification engine for <i>high&#8209;stakes exams.</i></h1>
-      <p class="lede">We convert complex legal statutes and government manuals into adaptive learning ecosystems. Powering seven commercial verticals with zero-hallucination machine intelligence.</p>
-      <div class="cta-row"><a class="btn btn-glow" href="#platform">Explore the Platform Engine {ARROW_R}</a><a class="tlink" href="#verticals">Explore Commercial Verticals {ARROW_R}</a></div>
-    </div>
-    {collage()}
+  <div class="e-copy">
+    <div class="pill">Regulatory learning infrastructure</div>
+    <h1>The verification engine<br>for <i>high&#8209;stakes exams.</i></h1>
+    <p class="lede">We turn complex statutes and government manuals into adaptive study tools. Seven live products, every question traced to the page it came from.</p>
+    <div class="cta-row"><a class="btn btn-glow" href="#platform">Explore the Platform Engine {ARROW_R}</a><a class="tlink" href="#verticals">Explore Commercial Verticals {ARROW_R}</a></div>
   </div>
+  {collage()}
 </div></section>
 
 <section class="sec mx-sec" id="platform" data-scheme="green"><div class="wrap">
@@ -448,7 +462,7 @@ def home():
     <div class="mx-copy reveal">
       <div class="eyebrow rule">Architecture &amp; ingestion pipeline</div>
       <h2 class="h2">Automating compliance across <i>high-barrier domains.</i></h2>
-      <p class="sub">Our proprietary ingestion pipeline converts primary statutory codes and agency handbooks into verified learning ecosystems with zero hallucination risk.</p>
+      <p class="sub">Our proprietary pipeline turns statutory codes and agency handbooks into question banks where every item traces back to its source page.</p>
     </div>
     <div class="mesh-wrap reveal">{schematic()}</div>
   </div>
@@ -471,7 +485,7 @@ def home():
       <div class="eyebrow rule">Proprietary AI (Sunny)</div>
       <h2 class="h2">Generative tutoring, <i>bound to the source.</i> <span class="ai-spark">{SPARK}</span></h2>
     </div>
-    <p class="sub reveal">Sunny is our in-house AI tutor. It answers learner questions only from the official source for that exam, generates targeted practice and paces candidates to their exam date.</p>
+    <p class="sub reveal">Sunny is our in-house AI tutor. It answers learner questions only from the official source for that exam, generates targeted practice and paces candidates to their exam date. Live on DMV IQ today.</p>
   </div>
   <div class="ai-grid">{ai_cards()}</div>
   <a class="ai-more reveal" href="/sunny/">Inspect Sunny in production {ARROW_R}</a>
@@ -481,9 +495,9 @@ def home():
   <div class="l">
     <div class="eyebrow rule">Verification Pipeline</div>
     <h2 class="h2">Smart enough to teach, <i>disciplined enough to trust.</i></h2>
-    <p class="sub">Generative models make study sessions interactive, but unconstrained LLMs cannot be trusted with regulatory certification. We pair adaptive algorithms with an automated four-stage audit pipeline that validates source authority, distractor logic, and psychometric fidelity before scenarios reach learners.</p>
+    <p class="sub">Generative models make study sessions interactive, but unconstrained LLMs cannot be trusted with regulatory certification. We pair adaptive practice with a four-part audit that checks each question's source, its answer key and its wrong answers before it reaches learners.</p>
     <div class="feats">{feats}</div>
-    <a class="sn-link sn-ent reveal" href="/sunny/">{sunny_mascot(60, "follow")}<div><span class="sn-kicker">The Sunny Engine&trade;</span><h3>Handbook&#8209;grounded guidance, zero hallucinations.</h3><p>Answers only from current official regulations, with the exact page cited.</p></div><span class="go">Inspect the citation engine {ARROW_R}</span></a>
+    <a class="sn-link sn-ent reveal" href="/sunny/">{sunny_mascot(60, "follow")}<div><span class="sn-kicker">The Sunny Engine&trade;</span><h3>Handbook&#8209;grounded guidance, cited to the page.</h3><p>Answers only from the official handbook for that exam, with the page cited. Live on DMV IQ.</p></div><span class="go">Inspect the citation engine {ARROW_R}</span></a>
   </div>
   <div class="r exp-vid"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/personal-loop.jpg" aria-label="A learner using her phone outdoors in soft sunlight"><source src="/assets/img/personal-loop.webm" type="video/webm"><source src="/assets/img/personal-loop.mp4" type="video/mp4"></video></div>
 </div></section>
@@ -492,7 +506,7 @@ def home():
   <div class="vt-head reveal">
     <div class="eyebrow rule">Proven enterprise horizontal expansion</div>
     <h2 class="h2">One core engine. <i>Seven high-stakes verticals.</i></h2>
-    <p class="sub">The Oddly Sunny architecture decouples domain ingestion from pedagogical delivery, allowing immediate expansion into high-barrier regulatory markets:</p>
+    <p class="sub">The Oddly Sunny architecture decouples domain ingestion from pedagogical delivery, allowing fast expansion into high-barrier regulatory markets:</p>
   </div>
   <div class="vt-groups">{verticals()}</div>
 </div></section>
@@ -500,17 +514,17 @@ def home():
 <section class="sec" id="engagement" data-scheme="ember"><div class="wrap split play-split">
   <div>
     <div class="eyebrow rule reveal">Engagement architecture &amp; retention</div>
-    <h2 class="h2 reveal">Behavioral mechanics that drive <i>daily learner retention.</i></h2>
-    <p class="sub reveal">Certification prep suffers from industry-wide learner drop-off. We integrate retrieval practice and spaced repetition into rapid diagnostic loops that drive industry-leading time-on-platform and completion rates.</p>
+    <h2 class="h2 reveal">Built for <i>daily learner retention.</i></h2>
+    <p class="sub reveal">Certification prep suffers from learner drop-off. We build retrieval practice and short daily loops into our products so learners keep coming back.</p>
     <div class="feats one">{engage}</div>
   </div>
   {engage_ui()}
 </div></section>
 
 <section class="closing e-close" data-scheme="green"><div class="wrap reveal">
-  <div class="eyebrow">Contact</div>
-  <h2 class="h2" style="margin-top:16px">Get in touch. <i>We read every message.</i></h2>
-  <p class="body">Partnerships, licensing, press or a question about one of our brands: write to us and the right person will reply.</p>
+  <div class="eyebrow">Oddly Sunny</div>
+  <h2 class="h2" style="margin-top:16px">Modernizing how <i>the world learns.</i></h2>
+  <p class="body">Oddly Sunny builds AI-powered learning that brings education up to date: personal, trustworthy, and designed for how people actually learn today.</p>
   <div class="cta-row"><a class="btn" href="/contact/">Contact us {ARROW_R}</a></div>
 </div></section>
 """
@@ -756,10 +770,10 @@ def md_lite(t):
     return "".join(out)
 
 COMPARE = [
- ("book","Curriculum Ingestion","Automated ingestion of statutory changes and agency handbooks with zero-latency deployment.","Manual, multi-month editorial cycles per jurisdiction."),
- ("spark","Pedagogical Adaptation","Real-time active recall engines that dynamically isolate individual learner cognitive deficits.","Static multiple-choice banks and linear, one-size-fits-all pathways."),
- ("check","Factual Integrity","Multi-model blind arbitration ensuring deterministic statutory grounding with page-level citations.","Unvetted LLM hallucinations or outdated printed answer keys."),
- ("chart","Predictive Readiness","Multi-variable psychometric modeling calibrated to official agency passing rubrics.","Flat completion percentages and uncalibrated scores."),
+ ("book","Curriculum Ingestion","Built directly from official handbooks and regulations, with edition monitoring that flags new versions for fast updates.","Manual editorial cycles per jurisdiction."),
+ ("spark","Pedagogical Adaptation","Weak topics surface first, and missed questions come back until they're mastered.","Static multiple-choice banks and linear, one-size-fits-all pathways."),
+ ("check","Factual Integrity","Every question traced to its source page and checked against the official text.","Unvetted AI answers or outdated printed answer keys."),
+ ("chart","Predictive Readiness","A readiness score that blends coverage, accuracy, recall and speed, measured against the official pass mark.","Flat completion percentages and uncalibrated scores."),
  ("globe","Horizontal Scalability","Reusable modular ingestion architecture deployable to new state, federal, or international domains in weeks.","Prohibitive cost and editorial overhead to expand across regional jurisdictions."),
 ]
 
