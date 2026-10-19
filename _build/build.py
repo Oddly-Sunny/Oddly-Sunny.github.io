@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=120">
+<link rel="stylesheet" href="/assets/site.css?v=121">
 </head>
 """
 
@@ -287,11 +287,10 @@ def header():
   <div class="wrap">
     <a href="/" class="brand" aria-label="oddly sunny home">{live_mark()}<span>oddly <b>sunny</b></span></a>
     <nav class="nav" aria-label="Main">
-      <a href="/#architecture">Platform Architecture<span class="nav-go">{ARROW_R}</span></a>
-      <a href="/#verticals">Regulatory Verticals<span class="nav-go">{ARROW_R}</span></a>
-      <a href="/#expertise">Verification Pipeline<span class="nav-go">{ARROW_R}</span></a>
-      <a href="/sunny/">Proprietary AI (Sunny)<span class="nav-go">{ARROW_R}</span></a>
-      <a class="btn" href="/contact/">M&amp;A &amp; Partnership Inquiries</a>
+      <a href="/#architecture">Architecture<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/#verticals">Verticals<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/sunny/">Proprietary AI<span class="nav-go">{ARROW_R}</span></a>
+      <a class="btn" href="/contact/">Contact us</a>
     </nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
   </div>
