@@ -66,3 +66,8 @@
 - Corrected from the brief: citizen-pass.com (brief said citizenpass.com); cite badge uses a real Sunny citation instead of "USC Title 46 § 10.205".
 - Waiting on owner: approve deploy; decide on unverified claims (zero-latency ingestion, industry-leading retention, 100%/0 proof stats, forget-curve scheduling, chapter+section+page on every explanation).
 - 2026-10-19 later rounds (same branch, still local): corporate header (frosted bar, beacon, Partner / M&A CTA), full-viewport hero with learner photo collage + 2 glass badges, ingestion mesh moved to its own #platform section with the proof bar, pipeline video, verticals as photo tiles grouped by vertical, Sunny mascot follows the cursor (`.sn-mascot.follow`), generic contact closing. Claims audit pending owner decision (see chat): several hero/stat/pipeline claims are not supportable as written.
+
+## 2026-10-19 enterprise homepage, DEPLOYED (merged enterprise-positioning into main)
+- Homepage: floating-photo hero (serif white headline, single "Explore the engine" CTA with eased scroll), light architecture diagram section, legacy-vs-engine table, Sunny tool cards, verification pipeline with framed learner video + full-width Sunny banner, verticals as photo tiles grouped by vertical, engagement cards (forest panels, looping demos), closing "Modernizing how the world learns". White frosted header: Architecture / Verticals / Sunny AI / yellow Contact (shared by all pages).
+- Claims rewritten to supportable ones (no zero-hallucination / 100% / psychometric / industry-leading / M&A). 3D Sunny tried and removed.
+- Next: check the live homepage on a real phone; the learner video needs a range-capable server, so verify it plays on GitHub Pages.
