@@ -75,3 +75,6 @@
 
 ## 2026-10-19 Engine diagram labels (LIVE, commit d00877d)
 - Sources now plain language: Pilot rules and handbooks (FAA), Mariner licensing rules (U.S. Coast Guard), State driver handbooks (DMVs), State insurance laws (Insurance regulators). DMV IQ vertical = Driving.
+
+## 2026-10-19 Engine hub process list (LIVE)
+- Hub tag replaced by HUB_STEPS in build.py: Unify sources, Cross-reference rules, Verify every answer, Watch for new editions (cycling highlight). site.css v=164.
