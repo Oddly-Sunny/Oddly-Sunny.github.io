@@ -1548,12 +1548,16 @@ section[data-scheme="white"],section[data-scheme="soft"]{background:var(--bg);co
 @keyframes breatheLight{50%{box-shadow:0 24px 60px -14px rgba(181,133,42,.6)}}
 .mx-wide .hub{animation-name:breatheLight}
 .mx-wide .hub-in{background:radial-gradient(circle at 50% 30%,#FFFDF8,#FBF6EA 70%);padding:22px 14px 18px}
-.mx-wide .hub-ic{width:72px;height:72px}
+.mx-wide .hub-ic{width:60px;height:60px}
 .mx-wide .hub-in b{color:#0E1A14;font-size:17px}
 .mx-wide .hub-tag{color:#9A6F1F;background:#FFF5E1;border-color:rgba(181,133,42,.25);font-size:10.5px}
+.hub-steps{list-style:none;margin:2px 0 0;padding:7px 10px;display:grid;gap:3px;text-align:left;font:10.5px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;color:#9A6F1F;background:#FFF5E1;border:1px solid rgba(181,133,42,.25);border-radius:7px}
+.hub-steps li{display:flex;align-items:center;gap:7px;white-space:nowrap;animation:stepOn 6s ease-in-out infinite;animation-delay:calc(var(--i) * 1.5s)}
+.hub-steps li::before{content:"";flex:none;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.45}
+@keyframes stepOn{0%,30%,100%{color:#9A6F1F}8%,22%{color:#2D7A56}}
 .mx-wide .mesh-tel{margin-top:22px;padding:14px 32px;background:#FBFAF7;border-top-color:rgba(14,26,20,.07);color:#56665E}
 @media(max-width:960px){.mx-wide .mesh-stage{margin:20px 18px 4px}.mx-wide .mesh-col{width:25%}.mx-wide .hub{left:37%;right:37%}.mx-wide .m-src b,.mx-wide .m-out b{font-size:11.5px}}
-@media(max-width:620px){.mx-wide .mesh-stage{margin:16px 14px 0}.mx-wide .mesh-col{width:auto}.mx-wide .hub-in{flex-direction:row}}
+@media(max-width:620px){.mx-wide .mesh-stage{margin:16px 14px 0}.mx-wide .mesh-col{width:auto}.mx-wide .hub-in{flex-direction:row}.hub-steps{flex-basis:100%}}
 
 /* ===== engagement: three equal cards with small looping demos ===== */
 .eg2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:56px}

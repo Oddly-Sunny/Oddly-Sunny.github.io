@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=163">
+<link rel="stylesheet" href="/assets/site.css?v=164">
 </head>
 """
 
@@ -349,6 +349,7 @@ def hero_floats():
 # hero mesh: real sources feed the engine, which feeds four live brands.
 # Coordinates are in a 520x400 box; the HTML nodes are placed at the same percentages so the SVG curves meet them.
 MESH_SRC = [("Pilot rules and handbooks","FAA"),("Mariner licensing rules","U.S. Coast Guard"),("State driver handbooks","DMVs"),("State insurance laws","Insurance regulators")]
+HUB_STEPS = ["Unify sources", "Cross-reference rules", "Verify every answer", "Watch for new editions"]
 MESH_OUT = [("aviator-iq","Aviation"),("mariner-iq","Maritime"),("dmv-iq","Driving"),("insurance-pass","Insurance")]
 MESH_Y = [62, 154, 246, 338]
 DOC = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>'
@@ -366,13 +367,14 @@ def schematic():
     svg = f'<svg class="mesh-svg" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">{base}{"".join(paths)}</svg>'
     src = "".join(f'<li class="m-src" style="--y:{y / 4}%;--i:{i}"><span class="m-doc">{DOC}</span><span><b>{esc(t)}</b><small>{esc(a)}</small></span></li>' for i, ((t, a), y) in enumerate(zip(MESH_SRC, MESH_Y)))
     out = "".join(f'<li class="m-out" style="--y:{y / 4}%;--i:{i}"><img src="/assets/img/apps/{s}.png" alt="" width="26" height="26"><span><b>{BY[s]["name"]}</b><small>{esc(l)}</small></span><i class="pip"></i></li>' for i, ((s, l), y) in enumerate(zip(MESH_OUT, MESH_Y)))
+    steps = "".join(f'<li style="--i:{i}">{esc(t)}</li>' for i, t in enumerate(HUB_STEPS))
     return f"""<figure class="mx" aria-label="Official regulations and manuals flow into the Oddly Sunny engine, which feeds Aviator IQ, Mariner IQ, DMV IQ and Citizen Pass">
   <div class="mesh-stage">
     {svg}
     <div class="mesh-cap mesh-cap-l">Source ingestion</div><div class="mesh-cap mesh-cap-r">Commercial verticals</div>
     <ul class="mesh-col mesh-l">{src}</ul>
     <div class="mx-flow in" aria-hidden="true"><span></span><i></i><i></i><i></i><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
-    <div class="hub"><div class="hub-in">{SHIELD}<b>Oddly Sunny Engine</b><span class="hub-tag">Source-grounded<br> Cited to the page</span></div></div>
+    <div class="hub"><div class="hub-in">{SHIELD}<b>Oddly Sunny Engine</b><ul class="hub-steps">{steps}</ul></div></div>
     <div class="mx-flow out" aria-hidden="true"><span></span><i></i><i></i><i></i><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
     <ul class="mesh-col mesh-r">{out}</ul>
   </div>
