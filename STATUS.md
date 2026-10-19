@@ -54,3 +54,6 @@
 
 ## 2026-10-19 phone menu email removed, LIVE (commit 6074818)
 - Dropped the hello@oddlysunny.com link under "Say hello" in the header menu (it only showed on phones). CSS `?v=116`. Footer, CTA and /contact/ still show the address.
+
+## 2026-10-19 homepage AI cards layout fix, LIVE
+- Sunny tool cards: panel + gold button now in flow (card grows to fit, min-height 286px keeps the row even), button always overlaps the panel bottom. Fixes clipped text and the button covering content around 1000-1440px, and the detached button on 2-column widths. CSS `?v=117`. Checked at 1440, 1060, 900, 375.
