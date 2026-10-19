@@ -1296,7 +1296,7 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
 .live-mark .gold{transform-box:fill-box;transform-origin:center}
 @keyframes goldNudge{0%{transform:none}30%{transform:translate(-4px,4px) rotate(-14deg) scale(1.08)}60%{transform:translate(1px,-1px) rotate(6deg)}100%{transform:none}}
 /* phone menu */
-.dd-list,.nav-mail,.nav-go{display:none}
+.dd-list,.nav-go{display:none}
 @media(max-width:960px){
   /* the frosted header and its slide-away would trap the full-screen menu, so drop them while it is open */
   .menu-open .hdr{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;transform:none!important;opacity:1!important;pointer-events:auto!important}
@@ -1306,9 +1306,8 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
   .nav>a[href="/#expertise"]{order:2}
   .nav>.dd{order:3}
   .nav>a.btn{order:4}
-  .nav>.nav-mail{order:5}
-  .nav>a:not(.btn):not(.nav-mail){display:flex;align-items:center;gap:12px;width:100%;font-size:26px;letter-spacing:-.02em;padding:16px 0;border-bottom:1px solid var(--border)}
-  .nav>a:not(.btn):not(.nav-mail)::after{display:none}
+  .nav>a:not(.btn){display:flex;align-items:center;gap:12px;width:100%;font-size:26px;letter-spacing:-.02em;padding:16px 0;border-bottom:1px solid var(--border)}
+  .nav>a:not(.btn)::after{display:none}
   .nav>a.active{color:var(--text)}
   .nav>a.active .nav-go{color:var(--gold)}
   .nav-go{display:block;margin-left:auto;opacity:.45}
@@ -1324,7 +1323,6 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
   .dd-list img{width:32px!important;height:32px!important;border-radius:8px!important}
   .nav>a.btn{margin:auto 0 0;width:100%;justify-content:center;font-size:16px;padding:16px 26px}
   .nav>.dd{margin-bottom:28px}
-  .nav>a.nav-mail{display:block;width:100%;text-align:center;margin-top:12px;padding:6px 0;font-size:13px;opacity:.6;border:0}
   .nav>a:not(.btn){border-radius:0}
   .hdr .dd-menu .dd-list span{color:var(--text)!important}
 }

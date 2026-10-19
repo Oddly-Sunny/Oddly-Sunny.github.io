@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=115">
+<link rel="stylesheet" href="/assets/site.css?v=116">
 </head>
 """
 
@@ -300,7 +300,6 @@ def header():
       <a class="nav-sunny" href="/sunny/">{sunny_mascot(22, "sm")}Sunny<span class="nav-go">{ARROW_R}</span></a>
       <a href="/#expertise">How we build<span class="nav-go">{ARROW_R}</span></a>
       <a class="btn" href="/contact/">Say hello</a>
-      <a class="nav-mail" href="mailto:{MAIL}">{MAIL}</a>
     </nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
   </div>
