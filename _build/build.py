@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=145">
+<link rel="stylesheet" href="/assets/site.css?v=146">
 </head>
 """
 
@@ -436,12 +436,13 @@ def home():
     body = f"""
 <section class="e-hero e-min" data-scheme="white"><div class="wrap">
   <div class="e-copy">
-    <div class="em-sunny">{sunny_mascot(156, "follow")}</div>
+    <div class="em-sunny"><div class="s3d" data-sunny3d>{sunny_mascot(156, "follow")}</div></div>
     <h1>The verification engine <br>for <span class="acc">high&#8209;stakes exams.</span></h1>
     <p class="lede">Seven live products. Every question traced to the page it came from.</p>
     <div class="cta-row"><a class="btn btn-glow" href="#platform">Explore the Platform Engine {ARROW_R}</a><a class="tlink" href="#verticals">Explore Commercial Verticals {ARROW_R}</a></div>
   </div>
 </div></section>
+<script>addEventListener('load',function(){{import('/assets/sunny3d.js?v=3').catch(function(){{}})}})</script>
 
 <section class="sec mx-sec" id="platform" data-scheme="soft"><div class="wrap">
   {proof_bar()}

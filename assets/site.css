@@ -1607,3 +1607,11 @@ section[data-scheme="white"],section[data-scheme="soft"]{background:var(--bg);co
 @media(max-width:560px){.e-min h1 br{display:none}}
 @media(prefers-reduced-motion:reduce){.em-sunny,.e-min h1,.e-min .lede,.e-min .cta-row{animation:none}}
 @media(max-width:560px){.e-min h1{font-size:clamp(32px,9.4vw,40px)}.e-min h1 .acc{white-space:nowrap}}
+/* 3D Sunny (assets/sunny3d.js): flat mascot is the fallback until WebGL is running */
+.s3d{position:relative;width:clamp(190px,30vh,320px);height:clamp(190px,30vh,320px);display:grid;place-items:center}
+.s3d .sn-mascot{width:52%!important;height:52%!important;transition:opacity .5s}
+.s3d .sunny3d-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .8s ease}
+.s3d.is-3d .sunny3d-canvas{opacity:1}
+.s3d.is-3d .sn-mascot{opacity:0}
+.em-sunny{margin-bottom:clamp(4px,1.5vh,16px)}
+.em-sunny .s3d .sn-mascot{filter:none}

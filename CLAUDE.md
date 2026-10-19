@@ -16,3 +16,4 @@ Static site on GitHub Pages (push `main` to deploy). Edtech-studio redesign (Oct
 - /sunny demo cards: `SUNNY_WIDGET_CASES` + `sunny_widget()` in build.py are written examples of Sunny's real card types (quiz, course, progress); `sunny_examples.json` holds the real transcripts.
 - Header menu is "Stories" (story headlines from stories.py, app icons in `assets/img/apps/`). Keep the dropdown light.
 - Git gotcha: a sync tool once created `.git/refs/heads/main (1)` and broke `git fetch`; move such files out of `.git`.
+- 3D Sunny (homepage hero): `assets/sunny3d.js` (Three.js r160 vendored at `assets/vendor/three.module.min.js`, ~167 KB gzipped, loaded after `load`). 8-lobe pillow + shell-rendered fur, mounts into `[data-sunny3d]` and keeps the flat `.sn-mascot` inside as the no-WebGL fallback. Bump `sunny3d.js?v=` in build.py when it changes. Headless check needs `--use-angle=swiftshader --enable-unsafe-swiftshader`.
