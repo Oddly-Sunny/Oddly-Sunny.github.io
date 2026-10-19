@@ -475,36 +475,41 @@
   }, 6500);
 })();
 
-/* hero: on scroll down the photos recede outward (shrink, blur, fade) and the headline blurs away.
-   Uses the standalone translate/scale properties so it never fights the .in transform transition. */
+/* hero: the hero pins in place while you scroll through it; the photos recede outward (shrink, blur, fade)
+   and the headline blurs away, then the page carries on. The wrapper gets the extra height that the effect
+   plays over. Uses the standalone translate/scale properties so it never fights the .in transform transition. */
 (function () {
   var hero = document.querySelector('.hero[data-imgs]');
   if (!hero || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var pin = hero.parentElement.classList.contains('hero-pin') ? hero.parentElement : null;
   var slots = Array.prototype.slice.call(hero.querySelectorAll('.float'));
-  var copy = hero.querySelector('.copy'), dirs = [], range = 1, ticking = false;
+  var hdr = document.querySelector('.hdr'), copy = hero.querySelector('.copy'), dirs = [], range = 1, top0 = 0, ticking = false;
   function measure() {
+    slots.forEach(function (s) { s.style.translate = ''; s.style.scale = ''; });
+    range = Math.max(1, Math.round(window.innerHeight * 0.8));
+    if (pin) { pin.classList.add('pinned'); pin.style.height = (hero.offsetHeight + range) + 'px'; top0 = pin.getBoundingClientRect().top + window.scrollY; }
     var h = hero.getBoundingClientRect(), cx = h.left + h.width / 2, cy = h.top + h.height / 2;
     dirs = slots.map(function (s) {
       var r = s.getBoundingClientRect(), dx = r.left + r.width / 2 - cx, dy = r.top + r.height / 2 - cy;
       var len = Math.sqrt(dx * dx + dy * dy) || 1;
       return [dx / len, dy / len];
     });
-    range = Math.max(1, hero.offsetHeight * 0.65);
   }
   function paint() {
     ticking = false;
-    var p = Math.min(1, Math.max(0, window.scrollY / range));
+    var p = Math.min(1, Math.max(0, (window.scrollY - top0) / range));
     var e = p * p * (3 - 2 * p);
-    var push = Math.min(window.innerWidth, 1400) * 0.12;
+    var push = Math.min(window.innerWidth, 1400) * 0.14;
     slots.forEach(function (s, i) {
       var d = dirs[i] || [0, 0], img = s.firstElementChild;
       s.style.translate = p ? (d[0] * push * e).toFixed(1) + 'px ' + (d[1] * push * e - 40 * e).toFixed(1) + 'px' : '';
       s.style.scale = p ? (1 - 0.32 * e).toFixed(3) : '';
       if (img) { img.style.opacity = p ? (1 - e).toFixed(3) : ''; img.style.filter = p ? 'blur(' + (14 * e).toFixed(1) + 'px)' : ''; }
     });
+    if (hdr) hdr.classList.toggle('brand-hidden', e < 0.5); /* the hero logo has faded: hand over to the header logo */
     if (copy) {
-      copy.style.filter = p ? 'blur(' + (10 * e).toFixed(1) + 'px)' : '';
-      copy.style.opacity = p ? (1 - 0.85 * e).toFixed(3) : '';
+      copy.style.filter = p ? 'blur(' + (12 * e).toFixed(1) + 'px)' : '';
+      copy.style.opacity = p ? (1 - e).toFixed(3) : '';
       copy.style.translate = p ? '0 ' + (-50 * e).toFixed(1) + 'px' : '';
       copy.style.scale = p ? (1 - 0.05 * e).toFixed(3) : '';
     }
@@ -512,9 +517,10 @@
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(paint); } }
   measure(); paint();
   window.addEventListener('scroll', onScroll, { passive: true });
+  var rw = window.innerWidth;
   window.addEventListener('resize', function () {
-    slots.forEach(function (s) { s.style.translate = ''; s.style.scale = ''; });
-    measure(); paint();
+    if (window.innerWidth === rw && pin) return; /* phone URL bar show/hide: keep the measured height so nothing jumps */
+    rw = window.innerWidth; measure(); paint();
   });
 })();
 

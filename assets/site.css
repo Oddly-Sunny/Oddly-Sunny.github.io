@@ -1683,3 +1683,6 @@ section[data-scheme="white"],section[data-scheme="soft"]{background:var(--bg);co
   @keyframes mxDrop{0%{top:0;opacity:0}15%{opacity:1}80%{opacity:1}100%{top:32px;opacity:0}}
 }
 @media(prefers-reduced-motion:reduce){.mx-flow i{display:none}}
+
+/* hero pin: the hero holds still while its scroll-away effect plays (height set by site.js) */
+.hero-pin.pinned .hero{position:sticky;top:0}
