@@ -111,5 +111,6 @@
 - Icons: brand set in `ICONS` (forest stroke + gold `.ac` accent): plane/anchor/wheel/scales (sources), ingest/adapt/verify/gauge/cells (comparison), quote/blind/blueprint/pattern (verification). One icon tile style.
 - Platform figure rebuilt as `flow()` (`.fl-*` CSS, old `schematic()`/mesh markup removed): warm-paper plate, typeset sources, forest engine card with the real brand mark + numbered steps, app icons; "+" lines name USCIS/IRCC/FCC/provincial agencies and Citizen Pass/Drive IQ Canada/Airwaves IQ (owner: no counts); footer "Blind-checked answer keys / Page-level citations / Edition monitoring". 6s motion cycle: glints along curves, diamond pulses, engine sheen + cell pulses + active-step bar. Phones: one gold rail.
 - AI agent cards: photos replaced by graded studio-colour backdrops (teal/coral/olive from the hero headshots, grain, drifting light); demos loop while on screen (site.js "AI cards", quiz topic changes each round).
-- CSS `?v=191`, JS `?v=69`. Checked desktop + 390px.
+- Section order (owner OK 2026-10-19): hero, platform figure, verticals (proof), Sunny AI cards, verification (its trailing Sunny card removed: Sunny was pitched twice), engagement, legacy-vs-engine table as the recap, closing. Schemes re-alternated (ai-tools soft, expertise white).
+- CSS `?v=192`, JS `?v=69`. Checked desktop + 390px.
 - Next step: owner OK to push.

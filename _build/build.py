@@ -275,7 +275,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=191">
+<link rel="stylesheet" href="/assets/site.css?v=192">
 </head>
 """
 
@@ -453,18 +453,15 @@ def home():
   </div>
 </div></section>
 
-<section class="sec vs-sec" id="architecture" data-scheme="white"><div class="wrap">
-  <div class="vs-head">
-    <div class="reveal">
-      <div class="eyebrow rule">Platform Architecture</div>
-      <h2 class="h2">Legacy test publishers vs. <i>the Oddly Sunny Engine.</i></h2>
-    </div>
-    <p class="sub reveal">Five capabilities separate a static question bank from regulatory learning infrastructure.</p>
+<section class="sec" id="verticals" data-scheme="white"><div class="wrap">
+  <div class="vt-head reveal">
+    <div class="eyebrow rule">Proven enterprise horizontal expansion</div>
+    <h2 class="h2">One core engine. <i>Seven high-stakes verticals.</i></h2>
+    <p class="sub">The Oddly Sunny architecture decouples domain ingestion from pedagogical delivery, allowing fast expansion into high-barrier regulatory markets:</p>
   </div>
-  <div class="vs-table">{compare_rows(None, "Legacy test publishers", "Oddly Sunny Engine")}</div>
+  <div class="vt-groups">{verticals()}</div>
 </div></section>
-
-<section class="sec ai-sec" id="ai-tools" data-scheme="white"><div class="wrap">
+<section class="sec ai-sec" id="ai-tools" data-scheme="soft"><div class="wrap">
   <div class="vs-head">
     <div class="reveal">
       <div class="eyebrow rule">Proprietary AI (Sunny)</div>
@@ -475,8 +472,7 @@ def home():
   <div class="ai-grid">{ai_cards()}</div>
   <a class="ai-more reveal" href="/sunny/">Inspect Sunny in production {ARROW_R}</a>
 </div></section>
-
-<section id="expertise" data-scheme="soft"><div class="exp">
+<section id="expertise" data-scheme="white"><div class="exp">
   <div class="l">
     <div class="eyebrow rule">Verification Pipeline</div>
     <h2 class="h2">Smart enough to teach, <i>disciplined enough to trust.</i></h2>
@@ -484,20 +480,7 @@ def home():
     <div class="feats">{feats}</div>
   </div>
   <div class="r exp-vid"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/personal-loop.jpg" aria-label="A learner using her phone outdoors in soft sunlight"><source src="/assets/img/personal-loop.webm" type="video/webm"><source src="/assets/img/personal-loop.mp4" type="video/mp4"></video></div>
-</div>
-<div class="exp-sn">
-  <a class="sn-link sn-ent sn-wide reveal" href="/sunny/">{sunny_mascot(60, "follow")}<div><span class="sn-kicker">Sunny AI&trade;</span><h3>An AI tutor agent that looks things up before it answers.</h3><p>One agent engine, many domains: each product plugs in its own tools and its own official sources.</p></div></a>
 </div></section>
-
-<section class="sec" id="verticals" data-scheme="white"><div class="wrap">
-  <div class="vt-head reveal">
-    <div class="eyebrow rule">Proven enterprise horizontal expansion</div>
-    <h2 class="h2">One core engine. <i>Seven high-stakes verticals.</i></h2>
-    <p class="sub">The Oddly Sunny architecture decouples domain ingestion from pedagogical delivery, allowing fast expansion into high-barrier regulatory markets:</p>
-  </div>
-  <div class="vt-groups">{verticals()}</div>
-</div></section>
-
 <section class="sec" id="engagement" data-scheme="soft"><div class="wrap">
   <div class="vs-head">
     <div class="reveal">
@@ -507,6 +490,16 @@ def home():
     <p class="sub reveal">Certification prep suffers from learner drop-off. We build retrieval practice and short daily loops into our products so learners keep coming back.</p>
   </div>
   {engage_ui()}
+</div></section>
+<section class="sec vs-sec" id="architecture" data-scheme="white"><div class="wrap">
+  <div class="vs-head">
+    <div class="reveal">
+      <div class="eyebrow rule">Platform Architecture</div>
+      <h2 class="h2">Legacy test publishers vs. <i>the Oddly Sunny Engine.</i></h2>
+    </div>
+    <p class="sub reveal">Five capabilities separate a static question bank from regulatory learning infrastructure.</p>
+  </div>
+  <div class="vs-table">{compare_rows(None, "Legacy test publishers", "Oddly Sunny Engine")}</div>
 </div></section>
 
 <section class="closing e-close" data-scheme="green"><div class="wrap reveal">

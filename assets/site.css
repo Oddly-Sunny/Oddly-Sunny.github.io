@@ -1929,3 +1929,4 @@ h2.h2{text-wrap:balance}
   @keyframes flStep{0%,20%,100%{color:#CFDDD4;background:transparent}5%,14%{color:#FFFFFF;background:rgba(243,213,142,.08)}}
   @keyframes flBar{0%,20%,100%{opacity:0;transform:scaleY(.3)}5%,14%{opacity:1;transform:none}}
 }
+#expertise{padding-bottom:84px}@media(max-width:960px){#expertise{padding-bottom:56px}}
