@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=124">
+<link rel="stylesheet" href="/assets/site.css?v=125">
 </head>
 """
 
@@ -391,18 +391,14 @@ def proof_bar():
 VERTICALS = [("Mobility &amp; Transit", ["dmv-iq","drive-iq-canada"]),
              ("Aviation &amp; Marine", ["aviator-iq","mariner-iq"]),
              ("Civic &amp; Financial", ["citizen-pass","insurance-pass","airwaves-iq"])]
-def verticals():
-    def row(slug):
-        p = BY[slug]
-        return f'<a class="vt-app" href="/work/{slug}/"><img src="/assets/img/apps/{slug}.png" alt="" loading="lazy" width="36" height="36"><span><b>{p["name"]}</b><small>{p["host"]}</small></span>{ARROW_R}</a>'
-    return '<div class="vt-groups">' + "".join(f'<div class="vt-g reveal"><h3>{g}</h3>{"".join(row(s) for s in slugs)}</div>' for g, slugs in VERTICALS) + '</div>'
+def tile(slug):
+    p = BY[slug]
+    return f'''<a class="pt" href="/work/{slug}/"><img class="pimg" src="/assets/img/{p["img"]}?v=3" alt="{esc(p["alt"])}" loading="lazy">
+  <div class="cap"><div class="hd"><div><h3>{p["name"]}</h3><span>{p["host"]}</span></div></div>
+  <div class="more"><p>{esc(p["short"])}</p><div class="chips"><span>{esc(p["catlabel"])}</span><span>{platforms(p)}</span></div><span class="go">Explore {ARROW}</span></div></div></a>'''
 
-def devices():
-    return f"""<div class="dev reveal" aria-label="The same engine on web and mobile across three domains">
-  <div class="dev-lap"><div class="dev-bar"><i></i><i></i><i></i><span>dmv-iq.com</span></div><div class="dev-scr"><img src="/assets/img/shots/dmv-iq-d.jpg" alt="DMV IQ California practice hub on desktop" loading="lazy"></div></div>
-  <div class="dev-ph dev-ph1"><div class="dev-scr"><img src="/assets/img/shots/aviator-iq-m.jpg" alt="Aviator IQ on a phone" loading="lazy"></div><span>aviator-iq.com</span></div>
-  <div class="dev-ph dev-ph2"><div class="dev-scr"><img src="/assets/img/shots/insurance-pass-m.jpg" alt="Insurance Pass on a phone" loading="lazy"></div><span>insurance-pass.com</span></div>
-</div>"""
+def verticals():
+    return "".join(f'<div class="vt-g reveal"><h3>{g}</h3><div class="vt-row n{len(slugs)}">{"".join(tile(s) for s in slugs)}</div></div>' for g, slugs in VERTICALS)
 
 ENGAGE = [
  ("spark","Micro-Diagnostic Sprints","Rapid active-recall sessions structured to build cognitive speed under timed constraints."),
@@ -485,7 +481,7 @@ def home():
     <h2 class="h2">One core engine. <i>Seven high-stakes verticals.</i></h2>
     <p class="sub">The Oddly Sunny architecture decouples domain ingestion from pedagogical delivery, allowing immediate expansion into high-barrier regulatory markets:</p>
   </div>
-  <div class="vt-split">{verticals()}{devices()}</div>
+  <div class="vt-groups">{verticals()}</div>
 </div></section>
 
 <section class="sec" id="engagement" data-scheme="ember"><div class="wrap split play-split">
