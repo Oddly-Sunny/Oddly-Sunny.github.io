@@ -179,10 +179,10 @@ BY = {p["slug"]: p for p in PRODUCTS}
 FEATURED_ORDER = ["aviator-iq","citizen-pass","dmv-iq","drive-iq-canada","insurance-pass","airwaves-iq","mariner-iq"]
 
 CAPS = [
- ("book","Direct curriculum grounding","Every module links directly to current official manuals and statutory rules. If a concept, regulation, or legal threshold cannot cite primary source authority, it doesn't enter the platform."),
- ("check","Multi-model validation","Independent models continuously solve and cross-examine the curriculum blind. Any ambiguous reasoning, fragile logic, or conflicting interpretation is automatically flagged and rewritten."),
- ("chart","Official exam blueprinting","Subject distributions, passing standards, and scenario complexities are calibrated directly to current agency rubrics. Study sessions mirror the cognitive pacing of test day."),
- ("spark","Built for true recall, not pattern&#8209;matching","Distractor answers reflect genuine cognitive misconceptions rather than superficial giveaways. Passing our modules proves functional mastery of the rules, not just test-taking tricks."),
+ ("book","Direct Statutory Grounding","Every module binds deterministically to current official manuals and statutes. Scenarios lacking primary authority citations are automatically rejected at ingestion."),
+ ("check","Multi-Model Blind Validation","Independent secondary models solve curriculum content blind without answer keys, systematically flagging and eliminating ambiguous distractor logic."),
+ ("chart","Agency Blueprint Calibration","Topic distributions, scoring thresholds, and cognitive pacing are programmatically calibrated to match official state and federal testing rubrics."),
+ ("spark","Cognitive Distractor Engineering","Distractor options reflect verified human misconception models rather than superficial formatting giveaways, ensuring scores reflect functional mastery."),
 ]
 ICONS = {
  "book":'<path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/>',
@@ -260,8 +260,8 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Sora:wght@300;400;500&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=117">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=120">
 </head>
 """
 
@@ -282,24 +282,16 @@ def live_mark():
             '</g></g></svg>')
 
 def header():
-    feat = ["dmv-iq", "citizen-pass", "aviator-iq", "insurance-pass"]
-    def story(slug):
-        p = BY[slug]
-        return f'<a class="dd-story" href="/work/{slug}/"><q>{esc(STORIES[slug]["headline"])}</q><span class="dd-by"><img src="/assets/img/apps/{slug}.png" alt="" loading="lazy" width="22" height="22">{p["name"]}</span></a>'
-    more = "".join(f'<a href="/work/{x}/"><img src="/assets/img/apps/{x}.png" alt="" loading="lazy" width="22" height="22">{BY[x]["name"]}</a>' for x in FEATURED_ORDER if x not in feat)
-    items = f'<div class="dd-stories">{"".join(story(x) for x in feat)}</div><div class="dd-more">{more}<a class="dd-all" href="/#work">All stories {ARROW_R}</a></div>'
-    # phone menu: every brand as a tidy icon grid (desktop uses the story teasers above)
-    items += '<div class="dd-list">' + "".join(f'<a href="/work/{x}/"><img src="/assets/img/apps/{x}.png" alt="" loading="lazy" width="32" height="32"><span>{BY[x]["name"]}</span></a>' for x in FEATURED_ORDER) + '</div>'
     return f"""<body>
 <header class="hdr" data-scheme="green">
   <div class="wrap">
     <a href="/" class="brand" aria-label="oddly sunny home">{live_mark()}<span>oddly <b>sunny</b></span></a>
     <nav class="nav" aria-label="Main">
-      <div class="dd"><button type="button" aria-haspopup="true">Stories <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m2 3.500 3 3 3-3"/></svg></button>
-        <div class="dd-menu">{items}</div></div>
-      <a class="nav-sunny" href="/sunny/">{sunny_mascot(22, "sm")}Sunny<span class="nav-go">{ARROW_R}</span></a>
-      <a href="/#expertise">How we build<span class="nav-go">{ARROW_R}</span></a>
-      <a class="btn" href="/contact/">Say hello</a>
+      <a href="/#architecture">Platform Architecture<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/#verticals">Regulatory Verticals<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/#expertise">Verification Pipeline<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/sunny/">Proprietary AI (Sunny)<span class="nav-go">{ARROW_R}</span></a>
+      <a class="btn" href="/contact/">M&amp;A &amp; Partnership Inquiries</a>
     </nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
   </div>
@@ -309,7 +301,7 @@ def header():
 def footer(scheme="ember"):
     return f"""<footer class="ftr s" data-scheme="{scheme}">
   <div class="wrap ftr-row">
-    <div class="l">{mark("xs")}<span>oddly sunny llc</span></div>
+    <div class="l">{mark("xs")}<span>&copy; 2026 Oddly Sunny LLC. All rights reserved. Proprietary Learning Infrastructure.</span></div>
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
@@ -354,122 +346,154 @@ def hero_floats():
     wall = "".join(f'<div class="float f{i}" data-pool="{kinds[i]}"><img src="" alt=""></div>' for i in range(1, 7))
     return json.dumps(pools), wall
 
-def home():
-    F = [BY[s] for s in FEATURED_ORDER]
-    imgs, wall = hero_floats()
-    feats = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in CAPS)
-    steps = "".join(f'<div class="step reveal"><div><h3>{t}</h3><p>{d}</p></div><b>0{i+1}</b></div>' for i, (t, d) in enumerate(STEPS))
-    words = '<span class="word">everything</span> <span class="word">worth</span> <span class="word">building</span> <br> <span class="word accent">was</span> <span class="word accent">once</span> <span class="word accent">an</span> <span class="word odd">odd</span> <span class="word accent">idea</span> <span class="word accent">in</span> <span class="word accent">good</span> <span class="word accent">light.</span>'
-    def pt(slug):
-        p = BY[slug]
-        plat = platforms(p)
-        return f'''<a class="pt" href="/work/{slug}/"><img class="pimg" src="/assets/img/{p["img"]}?v=3" alt="{esc(p["alt"])}" loading="lazy">
-  <div class="cap"><div class="hd"><div><h3>{p["name"]}</h3><span>{p["host"]}</span></div></div>
-  <div class="more"><p>{esc(p["short"])}</p><div class="chips"><span>{esc(p["catlabel"])}</span><span>{plat}</span></div><span class="go">Explore {ARROW}</span></div></div></a>'''
-    bento = (f'<div class="brow">{pt("aviator-iq")}<div class="stack">{pt("citizen-pass")}{pt("dmv-iq")}</div></div>'
-             f'<div class="brow rev"><div class="stack">{pt("drive-iq-canada")}{pt("insurance-pass")}</div>{pt("airwaves-iq")}</div>'
-             f'<div class="brow">{pt("mariner-iq")}<a class="pt brand" href="/#expertise"><div class="brandbg" aria-hidden="true"><div class="mark xl"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div></div><div class="cap"><div class="hd"><div><h3>The Oddly Sunny Method</h3><span>How every brand is built</span></div></div><div class="more"><p>One proprietary, AI-powered method behind every brand: official sources, independent verification, real exam conditions.</p><span class="go">See our method {ARROW}</span></div></div></a></div>')
-    body = f"""
-<section class="hero" data-scheme="green" data-imgs='{imgs}'>
-  {wall}
-  <div class="wrap"><div class="copy">
-    <div class="mark hero-mark" id="heroMark"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div>
-    <h1>Modernizing how<br><i>the world learns.</i></h1>
-    <p class="lede">Oddly Sunny builds AI-powered learning that brings education up to date: personal, trustworthy, and designed for how people actually learn today.</p>
-    <div class="cta-row"><a class="btn" href="#work">See our work {ARROW}</a></div>
-  </div></div>
-  <a class="scroll-cue" href="#intro" aria-label="Scroll down"><svg viewBox="140 10 150 410" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M215 37V393"/><path d="M161.600 339.600 215 393l53.400-53.400"/></svg></a>
-</section>
-
-<section class="sec" id="intro" data-scheme="cream"><div class="wrap split">
-  <div class="reveal">
-    <div class="eyebrow rule">Who we are</div>
-    <h2 class="h2">We're oddly obsessed with <i>getting it right</i></h2>
-    <p class="sub">We build test prep with a proprietary AI method we developed in-house, so every question is generated, verified and kept fresh.</p>
-    <p class="body">Oddly Sunny is the company behind a family of learning brands. Each one starts from official sources and runs through the same method: questions grounded in source text, independently verified, and modeled on real exam conditions. One method, many exams.</p>
-    <div class="cta-row"><a class="btn" href="#work">Explore our work {ARROW}</a></div>
+# ------------------------------------------------------------------ enterprise homepage blocks
+# hero schematic: real sources -> four-stage pipeline -> a cited question node (sources and the NJ p. 80 cite are real)
+SOURCES = [("PDF","New Jersey Driver Manual"),("CFR","14 CFR Part 61"),("CFR","46 CFR Part 10"),("PDF","Texas CDL Handbook"),("GOV","USCIS civics test")]
+STAGES = ["Statutory grounding","Blind multi-model solve","Blueprint calibration","Distractor audit"]
+def schematic():
+    src = "".join(f'<li style="--i:{i}"><b>{k}</b><span>{esc(t)}</span></li>' for i, (k, t) in enumerate(SOURCES))
+    stg = "".join(f'<li style="--i:{i}"><i>{i+1:02d}</i><span>{esc(t)}</span><em aria-hidden="true"></em></li>' for i, t in enumerate(STAGES))
+    return f"""<figure class="sch" aria-label="Platform schematic: official sources are ingested, pass a four-stage verification pipeline and become cited question nodes">
+  <div class="sch-col sch-in"><div class="sch-h"><span>01</span>Ingest</div><ul>{src}</ul></div>
+  <div class="sch-wire sch-w1" aria-hidden="true"><i></i></div>
+  <div class="sch-col sch-mid"><div class="sch-h"><span>02</span>Verify</div><ol>{stg}</ol></div>
+  <div class="sch-col sch-out"><div class="sch-h"><span>03</span>Deploy</div>
+    <div class="sch-node">
+      <small>Question node</small>
+      <p>An ice cream truck has its stop signal arm out. What must a New Jersey driver do before passing?</p>
+      <code>cite: NJ Driver Manual &middot; p. 80</code>
+      <div class="sch-ok"><b>4/4</b> checks passed</div>
+    </div>
   </div>
-  <div class="pic reveal"><img src="/assets/img/brand-gold-foil-wide.jpg" alt="Oddly Sunny gold foil logo on navy paper in the sun" loading="lazy"></div>
+</figure>"""
+
+PROOF = [("7","Regulated Commercial Verticals"),("100%","Grounded to Primary Statutory Sources"),("4-Stage","Automated Verification Pipeline"),("0","Hallucination Tolerance Architecture")]
+def proof_bar():
+    return '<div class="proof">' + "".join(f'<div class="proof-i reveal"><b>{esc(n)}</b><span>{esc(t)}</span></div>' for n, t in PROOF) + '</div>'
+
+VERTICALS = [("Mobility &amp; Transit", ["dmv-iq","drive-iq-canada"]),
+             ("Aviation &amp; Marine", ["aviator-iq","mariner-iq"]),
+             ("Civic &amp; Financial", ["citizen-pass","insurance-pass","airwaves-iq"])]
+def verticals():
+    def row(slug):
+        p = BY[slug]
+        return f'<a class="vt-app" href="/work/{slug}/"><img src="/assets/img/apps/{slug}.png" alt="" loading="lazy" width="36" height="36"><span><b>{p["name"]}</b><small>{p["host"]}</small></span>{ARROW_R}</a>'
+    return '<div class="vt-groups">' + "".join(f'<div class="vt-g reveal"><h3>{g}</h3>{"".join(row(s) for s in slugs)}</div>' for g, slugs in VERTICALS) + '</div>'
+
+def devices():
+    return f"""<div class="dev reveal" aria-label="The same engine on web and mobile across three domains">
+  <div class="dev-lap"><div class="dev-bar"><i></i><i></i><i></i><span>dmv-iq.com</span></div><div class="dev-scr"><img src="/assets/img/shots/dmv-iq-d.jpg" alt="DMV IQ California practice hub on desktop" loading="lazy"></div></div>
+  <div class="dev-ph dev-ph1"><div class="dev-scr"><img src="/assets/img/shots/aviator-iq-m.jpg" alt="Aviator IQ on a phone" loading="lazy"></div><span>aviator-iq.com</span></div>
+  <div class="dev-ph dev-ph2"><div class="dev-scr"><img src="/assets/img/shots/insurance-pass-m.jpg" alt="Insurance Pass on a phone" loading="lazy"></div><span>insurance-pass.com</span></div>
+</div>"""
+
+ENGAGE = [
+ ("spark","Micro-Diagnostic Sprints","Rapid active-recall sessions structured to build cognitive speed under timed constraints."),
+ ("route","Spaced-Repetition Deficit Scheduling","Automated re-engagement algorithms that cycle difficult regulatory edge cases back into study sessions based on forget-curve modeling."),
+ ("chart","Full-Fidelity Exam Simulation","Diagnostic sandbox mirroring official testing center stress parameters, interfaces, and scoring thresholds."),
+]
+def engage_ui():
+    mastery = [("Intersections",86),("Pedestrians",72),("Emergency vehicles",41)]
+    queue = [("Emergency vehicles","due now"),("School bus stops","in 1 day"),("Railroad crossings","in 3 days"),("Work zones","in 7 days")]
+    m = "".join(f'<li><span>{t}</span><b>{v}%</b><i style="--w:{v}%"></i></li>' for t, v in mastery)
+    q = "".join(f'<li><span>{t}</span><em>{d}</em></li>' for t, d in queue)
+    return f"""<div class="eg reveal" aria-label="Example learner session">
+  <div class="eg-top"><span class="eg-tag">Sprint 3 of 5 &middot; Right of way</span><span class="eg-clock"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15"/><circle class="eg-run" cx="18" cy="18" r="15"/></svg><b>0:42</b></span></div>
+  <div class="eg-q"><small>Active recall</small><p>Two vehicles reach a four-way stop at the same time. Which one goes first?</p>
+    <div class="eg-in">The vehicle on the right<span class="eg-car"></span></div>
+    <div class="eg-res"><b>Correct</b> &middot; cite: state driver manual, right of way</div></div>
+  <div class="eg-grid">
+    <div class="eg-card"><small>Topic mastery</small><ul class="eg-m">{m}</ul></div>
+    <div class="eg-card"><small>Review queue</small><ul class="eg-qu">{q}</ul></div>
+  </div>
+  <div class="eg-sim"><small>Exam simulation</small><span>California knowledge test &middot; 46 questions &middot; pass at 38</span><b>Ready 82%</b></div>
+</div>"""
+
+SUNNY_AVATAR = '<svg class="sn-av" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="snav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3D27A"/><stop offset="1" stop-color="#C9922E"/></linearGradient></defs><g fill="url(#snav)"><circle cx="32" cy="15" r="11"/><circle cx="47" cy="23" r="11"/><circle cx="47" cy="41" r="11"/><circle cx="32" cy="49" r="11"/><circle cx="17" cy="41" r="11"/><circle cx="17" cy="23" r="11"/><circle cx="32" cy="32" r="15"/></g><circle cx="26.500" cy="32" r="2.600" fill="#0B1F16"/><circle cx="37.500" cy="32" r="2.600" fill="#0B1F16"/></svg>'
+
+def home():
+    feats = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in CAPS)
+    engage = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in ENGAGE)
+    body = f"""
+<section class="e-hero" data-scheme="green"><div class="wrap">
+  <div class="e-hero-grid">
+    <div class="e-copy">
+      <div class="pill">The AI infrastructure for high-stakes exams</div>
+      <h1>Scaling high-stakes licensing through <i>verified machine intelligence.</i></h1>
+      <p class="lede">Oddly Sunny operates a proprietary, AI-native platform that ingests complex regulatory frameworks, legal statutes, and government manuals into adaptive learning ecosystems. Our automated architecture powers seven commercial verticals across mobility, aviation, maritime, and citizenship.</p>
+      <div class="cta-row"><a class="btn" href="#architecture">Explore the Platform Architecture {ARROW_R}</a><a class="btn ghost" href="#verticals">Review Commercial Verticals</a></div>
+    </div>
+    {schematic()}
+  </div>
+  {proof_bar()}
 </div></section>
 
-<section class="sec vs-sec" id="different" data-scheme="cream"><div class="wrap">
+<section class="sec vs-sec" id="architecture" data-scheme="cream"><div class="wrap">
   <div class="vs-head">
     <div class="reveal">
-      <div class="eyebrow rule">Why it's different</div>
-      <h2 class="h2">Learning is stuck in the past. <i>We built what comes next.</i></h2>
+      <div class="eyebrow rule">Platform Architecture</div>
+      <h2 class="h2">Legacy test publishers vs. <i>the Oddly Sunny Engine.</i></h2>
     </div>
-    <p class="sub reveal">Same thick handbooks, same static quizzes, same guesswork. It's time it caught up.</p>
+    <p class="sub reveal">Five capabilities separate a static question bank from regulatory learning infrastructure.</p>
   </div>
-  <div class="vs-table">{compare_rows()}</div>
+  <div class="vs-table">{compare_rows(None, "Legacy test publishers", "Oddly Sunny Engine")}</div>
 </div></section>
 
 <section class="sec ai-sec" id="ai-tools" data-scheme="cream"><div class="wrap">
   <div class="vs-head">
     <div class="reveal">
-      <div class="eyebrow rule">Meet Sunny</div>
-      <h2 class="h2">AI that studies <i>with you</i> <span class="ai-spark">{SPARK}</span></h2>
+      <div class="eyebrow rule">Proprietary AI (Sunny)</div>
+      <h2 class="h2">Generative tutoring, <i>bound to the source.</i> <span class="ai-spark">{SPARK}</span></h2>
     </div>
-    <p class="sub reveal">Sunny, our AI study coach, sits next to every question. It answers from the official source, builds practice around you and keeps you on pace for test day.</p>
+    <p class="sub reveal">Sunny is our in-house AI tutor. It answers learner questions only from the official source for that exam, generates targeted practice and paces candidates to their exam date.</p>
   </div>
   <div class="ai-grid">{ai_cards()}</div>
-  <a class="ai-more reveal" href="/sunny/">See Sunny in action {ARROW_R}</a>
+  <a class="ai-more reveal" href="/sunny/">Inspect Sunny in production {ARROW_R}</a>
 </div></section>
-
-<section class="sec" id="work" data-scheme="purple"><div class="wrap center">
-  <div class="eyebrow reveal">Our portfolio</div>
-  <h2 class="h2 reveal">Learning brands, <i>all oddly good</i></h2>
-  <div class="bento reveal">{bento}</div>
-  </div></section>
 
 <section id="expertise" data-scheme="tan"><div class="exp">
   <div class="l">
-    <div class="eyebrow rule">How we build</div>
+    <div class="eyebrow rule">Verification Pipeline</div>
     <h2 class="h2">Smart enough to teach, <i>disciplined enough to trust.</i></h2>
-    <p class="sub">AI helps us break down dense official curricula into active recall exercises and adaptive practice. We pair our adaptive algorithms with a four-stage audit pipeline that tests the logic, distractor choices, and legal facts before you ever see them.</p>
+    <p class="sub">Generative models make study sessions interactive, but unconstrained LLMs cannot be trusted with regulatory certification. We pair adaptive algorithms with an automated four-stage audit pipeline that validates source authority, distractor logic, and psychometric fidelity before scenarios reach learners.</p>
     <div class="feats">{feats}</div>
-    <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Study with Sunny: handbook&#8209;grounded guidance, zero hallucinations.</h3><p>Ask questions in plain English. Sunny breaks down complex rules using only current state regulations, citing the exact chapter and page every time.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
+    <a class="sn-link sn-ent reveal" href="/sunny/"><span class="sn-glass">{SUNNY_AVATAR}</span><div><span class="sn-kicker">The Sunny Engine&trade;: Autonomous Socratic Regulatory Agent</span><h3>Study with Sunny: handbook&#8209;grounded guidance, zero hallucinations.</h3><p>Built specifically for high-stakes certification, Sunny breaks down complex rules using only current official regulations, returning the precise chapter, section, and page reference for every single explanation.</p><code class="sn-term"><b>&gt; cite</b> Texas CDL Handbook (DL-7C) &middot; Section 9 &middot; p. 71</code></div><span class="go">Inspect Sunny Citation Engine {ARROW_R}</span></a>
   </div>
   <div class="r"><canvas class="mesh" aria-hidden="true"></canvas></div>
 </div></section>
 
-<section class="sec" id="play" data-scheme="ember"><div class="wrap split play-split">
-  <div>
-    <div class="eyebrow rule reveal">Play by design</div>
-    <h2 class="h2 reveal">Learning that <i>feels like play</i></h2>
-    <p class="sub reveal">Studying sticks when it doesn't feel like studying. So we turn the real questions into games worth coming back to.</p>
-    <div class="feats one">
-      <div class="feat reveal"><button type="button" class="ic play-ic" data-play="xp" aria-label="Quick games, tap to play">{icon("spark")}</button><h3>Quick games, real questions</h3><p>Short rounds built from the official question bank, each with levels, a timer and a few strikes.</p></div>
-      <div class="feat reveal"><button type="button" class="ic play-ic" data-play="daily" aria-label="Daily challenges, tap to play">{icon("book")}</button><h3>Daily challenges</h3><p>Fresh challenges every day give a reason to come back, and a little momentum every time you do.</p></div>
-      <div class="feat reveal"><button type="button" class="ic play-ic" data-play="ready" aria-label="Exam simulator, tap to play">{icon("chart")}</button><h3>An exam simulator for the big day</h3><p>When you're close, a full mock test mirrors the real one, so the first time you see that format isn't test day.</p></div>
-    </div>
+<section class="sec" id="verticals" data-scheme="purple"><div class="wrap">
+  <div class="vt-head reveal">
+    <div class="eyebrow rule">Proven enterprise horizontal expansion</div>
+    <h2 class="h2">One core engine. <i>Seven high-stakes verticals.</i></h2>
+    <p class="sub">The Oddly Sunny architecture decouples domain ingestion from pedagogical delivery, allowing immediate expansion into high-barrier regulatory markets:</p>
   </div>
-  <div class="pg-wrap reveal">
-    <div class="pg" data-pg>
-      <div class="pg-tabs" role="tablist" aria-label="Games">
-        <button type="button" role="tab" class="on" data-game="match">Sign Match</button>
-        <button type="button" role="tab" data-game="flash">Flash Cards</button>
-        <button type="button" role="tab" data-game="fact">Fact Check</button>
-      </div>
-      <div class="pg-hud">
-        <span class="pg-hearts" aria-label="Hearts left">{HEART}{HEART}{HEART}</span>
-        <span class="pg-prog"><i></i></span>
-        <span class="pg-streak" aria-live="polite"></span>
-        <span class="pg-xp"><b>0</b> XP</span>
-      </div>
-      <div class="pg-stage" aria-live="polite"></div>
-    </div>
-    <p class="play-note">A sample round. In our apps, every question comes from the official material for your own exam.</p>
-  </div>
-  <script type="application/json" id="pg-data">{PLAY_JSON}</script>
+  <div class="vt-split">{verticals()}{devices()}</div>
 </div></section>
 
+<section class="sec" id="engagement" data-scheme="ember"><div class="wrap split play-split">
+  <div>
+    <div class="eyebrow rule reveal">Engagement architecture &amp; retention</div>
+    <h2 class="h2 reveal">Behavioral mechanics that drive <i>daily learner retention.</i></h2>
+    <p class="sub reveal">Certification prep suffers from industry-wide learner drop-off. We integrate retrieval practice and spaced repetition into rapid diagnostic loops that drive industry-leading time-on-platform and completion rates.</p>
+    <div class="feats one">{engage}</div>
+  </div>
+  {engage_ui()}
+</div></section>
+
+<section class="closing e-close" data-scheme="green"><div class="wrap reveal">
+  <div class="eyebrow">Corporate development</div>
+  <h2 class="h2" style="margin-top:16px">Building the next generation of <i>verified learning infrastructure.</i></h2>
+  <p class="body">Explore acquisition opportunities, platform licensing, and enterprise integrations.</p>
+  <div class="cta-row"><a class="btn" href="mailto:{MAIL}?subject=Corporate%20development">Contact Corporate Development {ARROW_R}</a></div>
+</div></section>
 """
     org = {"@context": "https://schema.org", "@type": "Organization", "name": "Oddly Sunny", "legalName": "Oddly Sunny LLC", "url": SITE + "/", "logo": SITE + "/apple-touch-icon.png",
-           "description": "Oddly Sunny builds and operates AI-powered learning brands that modernize education."}
+           "description": "Oddly Sunny operates a proprietary, AI-native learning infrastructure platform for high-stakes licensing and certification exams."}
     site = {"@context": "https://schema.org", "@type": "WebSite", "name": "Oddly Sunny", "url": SITE + "/"}
-    return head_html("Oddly Sunny | Modernizing Education with AI-Powered Learning",
-        "Oddly Sunny modernizes education with AI-powered learning brands built from official sources: Aviator IQ, Citizen Pass, DMV IQ, Drive IQ Canada and more.",
-        "/", "home.jpg", [org, site]) + header().replace('class="hdr"', 'class="hdr brand-hidden away" data-away') + body + footer()
+    return head_html("Oddly Sunny | AI Infrastructure for High-Stakes Licensing Exams",
+        "Oddly Sunny operates a proprietary, AI-native platform that turns regulatory frameworks, statutes and government manuals into verified, adaptive learning across seven commercial verticals.",
+        "/", "home.jpg", [org, site]) + header() + body + footer()
 
 FLOAT_ORDER = ["cp-smile","study-library","cp-dog","study-desk","cp-denim","study-woman","cp-hoodie","cp-blonde","airwaves-man"]
 FLOAT_POS = {"cp-hoodie":"18%","cp-blonde":"82%","cp-smile":"40%"}
@@ -706,12 +730,11 @@ def md_lite(t):
     return "".join(out)
 
 COMPARE = [
- ("spark","Personalized to you","Learns what you know and adapts as you go, so every learner gets their own path","The same fixed path for everyone"),
- ("route","What comes next","Your weak spots surface first, and the next step is tailored to you","Work through it in order and hope it sticks"),
- ("chart","Progress reports","Progress by topic, showing what you've mastered, what's left and when you're ready","A single score, and a hope"),
- ("chat","When you're stuck","Ask Sunny, who answers from the official source and shows where","A static explanation, or a chatbot that may guess"),
- ("book","Where it comes from","Built from official sources, traceable to the page and updated when the rules change","Written once, with unclear sources, rarely updated"),
- ("globe","Where you are","Built for your state, province or country","One generic version for everyone"),
+ ("book","Curriculum Ingestion","Automated ingestion of statutory changes and agency handbooks with zero-latency deployment.","Manual, multi-month editorial cycles per jurisdiction."),
+ ("spark","Pedagogical Adaptation","Real-time active recall engines that dynamically isolate individual learner cognitive deficits.","Static multiple-choice banks and linear, one-size-fits-all pathways."),
+ ("check","Factual Integrity","Multi-model blind arbitration ensuring deterministic statutory grounding with page-level citations.","Unvetted LLM hallucinations or outdated printed answer keys."),
+ ("chart","Predictive Readiness","Multi-variable psychometric modeling calibrated to official agency passing rubrics.","Flat completion percentages and uncalibrated scores."),
+ ("globe","Horizontal Scalability","Reusable modular ingestion architecture deployable to new state, federal, or international domains in weeks.","Prohibitive cost and editorial overhead to expand across regional jurisdictions."),
 ]
 
 SPARK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 2.500c.5 4.300 2.700 6.500 7 7-4.300.5-6.500 2.700-7 7-.5-4.300-2.700-6.500-7-7 4.300-.5 6.500-2.700 7-7zm8 10c.3 2.300 1.300 3.300 3.500 3.500-2.200.3-3.200 1.300-3.500 3.500-.3-2.200-1.300-3.200-3.500-3.500 2.200-.2 3.200-1.200 3.500-3.500z"/></svg>'
@@ -723,21 +746,21 @@ def ai_cards():
      ("ask", "Ask Sunny", f'''<div class="ai-mock"><b class="ai-mt">Ask Sunny</b>
         <div class="ai-q">Why is B wrong?</div>
         <div class="ai-dots" aria-hidden="true"><i></i><i></i><i></i></div>
-        <div class="ai-a">You must stop first, then pass at no more than 15 mph.</div>
-        <span class="ai-cite">{icon("book")}p. 80 · Driver Manual</span></div>''', "Answers you can check",
-      "Ask anything, in your own words. Sunny answers only from the official manual, shows the page it used and checks every number before you see it."),
+        <div class="ai-a">Stop first, then pass at no more than 15 mph.</div>
+        <span class="ai-cite">{icon("book")}p. 80 · Driver Manual</span></div>''', "Answers learners can verify",
+      "Learners ask in plain language. Sunny answers only from the official manual, returns the page it used and checks every number before it is displayed."),
      ("quiz", "Generate quiz", f'''<div class="ai-mock"><b class="ai-mt">Quiz generator</b>
         <div class="ai-sel">Right of way<span>▾</span></div>
-        <div class="ai-list"><small>Your weak spots</small><span>{tick}Intersections</span><span>{tick}Pedestrians</span><span>{tick}Emergency vehicles</span></div></div>''', "Quizzes on demand",
-      "Turn any topic into a fresh quiz in seconds, or let Sunny pick the ones you keep missing. Every question comes from the official source."),
+        <div class="ai-list"><small>Detected weak spots</small><span>{tick}Intersections</span><span>{tick}Pedestrians</span><span>{tick}Emergency vehicles</span></div></div>''', "Quizzes generated on demand",
+      "Any topic becomes a fresh quiz in seconds, or Sunny targets the topics a learner keeps missing. Every question traces to the official source."),
      ("plan", "Build my plan", f'''<div class="ai-mock"><b class="ai-mt">Study plan</b>
         <div class="ai-row"><small>Test date</small><span>Nov 14</span></div>
         <div class="ai-row"><small>Time per day</small><span>20 min</span></div>
-        <div class="ai-bar"><i style="width:62%"></i></div><small class="ai-note">62% ready · on track</small></div>''', "A plan paced to test day",
-      "Tell Sunny when your test is. It builds a plan around the date, adjusts as you improve and tells you honestly when you're ready."),
+        <div class="ai-bar"><i style="width:62%"></i></div><small class="ai-note">62% ready · on track</small></div>''', "Plans paced to the exam date",
+      "Candidates set a test date. Sunny builds a plan around it, adjusts as performance improves and reports readiness against the real pass mark."),
     ]
     return "".join(f'''<article class="ai-card reveal" style="--d:{i * 110}ms">
-      <div class="ai-vis"><img src="/assets/img/ai/{img}.jpg" alt="" loading="lazy" width="900" height="720">{mock}{btn(b)}</div>
+      <div class="ai-vis ai-vis-ui" data-k="{img}">{mock}{btn(b)}</div>
       <h3>{esc(t)}</h3><p>{esc(d)}</p>
     </article>''' for i, (img, b, mock, t, d) in enumerate(mocks))
 

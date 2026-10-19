@@ -60,3 +60,8 @@
 
 ## 2026-10-19 How we build copy, LIVE
 - Owner copy for the "How we build" headline + subhead, the four CAPS cards and the Sunny banner (`sn-link`). Non-breaking hyphens in "pattern-matching" and "handbook-grounded". Copy contains absolute claims ("zero hallucinations", "every time", "proves functional mastery"); owner wrote it.
+
+## 2026-10-19 enterprise repositioning, LOCAL ONLY (branch enterprise-positioning, NOT deployed)
+- Homepage rebuilt per owner brief: corporate nav (shared header), hero + platform schematic + proof bar, legacy-vs-engine matrix, Sunny tool cards without lifestyle photos, four-pillar pipeline, Sunny Engine banner (glass avatar + real DL-7C cite), verticals + device mockup (new phone shots `assets/img/shots/*-m.jpg`), engagement UI mock, corporate closing, footer legal line. Inter replaces Sora. CSS `?v=120`.
+- Corrected from the brief: citizen-pass.com (brief said citizenpass.com); cite badge uses a real Sunny citation instead of "USC Title 46 § 10.205".
+- Waiting on owner: approve deploy; decide on unverified claims (zero-latency ingestion, industry-leading retention, 100%/0 proof stats, forget-curve scheduling, chapter+section+page on every explanation).
