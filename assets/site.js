@@ -656,3 +656,28 @@
   }, { threshold: 0.55 });
   io.observe(st);
 })();
+
+/* Sunny mascots marked .follow look toward the mouse */
+(function () {
+  var ms = Array.prototype.slice.call(document.querySelectorAll('.sn-mascot.follow'));
+  if (!ms.length || !window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var x = 0, y = 0, raf = 0;
+  function update() {
+    raf = 0;
+    ms.forEach(function (m) {
+      var r = m.getBoundingClientRect(), dx = x - (r.left + r.width / 2), dy = y - (r.top + r.height / 2);
+      var d = Math.sqrt(dx * dx + dy * dy) || 1, k = Math.min(1, d / 260), ux = dx / d * k, uy = dy / d * k;
+      m.style.setProperty('--ex', (ux * 38).toFixed(1) + '%'); m.style.setProperty('--ey', (uy * 32).toFixed(1) + '%');
+      m.style.setProperty('--fx', (ux * 6).toFixed(1) + '%'); m.style.setProperty('--fy', (uy * 4).toFixed(1) + '%');
+      m.style.setProperty('--ry', (ux * 18).toFixed(1) + 'deg'); m.style.setProperty('--rx', (-uy * 12).toFixed(1) + 'deg');
+      m.classList.add('tracking');
+    });
+  }
+  window.addEventListener('pointermove', function (e) {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(update);
+  }, { passive: true });
+  document.documentElement.addEventListener('mouseleave', function () {
+    ms.forEach(function (m) { m.classList.remove('tracking'); m.style.removeProperty('--ex'); m.style.removeProperty('--ey'); });
+  });
+})();

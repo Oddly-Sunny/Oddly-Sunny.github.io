@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=133">
+<link rel="stylesheet" href="/assets/site.css?v=136">
 </head>
 """
 
@@ -306,7 +306,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=45"></script>
+<script src="/assets/site.js?v=46"></script>
 </body>
 </html>
 """
@@ -381,10 +381,10 @@ def schematic():
 
 def collage():
     return f"""<figure class="hx" aria-label="Learners studying, with a readiness score and a verified Sunny citation">
-  <div class="hx-p hx-p1"><img src="/assets/img/ai/ask.jpg" alt="A learner studying with a handbook in a quiet library" width="900" height="720"></div>
+  <div class="hx-p hx-p1"><img src="/assets/img/wall/cp-hoodie.jpg" alt="A learner studying at a laptop at home" width="1100" height="614"></div>
   <div class="hx-p hx-p2"><img src="/assets/img/personal-loop.jpg" alt="A learner studying on her phone outdoors" width="640" height="800" loading="lazy"></div>
   <div class="hx-b hx-b1"><span class="hx-mono"><i></i>Readiness 86% &middot; on track</span><small>Calibrated to the official pass mark</small></div>
-  <div class="hx-b hx-b2"><span class="hx-em">{SUNNY_AVATAR}</span><span><b>Sunny AI: Statutory citation verified</b><code>NJ Driver Manual &middot; p. 80 &middot; Zero Hallucination</code></span></div>
+  <div class="hx-b hx-b2"><span class="hx-em">{sunny_mascot(30, "follow")}</span><span><b>Sunny AI: Statutory citation verified</b><code>NJ Driver Manual &middot; p. 80 &middot; Zero Hallucination</code></span></div>
 </figure>"""
 
 PROOF = [("7","Regulated Commercial Verticals"),("100%","Grounded to Primary Statutory Sources"),("4-Stage","Automated Verification Pipeline"),("0","Hallucination Tolerance Architecture")]
@@ -425,7 +425,6 @@ def engage_ui():
   <div class="eg-sim"><small>Exam simulation</small><span>California knowledge test &middot; 46 questions &middot; pass at 38</span><b>Ready 82%</b></div>
 </div>"""
 
-SUNNY_AVATAR = '<svg class="sn-av" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="snav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3D27A"/><stop offset="1" stop-color="#C9922E"/></linearGradient></defs><g fill="url(#snav)"><circle cx="32" cy="15" r="11"/><circle cx="47" cy="23" r="11"/><circle cx="47" cy="41" r="11"/><circle cx="32" cy="49" r="11"/><circle cx="17" cy="41" r="11"/><circle cx="17" cy="23" r="11"/><circle cx="32" cy="32" r="15"/></g><circle cx="26.500" cy="32" r="2.600" fill="#0B1F16"/><circle cx="37.500" cy="32" r="2.600" fill="#0B1F16"/></svg>'
 
 def home():
     feats = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in CAPS)
@@ -484,7 +483,7 @@ def home():
     <h2 class="h2">Smart enough to teach, <i>disciplined enough to trust.</i></h2>
     <p class="sub">Generative models make study sessions interactive, but unconstrained LLMs cannot be trusted with regulatory certification. We pair adaptive algorithms with an automated four-stage audit pipeline that validates source authority, distractor logic, and psychometric fidelity before scenarios reach learners.</p>
     <div class="feats">{feats}</div>
-    <a class="sn-link sn-ent reveal" href="/sunny/"><span class="sn-glass">{SUNNY_AVATAR}</span><div><span class="sn-kicker">The Sunny Engine&trade;</span><h3>Handbook&#8209;grounded guidance, zero hallucinations.</h3><p>Answers only from current official regulations, with the exact page cited.</p></div><span class="go">Inspect the citation engine {ARROW_R}</span></a>
+    <a class="sn-link sn-ent reveal" href="/sunny/">{sunny_mascot(60, "follow")}<div><span class="sn-kicker">The Sunny Engine&trade;</span><h3>Handbook&#8209;grounded guidance, zero hallucinations.</h3><p>Answers only from current official regulations, with the exact page cited.</p></div><span class="go">Inspect the citation engine {ARROW_R}</span></a>
   </div>
   <div class="r exp-vid"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/personal-loop.jpg" aria-label="A learner using her phone outdoors in soft sunlight"><source src="/assets/img/personal-loop.webm" type="video/webm"><source src="/assets/img/personal-loop.mp4" type="video/mp4"></video></div>
 </div></section>
@@ -509,10 +508,10 @@ def home():
 </div></section>
 
 <section class="closing e-close" data-scheme="green"><div class="wrap reveal">
-  <div class="eyebrow">Corporate development</div>
-  <h2 class="h2" style="margin-top:16px">Building the next generation of <i>verified learning infrastructure.</i></h2>
-  <p class="body">Explore acquisition opportunities, platform licensing, and enterprise integrations.</p>
-  <div class="cta-row"><a class="btn" href="mailto:{MAIL}?subject=Corporate%20development">Contact Corporate Development {ARROW_R}</a></div>
+  <div class="eyebrow">Contact</div>
+  <h2 class="h2" style="margin-top:16px">Get in touch. <i>We read every message.</i></h2>
+  <p class="body">Partnerships, licensing, press or a question about one of our brands: write to us and the right person will reply.</p>
+  <div class="cta-row"><a class="btn" href="/contact/">Contact us {ARROW_R}</a></div>
 </div></section>
 """
     org = {"@context": "https://schema.org", "@type": "Organization", "name": "Oddly Sunny", "legalName": "Oddly Sunny LLC", "url": SITE + "/", "logo": SITE + "/apple-touch-icon.png",
@@ -787,7 +786,7 @@ def ai_cards():
       "Candidates set a test date. Sunny builds a plan around it, adjusts as performance improves and reports readiness against the real pass mark."),
     ]
     return "".join(f'''<article class="ai-card reveal" style="--d:{i * 110}ms">
-      <div class="ai-vis ai-vis-ui" data-k="{img}">{mock}{btn(b)}</div>
+      <div class="ai-vis"><img src="/assets/img/ai/{img}.jpg" alt="" loading="lazy" width="900" height="720">{mock}{btn(b)}</div>
       <h3>{esc(t)}</h3><p>{esc(d)}</p>
     </article>''' for i, (img, b, mock, t, d) in enumerate(mocks))
 
