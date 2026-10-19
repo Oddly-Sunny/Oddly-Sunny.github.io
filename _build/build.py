@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=130">
+<link rel="stylesheet" href="/assets/site.css?v=131">
 </head>
 """
 
@@ -465,7 +465,7 @@ def home():
     <h2 class="h2">Smart enough to teach, <i>disciplined enough to trust.</i></h2>
     <p class="sub">Generative models make study sessions interactive, but unconstrained LLMs cannot be trusted with regulatory certification. We pair adaptive algorithms with an automated four-stage audit pipeline that validates source authority, distractor logic, and psychometric fidelity before scenarios reach learners.</p>
     <div class="feats">{feats}</div>
-    <a class="sn-link sn-ent reveal" href="/sunny/"><span class="sn-glass">{SUNNY_AVATAR}</span><div><span class="sn-kicker">The Sunny Engine&trade;</span><h3>Handbook&#8209;grounded guidance, zero hallucinations.</h3><p>Answers only from current official regulations, with the exact page cited.</p><code class="sn-term"><b>&gt; cite</b> TX CDL Handbook &middot; &sect;9 &middot; p. 71</code></div><span class="go">Inspect the citation engine {ARROW_R}</span></a>
+    <a class="sn-link sn-ent reveal" href="/sunny/"><span class="sn-glass">{SUNNY_AVATAR}</span><div><span class="sn-kicker">The Sunny Engine&trade;</span><h3>Handbook&#8209;grounded guidance, zero hallucinations.</h3><p>Answers only from current official regulations, with the exact page cited.</p></div><span class="go">Inspect the citation engine {ARROW_R}</span></a>
   </div>
   <div class="r exp-vid"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/personal-loop.jpg" aria-label="A learner using her phone outdoors in soft sunlight"><source src="/assets/img/personal-loop.webm" type="video/webm"><source src="/assets/img/personal-loop.mp4" type="video/mp4"></video></div>
 </div></section>
