@@ -118,3 +118,6 @@
 ## 2026-10-19 Drive IQ Canada app captures: PAUSED (owner)
 - A screenshot-mode port lives on drive-iq-canada-app branch `app-shots` (worktree `~/Projects/drive-iq-canada-app-shots`, last commit is a WIP; never merged to main). It produced 16 UNREVIEWED files in `~/Projects/drive-iq-canada-app-shots/marketing-captures/` (challenges.jpg + sprint/fact/flash/match/numbers .jpg/.mp4/.webm).
 - To ship: look at every file, then copy to `assets/img/games/drive-iq-canada/` and rebuild; `games_block()` renders the Drive IQ CA games section automatically once `challenges.jpg` is there. Merging `app-shots` is the app owner's call (the 1.1.0 store screenshot plan also wants a screenshot mode).
+
+## 2026-10-19 mobile engine-card sheen fix, LIVE (commit 508d208)
+- Phones: the gold sheen on the "Oddly Sunny Engine" card ran as a strip across the top because the mobile connector line reused `.fl-hub::before` (the sheen layer). Connector moved to `.fl-hub::after`; CSS `?v=193`. Checked at 390px in headless Chrome. Next step: none.
