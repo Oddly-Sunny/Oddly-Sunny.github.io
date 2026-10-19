@@ -14,6 +14,7 @@ Static site on GitHub Pages (push `main` to deploy). Edtech-studio redesign (Oct
 - Contact form posts to the Cloud Run service `oddlysunny-contact` (project dmv-iq, us-central1; source in `_contact-service/`, key in Secret Manager `oddlysunny-resend-key`). Redeploy: `cd _contact-service && gcloud run deploy oddlysunny-contact --project dmv-iq --region us-central1 --source .` (set CLOUDSDK_PYTHON=/opt/homebrew/bin/python3.12).
 - Homepage games (Play section) run from `assets/site.js` (search "playable mini games"); their data is `PLAY_JSON` in build.py, sign art in `assets/img/signs/` (real MUTCD SVGs from dmviq-website). Only use facts true in every state.
 - /sunny demo cards: `SUNNY_WIDGET_CASES` + `sunny_widget()` in build.py are written examples of Sunny's real card types (quiz, course, progress); `sunny_examples.json` holds the real transcripts.
-- Product page screenshots: recapture with `_shots/` (see its README); Pro + seeded progress on the live sites.
+- Product page screenshots: recapture with `_shots/` (see its README); Pro + seeded progress on the live sites. Configs can `clicks` buttons by text (Drive IQ CA opens Sunny and asks a starter question: the reply is live output, so it changes per run).
+- Product page games section: `games_block(p)` + `GAME_SETS` in build.py; clips per product in `assets/img/games/` (DMV IQ) or `assets/img/games/<slug>/`.
 - Header menu is "Stories" (story headlines from stories.py, app icons in `assets/img/apps/`). Keep the dropdown light.
 - Git gotcha: a sync tool once created `.git/refs/heads/main (1)` and broke `git fetch`; move such files out of `.git`.

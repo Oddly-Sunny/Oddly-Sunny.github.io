@@ -92,3 +92,9 @@
 - Homepage hero: as you scroll down, the floating photos shrink, drift outward from the centre, blur and fade; the headline block blurs, fades and lifts. `site.js` "hero: on scroll down" block (standalone `translate`/`scale` so it never fights the `.in` swap transition); off under reduced motion. JS `?v=51`.
 - Checked on desktop Chrome at localhost: effect runs, no console errors. Not checked on a real phone.
 - Next step: owner review on localhost:8765, then `git push` to deploy.
+
+## 2026-10-19 Drive IQ Canada page: Sunny shot + coach section (committed)
+- New site shot: live driveiqcanada.com Ontario page with Sunny docked, a real production answer to "What's on my test?" (cites MTO + the handbook). `_shots/capture.mjs` gained `clicks` (click buttons by text, e.g. open Sunny and ask), `skipScroll`, and `captureBeyondViewport:false` (a clipped beyond-viewport capture drew the docked panel over the page). Shot URL `?v=3`.
+- Story: "Practice that feels like play" + "A coach that answers from your province's handbook" (claims match driveiqcanada.com's own Sunny copy). `games_block(p)` is per product (`GAME_SETS`); Drive IQ CA's block renders only once `assets/img/games/drive-iq-canada/` has challenges.jpg + 5 clips.
+- Copy says Sunny works "on the website and in the app": true once app 1.1.0 (Sunny) is live in the stores.
+- Next step: add the Canada app captures (Challenges screen + 5 game clips, being made from a screenshot-mode port on drive-iq-canada-app branch `app-shots`), rebuild, push.

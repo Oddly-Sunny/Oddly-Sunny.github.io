@@ -555,26 +555,32 @@ def stage(p):
     dpct = round(100 * (1 - (11 / 16) / (dh / dw)), 1)
     return f"""<div class="stage" role="img" aria-label="A screen from {p['name']}" style="--dd:-{dpct}%;--c1:{c1};--c2:{c2};--bgimg:url(/assets/img/bg/{slug}.jpg)">
   <div class="win"><div class="bar"><i></i><i></i><i></i><span>{p['host']}</span></div>
-    <div class="vp"><img src="/assets/img/shots/{slug}-d.jpg?v=2" alt="" width="{dw}" height="{dh}"></div></div>
+    <div class="vp"><img src="/assets/img/shots/{slug}-d.jpg?v=3" alt="" width="{dw}" height="{dh}"></div></div>
 </div>"""
 
 GAMES = [
  ("sprint","Sign Sprint","Sort road signs by type before the timer runs out."),
- ("fact","Fact Check","Swipe statements from the state's material true or false."),
+ ("fact","Fact Check","Swipe statements from the {region}'s material true or false."),
  ("flash","Flash Cards","Scratch to reveal the answer, then say honestly if you knew it."),
  ("match","Sign Match","Flip cards to pair road signs from memory."),
- ("numbers","By the Numbers","Spin to the exact distance, fine or time limit from your state's questions."),
+ ("numbers","By the Numbers","Spin to the exact distance, fine or time limit from your {region}'s questions."),
 ]
+# per product: clip folder under assets/img/, and the word for its jurisdiction
+GAME_SETS = {"dmv-iq": ("games", "state"), "drive-iq-canada": ("games/drive-iq-canada", "province")}
 
 PLAY_JSON = '{"fact": [{"q": "A red octagon always means stop.", "a": true}, {"q": "Green signs warn you about hazards ahead.", "a": false, "why": "Green signs give directions. Yellow ones warn."}, {"q": "An upside-down triangle means yield.", "a": true}, {"q": "Orange signs mark work zones.", "a": true}, {"q": "A round yellow sign means a roundabout is ahead.", "a": false, "why": "A round yellow sign means a railroad crossing is ahead."}, {"q": "A five-sided sign marks a school zone or crossing.", "a": true}], "flash": [{"tag": "Driving", "q": "A flashing red traffic light means…", "a": "Stop, then go when it\'s safe"}, {"tag": "Citizenship", "q": "How many U.S. Senators are there?", "a": "100"}, {"tag": "Aviation", "q": "Which wingtip carries the red position light?", "a": "Left"}, {"tag": "Boating", "q": "Facing forward on a boat, port is…", "a": "Left"}, {"tag": "Ham radio", "q": "On the air, “CQ” means…", "a": "Calling any station"}, {"tag": "Driving", "q": "A solid yellow line on your side of the road means…", "a": "No passing from your side"}], "match": [["R1-1", "Stop"], ["R1-2", "Yield"], ["W10-1", "Railroad crossing ahead"], ["S1-1", "School crossing"], ["R5-1", "Do not enter"], ["W20-1", "Road work ahead"]]}'
 
 HEART = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.500-4.600-9.600-9.300C.900 8.300 3 4.500 6.700 4.500c2.200 0 3.700 1.300 5.300 3.200 1.600-1.900 3.100-3.200 5.300-3.200 3.700 0 5.800 3.800 4.300 7.200C19.500 16.400 12 21 12 21z"/></svg>'
 
-def games_block():
-    """Gamification showcase on a product page: the real Challenges screen plus each game's animated intro art."""
-    tiles = "".join(f'''<figure class="gm-tile reveal"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/games/{k}.jpg" aria-hidden="true"><source src="/assets/img/games/{k}.webm" type="video/webm"><source src="/assets/img/games/{k}.mp4" type="video/mp4"></video><figcaption><b>{esc(t)}</b><span>{esc(d)}</span></figcaption></figure>''' for k, t, d in GAMES)
+def games_block(p):
+    """Gamification showcase on a product page: the real Challenges screen plus each game's animated intro art.
+    Renders nothing until the product's clips are in assets/img/<folder>/."""
+    folder, region = GAME_SETS[p["slug"]]
+    if not os.path.exists(os.path.join(ROOT, f"assets/img/{folder}/challenges.jpg")): return ""
+    d = f"/assets/img/{folder}"
+    tiles = "".join(f'''<figure class="gm-tile reveal"><video autoplay muted loop playsinline preload="metadata" poster="{d}/{k}.jpg" aria-hidden="true"><source src="{d}/{k}.webm" type="video/webm"><source src="{d}/{k}.mp4" type="video/mp4"></video><figcaption><b>{esc(t)}</b><span>{esc(x.format(region=region))}</span></figcaption></figure>''' for k, t, x in GAMES)
     return f'''<div class="gm">
-  <figure class="gm-phone reveal"><img src="/assets/img/games/challenges.jpg" alt="The Challenges screen in the DMV IQ app: Exam Simulator, Quick Quiz, Practice Test and daily games" width="520" height="1129" loading="lazy"></figure>
+  <figure class="gm-phone reveal"><img src="{d}/challenges.jpg" alt="The Challenges screen in the {p['name']} app: Exam Simulator, Quick Quiz, Practice Test and daily games" width="520" height="1129" loading="lazy"></figure>
   <div class="gm-grid">{tiles}</div>
 </div>
 '''
@@ -588,7 +594,7 @@ def product(p):
     for kind, text in st["body"]:
         if kind == "p": body_html += f"<p>{esc(text)}</p>\n"
         elif kind == "h": body_html += f"<h2>{esc(text)}</h2>\n"
-        elif kind == "games": body_html += games_block()
+        elif kind == "games": body_html += games_block(p)
         else: body_html += f'<blockquote class="pull">{esc(text)}</blockquote>\n'
     rows = ""
     for label, links in p["apps"]:
