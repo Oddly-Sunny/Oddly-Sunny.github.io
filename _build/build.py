@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=146">
+<link rel="stylesheet" href="/assets/site.css?v=149">
 </head>
 """
 
@@ -378,10 +378,6 @@ def schematic():
   <div class="mesh-tel"><i></i>7 live products &middot; page-level citations &middot; edition monitoring</div>
 </figure>"""
 
-PROOF = [("7","Live products in regulated exams"),("64","US states, DC, Canadian provinces and territories covered"),("13","FAA knowledge exams on Aviator IQ"),("Weekly","Edition monitoring on official handbooks")]
-def proof_bar():
-    return '<div class="proof">' + "".join(f'<div class="proof-i reveal"><b>{esc(n)}</b><span>{esc(t)}</span></div>' for n, t in PROOF) + '</div>'
-
 VERTICALS = [("Mobility &amp; Transit", ["dmv-iq","drive-iq-canada"]),
              ("Aviation &amp; Marine", ["aviator-iq","mariner-iq"]),
              ("Civic &amp; Financial", ["citizen-pass","insurance-pass","airwaves-iq"])]
@@ -432,20 +428,21 @@ def engage_ui():
 </div>"""
 
 def home():
+    imgs, wall = hero_floats()
     feats = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in CAPS)
     body = f"""
-<section class="e-hero e-min" data-scheme="white"><div class="wrap">
-  <div class="e-copy">
-    <div class="em-sunny"><div class="s3d" data-sunny3d>{sunny_mascot(156, "follow")}</div></div>
-    <h1>The verification engine <br>for <span class="acc">high&#8209;stakes exams.</span></h1>
-    <p class="lede">Seven live products. Every question traced to the page it came from.</p>
-    <div class="cta-row"><a class="btn btn-glow" href="#platform">Explore the Platform Engine {ARROW_R}</a><a class="tlink" href="#verticals">Explore Commercial Verticals {ARROW_R}</a></div>
-  </div>
-</div></section>
-<script>addEventListener('load',function(){{import('/assets/sunny3d.js?v=9').catch(function(){{}})}})</script>
+<section class="hero" data-scheme="green" data-imgs='{imgs}'>
+  {wall}
+  <div class="wrap"><div class="copy">
+    <div class="mark hero-mark" id="heroMark"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div>
+    <h1>The verification engine<br><i>for high&#8209;stakes exams.</i></h1>
+    <p class="lede">We turn complex statutes and government manuals into adaptive study tools. Seven live products, every question traced to the page it came from.</p>
+    <div class="cta-row"><a class="btn" href="#platform">Explore the Platform Engine {ARROW_R}</a><a class="btn ghost" href="#verticals">Explore Commercial Verticals</a></div>
+  </div></div>
+  <a class="scroll-cue" href="#platform" aria-label="Scroll down"><svg viewBox="140 10 150 410" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M215 37V393"/><path d="M161.600 339.600 215 393l53.400-53.400"/></svg></a>
+</section>
 
 <section class="sec mx-sec" id="platform" data-scheme="soft"><div class="wrap">
-  {proof_bar()}
   <div class="mx-grid">
     <div class="mx-copy reveal">
       <div class="eyebrow rule">Architecture &amp; ingestion pipeline</div>
@@ -520,7 +517,7 @@ def home():
     site = {"@context": "https://schema.org", "@type": "WebSite", "name": "Oddly Sunny", "url": SITE + "/"}
     return head_html("Oddly Sunny | AI Infrastructure for High-Stakes Licensing Exams",
         "Oddly Sunny operates a proprietary, AI-native platform that turns regulatory frameworks, statutes and government manuals into verified, adaptive learning across seven commercial verticals.",
-        "/", "home.jpg", [org, site]) + header() + body + footer("green")
+        "/", "home.jpg", [org, site]) + header().replace('class="hdr hdr-ent"', 'class="hdr hdr-ent brand-hidden away" data-away') + body + footer("green")
 
 FLOAT_ORDER = ["cp-smile","study-library","cp-dog","study-desk","cp-denim","study-woman","cp-hoodie","cp-blonde","airwaves-man"]
 FLOAT_POS = {"cp-hoodie":"18%","cp-blonde":"82%","cp-smile":"40%"}

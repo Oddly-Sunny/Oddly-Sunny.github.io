@@ -1342,11 +1342,6 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
 .e-hero .lede{margin-top:22px;font-size:15.5px;font-weight:300;line-height:1.7;color:var(--muted);max-width:560px}
 .e-hero .cta-row{margin-top:32px}
 /* proof bar */
-.proof{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:64px;border-top:1px solid var(--border)}
-.proof-i{padding:26px 24px 0 0}
-.proof-i+.proof-i{padding-left:24px;border-left:1px solid var(--border)}
-.proof-i b{display:block;font-family:var(--display);font-weight:500;font-size:clamp(28px,3vw,40px);letter-spacing:-.03em;color:var(--text)}
-.proof-i span{display:block;margin-top:6px;font-size:12.5px;line-height:1.45;color:var(--muted);max-width:200px}
 /* Sunny tool cards without photos: product UI on a quiet grid */
 /* Sunny engine banner */
 .sn-kicker{display:block;margin-bottom:6px;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -1354,13 +1349,8 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
 @media(max-width:960px){
   .e-hero{padding:112px 0 56px}
   .e-hero-grid{grid-template-columns:minmax(0,1fr);gap:40px}
-  .proof{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .proof-i:nth-child(3){padding-left:0;border-left:0}
-  .proof-i:nth-child(n+3){margin-top:22px}
 }
 @media(max-width:560px){
-  .proof-i{padding-right:14px}.proof-i+.proof-i{padding-left:14px}
-  .proof-i:nth-child(3){padding-left:0}
 }
 /* Sunny engine banner: avatar left, copy + cite + link stacked */
 .sn-ent{display:grid;grid-template-columns:60px minmax(0,1fr);align-items:start;gap:4px 18px}
@@ -1483,8 +1473,6 @@ h2.h2 i.swap-out{opacity:0!important;transform:translateY(-.22em)!important;filt
 .e-hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:96px 0 56px}
 .e-hero>.wrap{width:100%}
 @media(min-width:961px){.e-hero-grid{gap:72px}.e-hero .lede{margin-top:26px}.e-hero .cta-row{margin-top:40px}}
-.mx-sec .proof{margin:0 0 96px;border-top:0;border-bottom:1px solid var(--border);padding-bottom:40px}
-.mx-sec .proof-i{padding-top:0}
 @media(max-width:960px){.e-hero{min-height:0;padding:104px 0 64px}.mx-sec .proof{margin-bottom:64px}}
 
 .e-hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(84px,11vh,128px) 0 clamp(32px,5vh,64px);text-align:center;background:radial-gradient(900px 520px at 50% 0%,rgba(64,145,108,.18),transparent 70%),radial-gradient(700px 400px at 50% 100%,rgba(229,178,93,.08),transparent 70%),var(--bg)}
@@ -1594,24 +1582,7 @@ section[data-scheme="white"],section[data-scheme="soft"]{background:var(--bg);co
 .e-hero h1 .acc{color:var(--gold-ink)}
 @media(max-width:960px){.nav>a{white-space:normal}.hdr .wrap{min-width:0}}
 .mx-sec{overflow-x:clip}
-/* ===== hero v4: minimal type + Sunny ===== */
-.e-min{background:radial-gradient(520px 360px at 50% 34%,rgba(229,178,93,.16),transparent 70%),#fff}
-.e-min .e-copy{max-width:980px}
-.em-sunny{display:flex;justify-content:center;margin-bottom:clamp(18px,3.5vh,34px);animation:emIn 1s cubic-bezier(.2,.8,.2,1) both}
-.em-sunny .sn-mascot{width:clamp(110px,17vh,156px)!important;height:clamp(110px,17vh,156px)!important;filter:drop-shadow(0 22px 30px rgba(120,90,40,.22))}
-@keyframes emIn{from{opacity:0;transform:translateY(14px) scale(.92)}}
-.e-min h1{margin-top:0;font-size:clamp(44px,min(6.6vw,9.6vh),104px);line-height:1.04;animation:emIn 1s cubic-bezier(.2,.8,.2,1) .12s both}
-.e-min .lede{margin-top:clamp(16px,2.6vh,24px);font-size:clamp(16px,1.25vw,19px);color:#56665E;animation:emIn 1s cubic-bezier(.2,.8,.2,1) .22s both}
-.e-min .cta-row{animation:emIn 1s cubic-bezier(.2,.8,.2,1) .32s both}
-@media(max-width:960px){.e-min{min-height:calc(100svh - 0px);display:flex}}
-@media(max-width:560px){.e-min h1 br{display:none}}
-@media(prefers-reduced-motion:reduce){.em-sunny,.e-min h1,.e-min .lede,.e-min .cta-row{animation:none}}
-@media(max-width:560px){.e-min h1{font-size:clamp(32px,9.4vw,40px)}.e-min h1 .acc{white-space:nowrap}}
-/* 3D Sunny (assets/sunny3d.js): flat mascot is the fallback until WebGL is running */
-.s3d{position:relative;width:clamp(190px,30vh,320px);height:clamp(190px,30vh,320px);display:grid;place-items:center}
-.s3d .sn-mascot{width:52%!important;height:52%!important;transition:opacity .5s}
-.s3d .sunny3d-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .8s ease}
-.s3d.is-3d .sunny3d-canvas{opacity:1}
-.s3d.is-3d .sn-mascot{opacity:0}
-.em-sunny{margin-bottom:clamp(4px,1.5vh,16px)}
-.em-sunny .s3d .sn-mascot{filter:none}
+
+/* home hero headline: one serif, like the story pages */
+.hero h1{font-family:var(--serif);font-weight:400;letter-spacing:-.018em;line-height:1.06;font-size:clamp(40px,5.2vw,76px)}
+.hero h1 i{font-family:var(--serif);font-style:normal;font-weight:400;font-size:1em;letter-spacing:-.018em}
