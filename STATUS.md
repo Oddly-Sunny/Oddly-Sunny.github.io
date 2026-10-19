@@ -114,3 +114,7 @@
 - Section order (owner OK 2026-10-19): hero, platform figure, verticals (proof), Sunny AI cards, verification (its trailing Sunny card removed: Sunny was pitched twice), engagement, legacy-vs-engine table as the recap, closing. Schemes re-alternated (ai-tools soft, expertise white).
 - CSS `?v=192`, JS `?v=69`. Checked desktop + 390px.
 - Next step: owner OK to push.
+
+## 2026-10-19 Drive IQ Canada app captures: PAUSED (owner)
+- A screenshot-mode port lives on drive-iq-canada-app branch `app-shots` (worktree `~/Projects/drive-iq-canada-app-shots`, last commit is a WIP; never merged to main). It produced 16 UNREVIEWED files in `~/Projects/drive-iq-canada-app-shots/marketing-captures/` (challenges.jpg + sprint/fact/flash/match/numbers .jpg/.mp4/.webm).
+- To ship: look at every file, then copy to `assets/img/games/drive-iq-canada/` and rebuild; `games_block()` renders the Drive IQ CA games section automatically once `challenges.jpg` is there. Merging `app-shots` is the app owner's call (the 1.1.0 store screenshot plan also wants a screenshot mode).
