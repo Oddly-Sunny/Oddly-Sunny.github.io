@@ -1656,3 +1656,5 @@ section[data-scheme="white"],section[data-scheme="soft"]{background:var(--bg);co
 .sn-wide p{font-size:14.5px}
 #expertise .exp .l{padding-bottom:56px}
 @media(max-width:960px){.exp-sn{padding:0 24px 64px}.sn-wide{grid-template-columns:56px minmax(0,1fr);padding:22px}.sn-wide .go{grid-column:2;margin-top:10px}}
+.sn-wide{grid-template-columns:72px minmax(0,1fr)}
+@media(max-width:960px){.sn-wide{grid-template-columns:56px minmax(0,1fr)}}

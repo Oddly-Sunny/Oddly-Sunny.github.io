@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=160">
+<link rel="stylesheet" href="/assets/site.css?v=161">
 </head>
 """
 
@@ -469,7 +469,7 @@ def home():
   <div class="r exp-vid"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/personal-loop.jpg" aria-label="A learner using her phone outdoors in soft sunlight"><source src="/assets/img/personal-loop.webm" type="video/webm"><source src="/assets/img/personal-loop.mp4" type="video/mp4"></video></div>
 </div>
 <div class="exp-sn">
-  <a class="sn-link sn-ent sn-wide reveal" href="/sunny/">{sunny_mascot(60, "follow")}<div><span class="sn-kicker">The Sunny Engine&trade;</span><h3>Handbook&#8209;grounded guidance, cited to the page.</h3><p>Answers only from the official handbook for that exam, with the page cited. Live on DMV IQ.</p></div><span class="go">Inspect the citation engine {ARROW_R}</span></a>
+  <a class="sn-link sn-ent sn-wide reveal" href="/sunny/">{sunny_mascot(60, "follow")}<div><span class="sn-kicker">The Sunny Engine&trade;</span><h3>Handbook&#8209;grounded guidance, cited to the page.</h3><p>Answers only from the official handbook for that exam, with the page cited. Live on DMV IQ.</p></div></a>
 </div></section>
 
 <section class="sec" id="verticals" data-scheme="white"><div class="wrap">
