@@ -73,6 +73,5 @@
 - Next: check the live homepage on a real phone; the learner video needs a range-capable server, so verify it plays on GitHub Pages.
 - Later 2026-10-19 (DEPLOYED, fcec594): hero headline "Learning, reimagined with AI."; Sunny framed as a tool-using AI agent ("An AI agent, not a chatbot", "An AI tutor agent that looks things up before it answers", "One agent engine, many domains"), true per ~/Projects/sunny engine (tool loop + grounding guard); "Live on DMV IQ" removed (owner: a mistake); phone flow connectors on the architecture diagram.
 
-## 2026-10-19 Engine diagram labels (committed d00877d, NOT pushed)
+## 2026-10-19 Engine diagram labels (LIVE, commit d00877d)
 - Sources now plain language: Pilot rules and handbooks (FAA), Mariner licensing rules (U.S. Coast Guard), State driver handbooks (DMVs), State insurance laws (Insurance regulators). DMV IQ vertical = Driving.
-- Next: push `main` to deploy.
