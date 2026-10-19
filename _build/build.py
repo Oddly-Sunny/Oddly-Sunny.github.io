@@ -475,7 +475,7 @@ def home():
   <div class="r exp-vid"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/personal-loop.jpg" aria-label="A learner using her phone outdoors in soft sunlight"><source src="/assets/img/personal-loop.webm" type="video/webm"><source src="/assets/img/personal-loop.mp4" type="video/mp4"></video></div>
 </div>
 <div class="exp-sn">
-  <a class="sn-link sn-ent sn-wide reveal" href="/sunny/">{sunny_mascot(60, "follow")}<div><span class="sn-kicker">The Sunny Engine&trade;</span><h3>An AI tutor agent that looks things up before it answers.</h3><p>One agent engine, many domains: each product plugs in its own tools and its own official sources.</p></div></a>
+  <a class="sn-link sn-ent sn-wide reveal" href="/sunny/">{sunny_mascot(60, "follow")}<div><span class="sn-kicker">Sunny AI&trade;</span><h3>An AI tutor agent that looks things up before it answers.</h3><p>One agent engine, many domains: each product plugs in its own tools and its own official sources.</p></div></a>
 </div></section>
 
 <section class="sec" id="verticals" data-scheme="white"><div class="wrap">
