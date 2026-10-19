@@ -348,8 +348,8 @@ def hero_floats():
 # ------------------------------------------------------------------ enterprise homepage blocks
 # hero mesh: real sources feed the engine, which feeds four live brands.
 # Coordinates are in a 520x400 box; the HTML nodes are placed at the same percentages so the SVG curves meet them.
-MESH_SRC = [("14 CFR Part 61","FAA"),("46 CFR Subchapter B","USCG"),("50-state driver manuals","DMVs"),("State insurance codes","Insurance depts")]
-MESH_OUT = [("aviator-iq","Aviation"),("mariner-iq","Maritime"),("dmv-iq","50 States"),("insurance-pass","Insurance")]
+MESH_SRC = [("Pilot rules and handbooks","FAA"),("Mariner licensing rules","U.S. Coast Guard"),("State driver handbooks","DMVs"),("State insurance laws","Insurance regulators")]
+MESH_OUT = [("aviator-iq","Aviation"),("mariner-iq","Maritime"),("dmv-iq","Driving"),("insurance-pass","Insurance")]
 MESH_Y = [62, 154, 246, 338]
 DOC = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>'
 SHIELD = """<svg class="hub-ic" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="hubg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3D58E"/><stop offset="1" stop-color="#C9922E"/></linearGradient></defs>
