@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=125">
+<link rel="stylesheet" href="/assets/site.css?v=130">
 </head>
 """
 
@@ -283,14 +283,16 @@ def live_mark():
 
 def header():
     return f"""<body>
-<header class="hdr" data-scheme="green">
+<header class="hdr hdr-ent" data-scheme="green" data-fixed>
   <div class="wrap">
     <a href="/" class="brand" aria-label="oddly sunny home">{live_mark()}<span>oddly <b>sunny</b></span></a>
+    <span class="beacon" aria-hidden="true">platform live</span>
     <nav class="nav" aria-label="Main">
-      <a href="/#architecture">Architecture<span class="nav-go">{ARROW_R}</span></a>
-      <a href="/#verticals">Verticals<span class="nav-go">{ARROW_R}</span></a>
-      <a href="/sunny/">Proprietary AI<span class="nav-go">{ARROW_R}</span></a>
-      <a class="btn" href="/contact/">Contact us</a>
+      <a href="/#architecture">Platform Engine<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/#verticals">Regulatory Verticals<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/#expertise">Verification Pipeline<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/sunny/">Sunny AI<span class="nav-go">{ARROW_R}</span></a>
+      <a class="btn" href="/contact/">Partner / M&amp;A Inquiries</a>
     </nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
   </div>
@@ -304,7 +306,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=44"></script>
+<script src="/assets/site.js?v=45"></script>
 </body>
 </html>
 """
@@ -346,42 +348,35 @@ def hero_floats():
     return json.dumps(pools), wall
 
 # ------------------------------------------------------------------ enterprise homepage blocks
-# hero schematic: one real pipeline run, animated by site.js ("pipeline run").
-# Source quote + page are real (Sunny transcript: New Jersey Driver Manual, p. 80). The other sources are real ingested manuals/regs.
-SOURCES = ["New Jersey Driver Manual","14 CFR Part 61","46 CFR Part 10","Texas CDL Handbook","USCIS civics test"]
-STAGES = [("Ground","Every fact traced to the source page","Cited: New Jersey Driver Manual, p. 80"),
-          ("Blind solve","A second model answers without the key","Two independent models agree on B"),
-          ("Blueprint","Weighted to the official test outline","Mapped to: sharing the road"),
-          ("Distractors","Wrong answers checked for giveaways","3 distractors audited, no length or wording tells")]
-OPTIONS = [("A","Sound the horn and pass slowly"),("B","Stop, then pass at no more than 15 mph"),("C","Pass at no more than 25 mph"),("D","Wait until the truck drives away")]
+# hero mesh: real sources feed the engine, which feeds four live brands.
+# Coordinates are in a 520x400 box; the HTML nodes are placed at the same percentages so the SVG curves meet them.
+MESH_SRC = [("14 CFR Part 61","FAA"),("46 CFR Subchapter B","USCG"),("50-state driver manuals","DMVs"),("8 CFR Part 312","USCIS")]
+MESH_OUT = [("aviator-iq","Aviation"),("mariner-iq","Maritime"),("dmv-iq","50 States"),("citizen-pass","Immigration")]
+MESH_Y = [62, 154, 246, 338]
+DOC = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>'
+SHIELD = """<svg class="hub-ic" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="hubg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3D58E"/><stop offset="1" stop-color="#C9922E"/></linearGradient></defs>
+<g class="hub-ring"><circle cx="32" cy="32" r="29" fill="none" stroke="url(#hubg)" stroke-width="1" stroke-dasharray="3 5" opacity=".7"/></g>
+<path d="M32 9 13 16v13c0 12 8 21.500 19 25 11-3.500 19-13 19-25V16z" fill="rgba(229,178,93,.10)" stroke="url(#hubg)" stroke-width="1.6"/>
+<path d="M32 16 20 20.500v9c0 8 5 14 12 16.500 7-2.500 12-8.500 12-16.500v-9z" fill="rgba(229,178,93,.14)" stroke="url(#hubg)" stroke-width="1.2" opacity=".85"/>
+<path d="m25.500 31.500 4.500 4.500 9-9.500" fill="none" stroke="#F3D58E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>"""
 def schematic():
-    srcs = " &middot; ".join(esc(t) for t in SOURCES[1:])
-    nodes = "".join(f'<li data-n="{i+1}"><b>{i+1}</b><span>{esc(t)}</span></li>' for i, (t, _, _) in enumerate(STAGES))
-    msgs = "".join(f'<p data-n="{i+1}">{esc(m)}</p>' for i, (_, _, m) in enumerate(STAGES))
-    opts = "".join(f'<li{" class=ok" if k == "B" else ""}><b>{k}</b>{esc(t)}</li>' for k, t in OPTIONS)
-    return f"""<figure class="pl" data-pl aria-label="How a question is made: an official manual page is verified in four stages and becomes a cited exam question">
-  <div class="pl-top"><span class="pl-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="pl-title">verification pipeline</span><span class="pl-live">example run</span></div>
-  <div class="pl-step pl-src">
-    <div class="pl-lbl"><i>1</i>Official source</div>
-    <div class="pl-doc">
-      <div class="pl-doc-h"><span class="pl-doc-ic">PDF</span><b>New Jersey Driver Manual</b><em>p. 80</em></div>
-      <p>When an ice cream truck shows its flashing lights and stop signal arm, <mark>stop, and then drive past the truck at a speed of no more than 15 mph</mark>, and yield to anyone crossing.</p>
-    </div>
-    <div class="pl-queue" aria-hidden="true"><small>Also ingested</small><span>{srcs}</span></div>
+    paths = []
+    for i, y in enumerate(MESH_Y):
+        paths.append(f'<path class="tr in" style="--i:{i}" d="M150 {y} C 180 {y}, 172 200, 187 200"/>')
+        paths.append(f'<path class="tr out" style="--i:{i}" d="M333 200 C 348 200, 340 {y}, 359 {y}"/>')
+    base = "".join(p.replace('class="tr', 'class="tb') for p in paths)
+    svg = f'<svg class="mesh-svg" viewBox="0 0 520 400" preserveAspectRatio="none" aria-hidden="true">{base}{"".join(paths)}</svg>'
+    src = "".join(f'<li class="m-src" style="--y:{y / 4}%;--i:{i}"><span class="m-doc">{DOC}</span><span><b>{esc(t)}</b><small>{esc(a)}</small></span></li>' for i, ((t, a), y) in enumerate(zip(MESH_SRC, MESH_Y)))
+    out = "".join(f'<li class="m-out" style="--y:{y / 4}%;--i:{i}"><img src="/assets/img/apps/{s}.png" alt="" width="26" height="26"><span><b>{BY[s]["name"]}</b><small>{esc(l)}</small></span><i class="pip"></i></li>' for i, ((s, l), y) in enumerate(zip(MESH_OUT, MESH_Y)))
+    return f"""<figure class="mx" aria-label="Official regulations and manuals flow into the Oddly Sunny engine, which feeds Aviator IQ, Mariner IQ, DMV IQ and Citizen Pass">
+  <div class="mesh-stage">
+    {svg}
+    <div class="mesh-cap mesh-cap-l">Source ingestion</div><div class="mesh-cap mesh-cap-r">Commercial verticals</div>
+    <ul class="mesh-col mesh-l">{src}</ul>
+    <div class="hub"><div class="hub-in">{SHIELD}<b>Oddly Sunny Engine</b><span class="hub-tag">Multi-Model Blind Audit<br>0% Hallucination</span></div></div>
+    <ul class="mesh-col mesh-r">{out}</ul>
   </div>
-  <div class="pl-step pl-ver">
-    <div class="pl-lbl"><i>2</i>Four-stage verification</div>
-    <ol class="pl-track">{nodes}</ol>
-    <div class="pl-msg" aria-live="off"><p data-n="0">Queued: waiting for source</p>{msgs}</div>
-  </div>
-  <div class="pl-step pl-out">
-    <div class="pl-lbl"><i>3</i>Verified question</div>
-    <div class="pl-q">
-      <p>An ice cream truck has its stop signal arm out. What must a New Jersey driver do before passing?</p>
-      <ol>{opts}</ol>
-      <div class="pl-q-f"><code>cite: NJ Driver Manual &middot; p. 80</code><span class="pl-pass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>4/4 checks passed</span></div>
-    </div>
-  </div>
+  <div class="mesh-tel"><i></i>7 live domains &middot; 4-stage audit &middot; page-level citations</div>
 </figure>"""
 
 PROOF = [("7","Regulated Commercial Verticals"),("100%","Grounded to Primary Statutory Sources"),("4-Stage","Automated Verification Pipeline"),("0","Hallucination Tolerance Architecture")]
@@ -431,12 +426,12 @@ def home():
 <section class="e-hero" data-scheme="green"><div class="wrap">
   <div class="e-hero-grid">
     <div class="e-copy">
-      <div class="pill">The AI infrastructure for high-stakes exams</div>
-      <h1>Scaling high-stakes licensing through <i>verified machine intelligence.</i></h1>
-      <p class="lede">Oddly Sunny operates a proprietary, AI-native platform that ingests complex regulatory frameworks, legal statutes, and government manuals into adaptive learning ecosystems. Our automated architecture powers seven commercial verticals across mobility, aviation, maritime, and citizenship.</p>
-      <div class="cta-row"><a class="btn" href="#architecture">Explore the Platform Architecture {ARROW_R}</a><a class="btn ghost" href="#verticals">Review Commercial Verticals</a></div>
+      <div class="pill">Regulatory learning infrastructure</div>
+      <h1>The verification engine for <i>high&#8209;stakes exams.</i></h1>
+      <p class="lede">We convert complex legal statutes and government manuals into adaptive learning ecosystems. Powering seven commercial verticals with zero-hallucination machine intelligence.</p>
+      <div class="cta-row"><a class="btn btn-glow" href="#architecture">Explore the Platform Engine {ARROW_R}</a><a class="tlink" href="#verticals">Explore Commercial Verticals {ARROW_R}</a></div>
     </div>
-    {schematic()}
+    <div class="mesh-wrap">{schematic()}</div>
   </div>
   {proof_bar()}
 </div></section>
