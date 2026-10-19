@@ -688,16 +688,16 @@
   if (!eg) return;
   var clock = eg.querySelector('.eg2-clock b'), ring = eg.querySelector('.eg2-clock .run');
   var items = Array.prototype.slice.call(eg.querySelectorAll('.eg2-queue li'));
-  var dots = Array.prototype.slice.call(eg.querySelectorAll('.eg2-dots i')), cnt = eg.querySelector('.eg2-cnt');
+  var dots = Array.prototype.slice.call(eg.querySelectorAll('.eg2-dots i')), cnt = eg.querySelector('.eg2-cnt'); var fill = eg.querySelector('.eg2-fill');
   var T = [], order, running = false;
   function at(ms, f) { T.push(setTimeout(f, ms)); }
   function tick(t) { clock.textContent = '0:' + (t < 10 ? '0' : '') + t; ring.style.strokeDashoffset = (94.25 * (1 - t / 45)).toFixed(1); }
   function place() { order.forEach(function (ix, p) { items[ix].style.setProperty('--p', p); items[ix].classList.toggle('now', p === 0); }); }
-  function end() { eg.classList.add('s-picked', 's-passed'); tick(41); dots.forEach(function (d) { d.classList.add('on'); }); cnt.textContent = '42'; order = [0, 1, 2, 3]; place(); }
+  function end() { eg.classList.add('s-picked', 's-passed'); tick(41); dots.forEach(function (d) { d.classList.add('on'); }); cnt.textContent = '42'; fill.style.transform = 'scaleX(' + (42 / 46).toFixed(3) + ')'; order = [0, 1, 2, 3]; place(); }
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { end(); return; }
   function play() {
     T.forEach(clearTimeout); T = []; running = true;
-    eg.classList.remove('s-picked', 's-passed'); dots.forEach(function (d) { d.classList.remove('on'); }); cnt.textContent = '0';
+    eg.classList.remove('s-picked', 's-passed'); dots.forEach(function (d) { d.classList.remove('on'); }); cnt.textContent = '0'; fill.style.transform = 'scaleX(0)';
     order = [0, 1, 2, 3]; place(); tick(45);
     [44, 43, 42, 41].forEach(function (t, i) { at(800 + i * 800, function () { tick(t); }); });
     at(2200, function () { eg.classList.add('s-picked'); });
@@ -706,7 +706,7 @@
       at(ms + 350, function () { var f = order.shift(); order.push(f); items[f].classList.remove('go'); place(); });
     });
     var right = 0;
-    dots.forEach(function (d, i) { at(900 + i * 70, function () { d.classList.add('on'); if (!d.classList.contains('x')) right++; cnt.textContent = right; if (right >= 38) eg.classList.add('s-passed'); }); });
+    dots.forEach(function (d, i) { at(900 + i * 70, function () { d.classList.add('on'); if (!d.classList.contains('x')) right++; cnt.textContent = right; fill.style.transform = 'scaleX(' + (right / 46).toFixed(3) + ')'; if (right >= 38) eg.classList.add('s-passed'); }); });
     at(9500, play);
   }
   new IntersectionObserver(function (es) {
