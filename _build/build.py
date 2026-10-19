@@ -424,8 +424,8 @@ def home():
 <section id="expertise" data-scheme="tan"><div class="exp">
   <div class="l">
     <div class="eyebrow rule">How we build</div>
-    <h2 class="h2">Built at scale, <i>grounded in authority</i></h2>
-    <p class="sub">AI lets us map entire official state and federal regulations without gaps. To ensure absolute legal and testing validity, every question passes through these four verification layers before reaching you.</p>
+    <h2 class="h2">Smart enough to teach, <i>disciplined enough to trust.</i></h2>
+    <p class="sub">AI helps us break down dense official curricula into active recall exercises and adaptive practice. We pair our adaptive algorithms with a four-stage audit pipeline that tests the logic, distractor choices, and legal facts before you ever see them.</p>
     <div class="feats">{feats}</div>
     <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Sunny doesn't guess. It looks it up.</h3><p>Every answer comes from the official manual, with the page to prove it.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
   </div>
