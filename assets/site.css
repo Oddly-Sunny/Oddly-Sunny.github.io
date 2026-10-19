@@ -1703,3 +1703,229 @@ section[data-scheme="white"],section[data-scheme="soft"]{background:var(--bg);co
 .hero.leaving .float.in:hover{rotate:0deg;box-shadow:none}
 /* hero 3D pointer tilt (site.js): once a photo has entered, JS drives its transform frame by frame, so no transform transition */
 .hero .float.in.tilt{transition:opacity .8s ease,filter .8s ease,box-shadow .5s ease,rotate .5s cubic-bezier(.2,.8,.2,1);will-change:transform}
+
+/* ===================== brand pass (Oct 2026): one type system, one eyebrow, one link, one icon tile ===================== */
+/* surfaces: warm paper instead of pure white, so every light section shares the cream family */
+[data-scheme="white"]{--bg:#FCFBF8;--card:#FFFFFF;--tile:#F3F1EA}
+[data-scheme="soft"]{--bg:#F5F3ED;--card:#FFFFFF;--tile:#ECE9E0}
+.hdr.hdr-ent,.hdr.hdr-ent.scrolled{background:rgba(252,251,248,.86)}
+/* headings: the hero serif everywhere, italic accent in the same family (no sans + italic mix) */
+h2.h2{font-family:var(--serif);font-weight:400;letter-spacing:-.018em;line-height:1.08;font-size:clamp(30px,3.5vw,46px)}
+h2.h2 i{font-family:var(--serif);font-style:italic;font-weight:300;letter-spacing:-.012em;font-size:1em}
+.closing h2.h2{font-size:clamp(36px,4.8vw,64px)}
+.feat h3,.sn-wide h3{font-family:var(--serif);font-weight:400;font-size:21px;line-height:1.2;letter-spacing:-.01em}
+.feat h3{margin-bottom:8px}
+/* eyebrows: one style, led by the gold diamond from the brand mark */
+.eyebrow{display:flex;align-items:center;gap:10px;font-weight:500;color:var(--text);opacity:1}
+.eyebrow::before{content:"";flex:none;width:6px;height:6px;border-radius:1.5px;background:var(--gold);transform:rotate(45deg)}
+[data-scheme="white"] .eyebrow,[data-scheme="soft"] .eyebrow{color:#3A4A42}
+.closing .eyebrow,.e-close .eyebrow{justify-content:center;color:#C9D8CF}
+.vt-g h3{display:flex;align-items:center;gap:10px}
+/* text links: one style (forest, hairline underline that fills gold on hover) */
+.ai-more{color:var(--deep,#1F4D39);background:linear-gradient(var(--gold),var(--gold)) 0 100%/0 1px no-repeat,linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;background-color:transparent;padding-bottom:4px;transition:background-size .45s cubic-bezier(.2,.7,.2,1),color .3s}
+.ai-more:hover{background-size:100% 1px,100% 1px;color:var(--gold-ink)}
+/* buttons: same gold pill everywhere, quiet shadow */
+.hdr-ent .nav>a.btn{box-shadow:none}
+.btn{font-weight:500;letter-spacing:-.005em}
+/* icon tiles: one tile for every icon on the page (white card, hairline, forest stroke, gold accent) */
+.feat .ic,.vs-icon,.mx-wide .m-doc{width:38px;height:38px;border-radius:10px;background:var(--card,#fff);border:1px solid rgba(14,26,20,.09);color:#1F4D39;box-shadow:0 1px 0 rgba(14,26,20,.03)}
+.feat .ic svg,.vs-icon svg,.mx-wide .m-doc svg{width:19px;height:19px;stroke-width:1.6}
+.feat .ic .ac,.vs-icon .ac,.m-doc .ac{stroke:var(--gold-ink,#B5852A)}
+.mx-wide .m-doc{width:34px;height:34px;background:#FFF8EA;border-color:rgba(181,133,42,.22)}
+.mx-wide .m-doc svg{width:17px;height:17px}
+/* Sunny card: white card with a gold hairline instead of a grey box */
+.exp-sn .sn-wide{background:var(--card,#fff);border:1px solid rgba(181,133,42,.25)}
+/* architecture on phones: one clean row per source and per product */
+@media(max-width:620px){
+  .mx-wide .mesh-col{grid-template-columns:1fr;gap:6px}
+  .mx-wide .m-src,.mx-wide .m-out{padding:10px 12px}
+  .mx-wide .m-src b,.mx-wide .m-out b{font-size:13.5px}
+  .mx-wide .m-src small,.mx-wide .m-out small{font-size:11px}
+  .mesh-tel{flex-wrap:wrap;justify-content:center;text-align:center}
+}
+h2.h2{text-wrap:balance}
+.vs-k{font-style:normal;line-height:1.2}
+.vt-g h3::before{content:"";flex:none;width:6px;height:6px;border-radius:1.5px;background:var(--gold);transform:rotate(45deg)}
+
+/* ===================== platform figure "fl" (Oct 2026 brand pass): editorial diagram on a forest plate ===================== */
+.fl{--fg:#EEF3EE;--mute:#9DB6A8;--gold:#D4A63C;--hair:rgba(238,243,238,.12);position:relative;margin:0;border-radius:22px;background:radial-gradient(700px 360px at 50% 50%,#173C2D 0%,#0E271D 70%);color:var(--fg);overflow:hidden;box-shadow:0 40px 80px -50px rgba(14,26,20,.55)}
+.fl::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(212,166,60,.18);pointer-events:none}
+.fl-stage{position:relative;aspect-ratio:1000/440;margin:44px 48px 8px}
+.fl-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.fl-c{fill:none;stroke:rgba(212,166,60,.38);stroke-width:1;vector-effect:non-scaling-stroke}
+.fl-c.out{stroke:rgba(143,211,174,.32)}
+.fl-cap{position:absolute;top:-30px;display:flex;align-items:center;gap:9px;font-size:10.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.fl-cap::before{content:"";width:6px;height:6px;border-radius:1.5px;background:var(--gold);transform:rotate(45deg)}
+.fl-cap-l{left:0}.fl-cap-r{right:0;flex-direction:row-reverse}
+.fl-col{list-style:none;margin:0;padding:0;position:absolute;top:0;bottom:0;width:30%}
+.fl-l{left:0}.fl-r{right:0}
+.fl-src,.fl-out{position:absolute;left:0;right:0;top:var(--y);transform:translateY(-50%)}
+.fl-src{text-align:right;padding-right:22px}
+.fl-src::after,.fl-out::before{content:"";position:absolute;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:1.5px;transform:rotate(45deg);background:var(--gold)}
+.fl-src::after{right:-1px}
+.fl-out::before{left:-1px;background:#8FD3AE}
+.fl-ag{display:block;font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--mute);margin-bottom:3px}
+.fl-src b,.fl-out b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(16px,1.55vw,20px);line-height:1.2;letter-spacing:-.01em;color:var(--fg)}
+.fl-out{display:flex;align-items:center;gap:12px;padding-left:22px}
+.fl-out img{flex:none;width:30px;height:30px;border-radius:8px;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.fl-out .fl-ag{margin:3px 0 0}
+.fl-hub{position:absolute;left:39.2%;right:39.2%;top:50%;transform:translateY(-50%);padding:24px 20px 20px;border-radius:16px;background:linear-gradient(180deg,#1C4634,#143527);border:1px solid rgba(212,166,60,.4);box-shadow:0 30px 60px -30px rgba(0,0,0,.6);text-align:center}
+.fl-mark{width:34px;height:34px;gap:3px;margin:0 auto 14px}
+.fl-mark .cell{border-radius:5px}
+.fl-kick{display:block;font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.fl-hub>b{display:block;margin-top:6px;font-family:var(--serif);font-weight:400;font-size:clamp(18px,1.8vw,23px);line-height:1.15;color:#fff}
+.fl-hub ol{list-style:none;margin:16px 0 0;padding:0;text-align:left}
+.fl-hub li{display:flex;align-items:baseline;gap:10px;padding:7px 0;border-top:1px solid var(--hair);font-size:12.5px;line-height:1.35;color:#CFDDD4}
+.fl-hub li em{flex:none;font-family:var(--serif);font-style:italic;font-size:13px;color:var(--gold)}
+.fl-foot{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;margin-top:26px;padding:16px 24px 18px;border-top:1px solid var(--hair);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.fl-foot span{display:flex;align-items:center;gap:22px}
+.fl-foot span+span::before{content:"";width:5px;height:5px;border-radius:1px;background:var(--gold);transform:rotate(45deg);opacity:.8}
+/* a slow gold glint travels each curve */
+.fl-c{stroke-dasharray:0 1}
+@media(prefers-reduced-motion:no-preference){
+  .fl-svg .fl-c{stroke-dasharray:none}
+  .fl-hub{animation:flBreathe 5s ease-in-out infinite}
+  @keyframes flBreathe{50%{box-shadow:0 30px 70px -26px rgba(212,166,60,.35)}}
+}
+/* tablets: tighter stage */
+@media(max-width:960px){.fl-stage{margin:44px 24px 8px}.fl-hub{left:36%;right:36%;padding:20px 14px 16px}.fl-col{width:31%}.fl-src{padding-right:18px}.fl-out{padding-left:18px;gap:9px}.fl-out img{width:26px;height:26px}}
+/* phones: one gold rail, read top to bottom */
+@media(max-width:700px){
+  .fl{border-radius:18px}
+  .fl-stage{aspect-ratio:auto;margin:28px 22px 4px;display:flex;flex-direction:column}
+  .fl-svg{display:none}
+  .fl-cap{position:static;margin:0 0 14px}.fl-cap-r{flex-direction:row;order:4;margin-top:26px}
+  .fl-col{position:static;width:auto}
+  .fl-l{order:1}.fl-hub{order:2}.fl-r{order:5}
+  .fl-col{border-left:1px solid rgba(212,166,60,.35);margin-left:3px}
+  .fl-r{border-left-color:rgba(143,211,174,.3)}
+  .fl-src,.fl-out{position:relative;transform:none;text-align:left;padding:10px 0 10px 20px}
+  .fl-src::after,.fl-out::before{left:-4px;right:auto}
+  .fl-src b,.fl-out b{font-size:18px}
+  .fl-out{display:flex}
+  .fl-hub{position:relative;left:auto;right:auto;top:auto;transform:none;margin:22px 0 0;padding:22px 20px 16px}
+  .fl-hub::before{content:"";position:absolute;left:3px;top:-22px;height:22px;border-left:1px solid rgba(212,166,60,.35)}
+  .fl-hub ol{margin-top:14px}
+  .fl-foot{flex-direction:column;align-items:flex-start;gap:8px;padding:16px 22px 20px;font-size:10.5px}
+  .fl-foot span{gap:0}
+  .fl-foot span::before,.fl-foot span+span::before{content:"";width:5px;height:5px;margin-right:12px;border-radius:1px;background:var(--gold);transform:rotate(45deg);opacity:.8}
+}
+.fl-mark .c1{background:#40916C}.fl-mark .c2{background:#74C69D}.fl-mark .c4{background:#2D6A4F;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+/* AI cards: seamless studio backdrops in the hero photos' colours (lit centre, soft falloff, floor shadow), mock centred */
+.ai-vis.ai-studio{align-items:center;background:radial-gradient(120% 90% at 50% 34%,var(--s1) 0%,color-mix(in srgb,var(--s1) 55%,var(--s2)) 46%,var(--s2) 100%)}
+.ai-vis.ai-studio::after{background:radial-gradient(70% 22% at 50% 96%,rgba(0,0,0,.18),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.06),transparent 40%)}
+.ai-studio .ai-mock{box-shadow:0 26px 50px -24px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.35)}
+.ai-card:hover .ai-studio .ai-mock{transform:translateY(-3px)}
+/* fl, light edition: warm paper plate, forest type; the engine stays the one deep-green focal point. Motion: glints run
+   each curve (sources in, then products out, on one 6s cycle), diamonds pulse as they arrive, the steps light in turn. */
+.fl{--fg:#0E1A14;--mute:#6B7A72;--hair:rgba(14,26,20,.08);background:radial-gradient(640px 320px at 50% 50%,#FFF8EA 0%,#FFFDF8 62%);color:var(--fg);box-shadow:0 40px 80px -56px rgba(14,26,20,.4)}
+.fl::after{box-shadow:inset 0 0 0 1px rgba(14,26,20,.08)}
+.fl-cap{color:#7A8A82}
+.fl-c{stroke:rgba(181,133,42,.32)}
+.fl-c.out{stroke:rgba(64,145,108,.28)}
+.fl-out::before{background:#40916C}
+.fl-out img{box-shadow:0 1px 2px rgba(14,26,20,.12)}
+.fl-hub{--hair:rgba(238,243,238,.12);background:linear-gradient(180deg,#1E4A37,#143527);border-color:rgba(212,166,60,.55);box-shadow:0 34px 60px -30px rgba(14,40,29,.55);color:#EEF3EE}
+.fl-foot{color:#6B7A72}
+.fl-g{fill:none;stroke-width:2.2;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:0 100;opacity:0}
+.fl-g.in{stroke:#D4A03C;filter:drop-shadow(0 0 3px rgba(212,160,60,.8))}
+.fl-g.out{stroke:#40916C;filter:drop-shadow(0 0 3px rgba(64,145,108,.6))}
+@media(prefers-reduced-motion:no-preference){
+  .fl-g{opacity:1;animation:flGlint 6s cubic-bezier(.45,0,.3,1) infinite;animation-delay:calc(var(--i) * .35s)}
+  .fl-g.out{animation-name:flGlintOut;animation-delay:calc(2.6s + var(--i) * .35s)}
+  @keyframes flGlint{0%{stroke-dasharray:10 90;stroke-dashoffset:0;opacity:0}4%{opacity:1}26%{stroke-dashoffset:-90;opacity:1}30%,100%{stroke-dashoffset:-100;opacity:0}}
+  @keyframes flGlintOut{0%{stroke-dasharray:10 90;stroke-dashoffset:0;opacity:0}4%{opacity:1}26%{stroke-dashoffset:-90;opacity:1}30%,100%{stroke-dashoffset:-100;opacity:0}}
+  .fl-src::after{animation:flPulse 6s ease-out infinite;animation-delay:calc(var(--i) * .35s)}
+  .fl-out::before{animation:flPulse 6s ease-out infinite;animation-delay:calc(4.1s + var(--i) * .35s)}
+  @keyframes flPulse{0%{box-shadow:0 0 0 0 rgba(212,166,60,.55)}12%,100%{box-shadow:0 0 0 7px rgba(212,166,60,0)}}
+  .fl-hub li{transition:color .4s;animation:flStep 6s ease-in-out infinite;animation-delay:calc(1.6s + var(--i) * .4s)}
+  .fl-hub li em{animation:flStepNum 6s ease-in-out infinite;animation-delay:calc(1.6s + var(--i) * .4s)}
+  @keyframes flStep{0%,22%,100%{color:#CFDDD4}6%,14%{color:#FFFFFF}}
+  @keyframes flStepNum{0%,22%,100%{color:#D4A63C;text-shadow:none}6%,14%{color:#F3D58E;text-shadow:0 0 10px rgba(243,213,142,.6)}}
+  .fl-mark .c3{animation:flMark 6s ease-in-out infinite 1.2s}
+  @keyframes flMark{0%,14%,100%{transform:none}5%{transform:rotate(45deg) scale(.82)}}
+}
+@media(max-width:700px){
+  .fl{background:#FFFDF8}
+  .fl-col{position:relative}
+  .fl-col::after{content:"";position:absolute;left:-1px;top:0;width:1px;height:46px;background:linear-gradient(180deg,transparent,#D4A03C,transparent);opacity:0}
+  .fl-r::after{background:linear-gradient(180deg,transparent,#40916C,transparent)}
+}
+@media(max-width:700px) and (prefers-reduced-motion:no-preference){
+  .fl-col::after{animation:flRail 3.2s ease-in-out infinite}
+  .fl-r::after{animation-delay:1.6s}
+  @keyframes flRail{0%{top:0;opacity:0}10%{opacity:1}85%{opacity:1}100%{top:calc(100% - 46px);opacity:0}}
+}
+/* "and more" lines: the four sources and four products are examples */
+.fl-stage{margin-bottom:58px}
+.fl-more{position:absolute;top:calc(100% + 22px);left:0;right:0;font-size:12.5px;line-height:1.45;color:var(--mute)}
+.fl-l .fl-more{text-align:right;padding-right:22px}
+.fl-r .fl-more{padding-left:22px}
+.fl-more em{font-style:normal;font-family:var(--serif);font-size:15px;color:#B5852A;margin-right:6px}
+.fl-r .fl-more em{color:#40916C}
+@media(max-width:960px){.fl-l .fl-more{padding-right:18px}.fl-r .fl-more{padding-left:18px}}
+@media(max-width:700px){
+  .fl-stage{margin-bottom:4px}
+  .fl-more{position:static;text-align:left!important;padding:8px 0 4px 20px!important;font-size:13px}
+}
+.fl-stage{margin-bottom:56px}
+.fl-more{top:calc(100% + 4px)}
+@media(max-width:700px){.fl-stage{margin-bottom:4px}}
+.fl-stage{margin-bottom:66px}@media(max-width:700px){.fl-stage{margin-bottom:4px}}
+@media(min-width:701px){.fl-more{white-space:nowrap}}
+/* AI cards v2: diagonal studio gradient (lit colour, its deeper shade, a hint of a neighbouring hero hue) on its own layer,
+   graded like the hero photos (softer saturation and contrast, lifted shadows) with a fine film grain; the mock stays crisp */
+.ai-vis.ai-studio{background:none}
+.ai-vis.ai-studio::before{content:"";position:absolute;z-index:-2;inset:0;
+  background:radial-gradient(90% 70% at 30% 22%,color-mix(in srgb,var(--s1) 80%,#fff) 0%,transparent 60%),
+             linear-gradient(150deg,var(--s1) 0%,var(--s2) 58%,color-mix(in srgb,var(--s2) 55%,var(--s3)) 100%);
+  filter:saturate(.8) contrast(.9) brightness(1.04)}
+.ai-vis.ai-studio::after{background:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"),
+  radial-gradient(70% 22% at 50% 98%,rgba(0,0,0,.16),transparent 70%),
+  linear-gradient(180deg,rgba(255,255,255,.07),rgba(14,26,20,.06));
+  mix-blend-mode:soft-light;opacity:.9}
+@media(min-width:701px) and (max-width:1100px){.fl-more{white-space:normal}}
+/* AI cards loop (site.js): .ai-reset fades the parts back to their start, then the entrance sequence replays; .ai-press taps the button */
+.ai-vis.ai-reset .ai-q,.ai-vis.ai-reset .ai-a,.ai-vis.ai-reset .ai-cite,.ai-vis.ai-reset .ai-list span,.ai-vis.ai-reset .ai-row{opacity:0!important;transform:translateY(6px)!important;transition-duration:.35s!important;transition-delay:0s!important}
+.ai-vis.ai-reset .ai-tick{transform:scale(0)!important;transition-delay:0s!important}
+.ai-vis.ai-reset .ai-bar i{transform:scaleX(0)!important;transition-duration:.4s!important;transition-delay:0s!important}
+.ai-vis.ai-reset .ai-dots,.ai-vis.ai-reset .ai-cite{animation:none!important}
+.ai-vis.ai-reset .ai-sel{color:transparent;transition:color .2s}
+.ai-sel{transition:color .3s,border-color .3s,box-shadow .3s}
+.ai-card.visible .ai-cite{animation:aiCite 1.4s ease calc(var(--d) + 2.6s) both}
+@keyframes aiCite{0%{background:#EBE7DA}30%{background:#F6DFA4;box-shadow:0 0 0 3px rgba(212,166,60,.25)}100%{background:#EBE7DA;box-shadow:none}}
+.ai-vis.ai-press .ai-btn{animation:aiPress .7s cubic-bezier(.3,1.5,.5,1)}
+@keyframes aiPress{0%{transform:none}25%{transform:scale(.92)}60%{transform:scale(1.04);box-shadow:0 0 0 6px rgba(212,166,60,.25),0 10px 24px -10px rgba(0,0,0,.5)}100%{transform:none}}
+/* the studio light drifts slowly across each backdrop */
+.ai-vis.ai-studio::before{inset:-12%}
+@media(prefers-reduced-motion:no-preference){
+  .ai-vis.ai-studio::before{animation:aiLight 16s ease-in-out infinite alternate}
+  .ai-card:nth-child(2) .ai-vis.ai-studio::before{animation-delay:-5s}
+  .ai-card:nth-child(3) .ai-vis.ai-studio::before{animation-delay:-10s}
+  @keyframes aiLight{0%{transform:translate(-4%,-3%) scale(1)}100%{transform:translate(4%,3%) scale(1.04)}}
+}
+/* engine card motion (same 6s cycle as the glints): a gold sheen runs the border, the mark's cells pulse in turn as
+   the inputs land, the active step gets a gold bar + soft band moving 01 to 04, and the card glows on arrival */
+@property --fla{syntax:"<angle>";inherits:false;initial-value:0deg}
+.fl-hub::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;
+  background:conic-gradient(from var(--fla),transparent 0 62%,rgba(243,213,142,.95) 72%,transparent 82% 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.fl-hub li{position:relative;border-radius:4px}
+.fl-hub li::before{content:"";position:absolute;left:-10px;top:7px;bottom:7px;width:2px;border-radius:2px;background:#F3D58E;opacity:0;transform:scaleY(.3)}
+@media(prefers-reduced-motion:no-preference){
+  .fl-hub::before{animation:flSheen 6s linear infinite}
+  @keyframes flSheen{to{--fla:360deg}}
+  .fl-hub{animation:flArrive 6s ease-in-out infinite}
+  @keyframes flArrive{0%,20%,100%{box-shadow:0 34px 60px -30px rgba(14,40,29,.55)}30%{box-shadow:0 34px 60px -30px rgba(14,40,29,.55),0 0 0 4px rgba(212,166,60,.18),0 0 44px rgba(212,166,60,.35)}}
+  .fl-mark .cell{animation:flCell 6s ease-in-out infinite}
+  .fl-mark .c1{animation-delay:1.3s}.fl-mark .c2{animation-delay:1.55s}.fl-mark .c4{animation-delay:1.8s}
+  @keyframes flCell{0%,10%,100%{transform:none;filter:none}4%{transform:scale(1.14);filter:brightness(1.35)}}
+  .fl-mark .c3{animation:flMark 6s ease-in-out infinite 2.05s}
+  @keyframes flMark{0%,16%,100%{transform:none}5%,11%{transform:rotate(45deg) scale(.8)}}
+  .fl-hub li{animation:flStep 6s ease-in-out infinite;animation-delay:calc(1.6s + var(--i) * .5s)}
+  .fl-hub li::before{animation:flBar 6s ease-in-out infinite;animation-delay:calc(1.6s + var(--i) * .5s)}
+  .fl-hub li em{animation-delay:calc(1.6s + var(--i) * .5s)}
+  @keyframes flStep{0%,20%,100%{color:#CFDDD4;background:transparent}5%,14%{color:#FFFFFF;background:rgba(243,213,142,.08)}}
+  @keyframes flBar{0%,20%,100%{opacity:0;transform:scaleY(.3)}5%,14%{opacity:1;transform:none}}
+}

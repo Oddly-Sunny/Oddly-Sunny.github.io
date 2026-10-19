@@ -179,10 +179,10 @@ BY = {p["slug"]: p for p in PRODUCTS}
 FEATURED_ORDER = ["aviator-iq","citizen-pass","dmv-iq","drive-iq-canada","insurance-pass","airwaves-iq","mariner-iq"]
 
 CAPS = [
- ("book","Direct Source Grounding","Every question carries a word-for-word quote from the official manual or regulation it came from. No source, no question."),
- ("check","Independent Blind Check","A second model answers questions without seeing the key. When it disagrees, the question goes back for review."),
- ("chart","Official Exam Blueprint","Question counts, time limits and pass marks match the real exam, and topic coverage is checked against the published outline."),
- ("spark","Giveaway Detection","We test banks for answer patterns, like the right answer sitting in one position or always being the longest, and fix them so scores reflect knowledge."),
+ ("quote","Direct Source Grounding","Every question carries a word-for-word quote from the official manual or regulation it came from. No source, no question."),
+ ("blind","Independent Blind Check","A second model answers questions without seeing the key. When it disagrees, the question goes back for review."),
+ ("blueprint","Official Exam Blueprint","Question counts, time limits and pass marks match the real exam, and topic coverage is checked against the published outline."),
+ ("pattern","Giveaway Detection","We test banks for answer patterns, like the right answer sitting in one position or always being the longest, and fix them so scores reflect knowledge."),
 ]
 ICONS = {
  "book":'<path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/>',
@@ -193,6 +193,20 @@ ICONS = {
  "route":'<circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7.500a3.500 3.500 0 0 0 0-7h-7a3.500 3.500 0 0 1 0-7H16"/>',
  "chat":'<path d="M20 12.500a7.500 7.500 0 0 1-11 6.600L4 20.500l1.400-4.600A7.500 7.500 0 1 1 20 12.500z"/><path d="M9 12h.01M12.500 12h.01M16 12h.01"/>',
  "spark":'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.500 2.500M15.500 15.500 18 18M18 6l-2.500 2.500M8.500 15.500 6 18"/>',
+ # brand set (Oct 2026 pass): one forest stroke + one gold accent ("ac") per icon
+ "plane":'<path d="M3 13.500 21 6l-6.500 15-2.800-6.200z"/><path class="ac" d="m11.700 14.800 3.300-3.300"/>',
+ "anchor":'<circle cx="12" cy="5" r="2"/><path d="M12 7v13"/><path d="M5 13a7 7 0 0 0 14 0"/><path class="ac" d="M8.500 10.500h7"/>',
+ "wheel":'<circle cx="12" cy="12" r="8.500"/><path d="M3.600 11h5.400M15 11h5.400M12 14v6.400"/><circle class="ac" cx="12" cy="12" r="2.200"/>',
+ "scales":'<path d="M12 4v16M8 20h8M5 7h14"/><path d="M5 7 2.500 12.500a2.500 2.500 0 0 0 5 0z"/><path d="M19 7l-2.500 5.500a2.500 2.500 0 0 0 5 0z"/><circle class="ac" cx="12" cy="4" r="1.400"/>',
+ "ingest":'<path d="M7 3h7l4 4v5"/><path d="M14 3v4h4"/><path d="M4 14v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path class="ac" d="M11 8v7m-3-3 3 3 3-3"/>',
+ "adapt":'<circle cx="5" cy="18.500" r="2"/><path d="M7 18.500h5a4 4 0 0 0 0-8h-3a3 3 0 0 1 0-6h9"/><path class="ac" d="m16 2.500 2 2-2 2"/>',
+ "verify":'<path d="M12 3 4.500 6v5.500c0 4.400 3.100 8 7.500 9.500 4.400-1.500 7.500-5.100 7.500-9.500V6z"/><path class="ac" d="m8.500 12 2.500 2.500 4.500-5"/>',
+ "gauge":'<path d="M3.500 17a8.500 8.500 0 1 1 17 0"/><path d="M12 8.500V9.500M6.300 11.300l.7.7M17.700 11.300l-.7.7"/><path class="ac" d="m12 17 3.800-4.800"/><circle cx="12" cy="17" r="1.300"/>',
+ "cells":'<rect x="3.500" y="3.500" width="7" height="7" rx="2"/><rect x="13.500" y="3.500" width="7" height="7" rx="2"/><rect x="13.500" y="13.500" width="7" height="7" rx="2"/><rect class="ac" x="4.600" y="14.600" width="4.800" height="4.800" rx="1.200" transform="rotate(45 7 17)"/>',
+ "quote":'<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 9.500h4M9 17h5"/><path class="ac" d="M9 13.300h7"/>',
+ "blind":'<path d="M2.500 12S6 5.500 12 5.500 21.500 12 21.500 12 18 18.500 12 18.500 2.500 12 2.500 12z"/><circle cx="12" cy="12" r="2.800"/><path class="ac" d="M4.500 19.500 19.500 4.500"/>',
+ "blueprint":'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2.800h6V4"/><path d="M8.500 9.500h7M8.500 13h7"/><path class="ac" d="M8.500 16.500h4"/>',
+ "pattern":'<circle cx="10.500" cy="10.500" r="6.500"/><path d="m15.500 15.500 5 5"/><path class="ac" d="M8 8.500h.01M10.500 8.500h.01M13 8.500h.01M8 11h.01M8 13.500h.01M10.500 11h.01"/>',
 }
 ICON_ORDER = ["book","check","globe","phone","chart","spark"]
 STEPS = [
@@ -261,7 +275,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=176">
+<link rel="stylesheet" href="/assets/site.css?v=191">
 </head>
 """
 
@@ -304,7 +318,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=68"></script>
+<script src="/assets/site.js?v=69"></script>
 </body>
 </html>
 """
@@ -349,37 +363,33 @@ def hero_floats():
 # ------------------------------------------------------------------ enterprise homepage blocks
 # hero mesh: real sources feed the engine, which feeds four live brands.
 # Coordinates are in a 520x400 box; the HTML nodes are placed at the same percentages so the SVG curves meet them.
-MESH_SRC = [("Pilot rules and handbooks","FAA"),("Mariner licensing rules","U.S. Coast Guard"),("State driver handbooks","DMVs"),("State insurance laws","Insurance regulators")]
+MESH_SRC = [("Pilot rules and handbooks","FAA","plane"),("Mariner licensing rules","U.S. Coast Guard","anchor"),("State driver handbooks","DMVs","wheel"),("State insurance laws","Insurance regulators","scales")]
 HUB_STEPS = ["Unify sources", "Cross-reference rules", "Verify every answer", "Watch for new editions"]
 MESH_OUT = [("aviator-iq","Aviation"),("mariner-iq","Maritime"),("dmv-iq","Driving"),("insurance-pass","Insurance")]
 MESH_Y = [62, 154, 246, 338]
-DOC = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>'
-SHIELD = """<svg class="hub-ic" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="hubg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3D58E"/><stop offset="1" stop-color="#C9922E"/></linearGradient></defs>
-<g class="hub-ring"><circle cx="32" cy="32" r="29" fill="none" stroke="url(#hubg)" stroke-width="1" stroke-dasharray="3 5" opacity=".7"/></g>
-<path d="M32 9 13 16v13c0 12 8 21.500 19 25 11-3.500 19-13 19-25V16z" fill="rgba(229,178,93,.10)" stroke="url(#hubg)" stroke-width="1.6"/>
-<path d="M32 16 20 20.500v9c0 8 5 14 12 16.500 7-2.500 12-8.500 12-16.500v-9z" fill="rgba(229,178,93,.14)" stroke="url(#hubg)" stroke-width="1.2" opacity=".85"/>
-<path d="m25.500 31.500 4.500 4.500 9-9.500" fill="none" stroke="#F3D58E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>"""
-def schematic():
-    paths = []
-    for i, y in enumerate(MESH_Y):
-        paths.append(f'<path class="tr in" style="--i:{i}" d="M220 {y} C 310 {y}, 310 200, 390 200"/>')
-        paths.append(f'<path class="tr out" style="--i:{i}" d="M610 200 C 690 200, 690 {y}, 780 {y}"/>')
-    base = "".join(p.replace('class="tr', 'class="tb') for p in paths)
-    svg = f'<svg class="mesh-svg" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">{base}{"".join(paths)}</svg>'
-    src = "".join(f'<li class="m-src" style="--y:{y / 4}%;--i:{i}"><span class="m-doc">{DOC}</span><span><b>{esc(t)}</b><small>{esc(a)}</small></span></li>' for i, ((t, a), y) in enumerate(zip(MESH_SRC, MESH_Y)))
-    out = "".join(f'<li class="m-out" style="--y:{y / 4}%;--i:{i}"><img src="/assets/img/apps/{s}.png" alt="" width="26" height="26"><span><b>{BY[s]["name"]}</b><small>{esc(l)}</small></span><i class="pip"></i></li>' for i, ((s, l), y) in enumerate(zip(MESH_OUT, MESH_Y)))
-    steps = "".join(f'<li style="--i:{i}">{esc(t)}</li>' for i, t in enumerate(HUB_STEPS))
-    return f"""<figure class="mx" aria-label="Official regulations and manuals flow into the Oddly Sunny engine, which feeds Aviator IQ, Mariner IQ, DMV IQ and Citizen Pass">
-  <div class="mesh-stage">
+def flow():
+    """Platform figure (Oct 2026 brand pass): an editorial diagram on a forest plate. Sources are typeset (agency in
+    small caps over a serif title), the engine carries the real brand mark and numbered steps, products sit as app
+    icons with names. Hairline curves join them on desktop; phones read it top to bottom along one gold rail."""
+    ys = [62, 167, 272, 377]                      # row centres in the 1000 x 440 stage
+    din = lambda y: f"M303 {y} C 356 {y}, 346 220, 392 220"
+    dout = lambda y: f"M608 220 C 654 220, 644 {y}, 697 {y}"
+    curves = "".join(f'<path class="fl-c in" d="{din(y)}"/><path class="fl-c out" d="{dout(y)}"/>' for y in ys)
+    # glints: a short bright dash that runs each curve, sources first, then out to the products
+    curves += "".join(f'<path class="fl-g in" pathLength="100" style="--i:{i}" d="{din(y)}"/><path class="fl-g out" pathLength="100" style="--i:{i}" d="{dout(y)}"/>' for i, y in enumerate(ys))
+    svg = f'<svg class="fl-svg" viewBox="0 0 1000 440" preserveAspectRatio="none" aria-hidden="true">{curves}</svg>'
+    src = "".join(f'<li class="fl-src" style="--y:{y / 4.4}%;--i:{i}"><span class="fl-ag">{esc(a)}</span><b>{esc(s)}</b></li>' for i, ((s, a, _), y) in enumerate(zip(MESH_SRC, ys)))
+    out = "".join(f'<li class="fl-out" style="--y:{y / 4.4}%;--i:{i}"><img src="/assets/img/apps/{slug}.png" alt="" width="30" height="30"><span><b>{BY[slug]["name"]}</b><span class="fl-ag">{esc(l)}</span></span></li>' for i, ((slug, l), y) in enumerate(zip(MESH_OUT, ys)))
+    steps = "".join(f'<li style="--i:{i}"><em>0{i + 1}</em>{esc(s)}</li>' for i, s in enumerate(HUB_STEPS))
+    return f"""<figure class="fl" aria-label="Official regulations and manuals flow into the Oddly Sunny Engine, which feeds Aviator IQ, Mariner IQ, DMV IQ and Insurance Pass">
+  <div class="fl-stage">
     {svg}
-    <div class="mesh-cap mesh-cap-l">Source ingestion</div><div class="mesh-cap mesh-cap-r">Commercial verticals</div>
-    <ul class="mesh-col mesh-l">{src}</ul>
-    <div class="mx-flow in" aria-hidden="true"><span></span><i></i><i></i><i></i><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
-    <div class="hub"><div class="hub-in">{SHIELD}<b>Oddly Sunny Engine</b><ul class="hub-steps">{steps}</ul></div></div>
-    <div class="mx-flow out" aria-hidden="true"><span></span><i></i><i></i><i></i><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
-    <ul class="mesh-col mesh-r">{out}</ul>
+    <div class="fl-cap fl-cap-l">Official sources</div><div class="fl-cap fl-cap-r">Live products</div>
+    <ul class="fl-col fl-l">{src}<li class="fl-more"><em>+</em>USCIS, IRCC, FCC and provincial agencies</li></ul>
+    <div class="fl-hub">{mark("fl-mark")}<span class="fl-kick">One engine</span><b>Oddly Sunny Engine</b><ol>{steps}</ol></div>
+    <ul class="fl-col fl-r">{out}<li class="fl-more"><em>+</em>Citizen Pass, Drive IQ Canada, Airwaves IQ</li></ul>
   </div>
-  <div class="mesh-tel"><i></i>7 live products &middot; page-level citations &middot; edition monitoring</div>
+  <div class="fl-foot"><span>Blind-checked answer keys</span><span>Page-level citations</span><span>Edition monitoring</span></div>
 </figure>"""
 
 VERTICALS = [("Mobility &amp; Transit", ["dmv-iq","drive-iq-canada"]),
@@ -439,7 +449,7 @@ def home():
       <h2 class="h2">Automating compliance across <i>high-barrier domains.</i></h2>
       <p class="sub">Our proprietary pipeline turns statutory codes and agency handbooks into question banks where every item traces back to its source page.</p>
     </div>
-    <div class="mesh-wrap reveal">{schematic()}</div>
+    <div class="fl-wrap reveal">{flow()}</div>
   </div>
 </div></section>
 
@@ -753,11 +763,11 @@ def md_lite(t):
     return "".join(out)
 
 COMPARE = [
- ("book","Curriculum Ingestion","Built directly from official handbooks and regulations, with edition monitoring that flags new versions for fast updates.","Manual editorial cycles per jurisdiction."),
- ("spark","Pedagogical Adaptation","Weak topics surface first, and missed questions come back until they're mastered.","Static multiple-choice banks and linear, one-size-fits-all pathways."),
- ("check","Factual Integrity","Every question traced to its source page and checked against the official text.","Unvetted AI answers or outdated printed answer keys."),
- ("chart","Predictive Readiness","A readiness score that blends coverage, accuracy, recall and speed, measured against the official pass mark.","Flat completion percentages and uncalibrated scores."),
- ("globe","Horizontal Scalability","Reusable modular ingestion architecture deployable to new state, federal, or international domains in weeks.","Prohibitive cost and editorial overhead to expand across regional jurisdictions."),
+ ("ingest","Curriculum Ingestion","Built directly from official handbooks and regulations, with edition monitoring that flags new versions for fast updates.","Manual editorial cycles per jurisdiction."),
+ ("adapt","Pedagogical Adaptation","Weak topics surface first, and missed questions come back until they're mastered.","Static multiple-choice banks and linear, one-size-fits-all pathways."),
+ ("verify","Factual Integrity","Every question traced to its source page and checked against the official text.","Unvetted AI answers or outdated printed answer keys."),
+ ("gauge","Predictive Readiness","A readiness score that blends coverage, accuracy, recall and speed, measured against the official pass mark.","Flat completion percentages and uncalibrated scores."),
+ ("cells","Horizontal Scalability","Reusable modular ingestion architecture deployable to new state, federal, or international domains in weeks.","Prohibitive cost and editorial overhead to expand across regional jurisdictions."),
 ]
 
 SPARK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 2.500c.5 4.300 2.700 6.500 7 7-4.300.5-6.500 2.700-7 7-.5-4.300-2.700-6.500-7-7 4.300-.5 6.500-2.700 7-7zm8 10c.3 2.300 1.300 3.300 3.500 3.500-2.200.3-3.200 1.300-3.500 3.500-.3-2.200-1.300-3.200-3.500-3.500 2.200-.2 3.200-1.200 3.500-3.500z"/></svg>'
@@ -782,8 +792,10 @@ def ai_cards():
         <div class="ai-bar"><i style="width:62%"></i></div><small class="ai-note">62% ready · on track</small></div>''', "Plans paced to the exam date",
       "Candidates set a test date. Sunny builds a plan around it, adjusts as performance improves and reports readiness against the real pass mark."),
     ]
+    # studio-backdrop colours taken from the hero headshots (teal, coral, olive): no people, just the set
+    tones = {"ask": ("#6FB2B8", "#2E7680", "#52603F"), "quiz": ("#E39B92", "#B4605B", "#7A3E52"), "plan": ("#93A06C", "#56603E", "#B08A38")}
     return "".join(f'''<article class="ai-card reveal" style="--d:{i * 110}ms">
-      <div class="ai-vis"><img src="/assets/img/ai/{img}.jpg" alt="" loading="lazy" width="900" height="720">{mock}{btn(b)}</div>
+      <div class="ai-vis ai-studio" style="--s1:{tones[img][0]};--s2:{tones[img][1]};--s3:{tones[img][2]}">{mock}{btn(b)}</div>
       <h3>{esc(t)}</h3><p>{esc(d)}</p>
     </article>''' for i, (img, b, mock, t, d) in enumerate(mocks))
 

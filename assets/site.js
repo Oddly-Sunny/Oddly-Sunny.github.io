@@ -497,6 +497,32 @@
   }, 6500);
 })();
 
+/* AI cards: after the entrance, each little screen keeps acting out its job on a loop while on screen.
+   Reset (fade the parts back out), then let the designed entrance sequence replay, then press the button.
+   The quiz card switches topic each round. Off for reduced motion. */
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.ai-card'));
+  if (!cards.length || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || !('IntersectionObserver' in window)) return;
+  var topics = ['Right of way', 'Road signs', 'Parking', 'Speed limits'];
+  cards.forEach(function (card, i) {
+    var vis = card.querySelector('.ai-vis'), sel = card.querySelector('.ai-sel'), on = false, timer = 0, round = 0;
+    function cycle() {
+      if (!on) { timer = 0; return; }
+      vis.classList.add('ai-reset');
+      setTimeout(function () {
+        if (sel) { round++; sel.firstChild.nodeValue = topics[round % topics.length]; }
+        vis.classList.remove('ai-reset');
+        setTimeout(function () { vis.classList.add('ai-press'); setTimeout(function () { vis.classList.remove('ai-press'); }, 700); }, 3000);
+      }, 650);
+      timer = setTimeout(cycle, 8200);
+    }
+    new IntersectionObserver(function (es) {
+      on = es[0].isIntersecting;
+      if (on && !timer) timer = setTimeout(cycle, 4200 + i * 600);   /* first round after the entrance has played */
+    }, { threshold: 0.35 }).observe(card);
+  });
+})();
+
 /* hero: photos follow the pointer in subtle 3D (tilt toward it, drift a few px), each at its own depth, eased.
    Waits for a photo's entrance to finish before taking over its transform; mouse/trackpad only; off for reduced motion. */
 (function () {

@@ -104,3 +104,12 @@
 - `hero_floats()`: products only in slots f4 (right middle; top right on phones) and f6 (bottom left), so 2 of 3 are always visible and never on one row; product swaps crossfade (`cross()` in site.js) so a product slot is never empty. All slots square.
 - Effects: subtle 3D pointer tilt per photo (site.js "photos follow the pointer", max ~3deg, mouse only, waits for the entrance), hover zoom + tilt + glow (CSS "hero photo hover"); `.hero .copy` is pointer-events:none except its links/mark so photos receive hover. JS `?v=68`, CSS `?v=176`.
 - Old wall photos (study-*, cp-*, airwaves-man, b-*) are no longer used by the hero; files kept.
+
+## 2026-10-19 Homepage brand pass (committed, NOT pushed)
+- Type: every `h2.h2` is the hero serif (Newsreader) with the italic accent in the same family; feature/card titles serif; comparison row labels upright; headings `text-wrap:balance`.
+- Eyebrows + vertical group labels lead with the gold diamond; one text-link style (`.ai-more`); light sections are warm paper (#FCFBF8 / #F5F3ED), not white.
+- Icons: brand set in `ICONS` (forest stroke + gold `.ac` accent): plane/anchor/wheel/scales (sources), ingest/adapt/verify/gauge/cells (comparison), quote/blind/blueprint/pattern (verification). One icon tile style.
+- Platform figure rebuilt as `flow()` (`.fl-*` CSS, old `schematic()`/mesh markup removed): warm-paper plate, typeset sources, forest engine card with the real brand mark + numbered steps, app icons; "+" lines name USCIS/IRCC/FCC/provincial agencies and Citizen Pass/Drive IQ Canada/Airwaves IQ (owner: no counts); footer "Blind-checked answer keys / Page-level citations / Edition monitoring". 6s motion cycle: glints along curves, diamond pulses, engine sheen + cell pulses + active-step bar. Phones: one gold rail.
+- AI agent cards: photos replaced by graded studio-colour backdrops (teal/coral/olive from the hero headshots, grain, drifting light); demos loop while on screen (site.js "AI cards", quiz topic changes each round).
+- CSS `?v=191`, JS `?v=69`. Checked desktop + 390px.
+- Next step: owner OK to push.
