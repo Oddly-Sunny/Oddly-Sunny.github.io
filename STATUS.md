@@ -51,3 +51,6 @@
 ## 2026-10-18 phone menu fix, DEPLOYED (e3c6c53)
 - The frosted header (backdrop-filter) trapped the full-screen menu after scrolling; it is now dropped while the menu is open. New layout: logo, Sunny and How we build rows, brand icon grid (`.dd-list`), Say hello and email.
 - Next step: check the menu and games on a real phone.
+
+## 2026-10-19 phone menu email removed, LIVE (commit 6074818)
+- Dropped the hello@oddlysunny.com link under "Say hello" in the header menu (it only showed on phones). CSS `?v=116`. Footer, CTA and /contact/ still show the address.
