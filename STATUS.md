@@ -78,3 +78,8 @@
 
 ## 2026-10-19 Engine hub process list (LIVE)
 - Hub tag replaced by HUB_STEPS in build.py: Unify sources, Cross-reference rules, Verify every answer, Watch for new editions (cycling highlight). site.css v=164.
+
+## 2026-10-19 Pro screenshots + copy (committed, NOT pushed)
+- All 7 product page screenshots recaptured as Pro members with seeded progress (readiness ~72-74%, categories mixed). Insurance Pass now shows NJ Life & Health, Mariner IQ the 6-Pack OUPV Near Coastal exam page (the old hub pages had no progress UI). Shot URLs `?v=2`. Capture tool + configs in `_shots/`.
+- Contact page intro + "We can help with" list rewritten; homepage SEO title/description match the hero; Sunny heading "An AI agent built for learners."
+- Next step: owner OK, then `git push`.

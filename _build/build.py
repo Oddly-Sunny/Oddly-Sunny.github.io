@@ -553,7 +553,7 @@ def stage(p):
     dpct = round(100 * (1 - (11 / 16) / (dh / dw)), 1)
     return f"""<div class="stage" role="img" aria-label="A screen from {p['name']}" style="--dd:-{dpct}%;--c1:{c1};--c2:{c2};--bgimg:url(/assets/img/bg/{slug}.jpg)">
   <div class="win"><div class="bar"><i></i><i></i><i></i><span>{p['host']}</span></div>
-    <div class="vp"><img src="/assets/img/shots/{slug}-d.jpg" alt="" width="{dw}" height="{dh}"></div></div>
+    <div class="vp"><img src="/assets/img/shots/{slug}-d.jpg?v=2" alt="" width="{dw}" height="{dh}"></div></div>
 </div>"""
 
 GAMES = [
