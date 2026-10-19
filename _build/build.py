@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=140">
+<link rel="stylesheet" href="/assets/site.css?v=141">
 </head>
 """
 
@@ -305,7 +305,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=46"></script>
+<script src="/assets/site.js?v=47"></script>
 </body>
 </html>
 """
@@ -413,38 +413,39 @@ ENGAGE = [
  ("chart","Full-Length Exam Simulation","Mock exams that match the official question count, time limit and pass mark."),
 ]
 def engage_ui():
-    # three steps that mirror ENGAGE; California facts are real (46 questions, pass at 38)
-    dots = "".join(f'<i class="{"x" if n in (7, 19, 30, 41) else ""}" style="--n:{n}"></i>' for n in range(46))
-    return f"""<div class="ef reveal" aria-label="A learner's loop: a timed sprint, missed questions coming back, then a full-length mock exam">
-  <div class="ef-step">
-    <div class="ef-k"><b>1</b><span>Micro-diagnostic sprint</span></div>
+    # a looping learner session (site.js "engagement loop"); steps mirror ENGAGE. California facts are real (46 questions, pass at 38)
+    misses = (7, 19, 30, 41)
+    dots = "".join(f'<i{" class=x" if n in misses else ""}></i>' for n in range(46))
+    heads = [f'<div class="ef-k"><b>{i+1}</b><span><strong>{t}</strong><small>{d}</small></span></div>' for i, (_, t, d) in enumerate(ENGAGE)]
+    return f"""<div class="ef reveal" data-ef aria-label="A learner session: a timed sprint, missed questions coming back, then a full-length mock exam">
+  <div class="ef-line" aria-hidden="true"><i></i></div>
+  <div class="ef-step" data-s="1">
+    {heads[0]}
     <div class="ef-card ef-sprint">
       <div class="ef-sq"><small>Right of way &middot; question 4 of 10</small><p>Two vehicles reach a four-way stop at the same time. Which one goes first?</p>
         <div class="ef-opts"><span>The larger vehicle</span><span class="ok">The vehicle on the right</span><span>The vehicle on the left</span></div></div>
-      <div class="ef-clock"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"/><circle class="run" cx="24" cy="24" r="20"/></svg><b>0:42</b></div>
+      <div class="ef-clock"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"/><circle class="run" cx="24" cy="24" r="20"/></svg><b>0:45</b><span class="ef-xp">+10 XP</span></div>
     </div>
   </div>
-  <div class="ef-step">
-    <div class="ef-k"><b>2</b><span>Missed questions come back</span></div>
+  <div class="ef-step" data-s="2">
+    {heads[1]}
     <div class="ef-card ef-loop">
-      <div class="ef-stack"><span style="--r:-6deg;--x:0"><em>missed 3&times;</em>Emergency vehicles</span><span style="--r:2deg;--x:1"><em>missed 2&times;</em>School bus stops</span><span style="--r:7deg;--x:2"><em>missed 1&times;</em>Railroad crossings</span></div>
+      <div class="ef-stack"><span style="--x:0"><em>missed 3&times;</em>Emergency vehicles</span><span style="--x:1"><em>missed 2&times;</em>School bus stops</span><span style="--x:2"><em>missed 1&times;</em>Railroad crossings</span></div>
       <svg class="ef-arrow" viewBox="0 0 120 60" aria-hidden="true"><path d="M8 44 C 30 4, 90 4, 110 34"/><path d="m100 30 10 5 2-11"/></svg>
-      <p class="ef-cap">Back in the next session until answered correctly</p>
     </div>
   </div>
-  <div class="ef-step">
-    <div class="ef-k"><b>3</b><span>Full-length exam simulation</span></div>
+  <div class="ef-step" data-s="3">
+    {heads[2]}
     <div class="ef-card ef-sim">
       <div class="ef-sim-h"><span>California knowledge test</span><em>Passed</em></div>
       <div class="ef-dots">{dots}</div>
-      <div class="ef-sim-f"><span><b>42</b> / 46 correct</span><span>Pass mark <b>38</b></span></div>
+      <div class="ef-sim-f"><span><b class="ef-cnt">42</b> / 46 correct</span><span>Pass mark <b>38</b></span></div>
     </div>
   </div>
 </div>"""
 
 def home():
     feats = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in CAPS)
-    engage = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in ENGAGE)
     body = f"""
 <section class="e-hero" data-scheme="green"><div class="wrap">
   <div class="e-copy">
@@ -516,7 +517,6 @@ def home():
     <div class="eyebrow rule reveal">Engagement architecture &amp; retention</div>
     <h2 class="h2 reveal">Built for <i>daily learner retention.</i></h2>
     <p class="sub reveal">Certification prep suffers from learner drop-off. We build retrieval practice and short daily loops into our products so learners keep coming back.</p>
-    <div class="feats one">{engage}</div>
   </div>
   {engage_ui()}
 </div></section>
