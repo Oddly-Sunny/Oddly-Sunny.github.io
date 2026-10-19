@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=142">
+<link rel="stylesheet" href="/assets/site.css?v=143">
 </head>
 """
 
@@ -450,7 +450,7 @@ def home():
 <section class="e-hero" data-scheme="white"><div class="wrap">
   <div class="e-copy">
     <div class="pill">Regulatory learning infrastructure</div>
-    <h1>The verification engine<br>for <i>high&#8209;stakes exams.</i></h1>
+    <h1>The verification engine <br>for <span class="acc">high&#8209;stakes exams.</span></h1>
     <p class="lede">We turn complex statutes and government manuals into adaptive study tools. Seven live products, every question traced to the page it came from.</p>
     <div class="cta-row"><a class="btn btn-glow" href="#platform">Explore the Platform Engine {ARROW_R}</a><a class="tlink" href="#verticals">Explore Commercial Verticals {ARROW_R}</a></div>
   </div>

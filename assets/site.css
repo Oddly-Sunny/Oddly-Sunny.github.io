@@ -1624,3 +1624,8 @@ section[data-scheme="white"],section[data-scheme="soft"]{background:var(--bg);co
 .ef-step{opacity:.5}
 /* verticals labels */
 #verticals .vt-g>h3{color:#56665E}
+/* hero headline matches the story pages: one serif, regular weight */
+.e-hero h1{font-family:var(--serif);font-weight:400;letter-spacing:-.018em;line-height:1.07;color:#121212;font-size:clamp(40px,min(5.8vw,8vh),84px)}
+.e-hero h1 .acc{color:var(--gold-ink)}
+@media(max-width:960px){.nav>a{white-space:normal}.hdr .wrap{min-width:0}}
+.mx-sec{overflow-x:clip}
