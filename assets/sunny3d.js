@@ -43,8 +43,8 @@ const vert = /* glsl */`
     vec3 p = position + n * len * h + comb * len * 0.55 * h * h;
     // a little sway, and lag when the body turns
     float s = h * h;
-    p.x += (sin(uTime * 1.3 + position.y * 4.0 + position.z * 2.0) * 0.010 - uLag.x * 0.06) * s;
-    p.y += (cos(uTime * 1.1 + position.x * 3.5) * 0.008 - uLag.y * 0.06 - 0.012) * s;
+    p.x += (sin(uTime * 0.9 + position.y * 3.0 + position.z * 2.0) * 0.006 - uLag.x * 0.05) * s;
+    p.y += (cos(uTime * 0.8 + position.x * 2.5) * 0.005 - uLag.y * 0.05 - 0.012) * s;
     vRest = position; vH = h;
     vN = normalize(normalMatrix * n);
     gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
@@ -70,10 +70,16 @@ const frag = /* glsl */`
     if (front && h > 0.0) {
       for (int i = 0; i < 2; i++) if (length((vRest.xy - uEyes[i]) * vec2(1.0, 0.92)) < 0.1) discard;
     }
+    // strands get a soft, pixel-width edge (alpha-to-coverage) instead of a hard cut, so they don't shimmer
+    float cover = 1.0;
     if (h > 0.0) {
       if (h > len) discard;
-      float w = 0.7 * (1.0 - 0.85 * h / len);
-      if (length(f + (rnd2 - 0.5) * 0.3 + vec2(sin(h * 6.0 + rnd * 6.28), cos(h * 5.0 + rnd2 * 6.28)) * 0.12 * h) > w) discard;
+      float w = 0.78 * (1.0 - 0.8 * h / len);
+      float d = length(f + (rnd2 - 0.5) * 0.25 + vec2(sin(h * 5.0 + rnd * 6.28), cos(h * 4.0 + rnd2 * 6.28)) * 0.08 * h);
+      float aa = max(fwidth(d) * 1.2, 0.03);
+      cover = 1.0 - smoothstep(w - aa, w + aa, d);
+      cover *= 1.0 - smoothstep(len * 0.75, len, h);
+      if (cover < 0.02) discard;
     }
     vec3 root = vec3(0.72, 0.60, 0.46), mid = vec3(0.89, 0.81, 0.70), tip = vec3(0.99, 0.95, 0.88);
     vec3 col = mix(root, mix(mid, tip, smoothstep(0.35, 1.0, h)), smoothstep(0.0, 0.35, h));
@@ -91,7 +97,7 @@ const frag = /* glsl */`
     float dif = 0.8 + 0.3 * max(dot(vN, L), 0.0);
     float rim = pow(1.0 - max(vN.z, 0.0), 2.0) * 0.18;
     float ao = mix(0.78, 1.0, h);
-    outColor = vec4(col * dif * ao + rim * tip * h, 1.0);
+    outColor = vec4(col * dif * ao + rim * tip * h, cover);
   }`;
 
 function mount(el) {
@@ -115,11 +121,14 @@ function mount(el) {
   const geo = pillow();
   const uniforms = {
     uShells: { value: SHELLS }, uLen: { value: FUR }, uTime: { value: 0 }, uLag: { value: new THREE.Vector2() },
-    uDensity: { value: 150 },
+    uDensity: { value: 85 },
     uEyes: { value: EYES.map(([x, y]) => new THREE.Vector2(x, y)) },
     uCheeks: { value: CHEEKS.map(([x, y]) => new THREE.Vector2(x, y)) },
   };
-  const furMat = new THREE.ShaderMaterial({ vertexShader: vert, fragmentShader: frag, uniforms, glslVersion: THREE.GLSL3 });
+  const furMat = new THREE.ShaderMaterial({ vertexShader: vert, fragmentShader: frag, uniforms, glslVersion: THREE.GLSL3, alphaToCoverage: true,
+    // colour replaces, alpha only adds: the soft strand edge drives coverage but never makes the canvas see-through
+    blending: THREE.CustomBlending, blendSrc: THREE.OneFactor, blendDst: THREE.ZeroFactor,
+    blendSrcAlpha: THREE.OneFactor, blendDstAlpha: THREE.OneFactor });
   const fur = new THREE.InstancedMesh(geo, furMat, SHELLS + 1);
   const id = new THREE.Matrix4();
   for (let i = 0; i <= SHELLS; i++) fur.setMatrixAt(i, id);

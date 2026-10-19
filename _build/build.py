@@ -442,7 +442,7 @@ def home():
     <div class="cta-row"><a class="btn btn-glow" href="#platform">Explore the Platform Engine {ARROW_R}</a><a class="tlink" href="#verticals">Explore Commercial Verticals {ARROW_R}</a></div>
   </div>
 </div></section>
-<script>addEventListener('load',function(){{import('/assets/sunny3d.js?v=3').catch(function(){{}})}})</script>
+<script>addEventListener('load',function(){{import('/assets/sunny3d.js?v=5').catch(function(){{}})}})</script>
 
 <section class="sec mx-sec" id="platform" data-scheme="soft"><div class="wrap">
   {proof_bar()}
