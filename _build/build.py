@@ -638,7 +638,7 @@ def contact_page():
   <div class="c-wrap">
     <div class="s-label">Contact</div>
     <h1 class="s-title">Get in touch.</h1>
-    <p class="s-dek">Questions about one of our brands, something that looks out of date, or just want to say hello? We read every message.</p>
+    <p class="s-dek">Send us a message and our team will get back to you.</p>
     <div class="c-grid">
       <form class="c-form" id="contactForm" novalidate data-endpoint="{CONTACT_ENDPOINT}" data-mail="{MAIL}">
         <label>Name<input name="name" type="text" autocomplete="name" required></label>
@@ -649,13 +649,12 @@ def contact_page():
         <p class="c-note" id="contactNote" role="status"></p>
       </form>
       <aside class="c-side">
-        <div class="s-side-title">Why people write to us</div>
+        <div class="s-side-title">We can help with</div>
         <ul>
-          <li>Partnerships, licensing and conversations about our portfolio</li>
-          <li>Press, research and speaking requests</li>
-          <li>A question or answer that looks wrong or out of date</li>
-          <li>Feedback and ideas for our learning brands</li>
-          <li>Help with a specific brand: tell us which one and we will point you the right way</li>
+          <li>Partnerships and licensing</li>
+          <li>Press and media</li>
+          <li>Research and speaking requests</li>
+          <li>Product support</li>
         </ul>
         <div class="s-side-title" style="margin-top:28px">Prefer email?</div>
         <p>Write to us at <a href="mailto:{MAIL}">{MAIL}</a>. We usually reply within a day or two.</p>
@@ -664,7 +663,7 @@ def contact_page():
   </div>
 </section>
 """
-    return head_html("Contact | Oddly Sunny", "Get in touch with Oddly Sunny about our learning brands, a question that looks out of date, or anything else. We read every message.", "/contact/", "home.jpg") + header() + body + footer("paper")
+    return head_html("Contact | Oddly Sunny", "Get in touch with the Oddly Sunny team.", "/contact/", "home.jpg") + header() + body + footer("paper")
 
 
 SUNNY_EXAMPLES = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sunny_examples.json"), encoding="utf-8"))
