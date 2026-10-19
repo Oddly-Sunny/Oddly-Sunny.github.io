@@ -1644,3 +1644,15 @@ section[data-scheme="white"],section[data-scheme="soft"]{background:var(--bg);co
 #expertise .exp-vid{padding:0;min-height:0;background:none;justify-items:end}
 #expertise .exp-vid video{width:100%;max-width:460px}
 @media(max-width:960px){#expertise .exp{grid-template-columns:minmax(0,1fr);gap:0;padding:0 24px}#expertise .exp .l{padding:64px 0 32px}#expertise .exp-vid{justify-items:center;padding-bottom:64px}#expertise .exp-vid video{max-width:380px}}
+/* home hero: all-white headline, single CTA that glides down */
+.hero h1,.hero h1 i{color:#fff}
+.btn-down svg{width:15px;height:15px;transition:transform .35s cubic-bezier(.3,1.5,.5,1)}
+@media(hover:hover){.btn-down:hover svg{transform:translateY(3px)}}
+/* Sunny banner spans the pipeline section under text + video */
+.exp-sn{max-width:var(--max);margin:0 auto;padding:0 40px 100px}
+.sn-wide{margin-top:0;display:grid;grid-template-columns:72px minmax(0,1fr) auto;align-items:center;gap:6px 26px;padding:28px 32px}
+.sn-wide .go{grid-column:auto;margin:0;align-self:center}
+.sn-wide h3{font-size:19px}
+.sn-wide p{font-size:14.5px}
+#expertise .exp .l{padding-bottom:56px}
+@media(max-width:960px){.exp-sn{padding:0 24px 64px}.sn-wide{grid-template-columns:56px minmax(0,1fr);padding:22px}.sn-wide .go{grid-column:2;margin-top:10px}}

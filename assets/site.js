@@ -713,3 +713,28 @@
     if (es[0].isIntersecting) { if (!running) play(); } else { T.forEach(clearTimeout); T = []; running = false; }
   }, { threshold: 0.3 }).observe(eg);
 })();
+
+/* [data-smooth] links glide to their target with an eased scroll, clearing the fixed header */
+(function () {
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  Array.prototype.forEach.call(document.querySelectorAll('a[data-smooth]'), function (a) {
+    a.addEventListener('click', function (e) {
+      var t = document.querySelector(a.getAttribute('href'));
+      if (!t) return;
+      e.preventDefault();
+      var hdr = document.querySelector('.hdr'), off = hdr ? hdr.offsetHeight : 0;
+      var from = window.scrollY, to = t.getBoundingClientRect().top + from - off + 1;
+      if (still) { window.scrollTo(0, to); return; }
+      var dur = Math.min(1400, 600 + Math.abs(to - from) * 0.4), t0 = null;
+      var ease = function (x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+      document.documentElement.style.scrollBehavior = 'auto';
+      requestAnimationFrame(function step(ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        window.scrollTo(0, from + (to - from) * ease(p));
+        if (p < 1) requestAnimationFrame(step); else document.documentElement.style.scrollBehavior = '';
+      });
+      if (history.replaceState) history.replaceState(null, '', a.getAttribute('href'));
+    });
+  });
+})();
