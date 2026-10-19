@@ -538,8 +538,8 @@
     var y = window.scrollY, down = y > lastY; lastY = y;
     if (!gliding) {
       var p = (y - top0) / range;
-      if (p < 0.6) armed = true;
-      else if (armed && down && p >= 0.96 && next && next.getBoundingClientRect().top > (hdr ? hdr.offsetHeight : 0) + 4) glide();
+      if (p < 0.4) armed = true;
+      else if (armed && down && p >= 0.7 && next && next.getBoundingClientRect().top > (hdr ? hdr.offsetHeight : 0) + 4) glide();
     }
     if (!ticking) { ticking = true; requestAnimationFrame(paint); }
   }
