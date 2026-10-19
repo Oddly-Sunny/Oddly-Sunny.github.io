@@ -506,8 +506,8 @@ def home():
     org = {"@context": "https://schema.org", "@type": "Organization", "name": "Oddly Sunny", "legalName": "Oddly Sunny LLC", "url": SITE + "/", "logo": SITE + "/apple-touch-icon.png",
            "description": "Oddly Sunny operates a proprietary, AI-native learning infrastructure platform for high-stakes licensing and certification exams."}
     site = {"@context": "https://schema.org", "@type": "WebSite", "name": "Oddly Sunny", "url": SITE + "/"}
-    return head_html("Oddly Sunny | AI Infrastructure for High-Stakes Licensing Exams",
-        "Oddly Sunny operates a proprietary, AI-native platform that turns regulatory frameworks, statutes and government manuals into verified, adaptive learning across seven commercial verticals.",
+    return head_html("Oddly Sunny | Learning, Reimagined with AI",
+        "We turn complex statutes and government manuals into adaptive study tools. Seven live products, every question traced to the page it came from.",
         "/", "home.jpg", [org, site]) + header().replace('class="hdr hdr-ent"', 'class="hdr hdr-ent brand-hidden away" data-away') + body + footer("green")
 
 FLOAT_ORDER = ["cp-smile","study-library","cp-dog","study-desk","cp-denim","study-woman","cp-hoodie","cp-blonde","airwaves-man"]
