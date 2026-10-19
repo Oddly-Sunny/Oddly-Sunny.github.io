@@ -179,10 +179,10 @@ BY = {p["slug"]: p for p in PRODUCTS}
 FEATURED_ORDER = ["aviator-iq","citizen-pass","dmv-iq","drive-iq-canada","insurance-pass","airwaves-iq","mariner-iq"]
 
 CAPS = [
- ("book","Every question has a receipt","Each one carries a word-for-word quote from the official source it came from. No source, no question."),
- ("check","A second AI takes the test blind","An independent model answers every question without seeing the key. If the two disagree, the question goes back for review."),
- ("chart","Built to the real blueprint","Question counts, time limits, pass marks and the official figures match the actual exam, so test day feels familiar."),
- ("spark","No patterns to game","We check every bank for giveaways, like the longest option always being the right one, so the only way to pass is to know it."),
+ ("book","Direct curriculum grounding","Every module links directly to current official manuals and statutory rules. If a concept, regulation, or legal threshold cannot cite primary source authority, it doesn't enter the platform."),
+ ("check","Multi-model validation","Independent models continuously solve and cross-examine the curriculum blind. Any ambiguous reasoning, fragile logic, or conflicting interpretation is automatically flagged and rewritten."),
+ ("chart","Official exam blueprinting","Subject distributions, passing standards, and scenario complexities are calibrated directly to current agency rubrics. Study sessions mirror the cognitive pacing of test day."),
+ ("spark","Built for true recall, not pattern&#8209;matching","Distractor answers reflect genuine cognitive misconceptions rather than superficial giveaways. Passing our modules proves functional mastery of the rules, not just test-taking tricks."),
 ]
 ICONS = {
  "book":'<path d="M4 5.500A2.500 2.500 0 0 1 6.500 3H20v16H6.500A2.500 2.500 0 0 0 4 21.500z"/><path d="M4 19V5.500"/>',
