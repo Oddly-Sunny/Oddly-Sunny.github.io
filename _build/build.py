@@ -420,7 +420,7 @@ def home():
   {wall}
   <div class="wrap"><div class="copy">
     <div class="mark hero-mark" id="heroMark"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div>
-    <h1>The verification engine<br><i>for high&#8209;stakes exams.</i></h1>
+    <h1>Smarter learning<br><i>for the moments that matter.</i></h1>
     <p class="lede">We turn complex statutes and government manuals into adaptive study tools. Seven live products, every question traced to the page it came from.</p>
     <div class="cta-row"><a class="btn btn-down" href="#platform" data-smooth>Explore the engine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></svg></a></div>
   </div></div>
