@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=141">
+<link rel="stylesheet" href="/assets/site.css?v=142">
 </head>
 """
 
@@ -283,7 +283,7 @@ def live_mark():
 
 def header():
     return f"""<body>
-<header class="hdr hdr-ent" data-scheme="green" data-fixed>
+<header class="hdr hdr-ent" data-scheme="white" data-fixed>
   <div class="wrap">
     <a href="/" class="brand" aria-label="oddly sunny home">{live_mark()}<span>oddly <b>sunny</b></span></a>
     <span class="beacon" aria-hidden="true">platform live</span>
@@ -447,7 +447,7 @@ def engage_ui():
 def home():
     feats = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in CAPS)
     body = f"""
-<section class="e-hero" data-scheme="green"><div class="wrap">
+<section class="e-hero" data-scheme="white"><div class="wrap">
   <div class="e-copy">
     <div class="pill">Regulatory learning infrastructure</div>
     <h1>The verification engine<br>for <i>high&#8209;stakes exams.</i></h1>
@@ -457,7 +457,7 @@ def home():
   {collage()}
 </div></section>
 
-<section class="sec mx-sec" id="platform" data-scheme="green"><div class="wrap">
+<section class="sec mx-sec" id="platform" data-scheme="soft"><div class="wrap">
   {proof_bar()}
   <div class="mx-grid">
     <div class="mx-copy reveal">
@@ -469,7 +469,7 @@ def home():
   </div>
 </div></section>
 
-<section class="sec vs-sec" id="architecture" data-scheme="cream"><div class="wrap">
+<section class="sec vs-sec" id="architecture" data-scheme="white"><div class="wrap">
   <div class="vs-head">
     <div class="reveal">
       <div class="eyebrow rule">Platform Architecture</div>
@@ -480,7 +480,7 @@ def home():
   <div class="vs-table">{compare_rows(None, "Legacy test publishers", "Oddly Sunny Engine")}</div>
 </div></section>
 
-<section class="sec ai-sec" id="ai-tools" data-scheme="cream"><div class="wrap">
+<section class="sec ai-sec" id="ai-tools" data-scheme="white"><div class="wrap">
   <div class="vs-head">
     <div class="reveal">
       <div class="eyebrow rule">Proprietary AI (Sunny)</div>
@@ -492,7 +492,7 @@ def home():
   <a class="ai-more reveal" href="/sunny/">Inspect Sunny in production {ARROW_R}</a>
 </div></section>
 
-<section id="expertise" data-scheme="tan"><div class="exp">
+<section id="expertise" data-scheme="soft"><div class="exp">
   <div class="l">
     <div class="eyebrow rule">Verification Pipeline</div>
     <h2 class="h2">Smart enough to teach, <i>disciplined enough to trust.</i></h2>
@@ -503,7 +503,7 @@ def home():
   <div class="r exp-vid"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/personal-loop.jpg" aria-label="A learner using her phone outdoors in soft sunlight"><source src="/assets/img/personal-loop.webm" type="video/webm"><source src="/assets/img/personal-loop.mp4" type="video/mp4"></video></div>
 </div></section>
 
-<section class="sec" id="verticals" data-scheme="purple"><div class="wrap">
+<section class="sec" id="verticals" data-scheme="white"><div class="wrap">
   <div class="vt-head reveal">
     <div class="eyebrow rule">Proven enterprise horizontal expansion</div>
     <h2 class="h2">One core engine. <i>Seven high-stakes verticals.</i></h2>
@@ -512,7 +512,7 @@ def home():
   <div class="vt-groups">{verticals()}</div>
 </div></section>
 
-<section class="sec" id="engagement" data-scheme="ember"><div class="wrap split play-split">
+<section class="sec" id="engagement" data-scheme="soft"><div class="wrap split play-split">
   <div>
     <div class="eyebrow rule reveal">Engagement architecture &amp; retention</div>
     <h2 class="h2 reveal">Built for <i>daily learner retention.</i></h2>
@@ -533,7 +533,7 @@ def home():
     site = {"@context": "https://schema.org", "@type": "WebSite", "name": "Oddly Sunny", "url": SITE + "/"}
     return head_html("Oddly Sunny | AI Infrastructure for High-Stakes Licensing Exams",
         "Oddly Sunny operates a proprietary, AI-native platform that turns regulatory frameworks, statutes and government manuals into verified, adaptive learning across seven commercial verticals.",
-        "/", "home.jpg", [org, site]) + header() + body + footer()
+        "/", "home.jpg", [org, site]) + header() + body + footer("green")
 
 FLOAT_ORDER = ["cp-smile","study-library","cp-dog","study-desk","cp-denim","study-woman","cp-hoodie","cp-blonde","airwaves-man"]
 FLOAT_POS = {"cp-hoodie":"18%","cp-blonde":"82%","cp-smile":"40%"}
