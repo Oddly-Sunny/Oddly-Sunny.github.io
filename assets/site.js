@@ -656,3 +656,27 @@
   }, { threshold: 0.55 });
   io.observe(st);
 })();
+
+/* hero pipeline run: steps s1..s9 play in order, hold, then replay. Pauses off screen; reduced motion shows the finished run. */
+(function () {
+  var pl = document.querySelector('[data-pl]');
+  if (!pl) return;
+  var all = ['s1','s2','s3','s4','s5','s6','s7','s8','s9'];
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (still || !('IntersectionObserver' in window)) { all.forEach(function (c) { pl.classList.add(c); }); return; }
+  // ms after start for each step, then the hold before replaying
+  var at = [200, 900, 2300, 2700, 3900, 5100, 6300, 7700, 8500], hold = 12500;
+  var timers = [], running = false;
+  function clear() { timers.forEach(clearTimeout); timers = []; }
+  function run() {
+    clear(); running = true;
+    pl.classList.add('reset'); all.forEach(function (c) { pl.classList.remove(c); });
+    void pl.offsetWidth; pl.classList.remove('reset');
+    all.forEach(function (c, i) { timers.push(setTimeout(function () { pl.classList.add(c); }, at[i])); });
+    timers.push(setTimeout(run, hold));
+  }
+  new IntersectionObserver(function (es) {
+    if (es[0].isIntersecting) { if (!running) run(); }
+    else { clear(); running = false; all.forEach(function (c) { pl.classList.add(c); }); }
+  }, { threshold: 0.35 }).observe(pl);
+})();

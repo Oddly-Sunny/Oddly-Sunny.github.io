@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=121">
+<link rel="stylesheet" href="/assets/site.css?v=124">
 </head>
 """
 
@@ -304,7 +304,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=43"></script>
+<script src="/assets/site.js?v=44"></script>
 </body>
 </html>
 """
@@ -346,22 +346,40 @@ def hero_floats():
     return json.dumps(pools), wall
 
 # ------------------------------------------------------------------ enterprise homepage blocks
-# hero schematic: real sources -> four-stage pipeline -> a cited question node (sources and the NJ p. 80 cite are real)
-SOURCES = [("PDF","New Jersey Driver Manual"),("CFR","14 CFR Part 61"),("CFR","46 CFR Part 10"),("PDF","Texas CDL Handbook"),("GOV","USCIS civics test")]
-STAGES = ["Statutory grounding","Blind multi-model solve","Blueprint calibration","Distractor audit"]
+# hero schematic: one real pipeline run, animated by site.js ("pipeline run").
+# Source quote + page are real (Sunny transcript: New Jersey Driver Manual, p. 80). The other sources are real ingested manuals/regs.
+SOURCES = ["New Jersey Driver Manual","14 CFR Part 61","46 CFR Part 10","Texas CDL Handbook","USCIS civics test"]
+STAGES = [("Ground","Every fact traced to the source page","Cited: New Jersey Driver Manual, p. 80"),
+          ("Blind solve","A second model answers without the key","Two independent models agree on B"),
+          ("Blueprint","Weighted to the official test outline","Mapped to: sharing the road"),
+          ("Distractors","Wrong answers checked for giveaways","3 distractors audited, no length or wording tells")]
+OPTIONS = [("A","Sound the horn and pass slowly"),("B","Stop, then pass at no more than 15 mph"),("C","Pass at no more than 25 mph"),("D","Wait until the truck drives away")]
 def schematic():
-    src = "".join(f'<li style="--i:{i}"><b>{k}</b><span>{esc(t)}</span></li>' for i, (k, t) in enumerate(SOURCES))
-    stg = "".join(f'<li style="--i:{i}"><i>{i+1:02d}</i><span>{esc(t)}</span><em aria-hidden="true"></em></li>' for i, t in enumerate(STAGES))
-    return f"""<figure class="sch" aria-label="Platform schematic: official sources are ingested, pass a four-stage verification pipeline and become cited question nodes">
-  <div class="sch-col sch-in"><div class="sch-h"><span>01</span>Ingest</div><ul>{src}</ul></div>
-  <div class="sch-wire sch-w1" aria-hidden="true"><i></i></div>
-  <div class="sch-col sch-mid"><div class="sch-h"><span>02</span>Verify</div><ol>{stg}</ol></div>
-  <div class="sch-col sch-out"><div class="sch-h"><span>03</span>Deploy</div>
-    <div class="sch-node">
-      <small>Question node</small>
+    srcs = " &middot; ".join(esc(t) for t in SOURCES[1:])
+    nodes = "".join(f'<li data-n="{i+1}"><b>{i+1}</b><span>{esc(t)}</span></li>' for i, (t, _, _) in enumerate(STAGES))
+    msgs = "".join(f'<p data-n="{i+1}">{esc(m)}</p>' for i, (_, _, m) in enumerate(STAGES))
+    opts = "".join(f'<li{" class=ok" if k == "B" else ""}><b>{k}</b>{esc(t)}</li>' for k, t in OPTIONS)
+    return f"""<figure class="pl" data-pl aria-label="How a question is made: an official manual page is verified in four stages and becomes a cited exam question">
+  <div class="pl-top"><span class="pl-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="pl-title">verification pipeline</span><span class="pl-live">example run</span></div>
+  <div class="pl-step pl-src">
+    <div class="pl-lbl"><i>1</i>Official source</div>
+    <div class="pl-doc">
+      <div class="pl-doc-h"><span class="pl-doc-ic">PDF</span><b>New Jersey Driver Manual</b><em>p. 80</em></div>
+      <p>When an ice cream truck shows its flashing lights and stop signal arm, <mark>stop, and then drive past the truck at a speed of no more than 15 mph</mark>, and yield to anyone crossing.</p>
+    </div>
+    <div class="pl-queue" aria-hidden="true"><small>Also ingested</small><span>{srcs}</span></div>
+  </div>
+  <div class="pl-step pl-ver">
+    <div class="pl-lbl"><i>2</i>Four-stage verification</div>
+    <ol class="pl-track">{nodes}</ol>
+    <div class="pl-msg" aria-live="off"><p data-n="0">Queued: waiting for source</p>{msgs}</div>
+  </div>
+  <div class="pl-step pl-out">
+    <div class="pl-lbl"><i>3</i>Verified question</div>
+    <div class="pl-q">
       <p>An ice cream truck has its stop signal arm out. What must a New Jersey driver do before passing?</p>
-      <code>cite: NJ Driver Manual &middot; p. 80</code>
-      <div class="sch-ok"><b>4/4</b> checks passed</div>
+      <ol>{opts}</ol>
+      <div class="pl-q-f"><code>cite: NJ Driver Manual &middot; p. 80</code><span class="pl-pass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>4/4 checks passed</span></div>
     </div>
   </div>
 </figure>"""
@@ -456,9 +474,9 @@ def home():
     <h2 class="h2">Smart enough to teach, <i>disciplined enough to trust.</i></h2>
     <p class="sub">Generative models make study sessions interactive, but unconstrained LLMs cannot be trusted with regulatory certification. We pair adaptive algorithms with an automated four-stage audit pipeline that validates source authority, distractor logic, and psychometric fidelity before scenarios reach learners.</p>
     <div class="feats">{feats}</div>
-    <a class="sn-link sn-ent reveal" href="/sunny/"><span class="sn-glass">{SUNNY_AVATAR}</span><div><span class="sn-kicker">The Sunny Engine&trade;: Autonomous Socratic Regulatory Agent</span><h3>Study with Sunny: handbook&#8209;grounded guidance, zero hallucinations.</h3><p>Built specifically for high-stakes certification, Sunny breaks down complex rules using only current official regulations, returning the precise chapter, section, and page reference for every single explanation.</p><code class="sn-term"><b>&gt; cite</b> Texas CDL Handbook (DL-7C) &middot; Section 9 &middot; p. 71</code></div><span class="go">Inspect Sunny Citation Engine {ARROW_R}</span></a>
+    <a class="sn-link sn-ent reveal" href="/sunny/"><span class="sn-glass">{SUNNY_AVATAR}</span><div><span class="sn-kicker">The Sunny Engine&trade;</span><h3>Handbook&#8209;grounded guidance, zero hallucinations.</h3><p>Answers only from current official regulations, with the exact page cited.</p><code class="sn-term"><b>&gt; cite</b> TX CDL Handbook &middot; &sect;9 &middot; p. 71</code></div><span class="go">Inspect the citation engine {ARROW_R}</span></a>
   </div>
-  <div class="r"><canvas class="mesh" aria-hidden="true"></canvas></div>
+  <div class="r exp-vid"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/personal-loop.jpg" aria-label="A learner using her phone outdoors in soft sunlight"><source src="/assets/img/personal-loop.webm" type="video/webm"><source src="/assets/img/personal-loop.mp4" type="video/mp4"></video></div>
 </div></section>
 
 <section class="sec" id="verticals" data-scheme="purple"><div class="wrap">
