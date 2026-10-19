@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=162">
+<link rel="stylesheet" href="/assets/site.css?v=163">
 </head>
 """
 
@@ -371,7 +371,9 @@ def schematic():
     {svg}
     <div class="mesh-cap mesh-cap-l">Source ingestion</div><div class="mesh-cap mesh-cap-r">Commercial verticals</div>
     <ul class="mesh-col mesh-l">{src}</ul>
+    <div class="mx-flow in" aria-hidden="true"><span></span><i></i><i></i><i></i><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
     <div class="hub"><div class="hub-in">{SHIELD}<b>Oddly Sunny Engine</b><span class="hub-tag">Source-grounded<br> Cited to the page</span></div></div>
+    <div class="mx-flow out" aria-hidden="true"><span></span><i></i><i></i><i></i><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
     <ul class="mesh-col mesh-r">{out}</ul>
   </div>
   <div class="mesh-tel"><i></i>7 live products &middot; page-level citations &middot; edition monitoring</div>

@@ -1666,3 +1666,16 @@ section[data-scheme="white"],section[data-scheme="soft"]{background:var(--bg);co
   #expertise .exp-vid video{position:absolute;inset:0 0 0 auto;width:100%;max-width:460px;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 30%}
   .exp-sn{padding-top:56px}
 }
+/* architecture diagram, phones: vertical flow connectors with moving pulses + arrow */
+.mx-flow{display:none}
+@media(max-width:620px){
+  .mx-wide .mesh-cap-l{order:0}.mx-wide .mesh-l{order:1}.mx-flow.in{order:2}.mx-wide .hub{order:3}.mx-flow.out{order:4}.mx-wide .mesh-cap-r{order:5}.mx-wide .mesh-r{order:6}
+  .mx-flow{--c:#D4A63C;position:relative;display:block;justify-self:center;width:24px;height:46px;margin:-4px 0}
+  .mx-flow.out{--c:#40916C}
+  .mx-flow span{position:absolute;left:50%;top:0;bottom:10px;width:2px;transform:translateX(-50%);background:repeating-linear-gradient(180deg,color-mix(in srgb,var(--c) 45%,transparent) 0 4px,transparent 4px 8px)}
+  .mx-flow i{position:absolute;left:50%;top:0;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c);opacity:0;animation:mxDrop 1.8s linear infinite}
+  .mx-flow i:nth-of-type(2){animation-delay:.6s}.mx-flow i:nth-of-type(3){animation-delay:1.2s}
+  .mx-flow svg{position:absolute;left:50%;bottom:-4px;width:18px;height:18px;transform:translateX(-50%);fill:none;stroke:var(--c);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  @keyframes mxDrop{0%{top:0;opacity:0}15%{opacity:1}80%{opacity:1}100%{top:32px;opacity:0}}
+}
+@media(prefers-reduced-motion:reduce){.mx-flow i{display:none}}
