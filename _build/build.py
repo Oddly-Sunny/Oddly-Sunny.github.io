@@ -453,7 +453,7 @@ def home():
       <div class="eyebrow rule">Proprietary AI (Sunny)</div>
       <h2 class="h2">Generative tutoring, <i>bound to the source.</i> <span class="ai-spark">{SPARK}</span></h2>
     </div>
-    <p class="sub reveal">Sunny is our in-house AI tutor. It answers learner questions only from the official source for that exam, generates targeted practice and paces candidates to their exam date. Live on DMV IQ today.</p>
+    <p class="sub reveal">Sunny is our in-house AI tutor. It answers learner questions only from the official source for that exam, generates targeted practice and paces candidates to their exam date.</p>
   </div>
   <div class="ai-grid">{ai_cards()}</div>
   <a class="ai-more reveal" href="/sunny/">Inspect Sunny in production {ARROW_R}</a>
@@ -469,7 +469,7 @@ def home():
   <div class="r exp-vid"><video autoplay muted loop playsinline preload="metadata" poster="/assets/img/personal-loop.jpg" aria-label="A learner using her phone outdoors in soft sunlight"><source src="/assets/img/personal-loop.webm" type="video/webm"><source src="/assets/img/personal-loop.mp4" type="video/mp4"></video></div>
 </div>
 <div class="exp-sn">
-  <a class="sn-link sn-ent sn-wide reveal" href="/sunny/">{sunny_mascot(60, "follow")}<div><span class="sn-kicker">The Sunny Engine&trade;</span><h3>Handbook&#8209;grounded guidance, cited to the page.</h3><p>Answers only from the official handbook for that exam, with the page cited. Live on DMV IQ.</p></div></a>
+  <a class="sn-link sn-ent sn-wide reveal" href="/sunny/">{sunny_mascot(60, "follow")}<div><span class="sn-kicker">The Sunny Engine&trade;</span><h3>Handbook&#8209;grounded guidance, cited to the page.</h3><p>Answers only from the official handbook for that exam, with the page cited.</p></div></a>
 </div></section>
 
 <section class="sec" id="verticals" data-scheme="white"><div class="wrap">
