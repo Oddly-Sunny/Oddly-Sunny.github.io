@@ -521,7 +521,8 @@
   var next = pin ? pin.nextElementSibling : hero.nextElementSibling, lastY = window.scrollY, gliding = false, armed = true;
   function glide() {
     if (!next) return;
-    var off = hdr ? hdr.offsetHeight : 0, from = window.scrollY, to = next.getBoundingClientRect().top + from - off + 1;
+    /* land exactly where the green ends: the section's own top padding clears the menu, so none of the hero shows under it */
+    var from = window.scrollY, to = Math.ceil(next.getBoundingClientRect().top + from);
     if (to <= from + 2) return;
     var dur = Math.min(1100, 450 + (to - from) * 0.5), t0 = null;
     var ease = function (x) { return 1 - Math.pow(1 - x, 3); };
@@ -539,7 +540,7 @@
     if (!gliding) {
       var p = (y - top0) / range;
       if (p < 0.4) armed = true;
-      else if (armed && down && p >= 0.7 && next && next.getBoundingClientRect().top > (hdr ? hdr.offsetHeight : 0) + 4) glide();
+      else if (armed && down && p >= 0.7 && next && next.getBoundingClientRect().top > 4) glide();
     }
     if (!ticking) { ticking = true; requestAnimationFrame(paint); }
   }
@@ -799,8 +800,9 @@
       var t = document.querySelector(a.getAttribute('href'));
       if (!t) return;
       e.preventDefault();
-      var hdr = document.querySelector('.hdr'), off = hdr ? hdr.offsetHeight : 0;
-      var from = window.scrollY, to = t.getBoundingClientRect().top + from - off + 1;
+      var hdr = document.querySelector('.hdr'), pin = document.querySelector('.hero-pin');
+      var off = hdr && !(pin && pin.nextElementSibling === t) ? hdr.offsetHeight : 0; /* the section after the hero: no strip of green under the menu */
+      var from = window.scrollY, to = Math.ceil(t.getBoundingClientRect().top + from - off) + (off ? 1 : 0);
       if (still) { window.scrollTo(0, to); return; }
       var dur = Math.min(1400, 600 + Math.abs(to - from) * 0.4), t0 = null;
       var ease = function (x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
