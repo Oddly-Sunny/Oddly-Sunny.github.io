@@ -1638,3 +1638,9 @@ section[data-scheme="white"],section[data-scheme="soft"]{background:var(--bg);co
 .eg2-card h3{font-size:clamp(21px,1.9vw,26px)}
 @media(max-width:960px){.eg2-vis{height:auto;min-height:320px}}
 .eg2-card h3{font-size:clamp(20px,1.65vw,24px);letter-spacing:-.015em}
+/* pipeline section: keep text + video inside the content width, video sits right beside the copy */
+#expertise .exp{max-width:var(--max);margin:0 auto;padding:0 40px;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:72px;align-items:center}
+#expertise .exp .l{padding:100px 0}
+#expertise .exp-vid{padding:0;min-height:0;background:none;justify-items:end}
+#expertise .exp-vid video{width:100%;max-width:460px}
+@media(max-width:960px){#expertise .exp{grid-template-columns:minmax(0,1fr);gap:0;padding:0 24px}#expertise .exp .l{padding:64px 0 32px}#expertise .exp-vid{justify-items:center;padding-bottom:64px}#expertise .exp-vid video{max-width:380px}}
