@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=149">
+<link rel="stylesheet" href="/assets/site.css?v=150">
 </head>
 """
 
@@ -361,10 +361,10 @@ SHIELD = """<svg class="hub-ic" viewBox="0 0 64 64" aria-hidden="true"><defs><li
 def schematic():
     paths = []
     for i, y in enumerate(MESH_Y):
-        paths.append(f'<path class="tr in" style="--i:{i}" d="M150 {y} C 180 {y}, 172 200, 187 200"/>')
-        paths.append(f'<path class="tr out" style="--i:{i}" d="M333 200 C 348 200, 340 {y}, 359 {y}"/>')
+        paths.append(f'<path class="tr in" style="--i:{i}" d="M220 {y} C 310 {y}, 310 200, 390 200"/>')
+        paths.append(f'<path class="tr out" style="--i:{i}" d="M610 200 C 690 200, 690 {y}, 780 {y}"/>')
     base = "".join(p.replace('class="tr', 'class="tb') for p in paths)
-    svg = f'<svg class="mesh-svg" viewBox="0 0 520 400" preserveAspectRatio="none" aria-hidden="true">{base}{"".join(paths)}</svg>'
+    svg = f'<svg class="mesh-svg" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">{base}{"".join(paths)}</svg>'
     src = "".join(f'<li class="m-src" style="--y:{y / 4}%;--i:{i}"><span class="m-doc">{DOC}</span><span><b>{esc(t)}</b><small>{esc(a)}</small></span></li>' for i, ((t, a), y) in enumerate(zip(MESH_SRC, MESH_Y)))
     out = "".join(f'<li class="m-out" style="--y:{y / 4}%;--i:{i}"><img src="/assets/img/apps/{s}.png" alt="" width="26" height="26"><span><b>{BY[s]["name"]}</b><small>{esc(l)}</small></span><i class="pip"></i></li>' for i, ((s, l), y) in enumerate(zip(MESH_OUT, MESH_Y)))
     return f"""<figure class="mx" aria-label="Official regulations and manuals flow into the Oddly Sunny engine, which feeds Aviator IQ, Mariner IQ, DMV IQ and Citizen Pass">
@@ -372,7 +372,7 @@ def schematic():
     {svg}
     <div class="mesh-cap mesh-cap-l">Source ingestion</div><div class="mesh-cap mesh-cap-r">Commercial verticals</div>
     <ul class="mesh-col mesh-l">{src}</ul>
-    <div class="hub"><div class="hub-in">{SHIELD}<b>Oddly Sunny Engine</b><span class="hub-tag">Source-grounded<br>Cited to the page</span></div></div>
+    <div class="hub"><div class="hub-in">{SHIELD}<b>Oddly Sunny Engine</b><span class="hub-tag">Source-grounded<br> Cited to the page</span></div></div>
     <ul class="mesh-col mesh-r">{out}</ul>
   </div>
   <div class="mesh-tel"><i></i>7 live products &middot; page-level citations &middot; edition monitoring</div>
@@ -443,7 +443,7 @@ def home():
 </section>
 
 <section class="sec mx-sec" id="platform" data-scheme="soft"><div class="wrap">
-  <div class="mx-grid">
+  <div class="mx-grid mx-wide">
     <div class="mx-copy reveal">
       <div class="eyebrow rule">Architecture &amp; ingestion pipeline</div>
       <h2 class="h2">Automating compliance across <i>high-barrier domains.</i></h2>
