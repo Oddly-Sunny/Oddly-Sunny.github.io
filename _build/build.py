@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=131">
+<link rel="stylesheet" href="/assets/site.css?v=133">
 </head>
 """
 
@@ -288,7 +288,7 @@ def header():
     <a href="/" class="brand" aria-label="oddly sunny home">{live_mark()}<span>oddly <b>sunny</b></span></a>
     <span class="beacon" aria-hidden="true">platform live</span>
     <nav class="nav" aria-label="Main">
-      <a href="/#architecture">Platform Engine<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/#platform">Platform Engine<span class="nav-go">{ARROW_R}</span></a>
       <a href="/#verticals">Regulatory Verticals<span class="nav-go">{ARROW_R}</span></a>
       <a href="/#expertise">Verification Pipeline<span class="nav-go">{ARROW_R}</span></a>
       <a href="/sunny/">Sunny AI<span class="nav-go">{ARROW_R}</span></a>
@@ -350,7 +350,7 @@ def hero_floats():
 # ------------------------------------------------------------------ enterprise homepage blocks
 # hero mesh: real sources feed the engine, which feeds four live brands.
 # Coordinates are in a 520x400 box; the HTML nodes are placed at the same percentages so the SVG curves meet them.
-MESH_SRC = [("14 CFR Part 61","FAA"),("46 CFR Subchapter B","USCG"),("50-state driver manuals","DMVs"),("8 CFR Part 312","USCIS")]
+MESH_SRC = [("14 CFR Part 61","FAA"),("46 CFR Subchapter B","USCG"),("50-state driver manuals","DMVs"),("8 CFR Part 312","USCIS")]
 MESH_OUT = [("aviator-iq","Aviation"),("mariner-iq","Maritime"),("dmv-iq","50 States"),("citizen-pass","Immigration")]
 MESH_Y = [62, 154, 246, 338]
 DOC = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>'
@@ -377,6 +377,14 @@ def schematic():
     <ul class="mesh-col mesh-r">{out}</ul>
   </div>
   <div class="mesh-tel"><i></i>7 live domains &middot; 4-stage audit &middot; page-level citations</div>
+</figure>"""
+
+def collage():
+    return f"""<figure class="hx" aria-label="Learners studying, with a readiness score and a verified Sunny citation">
+  <div class="hx-p hx-p1"><img src="/assets/img/ai/ask.jpg" alt="A learner studying with a handbook in a quiet library" width="900" height="720"></div>
+  <div class="hx-p hx-p2"><img src="/assets/img/personal-loop.jpg" alt="A learner studying on her phone outdoors" width="640" height="800" loading="lazy"></div>
+  <div class="hx-b hx-b1"><span class="hx-mono"><i></i>Readiness 86% &middot; on track</span><small>Calibrated to the official pass mark</small></div>
+  <div class="hx-b hx-b2"><span class="hx-em">{SUNNY_AVATAR}</span><span><b>Sunny AI: Statutory citation verified</b><code>NJ Driver Manual &middot; p. 80 &middot; Zero Hallucination</code></span></div>
 </figure>"""
 
 PROOF = [("7","Regulated Commercial Verticals"),("100%","Grounded to Primary Statutory Sources"),("4-Stage","Automated Verification Pipeline"),("0","Hallucination Tolerance Architecture")]
@@ -429,11 +437,22 @@ def home():
       <div class="pill">Regulatory learning infrastructure</div>
       <h1>The verification engine for <i>high&#8209;stakes exams.</i></h1>
       <p class="lede">We convert complex legal statutes and government manuals into adaptive learning ecosystems. Powering seven commercial verticals with zero-hallucination machine intelligence.</p>
-      <div class="cta-row"><a class="btn btn-glow" href="#architecture">Explore the Platform Engine {ARROW_R}</a><a class="tlink" href="#verticals">Explore Commercial Verticals {ARROW_R}</a></div>
+      <div class="cta-row"><a class="btn btn-glow" href="#platform">Explore the Platform Engine {ARROW_R}</a><a class="tlink" href="#verticals">Explore Commercial Verticals {ARROW_R}</a></div>
     </div>
-    <div class="mesh-wrap">{schematic()}</div>
+    {collage()}
   </div>
   {proof_bar()}
+</div></section>
+
+<section class="sec mx-sec" id="platform" data-scheme="green"><div class="wrap">
+  <div class="mx-grid">
+    <div class="mx-copy reveal">
+      <div class="eyebrow rule">Architecture &amp; ingestion pipeline</div>
+      <h2 class="h2">Automating compliance across <i>high-barrier domains.</i></h2>
+      <p class="sub">Our proprietary ingestion pipeline converts primary statutory codes and agency handbooks into verified learning ecosystems with zero hallucination risk.</p>
+    </div>
+    <div class="mesh-wrap reveal">{schematic()}</div>
+  </div>
 </div></section>
 
 <section class="sec vs-sec" id="architecture" data-scheme="cream"><div class="wrap">
