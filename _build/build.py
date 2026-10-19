@@ -456,7 +456,7 @@ def home():
 <section class="sec" id="verticals" data-scheme="white"><div class="wrap">
   <div class="vt-head reveal">
     <div class="eyebrow rule">Proven enterprise horizontal expansion</div>
-    <h2 class="h2">One AI system. <i>Any regulated subject, mastered.</i></h2>
+    <h2 class="h2">Same AI engine. <i>Live across markets.</i></h2>
     <p class="sub">The Oddly Sunny architecture decouples domain ingestion from pedagogical delivery, allowing fast expansion into high-barrier regulatory markets:</p>
   </div>
   <div class="vt-groups">{verticals()}</div>
