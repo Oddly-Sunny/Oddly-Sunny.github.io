@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=143">
+<link rel="stylesheet" href="/assets/site.css?v=145">
 </head>
 """
 
@@ -378,19 +378,6 @@ def schematic():
   <div class="mesh-tel"><i></i>7 live products &middot; page-level citations &middot; edition monitoring</div>
 </figure>"""
 
-def collage():
-    # two learner photos either side of one glass card (an example learner's readiness + a real Sunny citation)
-    return f"""<div class="hrow" aria-label="Learners studying, with a readiness score and a cited Sunny answer">
-  <figure class="hr-ph hr-l"><img src="/assets/img/wall/cp-denim.jpg" alt="A learner studying at a laptop by a window" width="1100" height="578"></figure>
-  <div class="hr-card">
-    <div class="hr-top">{sunny_mascot(40, "follow")}<span><b>Sunny AI</b><small>Study session</small></span><em>live</em></div>
-    <div class="hr-score"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="27"/><circle class="hr-run" cx="32" cy="32" r="27"/></svg><span><b>86%</b><small>Readiness &middot; on track</small></span></div>
-    <p class="hr-note">Measured against the official pass mark</p>
-    <div class="hr-cite"><span>Source citation verified</span><code>NJ Driver Manual &middot; p. 80</code></div>
-  </div>
-  <figure class="hr-ph hr-r"><img src="/assets/img/wall/cp-hoodie.jpg" alt="A learner studying at a laptop at home" width="1100" height="614"></figure>
-</div>"""
-
 PROOF = [("7","Live products in regulated exams"),("64","US states, DC, Canadian provinces and territories covered"),("13","FAA knowledge exams on Aviator IQ"),("Weekly","Edition monitoring on official handbooks")]
 def proof_bar():
     return '<div class="proof">' + "".join(f'<div class="proof-i reveal"><b>{esc(n)}</b><span>{esc(t)}</span></div>' for n, t in PROOF) + '</div>'
@@ -447,14 +434,13 @@ def engage_ui():
 def home():
     feats = "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{t}</h3><p>{d}</p></div>' for ic, t, d in CAPS)
     body = f"""
-<section class="e-hero" data-scheme="white"><div class="wrap">
+<section class="e-hero e-min" data-scheme="white"><div class="wrap">
   <div class="e-copy">
-    <div class="pill">Regulatory learning infrastructure</div>
+    <div class="em-sunny">{sunny_mascot(156, "follow")}</div>
     <h1>The verification engine <br>for <span class="acc">high&#8209;stakes exams.</span></h1>
-    <p class="lede">We turn complex statutes and government manuals into adaptive study tools. Seven live products, every question traced to the page it came from.</p>
+    <p class="lede">Seven live products. Every question traced to the page it came from.</p>
     <div class="cta-row"><a class="btn btn-glow" href="#platform">Explore the Platform Engine {ARROW_R}</a><a class="tlink" href="#verticals">Explore Commercial Verticals {ARROW_R}</a></div>
   </div>
-  {collage()}
 </div></section>
 
 <section class="sec mx-sec" id="platform" data-scheme="soft"><div class="wrap">
