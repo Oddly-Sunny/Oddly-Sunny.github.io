@@ -427,7 +427,7 @@ def home():
     <h2 class="h2">Smart enough to teach, <i>disciplined enough to trust.</i></h2>
     <p class="sub">AI helps us break down dense official curricula into active recall exercises and adaptive practice. We pair our adaptive algorithms with a four-stage audit pipeline that tests the logic, distractor choices, and legal facts before you ever see them.</p>
     <div class="feats">{feats}</div>
-    <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Sunny doesn't guess. It looks it up.</h3><p>Every answer comes from the official manual, with the page to prove it.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
+    <a class="sn-link reveal" href="/sunny/">{sunny_mascot(56)}<div><h3>Study with Sunny: handbook&#8209;grounded guidance, zero hallucinations.</h3><p>Ask questions in plain English. Sunny breaks down complex rules using only current state regulations, citing the exact chapter and page every time.</p></div><span class="go">Meet Sunny {ARROW_R}</span></a>
   </div>
   <div class="r"><canvas class="mesh" aria-hidden="true"></canvas></div>
 </div></section>

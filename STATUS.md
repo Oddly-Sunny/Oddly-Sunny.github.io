@@ -57,3 +57,6 @@
 
 ## 2026-10-19 homepage AI cards layout fix, LIVE
 - Sunny tool cards: panel + gold button now in flow (card grows to fit, min-height 286px keeps the row even), button always overlaps the panel bottom. Fixes clipped text and the button covering content around 1000-1440px, and the detached button on 2-column widths. CSS `?v=117`. Checked at 1440, 1060, 900, 375.
+
+## 2026-10-19 How we build copy, LIVE
+- Owner copy for the "How we build" headline + subhead, the four CAPS cards and the Sunny banner (`sn-link`). Non-breaking hyphens in "pattern-matching" and "handbook-grounded". Copy contains absolute claims ("zero hallucinations", "every time", "proves functional mastery"); owner wrote it.
