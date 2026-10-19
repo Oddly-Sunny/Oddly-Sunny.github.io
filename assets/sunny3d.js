@@ -4,8 +4,8 @@
    Sunny looks toward the mouse. Rendering pauses off screen and in hidden tabs. */
 import * as THREE from './vendor/three.module.min.js';
 
-const SHELLS = matchMedia('(pointer: coarse)').matches ? 30 : 48;
-const FUR = 0.12;             // fur length, in units of the pillow radius
+const SHELLS = matchMedia('(pointer: coarse)').matches ? 18 : 28;
+const FUR = 0.16;             // fur length, in units of the pillow radius
 const EYES = [[-0.25, -0.07], [0.25, -0.07]];
 const CHEEKS = [[-0.42, -0.25], [0.42, -0.25]];
 
@@ -14,7 +14,7 @@ const lobe = (t) => Math.pow(Math.abs(Math.cos(4 * (t - Math.PI / 8))), 0.9);
 const radius = (t) => 0.87 + 0.13 * lobe(t);
 
 function pillow() {
-  const g = new THREE.SphereGeometry(1, 160, 112);
+  const g = new THREE.SphereGeometry(1, 112, 80);
   const p = g.attributes.position, v = new THREE.Vector3();
   for (let i = 0; i < p.count; i++) {
     v.fromBufferAttribute(p, i);
@@ -68,22 +68,23 @@ const frag = /* glsl */`
     bool front = vRest.z > 0.0;
     // keep the eyes clear of fur
     if (front && h > 0.0) {
-      for (int i = 0; i < 2; i++) if (length((vRest.xy - uEyes[i]) * vec2(1.0, 0.92)) < 0.1) discard;
+      for (int i = 0; i < 2; i++) if (length((vRest.xy - uEyes[i]) * vec2(1.0, 0.92)) < 0.112) discard;
     }
-    // strands get a soft, pixel-width edge (alpha-to-coverage) instead of a hard cut, so they don't shimmer
-    float cover = 1.0;
+    // prefiltered strands: where a strand would be under ~2px wide, fade to the averaged fur volume instead,
+    // so nothing flips on and off between frames (no alpha-to-coverage: it dithers on Apple GPUs)
     if (h > 0.0) {
-      if (h > len) discard;
-      float w = 0.78 * (1.0 - 0.8 * h / len);
-      float d = length(f + (rnd2 - 0.5) * 0.25 + vec2(sin(h * 5.0 + rnd * 6.28), cos(h * 4.0 + rnd2 * 6.28)) * 0.08 * h);
-      float aa = max(fwidth(d) * 1.2, 0.03);
-      cover = 1.0 - smoothstep(w - aa, w + aa, d);
-      cover *= 1.0 - smoothstep(len * 0.75, len, h);
-      if (cover < 0.02) discard;
+      float w = 0.8 * (1.0 - 0.75 * h / len);
+      float d = length(f + (rnd2 - 0.5) * 0.25);
+      float aa = fwidth(d);
+      float strand = (1.0 - smoothstep(w - aa, w + aa, d)) * step(h, len);
+      float avg = 1.0 - smoothstep(0.45, 0.7, h);
+      float k = smoothstep(1.0, 1.5, length(fwidth(q)));
+      if (mix(strand, avg, k) < 0.5) discard;
     }
     vec3 root = vec3(0.72, 0.60, 0.46), mid = vec3(0.89, 0.81, 0.70), tip = vec3(0.99, 0.95, 0.88);
     vec3 col = mix(root, mix(mid, tip, smoothstep(0.35, 1.0, h)), smoothstep(0.0, 0.35, h));
-    col *= mix(0.93, 1.05, rnd2);
+    col *= mix(0.86, 1.08, rnd2);
+    col *= mix(0.82, 1.0, smoothstep(0.0, 0.5, 1.0 - length(f) * 1.4) + h * 0.6);
     // soft valleys between the lobes
     float a = atan(vRest.y, vRest.x);
     float valley = 1.0 - pow(abs(cos(4.0 * (a - 0.3927))), 0.9);
@@ -97,7 +98,7 @@ const frag = /* glsl */`
     float dif = 0.8 + 0.3 * max(dot(vN, L), 0.0);
     float rim = pow(1.0 - max(vN.z, 0.0), 2.0) * 0.18;
     float ao = mix(0.78, 1.0, h);
-    outColor = vec4(col * dif * ao + rim * tip * h, cover);
+    outColor = vec4(col * dif * ao + rim * tip * h, 1.0);
   }`;
 
 function mount(el) {
@@ -106,7 +107,7 @@ function mount(el) {
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     if (!renderer.capabilities.isWebGL2) throw new Error('webgl2');
   } catch (e) { return; }
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   const canvas = renderer.domElement;
   canvas.className = 'sunny3d-canvas';
@@ -121,14 +122,11 @@ function mount(el) {
   const geo = pillow();
   const uniforms = {
     uShells: { value: SHELLS }, uLen: { value: FUR }, uTime: { value: 0 }, uLag: { value: new THREE.Vector2() },
-    uDensity: { value: 85 },
+    uDensity: { value: 38 },
     uEyes: { value: EYES.map(([x, y]) => new THREE.Vector2(x, y)) },
     uCheeks: { value: CHEEKS.map(([x, y]) => new THREE.Vector2(x, y)) },
   };
-  const furMat = new THREE.ShaderMaterial({ vertexShader: vert, fragmentShader: frag, uniforms, glslVersion: THREE.GLSL3, alphaToCoverage: true,
-    // colour replaces, alpha only adds: the soft strand edge drives coverage but never makes the canvas see-through
-    blending: THREE.CustomBlending, blendSrc: THREE.OneFactor, blendDst: THREE.ZeroFactor,
-    blendSrcAlpha: THREE.OneFactor, blendDstAlpha: THREE.OneFactor });
+  const furMat = new THREE.ShaderMaterial({ vertexShader: vert, fragmentShader: frag, uniforms, glslVersion: THREE.GLSL3 });
   const fur = new THREE.InstancedMesh(geo, furMat, SHELLS + 1);
   const id = new THREE.Matrix4();
   for (let i = 0; i <= SHELLS; i++) fur.setMatrixAt(i, id);
@@ -179,11 +177,12 @@ function mount(el) {
   function frame(now) {
     raf = 0;
     const t = (now - t0) / 1000;
-    const gx = mouse ? tx : Math.sin(t * 0.45) * 0.35, gy = mouse ? ty : Math.sin(t * 0.31) * 0.2;
-    rx += (gx - rx) * 0.07; ry += (gy - ry) * 0.07;
+    const gx = mouse ? tx : 0, gy = mouse ? ty : 0;
+    const dt = Math.min(0.05, (now - (frame.prev || now)) / 1000); frame.prev = now;
+    const ease = 1 - Math.exp(-dt * 4); rx += (gx - rx) * ease; ry += (gy - ry) * ease;
     rig.rotation.y = rx * 0.42; rig.rotation.x = ry * 0.3;
-    rig.position.y = Math.sin(t * 0.9) * 0.035;
-    uniforms.uLag.value.set((rx - last.x) * 25, (ry - last.y) * 25);
+    rig.position.y = Math.sin(t * 0.7) * 0.02;
+    uniforms.uLag.value.lerp(new THREE.Vector2((rx - last.x) * 25, (ry - last.y) * 25), 0.15);
     last.x = rx; last.y = ry;
     uniforms.uTime.value = t;
     eyes.forEach((g) => { g.children[0].position.set(rx * 0.02, -ry * 0.015, 0); });
