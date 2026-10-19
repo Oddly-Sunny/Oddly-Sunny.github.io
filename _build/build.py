@@ -336,8 +336,8 @@ def closing(scheme="ember"):
 """
 
 def hero_floats():
-    people = ["cp-smile","study-library","cp-dog","cp-denim","cp-hoodie"]
-    ppos = {"cp-hoodie":"18%","cp-smile":"40%"}
+    people = ["study-desk","cp-denim","study-car","cp-blonde","study-laptop","cp-hoodie","study-woman","airwaves-man"]
+    ppos = {"cp-hoodie":"18%","cp-blonde":"72%","airwaves-man":"28%","study-desk":"38%","study-woman":"40%"}
     banners = ["aviator-iq","citizen-pass","dmv-iq","driveiqcanada","insurance-pass","airwaves-iq","mariner-iq"]
     pools = {"p": [{"src": f"/assets/img/wall/{n}.jpg", "pos": ppos.get(n, "50%")} for n in people],
              "l": [{"src": f"/assets/img/wall/b-{n}.jpg", "pos": "50%"} for n in banners]}
