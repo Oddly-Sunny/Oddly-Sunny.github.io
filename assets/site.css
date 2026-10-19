@@ -1687,3 +1687,19 @@ section[data-scheme="white"],section[data-scheme="soft"]{background:var(--bg);co
 /* hero pin: the hero holds still while its scroll-away effect plays (height set by site.js) */
 .hero-pin.pinned .hero{position:sticky;top:0}
 .hdr.in-hero{transform:translateY(-100%)!important;opacity:0;pointer-events:none}
+/* hero photos are square studio shots; product slots crossfade (site.js) */
+.hero .float{aspect-ratio:1/1!important}
+.hero .float img.xf{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.hero .float img.xf.on{opacity:1}
+/* hero photo hover: every photo zooms a touch inside its frame, tilts and glows */
+.hero .copy{pointer-events:none}
+.hero .copy a,.hero .copy .mark{pointer-events:auto}
+@media (hover:hover){
+  .hero .float.in{pointer-events:auto;cursor:default;transition:opacity .8s ease,filter .8s ease,transform 1.4s ease,box-shadow .5s ease,rotate .5s cubic-bezier(.2,.8,.2,1)}
+  .hero .float img{transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .5s ease}
+  .hero .float.in:hover{rotate:-1.5deg;box-shadow:0 22px 50px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.14),0 0 40px rgba(229,178,93,.18)}
+  .hero .float.in:hover img{transform:scale(1.07)}
+}
+.hero.leaving .float.in:hover{rotate:0deg;box-shadow:none}
+/* hero 3D pointer tilt (site.js): once a photo has entered, JS drives its transform frame by frame, so no transform transition */
+.hero .float.in.tilt{transition:opacity .8s ease,filter .8s ease,box-shadow .5s ease,rotate .5s cubic-bezier(.2,.8,.2,1);will-change:transform}

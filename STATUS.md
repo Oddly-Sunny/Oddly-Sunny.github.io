@@ -98,3 +98,9 @@
 - Story: "Practice that feels like play" + "A coach that answers from your province's handbook" (claims match driveiqcanada.com's own Sunny copy). `games_block(p)` is per product (`GAME_SETS`); Drive IQ CA's block renders only once `assets/img/games/drive-iq-canada/` has challenges.jpg + 5 clips.
 - Copy says Sunny works "on the website and in the app": true once app 1.1.0 (Sunny) is live in the stores.
 - Next step: add the Canada app captures (Challenges screen + 5 game clips, being made from a screenshot-mode port on drive-iq-canada-app branch `app-shots`), rebuild, push.
+
+## 2026-10-19 Hero photo set v2 (owner-supplied), DEPLOYED
+- Hero photos are owner-supplied studio shots: 5 headshots `hs-*` (curls, wink, bangs, laugh [mirrored], glasses; owner dropped the blonde one) and 3 product shots `pr-*` (tablet on chair, phone progress [cropped tight], tablet course). All toned down from the originals (saturation 0.74, contrast 0.86, lifted shadows); no blur baked in (owner tried and dropped a dreamy motion-blur look and a random blur flicker).
+- `hero_floats()`: products only in slots f4 (right middle; top right on phones) and f6 (bottom left), so 2 of 3 are always visible and never on one row; product swaps crossfade (`cross()` in site.js) so a product slot is never empty. All slots square.
+- Effects: subtle 3D pointer tilt per photo (site.js "photos follow the pointer", max ~3deg, mouse only, waits for the entrance), hover zoom + tilt + glow (CSS "hero photo hover"); `.hero .copy` is pointer-events:none except its links/mark so photos receive hover. JS `?v=68`, CSS `?v=176`.
+- Old wall photos (study-*, cp-*, airwaves-man, b-*) are no longer used by the hero; files kept.

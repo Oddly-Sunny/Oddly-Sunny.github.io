@@ -469,13 +469,64 @@
     });
   });
   if (still) return;
+  /* product slots never go empty: the next shot fades in over the current one, then replaces it */
+  function cross(slot) {
+    var it = pick(slot); if (!it) return;
+    shown[it.src] = 1;
+    var cur = slot.querySelector('img'), nx = new Image();
+    nx.alt = ''; nx.className = 'xf'; nx.style.objectPosition = it.pos + ' 50%';
+    nx.onload = function () {
+      slot.appendChild(nx);
+      requestAnimationFrame(function () { requestAnimationFrame(function () { nx.classList.add('on'); }); });
+      setTimeout(function () {
+        var old = slot.getAttribute('data-src'); if (old) delete shown[old];
+        slot.setAttribute('data-src', it.src);
+        cur.src = it.src; cur.style.objectPosition = nx.style.objectPosition;
+        setTimeout(function () { nx.remove(); }, 60);
+      }, 1300);
+    };
+    nx.src = it.src;
+  }
   var last = -1;
   setInterval(function () {
     var i; do { i = Math.floor(Math.random() * slots.length); } while (i === last && slots.length > 1);
     last = i; var slot = slots[i];
+    if (slot.getAttribute('data-pool') === 'l') { cross(slot); return; }
     slot.classList.remove('in');
     setTimeout(function () { load(slot, function () { show(slot); }); }, 1200);
   }, 6500);
+})();
+
+/* hero: photos follow the pointer in subtle 3D (tilt toward it, drift a few px), each at its own depth, eased.
+   Waits for a photo's entrance to finish before taking over its transform; mouse/trackpad only; off for reduced motion. */
+(function () {
+  var hero = document.querySelector('.hero[data-imgs]');
+  if (!hero || !window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var slots = Array.prototype.slice.call(hero.querySelectorAll('.float'));
+  var depth = slots.map(function (_, i) { return 0.6 + ((i * 37) % 7) / 10; });
+  var tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+  window.addEventListener('mousemove', function (e) {
+    tx = (e.clientX / window.innerWidth) * 2 - 1; ty = (e.clientY / window.innerHeight) * 2 - 1;
+    if (!raf) raf = requestAnimationFrame(step);
+  }, { passive: true });
+  function step() {
+    raf = 0;
+    cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06;
+    var now = Date.now(), off = window.scrollY > hero.offsetHeight * 1.5, busy = false;
+    slots.forEach(function (s, i) {
+      if (!s.classList.contains('in') || off) {
+        s._ready = 0; s.classList.remove('tilt'); s.style.transform = ''; return;
+      }
+      if (!s._ready) { s._ready = now + 1450; s._x = 0; s._y = 0; }  /* let the CSS entrance (1.4s) play first, then ease in from flat */
+      if (now < s._ready) { busy = true; return; }
+      s._x += (cx - s._x) * 0.1; s._y += (cy - s._y) * 0.1;
+      if (Math.abs(cx - s._x) > 0.002 || Math.abs(cy - s._y) > 0.002) busy = true;
+      var d = depth[i], x = s._x, y = s._y;
+      s.classList.add('tilt');
+      s.style.transform = 'perspective(1200px) translate3d(' + (x * 4 * d).toFixed(2) + 'px,' + (y * 3 * d).toFixed(2) + 'px,0) rotateY(' + (x * 3 * d).toFixed(2) + 'deg) rotateX(' + (-y * 2.5 * d).toFixed(2) + 'deg)';
+    });
+    if (busy || Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001) raf = requestAnimationFrame(step);
+  }
 })();
 
 /* hero: the hero pins in place while you scroll through it; the photos recede outward (shrink, blur, fade)
@@ -504,11 +555,12 @@
     var e = p * p * (3 - 2 * p);
     var push = Math.min(window.innerWidth, 1400) * 0.14;
     slots.forEach(function (s, i) {
-      var d = dirs[i] || [0, 0], img = s.firstElementChild;
+      var d = dirs[i] || [0, 0];
       s.style.translate = p ? (d[0] * push * e).toFixed(1) + 'px ' + (d[1] * push * e - 40 * e).toFixed(1) + 'px' : '';
       s.style.scale = p ? (1 - 0.32 * e).toFixed(3) : '';
-      if (img) { img.style.opacity = p ? (1 - e).toFixed(3) : ''; img.style.filter = p ? 'blur(' + (14 * e).toFixed(1) + 'px)' : ''; }
+      Array.prototype.forEach.call(s.querySelectorAll('img'), function (img) { img.style.opacity = p ? (1 - e).toFixed(3) : ''; img.style.filter = p ? 'blur(' + (14 * e).toFixed(1) + 'px)' : ''; });
     });
+    hero.classList.toggle('leaving', p > 0.02); /* no hover lift while the photos blur away */
     if (hdr) hdr.classList.toggle('brand-hidden', e < 0.5); /* the hero logo has faded: hand over to the header logo */
     if (copy) {
       copy.style.filter = p ? 'blur(' + (12 * e).toFixed(1) + 'px)' : '';

@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=166">
+<link rel="stylesheet" href="/assets/site.css?v=176">
 </head>
 """
 
@@ -304,7 +304,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=57"></script>
+<script src="/assets/site.js?v=68"></script>
 </body>
 </html>
 """
@@ -336,12 +336,13 @@ def closing(scheme="ember"):
 """
 
 def hero_floats():
-    people = ["study-desk","cp-denim","study-car","cp-blonde","study-laptop","cp-hoodie","study-woman","airwaves-man"]
-    ppos = {"cp-hoodie":"18%","cp-blonde":"72%","airwaves-man":"28%","study-desk":"38%","study-woman":"40%"}
-    banners = ["aviator-iq","citizen-pass","dmv-iq","driveiqcanada","insurance-pass","airwaves-iq","mariner-iq"]
-    pools = {"p": [{"src": f"/assets/img/wall/{n}.jpg", "pos": ppos.get(n, "50%")} for n in people],
-             "l": [{"src": f"/assets/img/wall/b-{n}.jpg", "pos": "50%"} for n in banners]}
-    kinds = {1: "p", 2: "l", 3: "l", 4: "p", 5: "l", 6: "l"}
+    # owner set (2026-10-19): five studio headshots rotate; slots f4 (right middle; top right on phones) and f6 (bottom left)
+    # only ever hold product shots: two of the three are always on screen, never on the same row (they crossfade, see site.js)
+    heads = ["hs-curls","hs-wink","hs-bangs","hs-laugh","hs-glasses"]
+    products = ["pr-tablet-chair","pr-phone-progress","pr-tablet-course"]
+    pools = {"p": [{"src": f"/assets/img/wall/{n}.jpg?v=5", "pos": "50%"} for n in heads],
+             "l": [{"src": f"/assets/img/wall/{n}.jpg?v=4", "pos": "50%"} for n in products]}
+    kinds = {1: "p", 2: "p", 3: "p", 4: "l", 5: "p", 6: "l"}
     wall = "".join(f'<div class="float f{i}" data-pool="{kinds[i]}"><img src="" alt=""></div>' for i in range(1, 7))
     return json.dumps(pools), wall
 
