@@ -261,7 +261,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=151">
+<link rel="stylesheet" href="/assets/site.css?v=153">
 </head>
 """
 
@@ -304,7 +304,7 @@ def footer(scheme="ember"):
     <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=47"></script>
+<script src="/assets/site.js?v=48"></script>
 </body>
 </html>
 """
@@ -395,36 +395,20 @@ ENGAGE = [
  ("chart","Full-Length Exam Simulation","Mock exams that match the official question count, time limit and pass mark."),
 ]
 def engage_ui():
-    # a looping learner session (site.js "engagement loop"); steps mirror ENGAGE. California facts are real (46 questions, pass at 38)
+    # three equal cards, each with a small looping demo (site.js "engagement cards"). California facts are real (46 questions, pass at 38)
     misses = (7, 19, 30, 41)
     dots = "".join(f'<i{" class=x" if n in misses else ""}></i>' for n in range(46))
-    heads = [f'<div class="ef-k"><b>{i+1}</b><span><strong>{t}</strong><small>{d}</small></span></div>' for i, (_, t, d) in enumerate(ENGAGE)]
-    return f"""<div class="ef reveal" data-ef aria-label="A learner session: a timed sprint, missed questions coming back, then a full-length mock exam">
-  <div class="ef-line" aria-hidden="true"><i></i></div>
-  <div class="ef-step" data-s="1">
-    {heads[0]}
-    <div class="ef-card ef-sprint">
-      <div class="ef-sq"><small>Right of way &middot; question 4 of 10</small><p>Two vehicles reach a four-way stop at the same time. Which one goes first?</p>
-        <div class="ef-opts"><span>The larger vehicle</span><span class="ok">The vehicle on the right</span><span>The vehicle on the left</span></div></div>
-      <div class="ef-clock"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"/><circle class="run" cx="24" cy="24" r="20"/></svg><b>0:45</b><span class="ef-xp">+10 XP</span></div>
-    </div>
-  </div>
-  <div class="ef-step" data-s="2">
-    {heads[1]}
-    <div class="ef-card ef-loop">
-      <div class="ef-stack"><span style="--x:0"><em>missed 3&times;</em>Emergency vehicles</span><span style="--x:1"><em>missed 2&times;</em>School bus stops</span><span style="--x:2"><em>missed 1&times;</em>Railroad crossings</span></div>
-      <svg class="ef-arrow" viewBox="0 0 120 60" aria-hidden="true"><path d="M8 44 C 30 4, 90 4, 110 34"/><path d="m100 30 10 5 2-11"/></svg>
-    </div>
-  </div>
-  <div class="ef-step" data-s="3">
-    {heads[2]}
-    <div class="ef-card ef-sim">
-      <div class="ef-sim-h"><span>California knowledge test</span><em>Passed</em></div>
-      <div class="ef-dots">{dots}</div>
-      <div class="ef-sim-f"><span><b class="ef-cnt">42</b> / 46 correct</span><span>Pass mark <b>38</b></span></div>
-    </div>
-  </div>
-</div>"""
+    queue = [("Emergency vehicles", 3), ("School bus stops", 2), ("Railroad crossings", 1), ("Work zones", 1)]
+    q = "".join(f'<li style="--p:{i}"{" class=now" if i == 0 else ""}><span>{t}</span><em>missed {n}&times;</em></li>' for i, (t, n) in enumerate(queue))
+    vis = [
+     f'''<div class="eg2-mock eg2-sprint"><div class="eg2-top"><small>Right of way &middot; 4 of 10</small><span class="eg2-clock"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15"/><circle class="run" cx="18" cy="18" r="15"/></svg><b>0:45</b></span></div>
+        <p>Two vehicles reach a four-way stop together. Who goes first?</p>
+        <div class="eg2-opts"><span>The larger vehicle</span><span class="ok">The vehicle on the right<i>+10 XP</i></span><span>The vehicle on the left</span></div></div>''',
+     f'''<div class="eg2-mock eg2-queue"><div class="eg2-top"><small>Coming back next session</small></div><ol>{q}</ol></div>''',
+     f'''<div class="eg2-mock eg2-sim"><div class="eg2-top"><small>California knowledge test</small><em>Passed</em></div>
+        <div class="eg2-dots">{dots}</div><div class="eg2-score"><span><b class="eg2-cnt">0</b> / 46</span><span>Pass mark <b>38</b></span></div></div>''',
+    ]
+    return '<div class="eg2" data-eg2>' + "".join(f'''<article class="eg2-card reveal" style="--d:{i * 110}ms"><div class="eg2-vis">{v}</div><h3>{esc(t)}</h3><p>{esc(d)}</p></article>''' for i, (v, (_, t, d)) in enumerate(zip(vis, ENGAGE))) + '</div>'
 
 def home():
     imgs, wall = hero_floats()
@@ -495,10 +479,12 @@ def home():
   <div class="vt-groups">{verticals()}</div>
 </div></section>
 
-<section class="sec" id="engagement" data-scheme="soft"><div class="wrap split play-split">
-  <div>
-    <div class="eyebrow rule reveal">Engagement architecture &amp; retention</div>
-    <h2 class="h2 reveal">Built for <i>daily learner retention.</i></h2>
+<section class="sec" id="engagement" data-scheme="soft"><div class="wrap">
+  <div class="vs-head">
+    <div class="reveal">
+      <div class="eyebrow rule">Engagement architecture &amp; retention</div>
+      <h2 class="h2">Built for <i>daily learner retention.</i></h2>
+    </div>
     <p class="sub reveal">Certification prep suffers from learner drop-off. We build retrieval practice and short daily loops into our products so learners keep coming back.</p>
   </div>
   {engage_ui()}

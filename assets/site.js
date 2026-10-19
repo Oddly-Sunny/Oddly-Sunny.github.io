@@ -682,47 +682,34 @@
   });
 })();
 
-/* engagement loop: step 1 sprint (countdown, pick), step 2 missed cards cycle back, step 3 mock exam fills; replays, pauses off screen */
+/* engagement cards: all three demos play together when in view, then replay; reduced motion shows the end state */
 (function () {
-  var ef = document.querySelector('[data-ef]');
-  if (!ef) return;
-  var clock = ef.querySelector('.ef-clock b'), ring = ef.querySelector('.ef-clock .run');
-  var cards = Array.prototype.slice.call(ef.querySelectorAll('.ef-stack span'));
-  var dots = Array.prototype.slice.call(ef.querySelectorAll('.ef-dots i')), cnt = ef.querySelector('.ef-cnt');
-  var T = [], order = [0, 1, 2], running = false;
+  var eg = document.querySelector('[data-eg2]');
+  if (!eg) return;
+  var clock = eg.querySelector('.eg2-clock b'), ring = eg.querySelector('.eg2-clock .run');
+  var items = Array.prototype.slice.call(eg.querySelectorAll('.eg2-queue li'));
+  var dots = Array.prototype.slice.call(eg.querySelectorAll('.eg2-dots i')), cnt = eg.querySelector('.eg2-cnt');
+  var T = [], order, running = false;
   function at(ms, f) { T.push(setTimeout(f, ms)); }
-  function step(n) { ef.classList.remove('a1', 'a2', 'a3'); ef.classList.add('a' + n); }
-  function place() { order.forEach(function (ci, pos) { cards[ci].style.setProperty('--x', pos); }); }
-  function tick(t) { clock.textContent = '0:' + (t < 10 ? '0' : '') + t; ring.style.strokeDashoffset = (125.7 * (1 - t / 45)).toFixed(1); }
-  function finished() {
-    step(3); ef.classList.add('picked', 'passed'); tick(41);
-    dots.forEach(function (d) { d.classList.add('on'); }); cnt.textContent = '42';
-  }
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { finished(); return; }
+  function tick(t) { clock.textContent = '0:' + (t < 10 ? '0' : '') + t; ring.style.strokeDashoffset = (94.25 * (1 - t / 45)).toFixed(1); }
+  function place() { order.forEach(function (ix, p) { items[ix].style.setProperty('--p', p); items[ix].classList.toggle('now', p === 0); }); }
+  function end() { eg.classList.add('s-picked', 's-passed'); tick(41); dots.forEach(function (d) { d.classList.add('on'); }); cnt.textContent = '42'; order = [0, 1, 2, 3]; place(); }
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { end(); return; }
   function play() {
     T.forEach(clearTimeout); T = []; running = true;
-    ef.classList.remove('picked', 'passed'); dots.forEach(function (d) { d.classList.remove('on'); }); cnt.textContent = '0';
-    order = [0, 1, 2]; place(); cards.forEach(function (c) { c.classList.remove('back'); });
-    step(1); tick(45);
-    [44, 43, 42, 41].forEach(function (t, i) { at(900 + i * 900, function () { tick(t); }); });
-    at(2300, function () { ef.classList.add('picked'); });
-    at(4400, function () { step(2); });
-    [5200, 6600].forEach(function (ms) {
-      at(ms, function () { var first = order.shift(); order.push(first); cards[first].classList.add('back'); place(); });
-      at(ms + 800, function () { cards.forEach(function (c) { c.classList.remove('back'); }); });
+    eg.classList.remove('s-picked', 's-passed'); dots.forEach(function (d) { d.classList.remove('on'); }); cnt.textContent = '0';
+    order = [0, 1, 2, 3]; place(); tick(45);
+    [44, 43, 42, 41].forEach(function (t, i) { at(800 + i * 800, function () { tick(t); }); });
+    at(2200, function () { eg.classList.add('s-picked'); });
+    [1800, 3800, 5800].forEach(function (ms) {
+      at(ms, function () { items[order[0]].classList.add('go'); });
+      at(ms + 350, function () { var f = order.shift(); order.push(f); items[f].classList.remove('go'); place(); });
     });
-    at(8200, function () { step(3); });
     var right = 0;
-    dots.forEach(function (d, i) {
-      at(8500 + i * 55, function () {
-        d.classList.add('on'); if (!d.classList.contains('x')) right++;
-        cnt.textContent = right; if (right >= 38) ef.classList.add('passed');
-      });
-    });
-    at(14500, play);
+    dots.forEach(function (d, i) { at(900 + i * 70, function () { d.classList.add('on'); if (!d.classList.contains('x')) right++; cnt.textContent = right; if (right >= 38) eg.classList.add('s-passed'); }); });
+    at(9500, play);
   }
   new IntersectionObserver(function (es) {
-    if (es[0].isIntersecting) { if (!running) play(); }
-    else { T.forEach(clearTimeout); T = []; running = false; }
-  }, { threshold: 0.3 }).observe(ef);
+    if (es[0].isIntersecting) { if (!running) play(); } else { T.forEach(clearTimeout); T = []; running = false; }
+  }, { threshold: 0.3 }).observe(eg);
 })();
