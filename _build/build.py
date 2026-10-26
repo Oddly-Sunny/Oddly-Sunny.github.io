@@ -275,7 +275,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=193">
+<link rel="stylesheet" href="/assets/site.css?v=194">
 </head>
 """
 
@@ -455,7 +455,7 @@ def home():
 
 <section class="sec" id="verticals" data-scheme="white"><div class="wrap">
   <div class="vt-head reveal">
-    <div class="eyebrow rule">Proven enterprise horizontal expansion</div>
+    <div class="eyebrow rule">Proven horizontal expansion</div>
     <h2 class="h2">Same AI engine. <i>Live across markets.</i></h2>
     <p class="sub">The Oddly Sunny architecture decouples domain ingestion from pedagogical delivery, allowing fast expansion into high-barrier regulatory markets:</p>
   </div>
@@ -589,6 +589,16 @@ def games_block(p):
 </div>
 '''
 
+def sunny_block(d):
+    """Product page section about Sunny: value-led intro with the one editorial link to /sunny/, then example asks and what Sunny does."""
+    intro = esc(d["intro"]).replace("{{sunny}}", '<a href="/sunny/">Sunny</a>')
+    items = "".join(f'''<li class="reveal"><q class="sh-ask">{esc(a)}</q><div class="sh-reply">{sunny_mascot(34, "sm")}<p>{esc(b)}</p></div></li>''' for a, b in d["ex"])
+    return f'''<h2>{esc(d["h"])}</h2>
+<p>{intro}</p>
+<ul class="sh-list">{items}</ul>
+<p class="sh-close">{esc(d["close"])}</p>
+'''
+
 def product(p):
     i = FEATURED_ORDER.index(p["slug"])
     nxt = BY[FEATURED_ORDER[(i+1) % len(FEATURED_ORDER)]]
@@ -599,6 +609,7 @@ def product(p):
         if kind == "p": body_html += f"<p>{esc(text)}</p>\n"
         elif kind == "h": body_html += f"<h2>{esc(text)}</h2>\n"
         elif kind == "games": body_html += games_block(p)
+        elif kind == "sunny": body_html += sunny_block(text)
         else: body_html += f'<blockquote class="pull">{esc(text)}</blockquote>\n'
     rows = ""
     for label, links in p["apps"]:

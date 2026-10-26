@@ -121,3 +121,9 @@
 
 ## 2026-10-19 mobile engine-card sheen fix, LIVE (commit 508d208)
 - Phones: the gold sheen on the "Oddly Sunny Engine" card ran as a strip across the top because the mobile connector line reused `.fl-hub::before` (the sheen layer). Connector moved to `.fl-hub::after`; CSS `?v=193`. Checked at 390px in headless Chrome. Next step: none.
+
+## 2026-10-26 Sunny section on product pages (local, NOT committed or pushed)
+- Homepage eyebrow now "Proven horizontal expansion".
+- New `("sunny", dict(...))` story block in `_build/stories.py`, rendered by `sunny_block()` in build.py (CSS `.sh-*`, `?v=194`). On DMV IQ, Drive IQ Canada, Aviator IQ, Insurance Pass, Airwaves IQ and Mariner IQ. Each has one editorial link to /sunny/. Citizen Pass deliberately has none (Sunny is not rolled out there).
+- Build needs Pillow: use a venv (`python3 -m venv`, `pip install pillow`).
+- Next step: owner review, then commit and push `main`. Mariner IQ copy assumes Sunny launches there today.
