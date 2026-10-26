@@ -2,8 +2,8 @@
 Each story: headline, dek, caption, body = list of ("p", text) | ("h", subhead) | ("q", pull quote)."""
 STORIES = {
 "aviator-iq": dict(
- headline="Learning to fly starts on the ground. We built a calmer place to do it.",
- dek="Aviator IQ covers the FAA's knowledge tests, from Private Pilot to ATP, and ties every question back to the handbook it came from.",
+ headline="FAA test prep with an AI coach that answers from the handbooks.",
+ dek="Aviator IQ pairs thirteen FAA knowledge exams with Sunny, our AI study coach, which explains the rules, quizzes you on what you miss and shows the source it used.",
  caption="Aviator IQ, the place we built to study for the FAA knowledge tests.",
  body=[
   ("p","Ask almost any pilot about ground school and you will hear the same story: enormous handbooks, charts that look like riddles, and practice tools that seem to have been designed in 2004. The knowledge test is a real hurdle, and for years the way to prepare for it has been to endure it."),
@@ -20,14 +20,7 @@ STORIES = {
   ("p","Aviator IQ is on the web, and it is now in the App Store for iPhone and iPad and on Google Play for Android, so a quick drill can happen anywhere you have a few minutes."),
   ("sunny",dict(h='A study coach that reads the handbook with you',
     intro="Ground school can feel like a lot of reading with no one to ask. Aviator IQ includes {{sunny}}, our AI study coach. Sunny answers from the FAA's own handbooks and regulations, shows where each answer came from, and tells you when the source doesn't say.",
-    ex=[
-      ('Teach me the handbook from the start',
-       "Sunny walks you through the Pilot's Handbook of Aeronautical Knowledge chapter by chapter, remembers where you stopped, and can quiz you on the last chapter before you move on."),
-      ('How much fuel do I need for night VFR?',
-       'Ask about a regulation in plain language. Sunny answers from the regulation itself and cites it, so you learn the rule and where to find it.'),
-      ('Am I ready to book my test?',
-       'Sunny reads your study record against the passing mark, shows which topics are holding your score down and suggests what to practice next.'),
-    ],
+    cases=[('aviation', 'How much fuel do I need for a VFR flight at night in an airplane?'), ('aviation', 'Teach me the handbook from the start. Where am I?')],
     close='A wrong answer stops being something to memorize. It becomes a short lesson with the source attached.')),
   ('h','Who it is for'),
   ('p','Aviator IQ is for anyone with an FAA knowledge test ahead of them: student pilots working toward a first certificate, instrument and commercial candidates, aspiring flight and ground instructors, aircraft mechanics, and remote pilots getting ready for the Part 107 drone exam.'),
@@ -56,8 +49,8 @@ STORIES = {
   ('p',"Each country has its own practice. The United States civics test has 128 official questions, Canada's citizenship test has 596 questions, Australia's has 429, and the Life in the UK test has 180. Every one comes with mock exams, plain-language explanations and a readiness score, built from that country's own official study guide."),
  ]),
 "dmv-iq": dict(
- headline="Fifty-one driving tests, and no two of them are quite the same.",
- dek="DMV IQ is built state by state, so you practice the rules of the place where you will actually take the test.",
+ headline="DMV practice tests with an AI coach that answers from your state's handbook.",
+ dek="DMV IQ pairs practice for all fifty states with Sunny, our AI study coach, which explains the rules, builds your quizzes and shows the handbook page it used.",
  caption="DMV IQ, practice built around each state's own rules.",
  body=[
   ("p","There is no national driving test. Every state, and the District of Columbia, writes its own rulebook, sets its own passing score and asks its own questions. The pattern most prep tools follow is to ignore that, hand everyone the same generic quiz, and hope the overlap is big enough."),
@@ -72,14 +65,7 @@ STORIES = {
   ("games",""),
   ("sunny",dict(h="A coach that won't make up the rules",
     intro="Studying alone gets frustrating when a rule doesn't make sense and nobody is around to explain it. DMV IQ includes {{sunny}}, our AI study coach. Sunny answers only from your state's official driver handbook, shows you the page it used, and tells you plainly when the handbook is silent instead of guessing.",
-    ex=[
-      ('Why is B wrong?',
-       'Miss a question and ask. Sunny explains the rule in plain words and points to the handbook page, so the answer sticks and you can check it yourself.'),
-      ('Quiz me on right of way',
-       'Name any topic and Sunny builds a short quiz on it, or aims one at the topics you keep missing.'),
-      ('My test is on the 14th. Make me a plan.',
-       'Give Sunny a date and a few minutes a day. It builds a plan around them and shows how ready you are as you go.'),
-    ],
+    cases=[('driving', 'I picked A. Why is that wrong?'), ('driving', 'Am I ready for my test?')],
     close="Ask in your own words, in English, Spanish or Chinese. The answer still comes from your state's rules, never another state's.")),
   ('h','Who it is for'),
   ('p',"DMV IQ is for first-time drivers and teenagers working toward a learner's permit, new arrivals to the United States who need a state licence, adults returning to the road, and professionals preparing for a commercial driver's licence."),
@@ -88,8 +74,8 @@ STORIES = {
   ('p','Alongside the practice sits a library of guides: road signs, what to bring to the DMV, how many times you can retake the test, and state-by-state comparisons such as the cost of becoming a driver and the share of uninsured drivers.'),
  ]),
 "drive-iq-canada": dict(
- headline="Canada has no single driving test, so we wrote prep for every one of them.",
- dek="Drive IQ Canada covers G1, SAAQ, ICBC, Class 7 and every province, in English and in French.",
+ headline="G1 and driving test practice with an AI coach, in English and in French.",
+ dek="Drive IQ Canada pairs practice for every province and territory with Sunny, our AI study coach, which answers from your province's own handbook and names the part it used.",
  caption="Drive IQ Canada, built province by province.",
  body=[
   ("p","Learning to drive in Canada means learning a different handbook depending on where you live. Ontario's G1, Quebec's SAAQ exam, British Columbia's ICBC knowledge test and a long list of others share a purpose and almost nothing else."),
@@ -104,14 +90,7 @@ STORIES = {
   ("games",""),
   ("sunny",dict(h="A coach that answers from your province's handbook",
     intro="A G1 or a SAAQ exam is hard enough without a chatbot quoting another province's rules. Drive IQ Canada includes {{sunny}}, our AI study coach. Sunny answers from your province or territory's own handbook and official sources, names the part it used, and says so when the licensing authority hasn't published an answer.",
-    ex=[
-      ('Pourquoi la réponse B est fausse ?',
-       'Ask in English or in French. Sunny explains the rule in the language you chose and names the part of the handbook it came from.'),
-      ('I keep missing speed limit questions',
-       'Sunny turns the questions you miss into a quick quiz on that topic, so the weak spot gets practice instead of another reread.'),
-      ('Give me a hint, not the answer',
-       'Stuck on a question? Sunny nudges you toward the rule without handing over the answer, so you still do the thinking.'),
-    ],
+    cases=[('driving', 'What should I learn next?'), ('driving', 'Am I ready for my test?')],
     close="Ask in English or in French. The answer still comes from your province's own rules.")),
   ("h","An index that says when it does not know"),
   ("p","We publish a Driving Index that compares provinces using real data. Where a province does not have enough information to rank fairly, we leave it unranked instead of inventing a number. We would rather be honest than tidy."),
@@ -121,8 +100,8 @@ STORIES = {
   ('p',"Practice for all thirteen provinces and territories, in English and in French. Cars and light trucks have more than 2,500 questions, motorcycles more than 1,900, and there is a separate commercial track for every province and territory, plus a road signs trainer. Each province's questions come from its own official handbook, so what you study is what your province actually tests."),
  ]),
 "insurance-pass": dict(
- headline="Insurance exams test the law, so we put the law on every answer.",
- dek="Insurance Pass prepares future producers and adjusters for their state licensing exams, with the statute behind each answer.",
+ headline="Insurance license exam prep with an AI coach that cites the law.",
+ dek="Insurance Pass pairs state licensing exam prep with Sunny, our AI study coach, which answers from your state's statutes and quotes the provision it used.",
  caption="Insurance Pass, practice built on each state's law.",
  body=[
   ("p","An insurance licence exam looks like a test of vocabulary and turns out to be a test of law. What counts as a covered loss, who can sell what, how a claim must be handled: the answers live in statutes and regulations, and those change when you cross a state line."),
@@ -136,14 +115,7 @@ STORIES = {
   ("p","People taking these exams are about to be licensed to give advice that affects other people's money and safety. The preparation should respect that. There are no trick questions and no hand-waving, just the rule and the reason it is the rule, and a readiness score that tells you when you are set for the proctor."),
   ("sunny",dict(h='A coach that cites the law, not a guess',
     intro="Insurance exams reward knowing why a rule applies, and a study guide can't answer follow-up questions. Insurance Pass includes {{sunny}}, our AI study coach. Sunny answers from your state's statutes and regulations, quotes the provision behind each answer, and says so when the source is silent.",
-    ex=[
-      ('Why is that the right answer?',
-       'Sunny explains the reasoning in plain words and points to the sentence of law behind it, so you learn the rule instead of the result.'),
-      ("What's different in my state?",
-       "Ask how your state handles a licensing rule. Sunny answers from your state's own provisions, not a blend of several."),
-      ('Quiz me on what I keep missing',
-       'Sunny builds a short quiz around your weak spots in your line of authority, then shows how your readiness moves.'),
-    ],
+    cases=[('custom', 'insurance-ready')],
     close='You are about to be licensed to advise people about their money. Every answer you study should show where it came from.')),
   ('h','Who it is for'),
   ('p','Insurance Pass is for people entering the insurance business: new agents and producers sitting a state licensing exam, professionals adding a second line, and claims adjusters who need their own licence.'),
@@ -151,8 +123,8 @@ STORIES = {
   ('p',"Four lines of authority. Life and Health and Property and Casualty are covered in all 50 states and the District of Columbia, Personal Lines in 44 states, and Claims Adjuster in the states that require its own exam. Every question is built from your state's statutes and regulations, and each answer shows the provision behind it."),
  ]),
 "airwaves-iq": dict(
- headline="Radio licences, explained one worked problem at a time.",
- dek="Airwaves IQ prepares students for the Technician, General and Extra exams and the FCC's commercial licences, using the official question pools.",
+ headline="Ham radio and FCC exam prep with an AI coach that works the problem.",
+ dek="Airwaves IQ pairs the Technician, General and Extra exams and the FCC's commercial licences with Sunny, our AI study coach, which works through the math and points to the rule behind each answer.",
  caption="Airwaves IQ, a study room for radio licences.",
  body=[
   ("p","Radio exams are a pleasure if you love electronics and a headache if you only want the licence. Airwaves IQ is built for both kinds of people, and for the large group in between who are not sure yet which kind they are."),
@@ -166,14 +138,7 @@ STORIES = {
   ("p","A readiness score tracks how prepared you are, so you can aim for it before you go find a volunteer exam session. It works well in a phone's browser."),
   ("sunny",dict(h='A coach who explains the rules and the math',
     intro="Radio exams mix regulation, theory and calculation, and it helps to have someone to ask. Airwaves IQ includes {{sunny}}, our AI study coach. Sunny answers from the official question pools and FCC rules, shows its source, and tells you when the source doesn't say.",
-    ex=[
-      ('How often do I have to give my call sign?',
-       'Ask about an operating rule in plain language. Sunny answers from the rules and points to the part it used.'),
-      ('Walk me through this calculation',
-       'Stuck on a formula? Sunny works it step by step, so you see why the answer comes out the way it does.'),
-      ('Quiz me on Technician privileges',
-       'Sunny builds a quick quiz on any topic and brings back the ones you miss until they stick.'),
-    ],
+    cases=[('radio', 'How often do I have to give my call sign?'), ('radio', "What's the most power a Technician can use on 10 meters?")],
     close='Whether you are after a first Technician licence or an Extra, the answer comes with its source attached.')),
   ('h','Who it is for'),
   ('p','Airwaves IQ is for people earning their first amateur radio licence, hams moving up to General or Extra, and professionals who need an FCC commercial licence for maritime, aviation or broadcast work. Amateur and commercial licences are federal, so one licence is valid in every state and US territory.'),
@@ -181,8 +146,8 @@ STORIES = {
   ('p','Nine exams across two families. On the amateur side are the Technician, General and Extra classes, with 1,431 questions between them, each with worked derivations. On the commercial side are the General Radiotelephone licence, Marine Radio Law, GMDSS operating practices, GMDSS radio maintenance and ship radar. The Technician exam, for instance, is 35 questions with a 74 percent passing score.'),
  ]),
 "mariner-iq": dict(
- headline="A captain's licence is a serious goal. The preparation should be calm.",
- dek="Mariner IQ uses the Coast Guard's own sample exams, with a plain-English explanation on every answer.",
+ headline="Coast Guard license prep with an AI coach that explains it in plain English.",
+ dek="Mariner IQ pairs Coast Guard licence prep with Sunny, our AI study coach, which answers from the official Navigation Rules and Coast Guard source material and cites it.",
  caption="Mariner IQ, calm preparation for Coast Guard licence exams.",
  body=[
   ("p","Earning a captain's licence is one of those goals people work toward for years. The prep options, on the other hand, can feel like a flea market: scattered, uneven, and rarely clear about where their questions came from."),
@@ -196,14 +161,7 @@ STORIES = {
   ("p","There is even a bridge-red night mode, a screen that keeps your night vision intact for study sessions on the water after dark."),
   ("sunny",dict(h='A coach who speaks plain English at sea',
     intro="Coast Guard exam language is dense, and it is easy to nod along without really understanding it. Mariner IQ includes {{sunny}}, our AI study coach. Sunny answers from the official Navigation Rules and Coast Guard source material, shows where each answer came from, and tells you when the source doesn't say.",
-    ex=[
-      ('What lights does a power-driven vessel show at night?',
-       'Ask about a rule in your own words. Sunny explains it plainly, cites the rule behind it and points you to the part of the Navigation Rules to read next.'),
-      ('What sound signal do I make in fog?',
-       'Sunny gives you the signal and the reasoning behind it, so you can work out the next one on your own.'),
-      ('Quiz me on the rules of the road',
-       'Name a topic and Sunny builds a short quiz on it, then brings back the questions you missed until they stick.'),
-    ],
+    cases=[('maritime', 'What lights does a power-driven vessel underway show at night?'), ('maritime', 'What sound signal does a power-driven vessel make in fog?')],
     close="Whether you are after a six-pack or a master's licence, the answer comes with its source attached.")),
   ('h','Who it is for'),
   ('p','Mariner IQ is for people taking a Coast Guard licence exam: charter and fishing captains going for their first six-pack licence, mariners upgrading to a 100-ton master, deck officers and towing vessel mates, and the engineers, able seamen and lifeboatmen who keep vessels moving.'),

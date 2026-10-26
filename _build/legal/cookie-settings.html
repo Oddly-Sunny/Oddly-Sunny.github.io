@@ -1,0 +1,39 @@
+<div class="row">
+    <div>
+      <p class="t">Strictly necessary</p>
+      <p class="d">Needed for the site to work and to remember your consent choice. Always on.</p>
+    </div>
+    <span class="always">Always on</span>
+  </div>
+
+  <div class="row">
+    <div>
+      <p class="t">Analytics</p>
+      <p class="d">Anonymous Google Analytics so we can see how the site is used. Nothing personal.</p>
+    </div>
+    <button type="button" class="sw" id="sw" role="switch" aria-checked="false" aria-label="Toggle analytics cookies"><span></span></button>
+  </div>
+
+  <div class="save">
+    <button type="button" class="save-btn" id="saveBtn">Save choice</button>
+    <span class="saved" id="savedMsg" hidden>Saved.</span>
+  </div>
+<script>
+  (function(){
+    var KEY='oddly-sunny:consent';
+    var sw=document.getElementById('sw'), saveBtn=document.getElementById('saveBtn'), savedMsg=document.getElementById('savedMsg');
+    function read(){ try{ var v=localStorage.getItem(KEY); return (v==='granted'||v==='denied')?v:null; }catch(e){ return null; } }
+    function setSwitch(on){ sw.setAttribute('aria-checked', on?'true':'false'); }
+    setSwitch(read()==='granted');
+    sw.addEventListener('click', function(){ setSwitch(sw.getAttribute('aria-checked')!=='true'); savedMsg.hidden=true; });
+    saveBtn.addEventListener('click', function(){
+      var on = sw.getAttribute('aria-checked')==='true';
+      var v = on?'granted':'denied';
+      try{ localStorage.setItem(KEY, v); }catch(e){}
+      if(typeof window.gtag==='function'){
+        window.gtag('consent','update',{analytics_storage:v,ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+      }
+      savedMsg.hidden=false;
+    });
+  })();
+</script>

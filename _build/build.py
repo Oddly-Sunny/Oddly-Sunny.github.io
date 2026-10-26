@@ -230,20 +230,20 @@ def mark(cls=""):
 
 SITE = "https://oddlysunny.com"
 SEO_TITLE = {
- "aviator-iq": "Aviator IQ: FAA Knowledge Test Prep | Oddly Sunny",
+ "aviator-iq": "Aviator IQ: FAA Knowledge Test Prep with AI Coach | Oddly Sunny",
  "citizen-pass": "Citizen Pass: Citizenship Test Practice | Oddly Sunny",
- "dmv-iq": "DMV IQ: State DMV Practice Tests | Oddly Sunny",
- "drive-iq-canada": "Drive IQ Canada: Driving Test Practice | Oddly Sunny",
- "insurance-pass": "Insurance Pass: License Exam Prep | Oddly Sunny",
- "airwaves-iq": "Airwaves IQ: Ham and FCC Radio Tests | Oddly Sunny",
- "mariner-iq": "Mariner IQ: Coast Guard License Prep | Oddly Sunny",
+ "dmv-iq": "DMV IQ: DMV Practice Tests with an AI Coach | Oddly Sunny",
+ "drive-iq-canada": "Drive IQ Canada: G1 Driving Test Practice with AI | Oddly Sunny",
+ "insurance-pass": "Insurance Pass: Insurance License Exam Prep with AI | Oddly Sunny",
+ "airwaves-iq": "Airwaves IQ: Ham Radio and FCC Exam Prep with AI | Oddly Sunny",
+ "mariner-iq": "Mariner IQ: Coast Guard License Prep with AI Coach | Oddly Sunny",
 }
 def trim(t, n=155):
     if len(t) <= n: return t
     cut = t[:n].rsplit(" ", 1)[0].rstrip(",;:")
     return cut + "..."
 
-def head_html(title, desc, path, og_img, ld=None):
+def head_html(title, desc, path, og_img, ld=None, robots=None):
     desc = trim(desc)
     img = f"{SITE}/assets/og/{og_img}"
     ld_tag = "".join(f'<script type="application/ld+json">{json.dumps(o, ensure_ascii=False)}</script>\n' for o in (ld or []))
@@ -254,6 +254,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
+{('<meta name="robots" content="' + robots + '">') if robots else ""}
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="{SITE}{path}">
 <meta property="og:site_name" content="Oddly Sunny">
@@ -275,7 +276,7 @@ def head_html(title, desc, path, og_img, ld=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=194">
+<link rel="stylesheet" href="/assets/site.css?v=201">
 </head>
 """
 
@@ -304,6 +305,7 @@ def header():
       <a href="/#platform">Architecture<span class="nav-go">{ARROW_R}</span></a>
       <a href="/#verticals">Verticals<span class="nav-go">{ARROW_R}</span></a>
       <a href="/sunny/">Sunny AI<span class="nav-go">{ARROW_R}</span></a>
+      <a href="/about/">About<span class="nav-go">{ARROW_R}</span></a>
       <a class="btn" href="/contact/">Contact</a>
     </nav>
     <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
@@ -314,8 +316,8 @@ def header():
 def footer(scheme="ember"):
     return f"""<footer class="ftr s" data-scheme="{scheme}">
   <div class="wrap ftr-row">
-    <div class="l">{mark("xs")}<span>&copy; 2026 Oddly Sunny LLC. All rights reserved. Proprietary Learning Infrastructure.</span></div>
-    <div class="r"><a href="mailto:{MAIL}">{MAIL}</a><a href="/privacy/">Privacy</a><a href="/cookie-settings/">Cookies</a></div>
+    <div class="l">{mark("xs")}<span>&copy; 2026 Oddly Sunny LLC. All rights reserved. AI EdTech for licensing and certification exam prep.</span></div>
+    <div class="r"><a href="/about/">About</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/cookie-settings/">Cookies</a></div>
   </div>
 </footer>
 <script src="/assets/site.js?v=69"></script>
@@ -510,7 +512,8 @@ def home():
 </div></section>
 """
     org = {"@context": "https://schema.org", "@type": "Organization", "name": "Oddly Sunny", "legalName": "Oddly Sunny LLC", "url": SITE + "/", "logo": SITE + "/apple-touch-icon.png",
-           "description": "Oddly Sunny operates a proprietary, AI-native learning infrastructure platform for high-stakes licensing and certification exams."}
+           "description": "Oddly Sunny is an AI-native EdTech company that builds exam preparation for high-stakes licensing and certification exams.",
+           "knowsAbout": ["Educational technology", "AI in education", "Exam preparation", "Licensing and certification"]}
     site = {"@context": "https://schema.org", "@type": "WebSite", "name": "Oddly Sunny", "url": SITE + "/"}
     return head_html("Oddly Sunny | Learning, Reimagined with AI",
         "We turn complex statutes and government manuals into adaptive study tools. Seven live products, every question traced to the page it came from.",
@@ -589,13 +592,36 @@ def games_block(p):
 </div>
 '''
 
+CUSTOM_SUNNY_CASES = {
+ "insurance-ready": ("#B0652E", "Insurance", {"label": "Am I ready?", "ctx": "Life and Health licensing exam, a week before the test", "q": "Am I ready for my exam?",
+   "a": "You're **68% ready**. Policy provisions and ethics are strong. State insurance law is pulling your score down, so that is where 15 minutes today would help most.",
+   "cites": [], "choices": ["Quiz me on state law", "Make me a plan", "Show my weak spots"],
+   "ui": {"type": "progress", "ready": 68, "topics": [["Insurance basics", 90], ["Policy provisions", 81], ["Ethics and licensing", 74], ["Claims and underwriting", 63], ["State insurance law", 49]]}}),
+}
+
+def sunny_window(hue, label, c):
+    """One real Sunny reply, in the same chat window as /sunny: the question, the answer, the cited source and the follow-ups."""
+    cites = "".join(f'<span class="sd-src">{icon("book")}<span><b>{esc(x["locator"] or x["title"])}</b>{("<small>" + esc(x["title"]) + "</small>") if x["locator"] else ""}</span></span>' for x in c["cites"])
+    chips = "".join(f'<span class="sd-chip">{esc(o)}</span>' for o in c["choices"])
+    note = '<small class="sh-note">An example of the card Sunny shows in the chat.</small>' if c.get("ui") else ""
+    return f'''<figure class="sh-win reveal" style="--hue:{hue}"><div class="sd-win"><div class="sd-head">{sunny_mascot(34, "sm tint")}<div><b>Sunny</b><small>{esc(label)} coach</small></div></div>
+<div class="sd-body"><div class="sd-conv on"><div class="sd-ctx">{esc(c["ctx"])}</div><div class="sd-q">{esc(c["q"])}</div>
+<div class="sd-a">{md_lite(c["a"])}{sunny_widget(c.get("ui"))}{('<div class="sd-srcs">' + cites + '</div>') if cites else ""}{('<div class="sd-chips">' + chips + '</div>') if chips else ""}</div></div></div></div>{note}</figure>'''
+
 def sunny_block(d):
-    """Product page section about Sunny: value-led intro with the one editorial link to /sunny/, then example asks and what Sunny does."""
+    """Product page section about Sunny: value-led intro with the one editorial link to /sunny/, then one or two real replies."""
     intro = esc(d["intro"]).replace("{{sunny}}", '<a href="/sunny/">Sunny</a>')
-    items = "".join(f'''<li class="reveal"><q class="sh-ask">{esc(a)}</q><div class="sh-reply">{sunny_mascot(34, "sm")}<p>{esc(b)}</p></div></li>''' for a, b in d["ex"])
+    wins = ""
+    for key, q in d["cases"]:
+        if key == "custom":
+            hue, label, c = CUSTOM_SUNNY_CASES[q]
+        else:
+            ind = next(i for i in SUNNY_EXAMPLES if i["key"] == key)
+            hue, label, c = ind["hue"], ind["label"], next(x for x in ind["cases"] if x["q"] == q)
+        wins += sunny_window(hue, label, c)
     return f'''<h2>{esc(d["h"])}</h2>
 <p>{intro}</p>
-<ul class="sh-list">{items}</ul>
+<div class="sh-wins">{wins}</div>
 <p class="sh-close">{esc(d["close"])}</p>
 '''
 
@@ -652,6 +678,101 @@ def product(p):
         {"@type": "ListItem", "position": 2, "name": p["name"], "item": f"{SITE}/work/{p['slug']}/"}]}
     return head_html(SEO_TITLE[p["slug"]], f"{p['name']}: {p['lede']}", f"/work/{p['slug']}/", p["slug"] + ".jpg", [app, crumbs]) + header() + body + footer("paper")
 
+
+ABOUT_ENGINE = [
+ ("quote", "Direct source grounding", "Every question carries a word-for-word quote from the official manual or regulation it came from. No source, no question."),
+ ("blind", "Independent blind check", "A second model answers questions without seeing the key. When it disagrees, the question goes back for review."),
+ ("blueprint", "Official exam blueprint", "Question counts, time limits and pass marks match the real exam, and topic coverage is checked against the published outline."),
+ ("pattern", "Giveaway detection", "We test banks for answer patterns, like the right answer sitting in one position, and fix them so scores reflect knowledge."),
+ ("route", "Edition monitoring", "We watch the official sources and flag new editions, so nobody studies yesterday's rules."),
+ ("gauge", "Readiness scoring", "A readiness score that blends coverage, accuracy, recall and speed, measured against the official pass mark."),
+]
+ABOUT_AI = [
+ ("check", "A closed library of official sources", "Sunny retrieves from the official material behind each exam, from state handbooks to federal regulations, and answers from that text."),
+ ("spark", "An agent that uses tools", "Sunny searches the handbook, pulls practice questions, starts quizzes and checks progress, then answers with the page it used."),
+ ("verify", "Numbers checked before they show", "Every figure in an answer, from a speed limit to a fee, is checked against the source first. When the source is silent, Sunny says so."),
+ ("chart", "A model of each learner", "Sunny knows the learner's test, date, strong topics and weak spots, so each session starts from that picture and not from zero."),
+ ("globe", "One engine, every exam, localized", "A single domain-neutral engine powers every brand. Each plugs in its own sources, rules and question bank, and learners can study in English, Spanish, Chinese or French."),
+ ("cells", "Built to scale to new exams", "Ingestion and delivery are separate, reusable layers, so a new exam or jurisdiction builds on what already works."),
+]
+
+def about_page():
+    card = lambda L: "".join(f'<div class="feat reveal"><div class="ic">{icon(ic)}</div><h3>{esc(t)}</h3><p>{esc(d)}</p></div>' for ic, t, d in L)
+    groups = "".join(f'<div class="ab-g reveal"><h3>{g}</h3><div class="ab-row n{len(slugs)}">{"".join(pt_tile(x) for x in slugs)}</div></div>' for g, slugs in VERTICALS)
+    body = f"""
+<section class="story sn" data-scheme="paper">
+  <header class="s-head sn-head">
+    <div class="s-label">About</div>
+    <h1 class="s-title">An AI EdTech company for the exams that open doors.</h1>
+    <p class="s-dek">Oddly Sunny builds AI-powered exam prep for licensing and certification, from driving and aviation tests to insurance, radio, maritime and citizenship exams.</p>
+  </header>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">What we build</h2>
+    <p class="sn-sub">Oddly Sunny is an educational technology company. We build AI-powered study products for the high-stakes exams people take to drive, fly, sell insurance, operate a radio, captain a vessel or become a citizen.</p>
+    <p class="sn-sub">These exams are written by government agencies and licensing bodies, and the official material is dense. We turn it into practice that is personal, accurate and easier to stay with, so learners know what the test covers and when they are ready to take it.</p>
+  </div>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">The content engine</h2>
+    <p class="sn-sub">Our products share one pipeline and one standard: nothing reaches a learner unless it can be traced to an official source. The pipeline turns statutes and agency handbooks into question banks, checks them, and keeps them current.</p>
+    <div class="feats sn-feats">{card(ABOUT_ENGINE)}</div>
+  </div>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">The AI layer</h2>
+    <p class="sn-sub">On top of the engine sits Sunny, our AI study coach. It is built for education from the ground up: it looks answers up in the official source instead of making them up.</p>
+    <div class="feats sn-feats">{card(ABOUT_AI)}</div>
+  </div>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">Seven products, one engine</h2>
+    <p class="sn-sub">Each product is written for its own exam and market, and all of them run on the same platform.</p>
+    <div class="ab-groups">{groups}</div>
+  </div>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">AI that looks it up, instead of making it up</h2>
+    <p class="sn-sub">In education, safety means not teaching people the wrong thing. Sunny answers only from the official manual behind each exam, shows the page it used and says so when the source is silent. See how <a href="/sunny/">Sunny</a> works, with real answers from each field.</p>
+  </div>
+</section>
+"""
+    org = {"@context": "https://schema.org", "@type": "AboutPage", "name": "About Oddly Sunny", "url": SITE + "/about/",
+           "mainEntity": {"@type": "Organization", "name": "Oddly Sunny", "legalName": "Oddly Sunny LLC", "url": SITE + "/",
+                          "description": "Oddly Sunny is an AI-native EdTech company that builds exam preparation for high-stakes licensing and certification exams."}}
+    crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Oddly Sunny", "item": SITE + "/"},
+        {"@type": "ListItem", "position": 2, "name": "About", "item": SITE + "/about/"}]}
+    return head_html("About Oddly Sunny: AI EdTech for Licensing and Certification Exams",
+        "Oddly Sunny is an AI-native EdTech company building exam prep for licensing and certification, with every question traced to an official source.",
+        "/about/", "home.jpg", [org, crumbs]) + header() + body + closing("green") + footer("green")
+
+LEGAL_PAGES = [
+ # (dir, source fragment, title, h1, dek, description, robots)
+ ("privacy", "privacy", "Privacy & Cookie Policy | Oddly Sunny", "Privacy & Cookie Policy", "Last updated: July 2026", "How Oddly Sunny LLC handles information on oddlysunny.com: analytics, cookies, email and your rights.", "index,follow"),
+ ("terms", "terms", "Terms of Use | Oddly Sunny", "Terms of Use", "Last updated: October 2026", "Terms of use for oddlysunny.com, the website of Oddly Sunny LLC, an AI EdTech company building exam prep for licensing and certification.", "index,follow"),
+ ("cookie-settings", "cookie-settings", "Cookie Settings | Oddly Sunny", "Cookie settings", "Choose whether we use analytics cookies on your visits. You can change this any time, and we also honor the Global Privacy Control browser signal as an opt-out. More detail in our <a href=\"/privacy/\">Privacy &amp; Cookie Policy</a>.", "Choose whether Oddly Sunny uses analytics cookies on your visits.", "noindex,follow"),
+]
+
+def legal_page(d):
+    path, frag, title, h1, dek, desc, robots = d
+    content = open(os.path.join(ROOT, "_build/legal", frag + ".html"), encoding="utf-8").read()
+    dek_html = dek if "<" in dek else esc(dek)
+    body = f"""
+<section class="story lg lg-{frag}" data-scheme="paper">
+  <article>
+    <header class="s-head">
+      <div class="s-label">Legal</div>
+      <h1 class="s-title">{esc(h1)}</h1>
+      <p class="s-dek">{dek_html}</p>
+    </header>
+    <div class="lg-body">
+{content}
+    </div>
+  </article>
+</section>
+"""
+    return head_html(title, desc, f"/{path}/", "home.jpg", None, robots) + header() + body + footer("paper")
 
 CONTACT_ENDPOINT = "https://oddlysunny-contact-496288753459.us-central1.run.app"  # set to a form service URL (for example a Formspree endpoint) to send messages without the visitor's email app
 
@@ -975,9 +1096,11 @@ if __name__ == "__main__":
     write("404.html", not_found_page())
     write("sunny/index.html", sunny_page())
     write("contact/index.html", contact_page())
+    write("about/index.html", about_page())
+    for _d in LEGAL_PAGES: write(f"{_d[0]}/index.html", legal_page(_d))
     for p in PRODUCTS:
         write(f"work/{p['slug']}/index.html", product(p))
-    urls = ["/", "/sunny/", "/contact/"] + [f"/work/{p['slug']}/" for p in PRODUCTS] + ["/privacy/"]
+    urls = ["/", "/sunny/", "/about/", "/contact/"] + [f"/work/{p['slug']}/" for p in PRODUCTS] + ["/privacy/", "/terms/"]
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{u}</loc></url>\n" for u in urls) + "</urlset>\n")
     write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
     print("built", 2 + len(PRODUCTS), "pages")

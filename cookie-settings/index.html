@@ -3,55 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cookie Settings · Oddly Sunny</title>
+<title>Cookie Settings | Oddly Sunny</title>
+<meta name="description" content="Choose whether Oddly Sunny uses analytics cookies on your visits.">
 <meta name="robots" content="noindex,follow">
-<!-- Google tag with Consent Mode v2 (analytics denied by default), so a change
-     here takes effect immediately and persists for the rest of the site. -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5VRS4WZ09"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
-  gtag('js', new Date());
-  gtag('config','G-Q5VRS4WZ09');
-</script>
-<style>
-  :root{ --bg:#faf8f3; --ink:#14201b; --ink-2:#4b5a52; --line:#e4e0d6; --accent:#c2603f; --card:#fffdf8; }
-  @media (prefers-color-scheme: dark){
-    :root{ --bg:#0c130f; --ink:#eef3ef; --ink-2:#9db0a6; --line:#26332c; --accent:#e0805f; --card:#111a15; }
-  }
-  *{ box-sizing:border-box; }
-  body{ margin:0; background:var(--bg); color:var(--ink); font-family:'Sora',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; line-height:1.6; }
-  .wrap{ max-width:640px; margin:0 auto; padding:56px 22px 80px; }
-  a{ color:var(--accent); }
-  h1{ font-family:'Newsreader',Georgia,serif; font-weight:400; font-size:clamp(28px,5vw,42px); margin:6px 0 8px; }
-  .eyebrow{ text-transform:uppercase; letter-spacing:.14em; font-size:12px; color:var(--ink-2); }
-  .lede{ color:var(--ink-2); margin:0 0 24px; }
-  .row{ display:flex; align-items:flex-start; justify-content:space-between; gap:18px; padding:16px 18px; border:1px solid var(--line); border-radius:10px; margin-bottom:12px; background:var(--card); }
-  .row p{ margin:0; }
-  .row .t{ font-weight:600; }
-  .row .d{ color:var(--ink-2); font-size:13.5px; margin-top:4px; }
-  .always{ color:var(--ink-2); font-size:12px; white-space:nowrap; margin-top:3px; }
-  .sw{ flex-shrink:0; margin-top:2px; width:46px; height:28px; border-radius:999px; border:none; cursor:pointer; background:var(--line); position:relative; transition:background .15s; }
-  .sw[aria-checked="true"]{ background:var(--accent); }
-  .sw span{ position:absolute; top:3px; left:3px; width:22px; height:22px; border-radius:50%; background:#fff; transition:left .15s; box-shadow:0 1px 3px rgba(0,0,0,.3); }
-  .sw[aria-checked="true"] span{ left:21px; }
-  .save{ margin-top:18px; display:flex; align-items:center; gap:14px; }
-  button.save-btn{ font:inherit; font-weight:600; font-size:14px; padding:9px 20px; border-radius:999px; border:none; cursor:pointer; background:var(--accent); color:#fff; }
-  .saved{ color:var(--ink-2); font-size:13px; }
-  .back{ display:inline-block; margin-top:28px; font-size:14px; }
-</style>
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://oddlysunny.com/cookie-settings/">
+<meta property="og:site_name" content="Oddly Sunny">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cookie Settings | Oddly Sunny">
+<meta property="og:description" content="Choose whether Oddly Sunny uses analytics cookies on your visits.">
+<meta property="og:url" content="https://oddlysunny.com/cookie-settings/">
+<meta property="og:image" content="https://oddlysunny.com/assets/og/home.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cookie Settings | Oddly Sunny">
+<meta name="twitter:description" content="Choose whether Oddly Sunny uses analytics cookies on your visits.">
+<meta name="twitter:image" content="https://oddlysunny.com/assets/og/home.jpg">
+<meta name="theme-color" content="#091A12">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=201">
 </head>
 <body>
-<div class="wrap">
-  <div class="eyebrow">Oddly Sunny</div>
-  <h1>Cookie settings</h1>
-  <p class="lede">Choose whether we use analytics cookies on your visits. You can change this any time, and we also honor the Global Privacy Control browser signal as an opt-out. More detail in our <a href="/privacy/">Privacy &amp; Cookie Policy</a>.</p>
+<header class="hdr hdr-ent" data-scheme="white" data-fixed>
+  <div class="wrap">
+    <a href="/" class="brand" aria-label="oddly sunny home"><svg class="live-mark" viewBox="0 0 100 100" aria-hidden="true"><rect class="c c1" x="2" y="2" width="46" height="46" rx="12"/><rect class="c c2" x="52" y="2" width="46" height="46" rx="12"/><rect class="c c4" x="52" y="52" width="46" height="46" rx="12"/><g transform="translate(25 75)"><g class="gold"><g class="sh on" data-s="diamond"><rect x="-17" y="-17" width="34" height="34" rx="8" transform="rotate(45)"/></g><g class="sh" data-s="triangle"><path class="f" d="M0 -20 L21 15 L-21 15 Z"/></g><g class="sh" data-s="arrow"><path class="st" d="M0 19 V-17 M-15 -3 L0 -19 L15 -3"/></g><g class="sh" data-s="circle"><circle r="19"/></g><g class="sh" data-s="check"><path class="st" d="M-18 2 L-6 14 L18 -14"/></g><g class="sh" data-s="plus"><path class="st" d="M0 -19 V19 M-19 0 H19"/></g><g class="sh" data-s="heart"><path class="f" d="M0 20 C-26 2 -22 -19 -9 -18 C-3 -17.5 0 -13 0 -10 C0 -13 3 -17.5 9 -18 C22 -19 26 2 0 20 Z"/></g></g></g></svg><span>oddly <b>sunny</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="/#platform">Architecture<span class="nav-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
+      <a href="/#verticals">Verticals<span class="nav-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
+      <a href="/sunny/">Sunny AI<span class="nav-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
+      <a href="/about/">About<span class="nav-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></a>
+      <a class="btn" href="/contact/">Contact</a>
+    </nav>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
+  </div>
+</header>
 
-  <div class="row">
+<section class="story lg lg-cookie-settings" data-scheme="paper">
+  <article>
+    <header class="s-head">
+      <div class="s-label">Legal</div>
+      <h1 class="s-title">Cookie settings</h1>
+      <p class="s-dek">Choose whether we use analytics cookies on your visits. You can change this any time, and we also honor the Global Privacy Control browser signal as an opt-out. More detail in our <a href="/privacy/">Privacy &amp; Cookie Policy</a>.</p>
+    </header>
+    <div class="lg-body">
+<div class="row">
     <div>
       <p class="t">Strictly necessary</p>
       <p class="d">Needed for the site to work and to remember your consent choice. Always on.</p>
@@ -71,9 +72,6 @@
     <button type="button" class="save-btn" id="saveBtn">Save choice</button>
     <span class="saved" id="savedMsg" hidden>Saved.</span>
   </div>
-
-  <a class="back" href="/">&larr; Back to oddlysunny.com</a>
-</div>
 <script>
   (function(){
     var KEY='oddly-sunny:consent';
@@ -93,5 +91,16 @@
     });
   })();
 </script>
+
+    </div>
+  </article>
+</section>
+<footer class="ftr s" data-scheme="paper">
+  <div class="wrap ftr-row">
+    <div class="l"><div class="mark xs"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div><span>&copy; 2026 Oddly Sunny LLC. All rights reserved. AI EdTech for licensing and certification exam prep.</span></div>
+    <div class="r"><a href="/about/">About</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/cookie-settings/">Cookies</a></div>
+  </div>
+</footer>
+<script src="/assets/site.js?v=69"></script>
 </body>
 </html>

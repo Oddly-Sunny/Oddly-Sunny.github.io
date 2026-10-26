@@ -1931,12 +1931,55 @@ h2.h2{text-wrap:balance}
 }
 #expertise{padding-bottom:84px}@media(max-width:960px){#expertise{padding-bottom:56px}}
 /* Sunny section on product pages */
-.s-body .sh-list{list-style:none;margin:0 0 1.4em;padding:0;display:grid;gap:14px;font-family:var(--sans)}
-.sh-list li{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px 18px 18px}
-.sh-ask{display:block;quotes:none;width:fit-content;max-width:92%;margin:0 0 12px auto;padding:9px 14px;border-radius:16px 16px 4px 16px;background:var(--text);color:var(--bg);font-size:15px;line-height:1.4}
-.sh-reply{display:flex;gap:12px;align-items:flex-start}
-.sh-reply .sn-mascot{margin-top:2px}
-.s-body .sh-reply p{margin:0;font-size:15.5px;line-height:1.55;color:var(--muted)}
+.s-body .sh-wins{display:grid;gap:22px;margin:0 0 1.4em;font-family:var(--sans)}
+.sh-win{margin:0}
+.sh-win .sd-body{height:auto;overflow:visible;padding:18px 18px 20px}
+.sh-win .sd-q{margin-bottom:12px}
+.s-body .sh-win p{font-size:inherit}
+.sh-note{display:block;margin:8px 4px 0;font-size:12px;color:var(--muted)}
 .s-body .sh-close{font-style:italic;color:var(--muted)}
 .s-body p a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .s-body p a:hover{color:var(--accent)}
+/* About page */
+.ab-groups{margin-top:34px;display:grid;gap:34px}
+.ab-g h3{font:500 13px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.ab-row{display:grid;gap:20px;grid-template-columns:repeat(3,1fr)}
+.ab-row.n2{grid-template-columns:repeat(2,1fr)}
+.ab-row .pt{aspect-ratio:3/2}
+.sn-sub a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+@media(max-width:900px){.ab-row,.ab-row.n2{grid-template-columns:1fr}.ab-row .pt{aspect-ratio:4/5}}
+/* Legal pages: privacy, terms, cookie settings */
+.lg .s-dek{font-size:clamp(16px,1.6vw,19px)}
+.lg-privacy .s-dek,.lg-terms .s-dek{font-family:var(--sans);font-weight:400;font-size:14px;color:var(--muted)}
+.lg .s-title{font-size:clamp(32px,4.4vw,52px)}
+.lg-body{max-width:860px;margin:30px auto 0;padding:0 24px 40px;font-family:var(--sans);font-size:16px;line-height:1.7;color:var(--text)}
+.lg-body>*{max-width:720px}
+.lg-body p{margin:0 0 14px}
+.lg-body h2{font-family:var(--display);font-weight:500;font-size:22px;line-height:1.25;letter-spacing:-.015em;margin:40px 0 10px}
+.lg-body ul{margin:0 0 14px;padding-left:22px}
+.lg-body li{margin:0 0 8px}
+.lg-body a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.lg-body a:hover{color:var(--accent)}
+.lg-body .tw{max-width:none;overflow-x:auto;margin:6px 0 16px;border:1px solid var(--border);border-radius:14px;background:var(--card)}
+.lg-body table{width:100%;min-width:560px;border-collapse:collapse;font-size:13.5px;line-height:1.5}
+.lg-body th,.lg-body td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--border)}
+.lg-body tr:last-child td{border-bottom:0}
+.lg-body th{font-weight:600;white-space:nowrap}
+.lg-body td{color:var(--muted)}
+.lg-cookie-settings .lg-body>*{max-width:640px}
+.lg-body .row{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:18px 20px;border:1px solid var(--border);border-radius:16px;margin:0 0 12px;background:var(--card)}
+.lg-body .row p{margin:0}
+.lg-body .row .t{font-weight:600}
+.lg-body .row .d{color:var(--muted);font-size:14px;margin-top:4px}
+.lg-body .always{color:var(--muted);font-size:12.5px;white-space:nowrap;margin-top:3px}
+.lg-body .sw{flex:none;margin-top:2px;width:46px;height:28px;border-radius:99px;border:0;cursor:pointer;background:#CFD6D1;position:relative;transition:background .15s}
+.lg-body .sw[aria-checked="true"]{background:var(--primary)}
+.lg-body .sw span{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.lg-body .sw[aria-checked="true"] span{left:21px}
+.lg-body .save{margin-top:20px;display:flex;align-items:center;gap:14px}
+.lg-body .save-btn{font:500 14px var(--sans);padding:11px 22px;border-radius:99px;border:0;cursor:pointer;background:var(--btn);color:var(--btn-fg)}
+.lg-body .saved{color:var(--muted);font-size:13.5px}
+.lg-cookie-settings ~ #cookieBanner,body:has(.lg-cookie-settings) #cookieBanner{display:none!important}
+@media(min-width:900px){.closing .body{max-width:none;white-space:nowrap}}
+body:has(.story.lg){background:#F6F3EA}
+.story.lg{min-height:calc(100vh - 90px)}
