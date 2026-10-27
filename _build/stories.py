@@ -135,7 +135,7 @@ STORIES = {
   ("h","Where the rules live"),
   ("p","Regulatory questions can feel arbitrary until you know where the rule comes from. Each explanation points to the section of the regulations it rests on, so you learn where to look as well as what to answer. Schematics appear where the real test puts them, and you can work through the syllabus topic by topic, ticking off what you have covered."),
   ("h","Knowing when to book the session"),
-  ("p","A readiness score tracks how prepared you are, so you can aim for it before you go find a volunteer exam session. It works well in a phone's browser."),
+  ("p","A readiness score tracks how prepared you are, so you can aim for it before you go find a volunteer exam session. Airwaves IQ is on the web and on Google Play for Android, so a quick drill can happen anywhere you have a few minutes."),
   ("sunny",dict(h='A coach who explains the rules and the math',
     intro="Radio exams mix regulation, theory and calculation, and it helps to have someone to ask. Airwaves IQ includes {{sunny}}, our AI study coach. Sunny answers from the official question pools and FCC rules, shows its source, and tells you when the source doesn't say.",
     cases=[('radio', 'How often do I have to give my call sign?'), ('radio', "What's the most power a Technician can use on 10 meters?")],
