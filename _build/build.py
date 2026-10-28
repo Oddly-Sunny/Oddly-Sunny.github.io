@@ -172,7 +172,7 @@ PRODUCTS = [
          ("Many credentials","Six-pack, master, able seaman and more, in one place."),
          ("Route and rules practice","Charts, rules of the road and navigation, practiced the way you'll be tested."),
          ("Bridge night mode","A red-light theme that keeps your night vision intact.")],
-  apps=[], appnote="Web only for now. Open it on your phone or laptop.",
+  apps=[("Mariner IQ",[("android","https://play.google.com/store/apps/details?id=com.oddlysunny.mariner_iq")])], appnote="",
   img="mariner-iq.jpg", alt="Mariner IQ on a phone on a deep blue velvet sofa"),
 ]
 BY = {p["slug"]: p for p in PRODUCTS}
