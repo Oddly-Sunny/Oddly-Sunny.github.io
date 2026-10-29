@@ -276,7 +276,7 @@ def head_html(title, desc, path, og_img, ld=None, robots=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=202">
+<link rel="stylesheet" href="/assets/site.css?v=203">
 </head>
 """
 
@@ -436,6 +436,7 @@ def home():
   {wall}
   <div class="wrap"><div class="copy">
     <div class="mark hero-mark" id="heroMark"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div>
+    <p class="hero-word">oddly <b>sunny</b></p>
     <h1>Learning,<br><i>reimagined with AI.</i></h1>
     <p class="lede">We turn complex statutes and government manuals into adaptive study tools. Seven live products, every question traced to the page it came from.</p>
     <div class="cta-row"><a class="btn btn-down" href="#platform" data-smooth>Explore the engine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></svg></a></div>

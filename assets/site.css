@@ -353,7 +353,9 @@ h2.h2 i{font-size:1.06em;letter-spacing:-.01em}
 /* hero v2: centered copy with floating photos that fade and blur in and out */
 .hero{justify-content:center;text-align:center;padding:110px 0 90px}
 .hero .copy{max-width:760px;margin:0 auto}
-.hero .mark.hero-mark{margin:0 auto 30px}
+.hero .mark.hero-mark{margin:0 auto 14px}
+.hero .hero-word{margin:0 auto 30px;font-size:21px;font-weight:500;letter-spacing:-.01em;color:#F4F1E8;line-height:1}
+.hero .hero-word b{font-weight:400;color:var(--light)}
 .hero h1{font-size:clamp(48px,7.4vw,108px);line-height:1;letter-spacing:-.04em}
 .hero .lede{margin:26px auto 0;max-width:520px;text-align:center}
 .hero .cta-row{justify-content:center}
