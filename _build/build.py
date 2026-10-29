@@ -202,6 +202,7 @@ ICONS = {
  "adapt":'<circle cx="5" cy="18.500" r="2"/><path d="M7 18.500h5a4 4 0 0 0 0-8h-3a3 3 0 0 1 0-6h9"/><path class="ac" d="m16 2.500 2 2-2 2"/>',
  "verify":'<path d="M12 3 4.500 6v5.500c0 4.400 3.100 8 7.500 9.500 4.400-1.500 7.500-5.100 7.500-9.500V6z"/><path class="ac" d="m8.500 12 2.500 2.500 4.500-5"/>',
  "gauge":'<path d="M3.500 17a8.500 8.500 0 1 1 17 0"/><path d="M12 8.500V9.500M6.300 11.300l.7.7M17.700 11.300l-.7.7"/><path class="ac" d="m12 17 3.800-4.800"/><circle cx="12" cy="17" r="1.300"/>',
+ "agents":'<circle cx="12" cy="12" r="3.200"/><path d="M12 3v2.500M12 18.500V21M3 12h2.500M18.500 12H21M5.600 5.600l1.800 1.800M16.600 16.600l1.800 1.800M18.400 5.600l-1.800 1.800M7.400 16.600l-1.800 1.800"/>',
  "cells":'<rect x="3.500" y="3.500" width="7" height="7" rx="2"/><rect x="13.500" y="3.500" width="7" height="7" rx="2"/><rect x="13.500" y="13.500" width="7" height="7" rx="2"/><rect class="ac" x="4.600" y="14.600" width="4.800" height="4.800" rx="1.200" transform="rotate(45 7 17)"/>',
  "quote":'<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 9.500h4M9 17h5"/><path class="ac" d="M9 13.300h7"/>',
  "blind":'<path d="M2.500 12S6 5.500 12 5.500 21.500 12 21.500 12 18 18.500 12 18.500 2.500 12 2.500 12z"/><circle cx="12" cy="12" r="2.800"/><path class="ac" d="M4.500 19.500 19.500 4.500"/>',
@@ -276,7 +277,7 @@ def head_html(title, desc, path, og_img, ld=None, robots=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=203">
+<link rel="stylesheet" href="/assets/site.css?v=204">
 </head>
 """
 
@@ -437,8 +438,8 @@ def home():
   <div class="wrap"><div class="copy">
     <div class="mark hero-mark" id="heroMark"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div>
     <p class="hero-word">oddly <b>sunny</b></p>
-    <h1>Learning,<br><i>reimagined with AI.</i></h1>
-    <p class="lede">We turn complex statutes and government manuals into adaptive study tools. Seven live products, every question traced to the page it came from.</p>
+    <h1>Learning,<br><i>orchestrated by agents.</i></h1>
+    <p class="lede">We turn complex statutes and government manuals into adaptive study tools. Sunny coaches the learner, and a team of agents keeps every product current behind the scenes. Seven live products, every question traced to its source page.</p>
     <div class="cta-row"><a class="btn btn-down" href="#platform" data-smooth>Explore the engine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></svg></a></div>
   </div></div>
   <a class="scroll-cue" href="#platform" data-smooth aria-label="Scroll down"><svg viewBox="140 10 150 410" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M215 37V393"/><path d="M161.600 339.600 215 393l53.400-53.400"/></svg></a>
@@ -475,6 +476,16 @@ def home():
   <div class="ai-grid">{ai_cards()}</div>
   <a class="ai-more reveal" href="/sunny/">Inspect Sunny in production {ARROW_R}</a>
 </div></section>
+<section class="sec team-sec" id="agent-team" data-scheme="tan"><div class="wrap">
+  <div class="vs-head">
+    <div class="reveal">
+      <div class="eyebrow rule">The agent team</div>
+      <h2 class="h2">Agent-run, <i>human-approved.</i></h2>
+    </div>
+    <p class="sub reveal">Behind every product, a small team of specialized agents does the daily work of keeping it healthy, current and well supported. They draft, flag and recommend. We make the calls that matter.</p>
+  </div>
+  <div class="team-grid">{team_cards()}</div>
+</div></section>
 <section id="expertise" data-scheme="white"><div class="exp">
   <div class="l">
     <div class="eyebrow rule">Verification Pipeline</div>
@@ -500,7 +511,7 @@ def home():
       <div class="eyebrow rule">Platform Architecture</div>
       <h2 class="h2">Legacy test publishers vs. <i>the Oddly Sunny Engine.</i></h2>
     </div>
-    <p class="sub reveal">Five capabilities separate a static question bank from regulatory learning infrastructure.</p>
+    <p class="sub reveal">Six capabilities separate a static question bank from regulatory learning infrastructure.</p>
   </div>
   <div class="vs-table">{compare_rows(None, "Legacy test publishers", "Oddly Sunny Engine")}</div>
 </div></section>
@@ -513,11 +524,11 @@ def home():
 </div></section>
 """
     org = {"@context": "https://schema.org", "@type": "Organization", "name": "Oddly Sunny", "legalName": "Oddly Sunny LLC", "url": SITE + "/", "logo": SITE + "/apple-touch-icon.png",
-           "description": "Oddly Sunny is an AI-native EdTech company that builds exam preparation for high-stakes licensing and certification exams.",
+           "description": "Oddly Sunny is an AI-native EdTech company that builds exam preparation for high-stakes licensing and certification exams. Sunny coaches learners, and a team of AI agents helps run the company with human approval.",
            "knowsAbout": ["Educational technology", "AI in education", "Exam preparation", "Licensing and certification"]}
     site = {"@context": "https://schema.org", "@type": "WebSite", "name": "Oddly Sunny", "url": SITE + "/"}
-    return head_html("Oddly Sunny | Learning, Reimagined with AI",
-        "We turn complex statutes and government manuals into adaptive study tools. Seven live products, every question traced to the page it came from.",
+    return head_html("Oddly Sunny | Learning, Orchestrated by Agents",
+        "We turn complex statutes and government manuals into adaptive study tools. Sunny coaches the learner, and a team of agents keeps every product current. Seven live products, every question traced to its source page.",
         "/", "home.jpg", [org, site]) + header().replace('class="hdr hdr-ent"', 'class="hdr hdr-ent brand-hidden away" data-away') + body + footer("green")
 
 FLOAT_ORDER = ["cp-smile","study-library","cp-dog","study-desk","cp-denim","study-woman","cp-hoodie","cp-blonde","airwaves-man"]
@@ -893,8 +904,23 @@ COMPARE = [
  ("adapt","Pedagogical Adaptation","Weak topics surface first, and missed questions come back until they're mastered.","Static multiple-choice banks and linear, one-size-fits-all pathways."),
  ("verify","Factual Integrity","Every question traced to its source page and checked against the official text.","Unvetted AI answers or outdated printed answer keys."),
  ("gauge","Predictive Readiness","A readiness score that blends coverage, accuracy, recall and speed, measured against the official pass mark.","Flat completion percentages and uncalibrated scores."),
+ ("agents","Always-On Operations","A team of agents watches the sites, search results, app stores and support inbox every day, and brings us what needs a decision.","Periodic manual checks by editorial staff."),
  ("cells","Horizontal Scalability","Reusable modular ingestion architecture deployable to new state, federal, or international domains in weeks.","Prohibitive cost and editorial overhead to expand across regional jurisdictions."),
 ]
+
+TEAM = [
+ ("cos", "Chief of Staff", "Writes the daily brief and ranks what needs a human decision."),
+ ("seo", "SEO Fox", "Watches how our sites show up in search and flags what to fix."),
+ ("watch", "Watcher Fennec", "Checks around the clock that every site and data feed is up."),
+ ("aso", "ASO Panda", "Reviews our app store listings, ratings and keywords."),
+ ("devops", "DevOps Badger", "Tracks releases, scans for security slips and prepares safe updates."),
+ ("support", "Support Quokka", "Drafts replies to customer emails for us to approve."),
+ ("finance", "Finance Parrot", "Reads the numbers every morning and explains them in plain words."),
+ ("growth", "Growth Axolotl", "Proposes small, testable ideas for turning learners into subscribers."),
+]
+
+def team_cards():
+    return "".join(f'''<article class="team-card reveal" style="--d:{i * 60}ms"><img src="/assets/img/agents/{k}.jpg?v=1" alt="" width="120" height="120" loading="lazy"><h3>{esc(n)}</h3><p>{esc(d)}</p></article>''' for i, (k, n, d) in enumerate(TEAM))
 
 SPARK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 2.500c.5 4.300 2.700 6.500 7 7-4.300.5-6.500 2.700-7 7-.5-4.300-2.700-6.500-7-7 4.300-.5 6.500-2.700 7-7zm8 10c.3 2.300 1.300 3.300 3.500 3.500-2.200.3-3.200 1.300-3.500 3.500-.3-2.200-1.300-3.200-3.500-3.500 2.200-.2 3.200-1.200 3.500-3.500z"/></svg>'
 
