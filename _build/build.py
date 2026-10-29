@@ -439,7 +439,7 @@ def home():
     <div class="mark hero-mark" id="heroMark"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div>
     <p class="hero-word">oddly <b>sunny</b></p>
     <h1>Learning,<br><i>orchestrated by agents.</i></h1>
-    <p class="lede">We turn complex statutes and government manuals into adaptive study tools. Sunny coaches the learner, and a team of agents keeps every product current behind the scenes. Seven live products, every question traced to its source page.</p>
+    <p class="lede">We turn complex statutes and government manuals into adaptive study tools. Sunny, our proprietary AI agent, coaches the learner, while background agents keep every curriculum and learning experience personalized, orchestrated, and current.</p>
     <div class="cta-row"><a class="btn btn-down" href="#platform" data-smooth>Explore the engine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></svg></a></div>
   </div></div>
   <a class="scroll-cue" href="#platform" data-smooth aria-label="Scroll down"><svg viewBox="140 10 150 410" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M215 37V393"/><path d="M161.600 339.600 215 393l53.400-53.400"/></svg></a>
