@@ -1994,3 +1994,5 @@ body:has(.story.lg){background:#F6F3EA}
 .team-card h3{font-family:var(--sans);font-weight:500;font-size:16.5px;letter-spacing:-.01em}
 .team-card p{font-size:13.5px;font-weight:300;color:var(--muted);line-height:1.6}
 @media(max-width:560px){.team-grid{grid-template-columns:1fr 1fr;gap:12px}.team-card{padding:18px 16px 20px}}
+
+.hero .lede{text-wrap:pretty}
