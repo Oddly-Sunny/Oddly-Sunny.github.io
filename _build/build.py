@@ -367,7 +367,7 @@ def hero_floats():
 # hero mesh: real sources feed the engine, which feeds four live brands.
 # Coordinates are in a 520x400 box; the HTML nodes are placed at the same percentages so the SVG curves meet them.
 MESH_SRC = [("Pilot rules and handbooks","FAA","plane"),("Mariner licensing rules","U.S. Coast Guard","anchor"),("State driver handbooks","DMVs","wheel"),("State insurance laws","Insurance regulators","scales")]
-HUB_STEPS = ["Unify sources", "Cross-reference rules", "Verify every answer", "Watch for new editions"]
+HUB_STEPS = ["Unify sources", "Cross-reference rules", "Verify every answer", "Watch for new editions", "Orchestrate agents"]
 MESH_OUT = [("aviator-iq","Aviation"),("mariner-iq","Maritime"),("dmv-iq","Driving"),("insurance-pass","Insurance")]
 MESH_Y = [62, 154, 246, 338]
 def flow():
@@ -699,6 +699,11 @@ ABOUT_ENGINE = [
  ("route", "Edition monitoring", "We watch the official sources and flag new editions, so nobody studies yesterday's rules."),
  ("gauge", "Readiness scoring", "A readiness score that blends coverage, accuracy, recall and speed, measured against the official pass mark."),
 ]
+ABOUT_AGENTS = [
+ ("route", "Agents that watch the sources", "They keep an eye on official handbooks, regulations and exam bodies, and flag a new edition or a rule change as soon as it appears."),
+ ("verify", "Agents that check the work", "They re-test question banks, look for answers that do not match the source, and catch problems before a learner sees them."),
+ ("check", "Agents that prepare the change", "They draft the fix, the update or the report. Nothing ships until a person approves it."),
+]
 ABOUT_AI = [
  ("check", "A closed library of official sources", "Sunny retrieves from the official material behind each exam, from state handbooks to federal regulations, and answers from that text."),
  ("spark", "An agent that uses tools", "Sunny searches the handbook, pulls practice questions, starts quizzes and checks progress, then answers with the page it used."),
@@ -727,8 +732,14 @@ def about_page():
 
   <div class="sn-wrap">
     <h2 class="sn-h2">The content engine</h2>
-    <p class="sn-sub">Our products share one pipeline and one standard: nothing reaches a learner unless it can be traced to an official source. The pipeline turns statutes and agency handbooks into question banks, checks them, and keeps them current.</p>
+    <p class="sn-sub">Our products share one pipeline and one standard: nothing reaches a learner unless it can be traced to an official source. The pipeline turns statutes and agency handbooks into question banks, checks them, and agents keep them current.</p>
     <div class="feats sn-feats">{card(ABOUT_ENGINE)}</div>
+  </div>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">Agents behind the engine</h2>
+    <p class="sn-sub">A team of AI agents does the repetitive work so the content stays right: watching sources, checking quality and preparing changes. People approve everything that reaches a learner.</p>
+    <div class="feats sn-feats">{card(ABOUT_AGENTS)}</div>
   </div>
 
   <div class="sn-wrap">
