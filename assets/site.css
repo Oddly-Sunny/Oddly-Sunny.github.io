@@ -1987,3 +1987,4 @@ body:has(.story.lg){background:#F6F3EA}
 .story.lg{min-height:calc(100vh - 90px)}
 
 .hero .lede{text-wrap:pretty}
+.ftr-row .r a.soc{display:inline-flex;align-items:center;line-height:0}
