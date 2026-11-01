@@ -277,7 +277,7 @@ def head_html(title, desc, path, og_img, ld=None, robots=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=205">
+<link rel="stylesheet" href="/assets/site.css?v=206">
 </head>
 """
 
@@ -318,7 +318,7 @@ def footer(scheme="ember"):
     return f"""<footer class="ftr s" data-scheme="{scheme}">
   <div class="wrap ftr-row">
     <div class="l">{mark("xs")}<span>&copy; 2026 Oddly Sunny LLC. All rights reserved. AI EdTech for licensing and certification exam prep.</span></div>
-    <div class="r"><a href="/about/">About</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/cookie-settings/">Cookies</a></div>
+    <div class="r"><a href="/about/">About</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/cookie-settings/">Cookies</a><a href="https://www.linkedin.com/company/oddly-sunny/" target="_blank" rel="noopener" aria-label="Oddly Sunny on LinkedIn">LinkedIn</a><a href="https://x.com/OddlySunnyAI" target="_blank" rel="noopener" aria-label="Oddly Sunny on X">X</a><a href="https://www.facebook.com/oddlysunnyai" target="_blank" rel="noopener" aria-label="Oddly Sunny on Facebook">Facebook</a></div>
   </div>
 </footer>
 <script src="/assets/site.js?v=69"></script>
@@ -438,7 +438,7 @@ def home():
   <div class="wrap"><div class="copy">
     <div class="mark hero-mark" id="heroMark"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div>
     <p class="hero-word">oddly <b>sunny</b></p>
-    <h1>Learning,<br><i>orchestrated by agents.</i></h1>
+    <h1>AI learning<br><i>for life’s big tests</i></h1>
     <p class="lede">We turn complex statutes and government manuals into adaptive study tools. Sunny, our proprietary AI agent, coaches the learner, while background agents keep every curriculum and learning experience personalized, orchestrated, and&nbsp;current.</p>
     <div class="cta-row"><a class="btn btn-down" href="#platform" data-smooth>Explore the engine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></svg></a></div>
   </div></div>
@@ -475,16 +475,6 @@ def home():
   </div>
   <div class="ai-grid">{ai_cards()}</div>
   <a class="ai-more reveal" href="/sunny/">Inspect Sunny in production {ARROW_R}</a>
-</div></section>
-<section class="sec team-sec" id="agent-team" data-scheme="tan"><div class="wrap">
-  <div class="vs-head">
-    <div class="reveal">
-      <div class="eyebrow rule">The agent team</div>
-      <h2 class="h2">Agent-run, <i>human-approved.</i></h2>
-    </div>
-    <p class="sub reveal">Behind every product, a small team of specialized agents does the daily work of keeping it healthy, current and well supported. They draft, flag and recommend. We make the calls that matter.</p>
-  </div>
-  <div class="team-grid">{team_cards()}</div>
 </div></section>
 <section id="expertise" data-scheme="white"><div class="exp">
   <div class="l">
@@ -918,20 +908,6 @@ COMPARE = [
  ("agents","Always-On Operations","A team of agents watches the sites, search results, app stores and support inbox every day, and brings us what needs a decision.","Periodic manual checks by editorial staff."),
  ("cells","Horizontal Scalability","Reusable modular ingestion architecture deployable to new state, federal, or international domains in weeks.","Prohibitive cost and editorial overhead to expand across regional jurisdictions."),
 ]
-
-TEAM = [
- ("cos", "Chief of Staff", "Writes the daily brief and ranks what needs a human decision."),
- ("seo", "SEO Fox", "Watches how our sites show up in search and flags what to fix."),
- ("watch", "Watcher Fennec", "Checks around the clock that every site and data feed is up."),
- ("aso", "ASO Panda", "Reviews our app store listings, ratings and keywords."),
- ("devops", "DevOps Badger", "Tracks releases, scans for security slips and prepares safe updates."),
- ("support", "Support Quokka", "Drafts replies to customer emails for us to approve."),
- ("finance", "Finance Parrot", "Reads the numbers every morning and explains them in plain words."),
- ("growth", "Growth Axolotl", "Proposes small, testable ideas for turning learners into subscribers."),
-]
-
-def team_cards():
-    return "".join(f'''<article class="team-card reveal" style="--d:{i * 60}ms"><img src="/assets/img/agents/{k}.jpg?v=1" alt="" width="120" height="120" loading="lazy"><h3>{esc(n)}</h3><p>{esc(d)}</p></article>''' for i, (k, n, d) in enumerate(TEAM))
 
 SPARK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 2.500c.5 4.300 2.700 6.500 7 7-4.300.5-6.500 2.700-7 7-.5-4.300-2.700-6.500-7-7 4.300-.5 6.500-2.700 7-7zm8 10c.3 2.300 1.300 3.300 3.500 3.500-2.200.3-3.200 1.300-3.500 3.500-.3-2.200-1.300-3.200-3.500-3.500 2.200-.2 3.200-1.200 3.500-3.500z"/></svg>'
 
