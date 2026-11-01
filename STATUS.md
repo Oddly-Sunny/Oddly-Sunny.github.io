@@ -132,3 +132,6 @@
 - 2026-10-26 (local, NOT pushed): new /about/ (about_page() in build.py: stats bar, content engine, AI layer, products, Sunny link) and static /terms/ (hand-written like /privacy/, NOT generated; DRAFT, needs lawyer review before push; governing law NJ to match Privacy). Footer: "AI EdTech for licensing and certification exam prep", About and Terms links; header nav About; org schema updated; sitemap has both. CSS ?v=197.
 - Next step: owner review on localhost:8765, lawyer look at /terms/, then commit and push main.
 - 2026-10-26 (local, NOT pushed): /privacy/, /terms/, /cookie-settings/ are now generated from `_build/legal/*.html` fragments via `legal_page()` (site header/footer, paper scheme, CSS `.lg-*`); the cookie page hides the consent banner. Edit legal copy in the fragments, not the output. Terms no longer mentions the DMV IQ / Citizen Pass terms. About stats bar removed. Closing line on `.closing .body` is one line on desktop. CSS `?v=200`.
+
+## 2026-11-01 logos
+DMV IQ and Drive IQ CA icons (assets/img/apps) swapped to the new cloud + two-dot logo; DMV IQ and Drive IQ CA product shots recaptured from the live sites (_shots). Cache-bust: apps ?v=2, shots ?v=4. Regenerating via build.py also rewrites privacy/terms/cookie-settings css version; those were reverted, not committed.
