@@ -129,7 +129,7 @@ PRODUCTS = [
          ("Property and Casualty","Commercial and personal property and liability, built around your state's rules."),
          ("Personal Lines and Adjuster","Focused prep for narrower licences and for adjuster exams."),
          ("Readiness you can read","A clear score, so you know when you're set for the proctor.")],
-  apps=[], appnote="Web only for now. Open it on any device.",
+  apps=[("Insurance Pass",[("ios","https://apps.apple.com/us/app/insurance-pass-exam-prep/id6821364029")])], appnote="",
   img="insurance-pass.jpg", alt="Insurance Pass on a tablet resting on a green velvet sofa"),
 
  dict(slug="airwaves-iq", name="Airwaves IQ", url="https://airwaves-iq.com", host="airwaves-iq.com",
@@ -151,7 +151,7 @@ PRODUCTS = [
          ("Schematics and figures","The diagrams show up where the test shows them."),
          ("Study by category","Work through the syllabus topic by topic and tick them off."),
          ("Readiness score","See your readiness and aim for it before test day.")],
-  apps=[("Airwaves IQ",[("android","https://play.google.com/store/apps/details?id=com.oddlysunny.airwaves_iq")])], appnote="",
+  apps=[("Airwaves IQ",[("ios","https://apps.apple.com/us/app/airwaves-iq-ham-fcc-ai-prep/id6820995050"),("android","https://play.google.com/store/apps/details?id=com.oddlysunny.airwaves_iq")])], appnote="",
   img="airwaves-iq.jpg", alt="Airwaves IQ on a laptop sitting on a green velvet pouf"),
 
  dict(slug="mariner-iq", name="Mariner IQ", url="https://mariner-iq.com", host="mariner-iq.com",
