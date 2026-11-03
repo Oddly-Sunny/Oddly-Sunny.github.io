@@ -129,7 +129,7 @@ PRODUCTS = [
          ("Property and Casualty","Commercial and personal property and liability, built around your state's rules."),
          ("Personal Lines and Adjuster","Focused prep for narrower licences and for adjuster exams."),
          ("Readiness you can read","A clear score, so you know when you're set for the proctor.")],
-  apps=[("Insurance Pass",[("ios","https://apps.apple.com/us/app/insurance-pass-exam-prep/id6821364029")])], appnote="",
+  apps=[("Insurance Pass",[("ios","https://apps.apple.com/us/app/insurance-pass-exam-prep/id6821364029"),("android","https://play.google.com/store/apps/details?id=com.oddlysunny.insurance_pass")])], appnote="",
   img="insurance-pass.jpg", alt="Insurance Pass on a tablet resting on a green velvet sofa"),
 
  dict(slug="airwaves-iq", name="Airwaves IQ", url="https://airwaves-iq.com", host="airwaves-iq.com",

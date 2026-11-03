@@ -139,3 +139,7 @@ DMV IQ and Drive IQ CA icons (assets/img/apps) swapped to the new cloud + two-do
 ## 2026-11-02 iOS store links (committed, NOT pushed)
 - Insurance Pass (iOS, App Store id6821364029) and Airwaves IQ (iOS, id6820995050) added to `apps` in `_build/build.py`; pages regenerated (`/usr/bin/python3 _build/build.py`: Homebrew pythons lack Pillow). The Insurance Pass "Web only for now" note is gone; platform chips on the home, about and related-product cards now read "iOS, Web" (Insurance Pass) and "iOS, Android, Web" (Airwaves IQ). CLAUDE.md store-link note updated.
 - Next step: push `main` to deploy (GitHub Pages), then check work/insurance-pass/ and work/airwaves-iq/ show the App Store badge.
+
+## 2026-11-03 Insurance Pass Android live: Google Play link added
+- `_build/build.py`: Insurance Pass `apps` now has the Google Play link (https://play.google.com/store/apps/details?id=com.oddlysunny.insurance_pass) next to the App Store link; regenerated (the product page badge, JSON-LD operatingSystem "iOS, Android, Web", and the "iOS, Android, Web" chip on every card). Build needs Pillow: `/usr/bin/python3 _build/build.py` (Homebrew python3 lacks it).
+- Deployed by pushing `main`. Next: none.
