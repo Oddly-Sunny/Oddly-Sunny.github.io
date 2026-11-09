@@ -143,3 +143,7 @@ DMV IQ and Drive IQ CA icons (assets/img/apps) swapped to the new cloud + two-do
 ## 2026-11-03 Insurance Pass Android live: Google Play link added
 - `_build/build.py`: Insurance Pass `apps` now has the Google Play link (https://play.google.com/store/apps/details?id=com.oddlysunny.insurance_pass) next to the App Store link; regenerated (the product page badge, JSON-LD operatingSystem "iOS, Android, Web", and the "iOS, Android, Web" chip on every card). Build needs Pillow: `/usr/bin/python3 _build/build.py` (Homebrew python3 lacks it).
 - Deployed by pushing `main`. Next: none.
+
+## 2026-11-09 Org schema (branch org-schema-2026-11, committed, NOT pushed)
+- `_build/build.py`: Organization `@id` `https://oddlysunny.com/#organization` on home, /about/ and all 7 /work/ publishers; sameAs (LinkedIn, X, Facebook); subOrganization to the 7 brand `#organization` IDs; WebSite publisher; ContactPage + WebPage + breadcrumbs on /contact/ and /sunny/; Insurance Pass URL now the non-www host.
+- Next step: owner review, then merge to main and push (push deploys).

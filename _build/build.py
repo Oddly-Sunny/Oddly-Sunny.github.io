@@ -110,7 +110,7 @@ PRODUCTS = [
   appnote="",
   img="driveiqcanada.jpg", alt="Drive IQ Canada question in French on a tablet on a red fuzzy sofa"),
 
- dict(slug="insurance-pass", name="Insurance Pass", url="https://www.insurance-pass.com", host="insurance-pass.com",
+ dict(slug="insurance-pass", name="Insurance Pass", url="https://insurance-pass.com", host="insurance-pass.com",
   cat=["careers"], catlabel="Careers and licences", accent="#E08A5F", tint="#2A1810",
   tag="Pass your insurance license exam with practice built on your state's law.",
   short="Life, health, property, casualty and adjuster exam prep, where every answer quotes the statute behind it.",
@@ -230,6 +230,20 @@ def mark(cls=""):
     return f'<div class="mark {cls}"><div class="cell c1"></div><div class="cell c2"></div><div class="cell c3"></div><div class="cell c4"></div></div>'
 
 SITE = "https://oddlysunny.com"
+ORG_ID = SITE + "/#organization"
+ORG_SAME_AS = ["https://www.linkedin.com/company/oddly-sunny/", "https://x.com/OddlySunnyAI", "https://www.facebook.com/oddlysunnyai"]
+ORG_NODE = {"@type": "Organization", "@id": ORG_ID, "name": "Oddly Sunny", "url": SITE + "/"}
+
+def brand_org_id(p):
+    """The @id each brand site emits for its own Organization node."""
+    return f"https://{p['host']}/#organization"
+
+def page_schema(kind, name, path, desc, crumb):
+    page = {"@context": "https://schema.org", "@type": kind, "name": name, "url": SITE + path, "description": desc, "publisher": ORG_NODE}
+    crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Oddly Sunny", "item": SITE + "/"},
+        {"@type": "ListItem", "position": 2, "name": crumb, "item": SITE + path}]}
+    return [page, crumbs]
 SEO_TITLE = {
  "aviator-iq": "Aviator IQ: FAA Knowledge Test Prep with AI Coach | Oddly Sunny",
  "citizen-pass": "Citizen Pass: Citizenship Test Practice | Oddly Sunny",
@@ -513,10 +527,12 @@ def home():
   <div class="cta-row"><a class="btn" href="/contact/">Contact us {ARROW_R}</a></div>
 </div></section>
 """
-    org = {"@context": "https://schema.org", "@type": "Organization", "name": "Oddly Sunny", "legalName": "Oddly Sunny LLC", "url": SITE + "/", "logo": SITE + "/apple-touch-icon.png",
+    org = {"@context": "https://schema.org", "@type": "Organization", "@id": ORG_ID, "name": "Oddly Sunny", "legalName": "Oddly Sunny LLC", "url": SITE + "/", "logo": SITE + "/apple-touch-icon.png",
            "description": "Oddly Sunny is an AI-native EdTech company that builds exam preparation for high-stakes licensing and certification exams. Sunny coaches learners, and a team of AI agents helps run the company with human approval.",
-           "knowsAbout": ["Educational technology", "AI in education", "Exam preparation", "Licensing and certification"]}
-    site = {"@context": "https://schema.org", "@type": "WebSite", "name": "Oddly Sunny", "url": SITE + "/"}
+           "knowsAbout": ["Educational technology", "AI in education", "Exam preparation", "Licensing and certification"],
+           "sameAs": ORG_SAME_AS,
+           "subOrganization": [{"@id": brand_org_id(p), "name": p["name"], "url": p["url"].rstrip("/") + "/"} for p in PRODUCTS]}
+    site = {"@context": "https://schema.org", "@type": "WebSite", "name": "Oddly Sunny", "url": SITE + "/", "publisher": {"@id": ORG_ID}}
     return head_html("Oddly Sunny | Learning, Orchestrated by Agents",
         "We turn complex statutes and government manuals into adaptive study tools. Sunny coaches the learner, and a team of agents keeps every product current. Seven live products, every question traced to its source page.",
         "/", "home.jpg", [org, site]) + header().replace('class="hdr hdr-ent"', 'class="hdr hdr-ent brand-hidden away" data-away') + body + footer("green")
@@ -674,7 +690,7 @@ def product(p):
 </div></section>
 """
     app = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": p["name"], "applicationCategory": "EducationalApplication", "operatingSystem": platforms(p),
-           "url": p["url"], "description": p["lede"], "publisher": {"@type": "Organization", "name": "Oddly Sunny", "url": SITE + "/"}}
+           "url": p["url"], "description": p["lede"], "publisher": ORG_NODE}
     crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Oddly Sunny", "item": SITE + "/"},
         {"@type": "ListItem", "position": 2, "name": p["name"], "item": f"{SITE}/work/{p['slug']}/"}]}
@@ -751,7 +767,7 @@ def about_page():
 </section>
 """
     org = {"@context": "https://schema.org", "@type": "AboutPage", "name": "About Oddly Sunny", "url": SITE + "/about/",
-           "mainEntity": {"@type": "Organization", "name": "Oddly Sunny", "legalName": "Oddly Sunny LLC", "url": SITE + "/",
+           "mainEntity": {"@type": "Organization", "@id": ORG_ID, "name": "Oddly Sunny", "legalName": "Oddly Sunny LLC", "url": SITE + "/",
                           "description": "Oddly Sunny is an AI-native EdTech company that builds exam preparation for high-stakes licensing and certification exams."}}
     crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Oddly Sunny", "item": SITE + "/"},
@@ -820,7 +836,9 @@ def contact_page():
   </div>
 </section>
 """
-    return head_html("Contact | Oddly Sunny", "Get in touch with the Oddly Sunny team.", "/contact/", "home.jpg") + header() + body + footer("paper")
+    desc = "Get in touch with the Oddly Sunny team."
+    ld = page_schema("ContactPage", "Contact Oddly Sunny", "/contact/", desc, "Contact")
+    return head_html("Contact | Oddly Sunny", desc, "/contact/", "home.jpg", ld) + header() + body + footer("paper")
 
 
 SUNNY_EXAMPLES = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sunny_examples.json"), encoding="utf-8"))
@@ -1080,9 +1098,10 @@ def sunny_page():
 }})();
 </script>
 """
-    return head_html("Sunny, our AI study coach | Oddly Sunny",
-        "Sunny is Oddly Sunny's AI study coach built to avoid hallucinations: it answers only from official manuals, cites the page and checks every number before it replies.",
-        "/sunny/", "home.jpg") + header() + body + footer("paper")
+    desc = "Sunny is Oddly Sunny's AI study coach built to avoid hallucinations: it answers only from official manuals, cites the page and checks every number before it replies."
+    ld = page_schema("WebPage", "Sunny, our AI study coach", "/sunny/", desc, "Sunny")
+    return head_html("Sunny, our AI study coach | Oddly Sunny", desc,
+        "/sunny/", "home.jpg", ld) + header() + body + footer("paper")
 
 def not_found_page():
     """GitHub Pages serves /404.html for any missing path, so every link and asset here is absolute."""
