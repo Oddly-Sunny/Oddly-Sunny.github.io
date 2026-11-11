@@ -156,3 +156,7 @@ DMV IQ and Drive IQ CA icons (assets/img/apps) swapped to the new cloud + two-do
 ## 2026-11-09 Org schema (branch org-schema-2026-11, committed, NOT pushed)
 - `_build/build.py`: Organization `@id` `https://oddlysunny.com/#organization` on home, /about/ and all 7 /work/ publishers; sameAs (LinkedIn, X, Facebook); subOrganization to the 7 brand `#organization` IDs; WebSite publisher; ContactPage + WebPage + breadcrumbs on /contact/ and /sunny/; Insurance Pass URL now the non-www host.
 - Next step: owner review, then merge to main and push (push deploys).
+
+## 2026-11-11 Stacked logo on /brand/
+- New "Stacked logo" section (color, color on dark, white, black; SVG + PNG) in `brand/index.html`; assets `assets/brand/stacked-*`; `.bg-grid4` in `assets/site.css`; cache-bust site.css ?v=214 (build.py + 17 pages). Stacked SVGs were generated from the wordmark's outlined glyph paths (not yet in `_build/brand_assets.py`).
+- Deployed by pushing `main`. Next: none.

@@ -2000,6 +2000,7 @@ body:has(.story.lg){background:#F6F3EA}
 
 /* ===== /brand page ===== */
 .bg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.bg-grid4{grid-template-columns:repeat(2,1fr)}
 .bg-card{border-radius:16px;border:1px solid var(--border);overflow:hidden;background:var(--card)}
 .bg-stage{display:grid;place-items:center;height:170px;padding:24px}
 .bg-stage img{max-width:100%;max-height:100%;display:block}
@@ -2023,7 +2024,7 @@ body:has(.story.lg){background:#F6F3EA}
 .bg-clear{display:grid;place-items:center;height:200px;margin-top:22px;border-radius:16px;border:1px dashed var(--border);background:#fff}
 .bg-clear div{padding:34px;outline:1px dashed #2D6A4F;position:relative}
 .bg-clear img{height:56px;display:block}
-@media(max-width:820px){.bg-grid,.bg-type,.bg-rules{grid-template-columns:1fr}.bg-cols{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:820px){.bg-grid,.bg-grid4,.bg-type,.bg-rules{grid-template-columns:1fr}.bg-cols{grid-template-columns:repeat(2,1fr)}}
 
 /* ===== /ai-instructions ===== */
 .ai-ul{margin-top:14px;max-width:760px;padding-left:20px;font-size:15.5px;line-height:1.65;color:var(--muted)}
