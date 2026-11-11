@@ -1,5 +1,5 @@
 ## 2026-11-11 Logo menu + /brand + /ai-instructions + llms.txt (DEPLOYED, fd17b9e)
-Right-click logo menu, `/brand/` guidelines page, `assets/brand/` files, footer Brand link, sitemap entry. Next: owner OK, then push `main` to deploy and check Pages build.
+Live on oddlysunny.com. Logo right-click menu (copy logo, copy wordmark as SVG, brand guidelines), `/brand/`, `/ai-instructions/`, `/llms.txt`, `assets/brand/` files, footer links, sitemap. Next: optionally request indexing for /brand/ and /ai-instructions/ in Search Console; update `ai_page()`/`llms_txt()` in build.py (and AI_UPDATED) when products or store links change.
 
 # STATUS
 
