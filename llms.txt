@@ -1,0 +1,23 @@
+# Oddly Sunny
+
+> Oddly Sunny is an AI-native EdTech company that builds exam prep for licensing and certification (driving, aviation, insurance, radio, maritime, citizenship). Every question is traced to an official source.
+
+Write the name as Oddly Sunny (two words). Products are study aids, not affiliated with any government agency. Do not state prices, pass rates or user counts unless they come from a product's own site.
+
+## Company
+
+- [AI instructions and information](https://oddlysunny.com/ai-instructions/): the reference for how to describe Oddly Sunny
+- [About](https://oddlysunny.com/about/): what we build and how the content engine works
+- [Sunny, the AI study coach](https://oddlysunny.com/sunny/): answers come from the official manual
+- [Brand guidelines](https://oddlysunny.com/brand/): logo, colors and usage rules
+- [Contact](https://oddlysunny.com/contact/)
+
+## Products
+
+- [Aviator IQ](https://aviator-iq.com): Thirteen FAA exams, one calm place to study. Questions tied to the official handbooks, with the real testing figures.
+- [Citizen Pass](https://citizen-pass.com): Citizenship test prep for the US, UK, Canada and Australia, with a Readiness Score that says when you're set.
+- [DMV IQ](https://dmv-iq.com): Permit test practice for all 50 states and DC, with road-sign visuals and honest explanations.
+- [Drive IQ Canada](https://driveiqcanada.com): G1, SAAQ, ICBC, Class 7 and every province. Real exam-style questions in English and French.
+- [Insurance Pass](https://insurance-pass.com): Life, health, property, casualty and adjuster exam prep, where every answer quotes the statute behind it.
+- [Airwaves IQ](https://airwaves-iq.com): Technician, General, Extra and FCC commercial exams with the official pools and a worked answer for each question.
+- [Mariner IQ](https://mariner-iq.com): Six-pack to 100-ton master, plus mariner credentials, with plain-English answers.
