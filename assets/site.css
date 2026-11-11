@@ -1995,9 +1995,6 @@ body:has(.story.lg){background:#F6F3EA}
 .lm button:hover,.lm a:hover,.lm button:focus-visible,.lm a:focus-visible{background:#F0EEE8;outline:none}
 .lm svg{width:15px;height:15px;flex:none;color:#4E665A}
 .lm hr{border:0;border-top:1px solid rgba(11,31,22,.1);margin:6px 4px}
-.lm .lm-tone{display:flex;gap:2px;padding:3px;margin:0 0 6px;background:#F0EEE8;border-radius:10px}
-.lm .lm-tone button{justify-content:center;padding:6px 4px;font-size:12.5px;color:#4E665A}
-.lm .lm-tone button[aria-pressed=true]{background:#fff;color:#0B1F16;box-shadow:0 1px 2px rgba(11,31,22,.12)}
 .lm-toast{position:fixed;z-index:1001;left:50%;bottom:28px;transform:translate(-50%,12px);opacity:0;pointer-events:none;padding:10px 16px;border-radius:999px;background:#fff;color:#0B1F16;font:400 13px/1 var(--sans);border:1px solid rgba(11,31,22,.12);box-shadow:0 8px 24px rgba(11,31,22,.14);transition:opacity .2s,transform .2s}
 .lm-toast.on{opacity:1;transform:translate(-50%,0)}
 

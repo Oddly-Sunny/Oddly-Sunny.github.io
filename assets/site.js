@@ -896,17 +896,13 @@
   });
 })();
 
-/* Right-click the logo: copy it as SVG/PNG (color, white or black) or open the brand page */
+/* Right-click the logo: copy it (or the wordmark) as SVG, or open the brand page */
 (function () {
   var BASE = '/assets/brand/', menu, toast, tone = 'color', cache = {};
-  try { tone = localStorage.getItem('os-logo-tone') || 'color'; } catch (e) {}
-  if (['color', 'white', 'black'].indexOf(tone) < 0) tone = 'color';
   var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>';
   var ITEMS = [
-    ['svg', 'logo', 'Copy logo as SVG'],
-    ['png', 'logo', 'Copy logo as PNG'],
-    ['svg', 'wordmark', 'Copy wordmark as SVG'],
-    ['png', 'wordmark', 'Copy wordmark as PNG']
+    ['svg', 'logo', 'Copy logo'],
+    ['svg', 'wordmark', 'Copy wordmark']
   ];
 
   function say(msg) {
@@ -939,18 +935,15 @@
   function open(anchor) {
     close();
     menu = document.createElement('div'); menu.className = 'lm'; menu.setAttribute('role', 'menu');
-    var h = '<div class="lm-tone" role="group" aria-label="Logo color">';
-    [['color', 'Color'], ['white', 'White'], ['black', 'Black']].forEach(function (t) {
-      h += '<button type="button" data-tone="' + t[0] + '" aria-pressed="' + (t[0] === tone) + '">' + t[1] + '</button>';
-    });
-    h += '</div>';
+    var sc = anchor.closest('[data-scheme]'), h = '';
+    tone = sc && /^(green|purple|ember)$/.test(sc.getAttribute('data-scheme')) ? 'white' : 'color'; /* white logo on dark sections, full color on light */
     ITEMS.forEach(function (it, i) { h += '<button type="button" role="menuitem" data-i="' + i + '">' + it[2] + '</button>'; });
     h += '<hr><a role="menuitem" href="/brand/"><span>Brand guidelines</span>' + ARROW + '</a>';
     menu.innerHTML = h; document.body.appendChild(menu);
     var r = anchor.getBoundingClientRect(), w = menu.offsetWidth;
     menu.style.left = Math.max(8, Math.min(r.left, innerWidth - w - 8)) + 'px';
     menu.style.top = (r.bottom + 10) + 'px';
-    ['svg', 'png'].forEach(function (f) { ['logo', 'wordmark'].forEach(function (k) { get(BASE + k + '-' + tone + '.' + f, f === 'svg' ? 'text' : 'blob').catch(function () {}); }); });
+    ['logo', 'wordmark'].forEach(function (k) { get(BASE + k + '-' + tone + '.svg', 'text').catch(function () {}); });
     var first = menu.querySelector('[role=menuitem]'); if (first) first.focus({ preventScroll: true });
   }
   document.addEventListener('contextmenu', function (e) {
@@ -960,8 +953,6 @@
   });
   document.addEventListener('click', function (e) {
     if (!menu) return;
-    var t = e.target.closest('[data-tone]');
-    if (t) { tone = t.getAttribute('data-tone'); try { localStorage.setItem('os-logo-tone', tone); } catch (er) {} Array.prototype.forEach.call(menu.querySelectorAll('[data-tone]'), function (b) { b.setAttribute('aria-pressed', String(b === t)); }); return; }
     var m = e.target.closest('[data-i]');
     if (m) { var it = ITEMS[+m.getAttribute('data-i')]; close(); copy(it[0], it[1]); return; }
     if (!e.target.closest('.lm')) close();
