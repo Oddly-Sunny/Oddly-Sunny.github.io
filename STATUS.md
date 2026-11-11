@@ -1,4 +1,4 @@
-## 2026-11-11 Logo menu + /brand page + /ai-instructions + llms.txt (built, NOT pushed)
+## 2026-11-11 Logo menu + /brand + /ai-instructions + llms.txt (DEPLOYED, fd17b9e)
 Right-click logo menu, `/brand/` guidelines page, `assets/brand/` files, footer Brand link, sitemap entry. Next: owner OK, then push `main` to deploy and check Pages build.
 
 # STATUS
