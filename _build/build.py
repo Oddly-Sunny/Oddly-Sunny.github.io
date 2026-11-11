@@ -291,7 +291,7 @@ def head_html(title, desc, path, og_img, ld=None, robots=None):
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {ld_tag}<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600&family=Inter:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=207">
+<link rel="stylesheet" href="/assets/site.css?v=209">
 </head>
 """
 
@@ -332,10 +332,10 @@ def footer(scheme="ember"):
     return f"""<footer class="ftr s" data-scheme="{scheme}">
   <div class="wrap ftr-row">
     <div class="l">{mark("xs")}<span>&copy; 2026 Oddly Sunny LLC. All rights reserved. AI EdTech for licensing and certification exam prep.</span></div>
-    <div class="r"><a href="/about/">About</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/cookie-settings/">Cookies</a><a class="soc" href="https://www.linkedin.com/company/oddly-sunny/" target="_blank" rel="noopener" aria-label="Oddly Sunny on LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a><a class="soc" href="https://x.com/OddlySunnyAI" target="_blank" rel="noopener" aria-label="Oddly Sunny on X"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-7.2 8.2L23.3 22h-6.6l-5.2-6.8L5.6 22H2.5l7.7-8.8L1.9 2h6.8l4.7 6.2L18.9 2zm-1.2 18h1.8L7.4 3.9H5.5L17.7 20z"/></svg></a><a class="soc" href="https://www.facebook.com/oddlysunnyai" target="_blank" rel="noopener" aria-label="Oddly Sunny on Facebook"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg></a></div>
+    <div class="r"><a href="/about/">About</a><a href="/brand/">Brand</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/cookie-settings/">Cookies</a><a class="soc" href="https://www.linkedin.com/company/oddly-sunny/" target="_blank" rel="noopener" aria-label="Oddly Sunny on LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a><a class="soc" href="https://x.com/OddlySunnyAI" target="_blank" rel="noopener" aria-label="Oddly Sunny on X"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-7.2 8.2L23.3 22h-6.6l-5.2-6.8L5.6 22H2.5l7.7-8.8L1.9 2h6.8l4.7 6.2L18.9 2zm-1.2 18h1.8L7.4 3.9H5.5L17.7 20z"/></svg></a><a class="soc" href="https://www.facebook.com/oddlysunnyai" target="_blank" rel="noopener" aria-label="Oddly Sunny on Facebook"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg></a></div>
   </div>
 </footer>
-<script src="/assets/site.js?v=69"></script>
+<script src="/assets/site.js?v=70"></script>
 </body>
 </html>
 """
@@ -776,6 +776,77 @@ def about_page():
         "Oddly Sunny is an AI-native EdTech company building exam prep for licensing and certification, with every question traced to an official source.",
         "/about/", "home.jpg", [org, crumbs]) + header() + body + closing("green") + footer("green")
 
+def brand_page():
+    A = "/assets/brand/"
+    def card(stem, tone, bg, title):
+        f = f"{stem}-{tone}"
+        return (f'<div class="bg-card"><div class="bg-stage {bg}"><img src="{A}{f}.svg" alt="{esc(title)}" {"height=56" if stem == "wordmark" else "height=76"}></div>'
+                f'<div class="bg-meta"><b>{title}</b><span><a href="{A}{f}.svg" download>SVG</a><a href="{A}{f}.png" download>PNG</a></span></div></div>')
+    marks = "".join(card("logo", t, bg, n) for t, bg, n in [("color", "light", "Logo, color"), ("white", "dark", "Logo, white"), ("black", "white", "Logo, black")])
+    words = "".join(card("wordmark", t, bg, n) for t, bg, n in [("color", "light", "Wordmark, color"), ("white", "dark", "Wordmark, white"), ("black", "white", "Wordmark, black")])
+    sw = lambda hexv, name, role: f'<div class="bg-sw"><i style="background:{hexv}"></i><div><b>{name}</b>{hexv}<br>{role}</div></div>'
+    colors = "".join(sw(*c) for c in [("#40916C", "Meadow", "Primary cell"), ("#6AB58E", "Fern", "Light cell"), ("#2D6A4F", "Pine", "Deep cell"), ("#D4A63C", "Sun", "Accent diamond"),
+                                      ("#091A12", "Night", "Dark background"), ("#0B1F16", "Ink", "Text on light"), ("#F6F3EA", "Paper", "Light background"), ("#EDF5F0", "Mist", "Text on dark")])
+    body = f"""
+<section class="story sn" data-scheme="paper">
+  <header class="s-head sn-head">
+    <div class="s-label">Brand</div>
+    <h1 class="s-title">Oddly Sunny brand guidelines.</h1>
+    <p class="s-dek">Our logo, colors and type, ready to use. Right-click the logo in the header on any page to copy it as SVG or PNG in color, white or black.</p>
+  </header>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">Logo</h2>
+    <p class="sn-sub">Four rounded cells: three greens and one gold diamond. Use the mark on its own where space is tight, such as app icons and avatars.</p>
+    <div class="bg-grid">{marks}</div>
+  </div>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">Wordmark</h2>
+    <p class="sn-sub">The mark next to the name, set in lowercase. Use the color version on light backgrounds, white on dark or photo backgrounds and black for single-color print.</p>
+    <div class="bg-grid">{words}</div>
+  </div>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">Color</h2>
+    <p class="sn-sub">Greens carry the brand and gold is the one spark of warmth. Keep gold small.</p>
+    <div class="bg-cols">{colors}</div>
+  </div>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">Type</h2>
+    <p class="sn-sub">Three open-source families from Google Fonts.</p>
+    <div class="bg-type">
+      <div><div class="big" style="font-family:var(--display);font-weight:500">Bricolage</div>Bricolage Grotesque, medium. Headlines.</div>
+      <div><div class="big" style="font-family:var(--sans)">Inter</div>Inter, regular and medium. Body text, interface and the wordmark.</div>
+      <div><div class="big" style="font-family:var(--serif);font-style:italic;font-weight:300">Newsreader</div>Newsreader, light italic. Short accents inside headlines.</div>
+    </div>
+  </div>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">Clear space and size</h2>
+    <p class="sn-sub">Keep free space around the logo equal to the height of one cell. The wordmark should be at least 80 px wide on screen, and the mark at least 16 px.</p>
+    <div class="bg-clear"><div><img src="{A}wordmark-color.svg" alt="Oddly Sunny wordmark with clear space"></div></div>
+  </div>
+
+  <div class="sn-wrap">
+    <h2 class="sn-h2">Using the name and logo</h2>
+    <div class="bg-rules">
+      <div><b>Do</b>Write the company as Oddly Sunny, two words. Use the supplied files unchanged, on backgrounds with enough contrast.</div>
+      <div><b>Don't</b>Stretch, rotate, recolor or outline the logo, add effects, or rearrange the cells. Don't write OddlySunny or Oddly sunny.</div>
+      <div><b>Product names</b>Our apps keep their own names and icons, for example Aviator IQ and Citizen Pass. Don't combine them with this logo in a new lockup.</div>
+      <div><b>Questions</b>Need a format that isn't here or want to feature us? <a href="/contact/">Get in touch</a>.</div>
+    </div>
+  </div>
+</section>
+"""
+    crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Oddly Sunny", "item": SITE + "/"},
+        {"@type": "ListItem", "position": 2, "name": "Brand", "item": SITE + "/brand/"}]}
+    return head_html("Brand Guidelines | Oddly Sunny",
+        "Download the Oddly Sunny logo and wordmark as SVG or PNG in color, white or black, plus brand colors, type and usage rules.",
+        "/brand/", "home.jpg", [crumbs]) + header() + body + footer("paper")
+
 LEGAL_PAGES = [
  # (dir, source fragment, title, h1, dek, description, robots)
  ("privacy", "privacy", "Privacy & Cookie Policy | Oddly Sunny", "Privacy & Cookie Policy", "Last updated: July 2026", "How Oddly Sunny LLC handles information on oddlysunny.com: analytics, cookies, email and your rights.", "index,follow"),
@@ -1130,10 +1201,11 @@ if __name__ == "__main__":
     write("sunny/index.html", sunny_page())
     write("contact/index.html", contact_page())
     write("about/index.html", about_page())
+    write("brand/index.html", brand_page())
     for _d in LEGAL_PAGES: write(f"{_d[0]}/index.html", legal_page(_d))
     for p in PRODUCTS:
         write(f"work/{p['slug']}/index.html", product(p))
-    urls = ["/", "/sunny/", "/about/", "/contact/"] + [f"/work/{p['slug']}/" for p in PRODUCTS] + ["/privacy/", "/terms/"]
+    urls = ["/", "/sunny/", "/about/", "/brand/", "/contact/"] + [f"/work/{p['slug']}/" for p in PRODUCTS] + ["/privacy/", "/terms/"]
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{SITE}{u}</loc></url>\n" for u in urls) + "</urlset>\n")
     write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
     print("built", 2 + len(PRODUCTS), "pages")

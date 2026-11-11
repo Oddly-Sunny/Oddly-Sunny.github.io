@@ -895,3 +895,89 @@
     });
   });
 })();
+
+/* Right-click the logo: copy it as SVG/PNG (color, white or black) or open the brand page */
+(function () {
+  var BASE = '/assets/brand/', menu, toast, tone = 'color', cache = {};
+  try { tone = localStorage.getItem('os-logo-tone') || 'color'; } catch (e) {}
+  if (['color', 'white', 'black'].indexOf(tone) < 0) tone = 'color';
+  var IC = {
+    logo: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2.4"/><rect x="13" y="3" width="8" height="8" rx="2.4"/><rect x="13" y="13" width="8" height="8" rx="2.4"/><rect x="4.6" y="14.6" width="4.8" height="4.8" rx="1.2" transform="rotate(45 7 17)"/></svg>',
+    word: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 6h14M12 6v13"/></svg>',
+    img: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="m4 16 4.5-4.5 4 4 3-3L20 16"/></svg>',
+    out: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>'
+  };
+  var ITEMS = [
+    ['svg', 'logo', 'logo', 'Copy logo as SVG'],
+    ['png', 'logo', 'img', 'Copy logo as PNG'],
+    ['svg', 'wordmark', 'word', 'Copy wordmark as SVG'],
+    ['png', 'wordmark', 'img', 'Copy wordmark as PNG']
+  ];
+
+  function say(msg) {
+    if (!toast) { toast = document.createElement('div'); toast.className = 'lm-toast'; toast.setAttribute('role', 'status'); document.body.appendChild(toast); }
+    toast.textContent = msg; toast.classList.add('on');
+    clearTimeout(say.t); say.t = setTimeout(function () { toast.classList.remove('on'); }, 1800);
+  }
+  function get(url, type) {
+    if (!cache[url]) cache[url] = fetch(url).then(function (r) { if (!r.ok) throw 0; return type === 'text' ? r.text() : r.blob(); });
+    return cache[url];
+  }
+  function copy(fmt, kind) {
+    var url = BASE + kind + '-' + tone + '.' + fmt, label = kind === 'logo' ? 'Logo' : 'Wordmark';
+    var done = function () { say(label + ' copied as ' + fmt.toUpperCase()); };
+    var fail = function () {
+      var a = document.createElement('a'); a.href = url; a.download = kind + '-' + tone + '.' + fmt; document.body.appendChild(a); a.click(); a.remove();
+      say('Copy blocked, downloaded instead');
+    };
+    try {
+      if (fmt === 'svg') {
+        if (window.ClipboardItem && navigator.clipboard.write) {
+          navigator.clipboard.write([new ClipboardItem({ 'text/plain': get(url, 'text').then(function (t) { return new Blob([t], { type: 'text/plain' }); }) })]).then(done, fail);
+        } else get(url, 'text').then(function (t) { return navigator.clipboard.writeText(t); }).then(done, fail);
+      } else {
+        navigator.clipboard.write([new ClipboardItem({ 'image/png': get(url, 'blob') })]).then(done, fail);
+      }
+    } catch (e) { fail(); }
+  }
+  function close() { if (menu) { menu.remove(); menu = null; } }
+  function open(x, y) {
+    close();
+    menu = document.createElement('div'); menu.className = 'lm'; menu.setAttribute('role', 'menu');
+    var h = '<div class="lm-tone" role="group" aria-label="Logo color">';
+    [['color', 'Color'], ['white', 'White'], ['black', 'Black']].forEach(function (t) {
+      h += '<button type="button" data-tone="' + t[0] + '" aria-pressed="' + (t[0] === tone) + '"><i class="sw sw-' + t[0] + '"></i>' + t[1] + '</button>';
+    });
+    h += '</div>';
+    ITEMS.forEach(function (it, i) { h += '<button type="button" role="menuitem" data-i="' + i + '">' + IC[it[2]] + '<span>' + it[3] + '</span></button>'; });
+    h += '<hr><a role="menuitem" href="/brand/">' + IC.out + '<span>Visit brand guidelines</span></a>';
+    menu.innerHTML = h; document.body.appendChild(menu);
+    var w = menu.offsetWidth, ht = menu.offsetHeight;
+    menu.style.left = Math.max(8, Math.min(x, innerWidth - w - 8)) + 'px';
+    menu.style.top = Math.max(8, Math.min(y, innerHeight - ht - 8)) + 'px';
+    ['svg', 'png'].forEach(function (f) { ['logo', 'wordmark'].forEach(function (k) { get(BASE + k + '-' + tone + '.' + f, f === 'svg' ? 'text' : 'blob').catch(function () {}); }); });
+    var first = menu.querySelector('[role=menuitem]'); if (first) first.focus({ preventScroll: true });
+  }
+  document.addEventListener('contextmenu', function (e) {
+    var b = e.target.closest && e.target.closest('a.brand');
+    if (!b || e.shiftKey) return;
+    e.preventDefault(); open(e.clientX, e.clientY);
+  });
+  document.addEventListener('click', function (e) {
+    if (!menu) return;
+    var t = e.target.closest('[data-tone]');
+    if (t) { tone = t.getAttribute('data-tone'); try { localStorage.setItem('os-logo-tone', tone); } catch (er) {} Array.prototype.forEach.call(menu.querySelectorAll('[data-tone]'), function (b) { b.setAttribute('aria-pressed', String(b === t)); }); return; }
+    var m = e.target.closest('[data-i]');
+    if (m) { var it = ITEMS[+m.getAttribute('data-i')]; close(); copy(it[0], it[1]); return; }
+    if (!e.target.closest('.lm')) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (!menu) return;
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      var els = Array.prototype.slice.call(menu.querySelectorAll('[role=menuitem]')), i = els.indexOf(document.activeElement);
+      els[(i + (e.key === 'ArrowDown' ? 1 : els.length - 1)) % els.length].focus(); e.preventDefault();
+    }
+  });
+  window.addEventListener('scroll', close, { passive: true }); window.addEventListener('resize', close);
+})();

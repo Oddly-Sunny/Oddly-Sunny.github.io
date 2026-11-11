@@ -1,3 +1,6 @@
+## 2026-11-11 Logo menu + /brand page (built, NOT pushed)
+Right-click logo menu, `/brand/` guidelines page, `assets/brand/` files, footer Brand link, sitemap entry. Next: owner OK, then push `main` to deploy and check Pages build.
+
 # STATUS
 
 ## 2026-11-09 LIVE: org schema (main 226af50, push to main is the deploy)
