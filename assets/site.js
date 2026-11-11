@@ -901,17 +901,12 @@
   var BASE = '/assets/brand/', menu, toast, tone = 'color', cache = {};
   try { tone = localStorage.getItem('os-logo-tone') || 'color'; } catch (e) {}
   if (['color', 'white', 'black'].indexOf(tone) < 0) tone = 'color';
-  var IC = {
-    logo: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2.4"/><rect x="13" y="3" width="8" height="8" rx="2.4"/><rect x="13" y="13" width="8" height="8" rx="2.4"/><rect x="4.6" y="14.6" width="4.8" height="4.8" rx="1.2" transform="rotate(45 7 17)"/></svg>',
-    word: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 6h14M12 6v13"/></svg>',
-    img: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="m4 16 4.5-4.5 4 4 3-3L20 16"/></svg>',
-    out: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>'
-  };
+  var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>';
   var ITEMS = [
-    ['svg', 'logo', 'logo', 'Copy logo as SVG'],
-    ['png', 'logo', 'img', 'Copy logo as PNG'],
-    ['svg', 'wordmark', 'word', 'Copy wordmark as SVG'],
-    ['png', 'wordmark', 'img', 'Copy wordmark as PNG']
+    ['svg', 'logo', 'Copy logo as SVG'],
+    ['png', 'logo', 'Copy logo as PNG'],
+    ['svg', 'wordmark', 'Copy wordmark as SVG'],
+    ['png', 'wordmark', 'Copy wordmark as PNG']
   ];
 
   function say(msg) {
@@ -941,27 +936,27 @@
     } catch (e) { fail(); }
   }
   function close() { if (menu) { menu.remove(); menu = null; } }
-  function open(x, y) {
+  function open(anchor) {
     close();
     menu = document.createElement('div'); menu.className = 'lm'; menu.setAttribute('role', 'menu');
     var h = '<div class="lm-tone" role="group" aria-label="Logo color">';
     [['color', 'Color'], ['white', 'White'], ['black', 'Black']].forEach(function (t) {
-      h += '<button type="button" data-tone="' + t[0] + '" aria-pressed="' + (t[0] === tone) + '"><i class="sw sw-' + t[0] + '"></i>' + t[1] + '</button>';
+      h += '<button type="button" data-tone="' + t[0] + '" aria-pressed="' + (t[0] === tone) + '">' + t[1] + '</button>';
     });
     h += '</div>';
-    ITEMS.forEach(function (it, i) { h += '<button type="button" role="menuitem" data-i="' + i + '">' + IC[it[2]] + '<span>' + it[3] + '</span></button>'; });
-    h += '<hr><a role="menuitem" href="/brand/">' + IC.out + '<span>Visit brand guidelines</span></a>';
+    ITEMS.forEach(function (it, i) { h += '<button type="button" role="menuitem" data-i="' + i + '">' + it[2] + '</button>'; });
+    h += '<hr><a role="menuitem" href="/brand/"><span>Brand guidelines</span>' + ARROW + '</a>';
     menu.innerHTML = h; document.body.appendChild(menu);
-    var w = menu.offsetWidth, ht = menu.offsetHeight;
-    menu.style.left = Math.max(8, Math.min(x, innerWidth - w - 8)) + 'px';
-    menu.style.top = Math.max(8, Math.min(y, innerHeight - ht - 8)) + 'px';
+    var r = anchor.getBoundingClientRect(), w = menu.offsetWidth;
+    menu.style.left = Math.max(8, Math.min(r.left, innerWidth - w - 8)) + 'px';
+    menu.style.top = (r.bottom + 10) + 'px';
     ['svg', 'png'].forEach(function (f) { ['logo', 'wordmark'].forEach(function (k) { get(BASE + k + '-' + tone + '.' + f, f === 'svg' ? 'text' : 'blob').catch(function () {}); }); });
     var first = menu.querySelector('[role=menuitem]'); if (first) first.focus({ preventScroll: true });
   }
   document.addEventListener('contextmenu', function (e) {
     var b = e.target.closest && e.target.closest('a.brand');
     if (!b || e.shiftKey) return;
-    e.preventDefault(); open(e.clientX, e.clientY);
+    e.preventDefault(); open(b);
   });
   document.addEventListener('click', function (e) {
     if (!menu) return;
